@@ -21,8 +21,7 @@ class RentSaleInvoices(models.Model):
                               default="uninvoiced")
     fromdate = fields.Datetime(string='From Date', default=fields.Date.context_today, copy=False, required=True)
     todate = fields.Datetime(string='To Date', default=fields.Date.context_today, copy=False, required=True)
-    operating_unit = fields.Many2one('operating.unit', string='Operating Unit',
-                                     related='sale_order_id.operating_unit_id')
+    operating_unit = fields.Many2one('operating.unit', string='Operating Unit')
 
     def _prepare_invoice_line(self, line):
         self.ensure_one()

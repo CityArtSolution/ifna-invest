@@ -13,14 +13,10 @@
                     <field name="unit_number"
                            attrs="{'invisible': [('move_type', 'in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund'))]}"/>
                 </xpath>
-              <!--   <xpath expr="// field [@ name = 'invoice_line_ids']"
-                       position="before">
-                       <field name="analytic_account" invisible="1"/>
-                   </xpath> -->
-               <!--  <xpath expr="// field [@ name = 'invoice_line_ids']"
-                       position="attributes">
-                    <attribute name="context">{'default_analytic_account_id': analytic_account}</attribute>
-                </xpath> -->
+<!--                <xpath expr="// field [@ name = 'invoice_line_ids']"-->
+<!--                       position="attributes">-->
+<!--                    <attribute name="context">{'default_analytic_account_id': analytic_account}</attribute>-->
+<!--                </xpath>-->
                 <xpath expr="//page[@id='other_tab']//field[@name='inalterable_hash']" position="after">
                     <field name="is_maintain" groups="base.group_no_one"/>
                 </xpath>

@@ -22,7 +22,8 @@ from . import rent_rental_pricing_inherit
 from . import rent_rental_wizard_inherit
 from . import rent_res_partner_inherit
 from . import rent_sale_advance_payment_inv_inherit
+from . import rent_sale_invoices
 from . import rent_sale_order_inherit
 from . import rent_unit_maintenance
 from . import rent_account_asset_inherit
-from . import rent_sale_invoices
+
