@@ -23,17 +23,17 @@ class RentAccountMoveInherit(models.Model):
                                        domain=[('exclude_from_invoice_tab', '=', False), ('rent_fees', '=', False)],
                                        states={'draft': [('readonly', False)]})
 
-    # def action_post(self):
-    #     # update method_number in deferred earning with contract period
-    #     if self.fromdate and self.todate:
-    #         accounts = self.invoice_line_ids.filtered(lambda l: l.account_id.create_asset == 'validate')
-    #         if accounts:
-    #             date_diff_months = (self.todate.month - self.fromdate.month) + 12 * (
-    #                     self.todate.year - self.fromdate.year)
-    #             accounts.account_id.asset_model.method_number = date_diff_months
-    #
-    #     result = super(RentAccountMoveInherit, self).action_post()
-    #     return result
+    def action_post(self):
+        # update method_number in deferred earning with contract period
+        if self.fromdate and self.todate:
+            accounts = self.invoice_line_ids.filtered(lambda l: l.account_id.create_asset == 'validate')
+            if accounts:
+                date_diff_months = (self.todate.month - self.fromdate.month) + 12 * (
+                        self.todate.year - self.fromdate.year)
+                accounts.account_id.asset_model.method_number = date_diff_months
+
+        result = super(RentAccountMoveInherit, self).action_post()
+        return result
 
     @api.onchange("asset_id", "journal_id")
     def _onchange_asset1(self):

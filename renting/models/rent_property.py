@@ -119,7 +119,7 @@ class RentPropertyModel(models.Model):
         ref = ''
         res = super(RentPropertyModel, self).create(values)
         exist_area = self.env['account.analytic.group']
-        search_group = exist_area.sudo().search([('name', '=', res.property_address_area.name)])
+        search_group = exist_area.sudo().search([('name', '=', res.property_address_area.name)], limit=1)
 
         # if res.country.id:
         #     ref += str(res.country.ref_analytic_account)
@@ -133,11 +133,11 @@ class RentPropertyModel(models.Model):
         #     ref += '0'
         res.ref_analytic_account = res.get_ref_analytic_account()
 
-        if not search_group[-1].id:
+        if not search_group:
             area_group_analytic_account = exist_area.sudo().create(
                 {'name': res.property_address_area.name, })
         else:
-            area_group_analytic_account = search_group[-1]
+            area_group_analytic_account = search_group
 
         if res.property_address_build.id:
             search_build = exist_area.sudo().search([('name', '=', res.property_address_build.name)])

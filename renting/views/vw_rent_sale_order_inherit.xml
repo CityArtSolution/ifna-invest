@@ -3,8 +3,8 @@
 <odoo>
     <data>
 
-        <record model="ir.ui.view" id="rent_sale_order_r_inherit_form">
-            <field name="name">rent.sale.order.r</field>
+        <record model="ir.ui.view" id="rent_sale_order_inherit_form">
+            <field name="name">sale_order</field>
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale_renting.rental_order_primary_form_view"/>
             <field name="arch" type="xml">
@@ -216,11 +216,11 @@
                         </field>
                     </page>
                 </xpath>
-              <!--   <xpath expr="//field[@name='amount_total']" position="after">
-                    <field name="amount_remain" class="oe_subtotal_footer_separator" widget="monetary"
-                           options="{'currency_field': 'currency_id'}"/>
+<!--                <xpath expr="//field[@name='amount_total']" position="after">-->
+<!--                    <field name="amount_remain" class="oe_subtotal_footer_separator" widget="monetary"-->
+<!--                           options="{'currency_field': 'currency_id'}"/>-->
 
-                </xpath> -->
+<!--                </xpath>-->
                 <xpath expr="//div[@name='button_box']" position="after">
                     <!--                    <div class="row float-right">-->
                     <div class="badge-pill badge-info float-right"
