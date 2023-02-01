@@ -9,7 +9,9 @@
     "license": "LGPL-3",
     "website": "https://github.com/OCA/operating-unit",
     "category": "Sales",
-    "depends": ["crm", "sales_team", "operating_unit"],
+
+    "depends": ["sales_team", "operating_unit"],
+
     "data": ["security/crm_security.xml", "views/crm_team_view.xml"],
     "installable": True,
 }
