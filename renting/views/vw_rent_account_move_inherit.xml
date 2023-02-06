@@ -34,6 +34,9 @@
                 <xpath expr="//field[@name='price_unit']" position="after">
                     <field name="rent_fees" invisible="1"/>
                 </xpath>
+                <xpath expr="//field[@name='line_ids']//field[@name='analytic_account_id']" position="before">
+                    <field name="analytic_group"/>
+                </xpath>
 
             </field>
         </record>

@@ -80,10 +80,12 @@ class RentProduct(models.Model):
     def create(self, vals_list):
 
         res = super(RentProduct, self).create(vals_list)
-        res.ref_analytic_account = str(res.property_id.ref_analytic_account) + '-' + str(res.unit_number)
-        analytic_account = self.env['account.analytic.account'].sudo().create(
-            {'name': res.name, 'group_id': res.property_analytic_account_parent.id, 'code': res.ref_analytic_account})
-        res.analytic_account = analytic_account
+        if res.rent_ok:
+            res.ref_analytic_account = str(res.property_id.ref_analytic_account) + '-' + str(res.unit_number)
+            analytic_account = self.env['account.analytic.account'].sudo().create(
+                {'name': res.name, 'group_id': res.property_analytic_account_parent.id,
+                 'code': res.ref_analytic_account})
+            res.analytic_account = analytic_account
         return res
 
     def _get_unit_price(self):
