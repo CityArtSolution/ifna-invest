@@ -3,143 +3,197 @@
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
     <template id="print_account_payment_order_document">
-        <t
-            t-set="doc"
-            t-value="doc.with_context({'lang': doc.generated_user_id and doc.generated_user_id.lang or user.lang})"
-        />
-        <t t-call="web.external_layout">
+        <t t-set="doc" t-value="doc.with_context({'lang': doc.generated_user_id and doc.generated_user_id.lang or user.lang})" />
+        <t t-call="web.basic_layout">
+
             <div class="page">
-                <div class="oe_structure" />
-                <div class="row">
-                    <div class="col-4 offset-8">
-                        <span
-                            t-raw="'%s &lt;br&gt;' % doc.journal_id.bank_id.name if doc.journal_id.bank_id.name else ''"
-                        />
-                        <span
-                            t-raw="'%s &lt;br&gt;' % doc.journal_id.bank_id.street if doc.journal_id.bank_id.street else ''"
-                        />
-                        <span
-                            t-raw="'%s &lt;br&gt;' % doc.journal_id.bank_id.street2 if doc.journal_id.bank_id.street2 else ''"
-                        />
-                        <span
-                            t-raw="'%s &lt;br&gt;' % doc.journal_id.bank_id.zip if doc.journal_id.bank_id.zip else ''"
-                        />
-                        <span
-                            t-raw="'%s &lt;br&gt;' % doc.journal_id.bank_id.city if doc.journal_id.bank_id.city else ''"
-                        />
-                        <span
-                            t-raw="'%s &lt;br&gt;' % doc.journal_id.bank_id.state.name if doc.journal_id.bank_id.state.name else ''"
-                        />
-                        <span
-                            t-raw="'%s &lt;br&gt;' % doc.journal_id.bank_id.country.name if doc.journal_id.bank_id.country.name else ''"
-                        />
-                    </div>
-                </div>
-                <t t-if="doc.payment_type == 'inbound'">
-                    <h2>Debit Order</h2>
-                </t>
-                <t t-else="">
-                    <h2>Payment Order</h2>
-                </t>
-                <div class="row mt32 mb32">
-                    <div t-if="doc.payment_mode_id.name" class="col-2">
-                        <strong>Payment Type:</strong>
-                        <p t-field="doc.payment_mode_id.name" />
-                    </div>
-                    <div t-if="doc.name" class="col-2">
-                        <strong>Reference</strong>
-                        <p t-field="doc.name" />
-                    </div>
-                    <div t-if="doc.company_partner_bank_id.bank_id.id" class="col-2">
-                        <strong>Used Account:</strong>
-                        <p>
-                            <span
-                                t-esc="get_bank_account_name(doc.company_partner_bank_id)"
-                            />
-                        </p>
-                    </div>
-                    <div t-if="doc.date_prefered" class="col-2">
-                        <strong>Execution:</strong>
-                        <p t-field="doc.date_prefered" />
-                    </div>
-                    <div t-if="doc.company_id.currency_id.name" class="col-2">
-                        <strong>Company Currency:</strong>
-                        <p t-field="doc.company_id.currency_id.name" />
-                    </div>
-                </div>
-                <table class="table table-condensed">
-                    <thead>
-                        <tr>
-                            <th>Partner</th>
-                            <th class="text-center">Bank Account</th>
-                            <th class="text-center">Invoice Ref</th>
-                            <th class="text-center">Value Date</th>
-                            <th class="text-right">Amount</th>
-                            <th class="text-right">Currency</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Total amount on lines
-                            see _get_amount_total v8
-                        -->
-                        <t t-set="total_amount" t-value="0" />
-                        <tr t-foreach="doc.payment_line_ids" t-as="line">
-                            <!-- compute total amount -->
-                            <t
-                                t-set="total_amount"
-                                t-value="total_amount+line.amount_currency"
-                            />
-                            <td>
-                                <span t-field="line.partner_id.name" />
-                            </td>
-                            <td class="text-center">
-                                <span
-                                    t-esc="get_bank_account_name(line.partner_bank_id)"
-                                />
-                            </td>
-                            <td class="text-center">
-                                <t
-                                    t-if="line.move_line_id.move_id and 'in_' in line.move_line_id.move_id.move_type"
-                                >
-                                    <span t-field="line.move_line_id.move_id.ref" />
-                                </t>
-                                <t t-else="">
-                                    <span t-esc="line.move_line_id.move_id.name" />
-                                </t>
-                            </td>
-                            <td class="text-center">
-                                <span t-field="line.date" />
-                            </td>
-                            <td class="text-right">
-                                <span t-field="line.amount_currency" />
-                            </td>
-                            <td class="text-right">
-                                <span t-field="line.amount_company_currency" />
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="row pull-right">
+                <div class="row" style="margin-top:0px">
                     <div class="col-4">
-                        <table class="table table-condensed">
-                            <tr class="border-black">
-                                <td>
-                                    <strong>Total</strong>
-                                </td>
-                                <td class="text-right">
-                                    <span
-                                        t-esc="formatLang(env, total_amount, currency_obj=doc.company_currency_id)"
-                                    />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Total (Currency)</td>
-                                <td class="text-right">
-                                    <span t-field="doc.total_company_currency" />
-                                </td>
-                            </tr>
-                        </table>
+                        <img src="/account_payment_order/static/description/header.png" width="50%" alt=""/>
                     </div>
+                    <div class="col-2"></div>
+                    <div class="col-6" style="text-align:right;">
+                        <br/>
+                        <strong>Date: <t t-esc="doc.date_generated.strftime('%d/%m/%Y')"></t>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <h3>Payment Order: <span style="color:#00008B;font-size:24px" t-esc="doc.name"></span>
+                            </h3>
+                        </strong>
+                    </div>
+                </div>
+                <br/>
+                <div class="container" style="border: 1px solid black;padding-right: 10px;padding-left:10px">
+                    <div class="row" style="margin-top:0px">
+                        <div class="col-4">
+                        </div>
+                        <div class="col-2"></div>
+                        <div class="col-6" style="text-align:right;">
+                            <br/>
+                            <strong>
+                                <span style="padding-right: 10px;padding-left:10px" t-esc="doc.company_currency_id.symbol"></span>
+                                <br/>
+Amount:
+                                <span style="background-color:#808080;padding-right: 3px;padding-left:3px" t-esc="doc.total_amount"></span>
+                            </strong>
+                        </div>
+                    </div>
+                    <br/>
+                    <table>
+                        <tr>
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-3" style="text-align:center;border-bottom: 1px solid #808080;">
+                                    <strong>Payment Method</strong>
+                                </div>
+                                <div class="col-4" style="border-bottom: 1px solid #808080;">
+                                    <span style="text-align:left" t-esc="doc.payment_mode_id.payment_method_id.display_name"></span>
+                                </div>
+                                <div class="col-4"></div>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-3" style="text-align:center;border-bottom: 1px solid #808080;">
+                                    <strong>Amount</strong>
+                                </div>
+                                <div class="col-4" style="border-bottom: 1px solid #808080;">
+                                    <span class="text-center" style="padding:0px;direction: rtl;border-top: none!important;">
+                                        <t t-set="amo1" t-value="doc._convert_num_to_text(doc.total_amount)"/>
+                                        <span t-esc="amo1"/>
+                                    </span>
+                                </div>
+                                <div class="col-4"></div>
+
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-3" style="text-align:center;border-bottom: 1px solid #808080;">
+                                    <strong>Beneficiary</strong>
+                                </div>
+                                <div class="col-4" style="border-bottom: 1px solid #808080;">
+                                    <span style="text-align:left" t-esc="doc.payment_line_ids[0].partner_id.name"></span>
+                                </div>
+                                <div class="col-4"></div>
+
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-3" style="text-align:center;border-bottom: 1px solid #808080;">
+                                    <strong>Purpose</strong>
+                                </div>
+                                <div class="col-4" style="border-bottom: 1px solid #808080;">
+                                    <span style="text-align:left" t-esc="doc.description"></span>
+                                </div>
+                                <div class="col-4"></div>
+
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-3" style="text-align:center;border-bottom: 1px solid #808080;">
+                                    <strong>Details</strong>
+                                </div>
+                                <div class="col-4" style="border-bottom: 1px solid #808080;">
+                                    <span style="text-align:left"></span>
+                                </div>
+                                <div class="col-4"></div>
+
+                            </div>
+                        </tr>
+                    </table>
+                    <br/>
+                    <div class="row">
+                        <div class="col-1"></div>
+                        <div class="col-7">
+                            <div class="row" style="border: 1px solid black;">
+                                <div class="col-12" style="text-align:left;background-color:#808080">
+                                    <spna>For Finance Department Use Only</spna>
+                                </div>
+                            </div>
+                            <div class="row" style="border: 1px solid #808080;">
+                                <div class="col-6" style="text-align:left;">
+                                    <strong>Net Amount Paid</strong>
+                                </div>
+                                <div class="col-6" style="text-align:left;">
+                                    <span style="background-color:#808080;padding-right: 3px;padding-left:3px" t-esc="doc.total_amount"></span>
+                                </div>
+                            </div>
+                            <div class="row" style="border: 1px solid #808080;">
+                                <div class="col-6" style="text-align:left;">
+                                    <strong>Paid Method</strong>
+                                </div>
+                                <div class="col-6" style="text-align:left;">
+                                    <span style="text-align:left" t-esc="doc.payment_mode_id.payment_method_id.display_name"></span>
+                                </div>
+                            </div>
+                            <div class="row" style="border: 1px solid #808080;">
+                                <div class="col-6" style="text-align:left;">
+                                    <strong>Bank Name</strong>
+                                </div>
+                                <div class="col-6" style="text-align:left;">
+                                    <t t-if="doc.company_partner_bank_id">
+                                        <span style="text-align:left" t-esc="doc.company_partner_bank_id.name"></span>
+                                    </t>
+                                    <t else="">
+                                        <span>N/A</span>
+                                    </t>
+                                </div>
+                            </div>
+                            <div class="row" style="border: 1px solid #808080;">
+                                <div class="col-6" style="text-align:left;">
+                                    <strong>Bank Account Number</strong>
+                                </div>
+                                <div class="col-6" style="text-align:left;">
+                                <t t-if="doc.payment_line_ids[0].partner_bank_id">
+                                        <span style="text-align:left" t-esc="doc.company_partner_bank_id.acc_number"></span>
+                                    </t>
+                                    <t else="">
+                                        <span>N/A</span>
+                                    </t>
+                                </div>
+                            </div>
+                            <div class="row" style="border: 1px solid #808080;">
+                                <div class="col-6" style="text-align:left;">
+                                    <strong>Beneficiary Account Name</strong>
+                                </div>
+                                <div class="col-6" style="text-align:left;">
+                                <t t-if="doc.payment_line_ids[0].partner_bank_id">
+                                        <span style="text-align:left" t-esc="doc.payment_line_ids[0].partner_bank_id.name"></span>
+                                    </t>
+                                    <t else="">
+                                        <span>N/A</span>
+                                    </t>
+                                </div>
+                            </div>
+                            <div class="row" style="border: 1px solid #808080;">
+                                <div class="col-6" style="text-align:left;">
+                                    <strong>Swift Code</strong>
+                                </div>
+                                <div class="col-6" style="text-align:left;">
+                                </div>
+                            </div>
+                            <div class="row" style="border: 1px solid #808080;">
+                                <div class="col-6" style="text-align:left;">
+                                    <strong>Reviewed By</strong>
+                                </div>
+                                <div class="col-6" style="text-align:left;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4"></div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
                 </div>
                 <div class="oe_structure" />
             </div>
@@ -148,10 +202,7 @@
     <template id="print_account_payment_order_main">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="doc">
-                <t
-                    t-call="account_payment_order.print_account_payment_order_document"
-                    t-lang="doc.generated_user_id.lang"
-                />
+                <t t-call="account_payment_order.print_account_payment_order_document" t-lang="doc.generated_user_id.lang" />
             </t>
         </t>
     </template>
