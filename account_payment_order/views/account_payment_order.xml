@@ -4,34 +4,36 @@
         <field name="name">account.payment.order.form</field>
         <field name="model">account.payment.order</field>
         <field name="arch" type="xml">
-            <form string="Payment Order">
+            <form string="Request payment">
                 <header>
                     <button
                         name="%(account_payment_line_create_action)d"
                         type="action"
                         string="Create Payment Lines from Journal Items"
-                        states="draft"
                         class="oe_highlight"
+                        invisible="1"
                     />
                     <button
                         name="draft2open"
                         type="object"
                         states="draft"
-                        string="Confirm Payments"
+                        string="First Approve"
                         class="oe_highlight"
+                        groups="account_payment_order.group_first_approve"
                     />
                     <button
                         name="open2generated"
                         type="object"
                         states="open"
-                        string="Generate Payment File"
+                        string="Second Approve"
                         class="oe_highlight"
+                        groups="account_payment_order.group_second_approve"
                     />
                     <button
                         name="generated2uploaded"
                         type="object"
                         states="generated"
-                        string="File Successfully Uploaded"
+                        string="Create journal entry"
                         class="oe_highlight"
                     />
                     <button
@@ -45,6 +47,7 @@
                         type="object"
                         states="draft,open,generated"
                         string="Cancel Payments"
+                        groups="account_payment_order.group_first_approve,account_payment_order.group_second_approve"
                     />
                     <button
                         name="action_uploaded_cancel"
@@ -172,7 +175,7 @@
         <field name="name">account.payment.order.search</field>
         <field name="model">account.payment.order</field>
         <field name="arch" type="xml">
-            <search string="Search Payment Orders">
+            <search string="Search Request payments">
                 <field
                     name="description"
                     filter_domain="['|', ('name', 'ilike', self), ('description', 'ilike', self)]"
@@ -233,7 +236,7 @@
         <field name="name">account.payment.order.graph</field>
         <field name="model">account.payment.order</field>
         <field name="arch" type="xml">
-            <graph string="Payment Orders">
+            <graph string="Request payments">
                 <field name="date_uploaded" type="row" interval="month" />
                 <field name="total_company_currency" type="measure" />
             </graph>
@@ -243,14 +246,14 @@
         <field name="name">account.payment.order.pivot</field>
         <field name="model">account.payment.order</field>
         <field name="arch" type="xml">
-            <pivot string="Payment Orders">
+            <pivot string="Request payments">
                 <field name="date_uploaded" type="row" interval="month" />
                 <field name="total_company_currency" type="measure" />
             </pivot>
         </field>
     </record>
     <record id="account_payment_order_outbound_action" model="ir.actions.act_window">
-        <field name="name">Payment Orders</field>
+        <field name="name">Request payments</field>
         <field name="res_model">account.payment.order</field>
         <field name="view_mode">tree,form,pivot,graph</field>
         <field name="domain">[('payment_type', '=', 'outbound')]</field>
@@ -263,16 +266,20 @@
         <field name="domain">[('payment_type', '=', 'inbound')]</field>
         <field name="context">{'default_payment_type': 'inbound'}</field>
     </record>
+    <menuitem id="payment_request_menu" 
+              name="Payment Request"
+              web_icon="account_payment_order,static/description/payment.png"
+              sequence="4"/>
     <menuitem
         id="account_payment_order_outbound_menu"
         action="account_payment_order_outbound_action"
-        parent="account.menu_finance_payables"
-        sequence="21"
+        parent="account_payment_order.payment_request_menu"
+        sequence="1"
     />
     <menuitem
         id="account_payment_order_inbound_menu"
         action="account_payment_order_inbound_action"
-        parent="account.menu_finance_receivables"
-        sequence="18"
+        parent="account_payment_order.payment_request_menu"
+        sequence="5"
     />
 </odoo>
