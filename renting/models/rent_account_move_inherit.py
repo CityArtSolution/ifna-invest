@@ -72,3 +72,8 @@ class RentAccountMoveLineInherit(models.Model):
     _inherit = 'account.move.line'
 
     rent_fees = fields.Boolean(default=False)
+    analytic_group = fields.Many2one('account.analytic.group')
+
+    @api.onchange('analytic_group')
+    def analytic_group_onchange(self):
+        return {'domain': {'analytic_account_id': [('group_id', '=', self.analytic_group.id)]}}

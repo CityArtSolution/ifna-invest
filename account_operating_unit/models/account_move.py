@@ -10,7 +10,7 @@ class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
     operating_unit_id = fields.Many2one(
-        comodel_name="operating.unit", domain="[('user_ids', '=', uid)]"
+        comodel_name="operating.unit",
     )
 
     @api.model_create_multi
@@ -81,7 +81,6 @@ class AccountMove(models.Model):
     operating_unit_id = fields.Many2one(
         comodel_name="operating.unit",
         default=_default_operating_unit_id,
-        domain="[('user_ids', '=', uid)]",
         help="This operating unit will be defaulted in the move lines.",
         readonly=True,
         states={"draft": [("readonly", False)]},
@@ -136,7 +135,7 @@ class AccountMove(models.Model):
             )
 
         res = {
-            "name": "OU-Balancing",
+            "name": _("OU-Balancing"),
             "move_id": move.id,
             "journal_id": move.journal_id.id,
             "date": move.date,
@@ -220,24 +219,9 @@ class AccountMove(models.Model):
                 and move.operating_unit_id
                 and move.operating_unit_id != move.journal_id.operating_unit_id
             ):
-                # Change journal_id if create move from other model. e.g., sale.order
-                if (
-                    move._context.get("active_model")
-                    and move._context.get("active_model") != "account.move"
-                ):
-                    move._onchange_operating_unit()
-                    if (
-                        move.journal_id.operating_unit_id
-                        and move.operating_unit_id
-                        and move.operating_unit_id != move.journal_id.operating_unit_id
-                    ):
-                        raise UserError(
-                            _("The OU in the Move and in Journal must be the same.")
-                        )
-                else:
-                    raise UserError(
-                        _("The OU in the Move and in Journal must be the same.")
-                    )
+                raise UserError(
+                    _("The OU in the Move and in Journal must be the same.")
+                )
         return True
 
     @api.constrains("operating_unit_id", "company_id")
