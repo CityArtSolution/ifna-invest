@@ -8,7 +8,7 @@
                     <div class="row">
                         <div class="col-6">
                         <div class="row">
-                                <div class="col-8" style="text-align:left;font-weight: bolder;"><span t-esc="company.name"></span></div>
+                                <div class="col-8" style="text-align:left;font-weight: bolder;font-size:22px"><span t-esc="company.name"></span></div>
                                 <div class="col-4" style="text-align:left;">
                                     
                                 </div>
@@ -51,26 +51,29 @@
 
             <xpath expr="//div[@t-attf-class='footer o_boxed_footer o_company_#{company.id}_layout']" position="replace">
                 <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
-                    <div class="text-center" style="font-size: small;border-top: 1px solid black;">
-                        <ul class="list-inline mb4">
+                    <div class="text-center" style="padding:0px;font-size: small;border-top: 1px solid black;">
+                        <ul class="list-inline mb4" style="padding:0px;" >
                              <li>
                                 <strong>
                                     <span class="o_force_rtl">إسم الحساب : <t t-esc="company.partner_id.bank_ids[0].acc_holder_name"></t>
                                     </span>
                                 </strong>
                             </li>
+                                    <br/>
                             <li>
                                 <strong>
                                     <span class="o_force_rtl">إسم البنك : <t t-esc="company.partner_id.bank_ids[0].bank_id.name"></t>
                                     </span>
                                 </strong>
                             </li>
+                                    <br/>
                             <li>
                                 <strong>
                                     <span class="o_force_rtl">رقم الآيبان البنكي : <t t-esc="company.partner_id.bank_ids[0].iban"></t>
                                     </span>
                                 </strong>
                             </li>
+                                    <br/>
                              <li>
                                 <strong>
                                     <span class="o_force_rtl">رقم الحساب : <t t-esc="company.partner_id.bank_ids[0].acc_number"></t>
