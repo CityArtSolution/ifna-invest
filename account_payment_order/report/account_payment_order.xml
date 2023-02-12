@@ -180,7 +180,7 @@ Amount:
                                             <span style="text-align:left" t-esc="doc.company_partner_bank_id.display_name"></span>
                                         </t>
                                         <t else="">
-                                            <span>N/A</span>
+                                            <span></span>
                                         </t>
                                     </div>
                                 </div>
