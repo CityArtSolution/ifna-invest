@@ -114,6 +114,11 @@ class AccountPaymentOrder(models.Model):
         copy=False,
         check_company=True,
     )
+    current_user_id = fields.Many2one(
+        comodel_name="res.users",
+        string="Current user",
+        default=lambda self:self.env.user
+    )
     payment_line_ids = fields.One2many(
         comodel_name="account.payment.line",
         inverse_name="order_id",

@@ -8,11 +8,14 @@
 
             <div class="page">
                 <div class="row" style="margin-top:0px">
+                        <br/>
+                        <br/>
                     <div class="col-4">
                         <img src="/account_payment_order/static/description/header.png" width="50%" alt=""/>
                     </div>
                     <div class="col-2"></div>
                     <div class="col-6" style="text-align:right;">
+                        <br/>
                         <br/>
                         <strong>Date: <t t-esc="doc.date_generated.strftime('%d/%m/%Y')"></t>
                             <br/>
@@ -25,7 +28,7 @@
                     </div>
                 </div>
                 <br/>
-                <div class="container" style="border: 1px solid black;padding-right: 10px;padding-left:10px">
+                <div style="border: 1px solid black;padding-right: 30px;padding-left:30px">
                     <div class="row" style="margin-top:0px">
                         <div class="col-4">
                         </div>
@@ -44,11 +47,8 @@ Amount:
                     <table>
                         <tr>
                             <div class="row">
-                                <div class="col-1"></div>
-                                <div class="col-3" style="text-align:center;border-bottom: 1px solid #808080;">
-                                    <strong>Payment Method</strong>
-                                </div>
-                                <div class="col-4" style="border-bottom: 1px solid #808080;">
+                                <div class="col-8" style="text-align:left;">
+                                    <strong>Payment Method: </strong>
                                     <span style="text-align:left" t-esc="doc.payment_mode_id.payment_method_id.display_name"></span>
                                 </div>
                                 <div class="col-4"></div>
@@ -56,53 +56,49 @@ Amount:
                         </tr>
                         <tr>
                             <div class="row">
-                                <div class="col-1"></div>
-                                <div class="col-3" style="text-align:center;border-bottom: 1px solid #808080;">
-                                    <strong>Amount</strong>
+                                <div class="col-8" style="text-align:left;">
+                                    <t t-set="amo1" t-value="doc._convert_num_to_text(doc.total_amount)"/>
+                                    <strong>Amount: </strong>
+                                        <span style="text-align:left !important;" t-esc="amo1"/>
                                 </div>
-                                <div class="col-4" style="border-bottom: 1px solid #808080;">
-                                    <span class="text-center" style="padding:0px;direction: rtl;border-top: none!important;">
-                                        <t t-set="amo1" t-value="doc._convert_num_to_text(doc.total_amount)"/>
-                                        <span t-esc="amo1"/>
-                                    </span>
-                                </div>
+                                <!-- <div class="col-4" style="text-align:left;"> -->
+                                    <!-- <span class="text-center" style="padding:0px;direction: rtl;border-top: none!important;">
+                                    </span> -->
+                                <!-- </div> -->
                                 <div class="col-4"></div>
 
                             </div>
                         </tr>
                         <tr>
                             <div class="row">
-                                <div class="col-1"></div>
-                                <div class="col-3" style="text-align:center;border-bottom: 1px solid #808080;">
-                                    <strong>Beneficiary</strong>
-                                </div>
-                                <div class="col-4" style="border-bottom: 1px solid #808080;">
+                                <div class="col-8" style="text-align:left;">
+                                    <strong>Beneficiary: </strong>
                                     <span style="text-align:left" t-esc="doc.payment_line_ids[0].partner_id.name"></span>
                                 </div>
+                                <!-- <div class="col-4" style="">
+                                </div> -->
                                 <div class="col-4"></div>
 
                             </div>
                         </tr>
                         <tr>
                             <div class="row">
-                                <div class="col-1"></div>
-                                <div class="col-3" style="text-align:center;border-bottom: 1px solid #808080;">
-                                    <strong>Purpose</strong>
-                                </div>
-                                <div class="col-4" style="border-bottom: 1px solid #808080;">
+                                <div class="col-8" style="text-align:left;">
+                                    <strong>Purpose: </strong>
                                     <span style="text-align:left" t-esc="doc.description"></span>
                                 </div>
+                                <!-- <div class="col-4" style=""> -->
+                                <!-- </div> -->
                                 <div class="col-4"></div>
 
                             </div>
                         </tr>
                         <tr>
                             <div class="row">
-                                <div class="col-1"></div>
-                                <div class="col-3" style="text-align:center;border-bottom: 1px solid #808080;">
+                                <div class="col-4" style="text-align:left;">
                                     <strong>Details</strong>
                                 </div>
-                                <div class="col-4" style="border-bottom: 1px solid #808080;">
+                                <div class="col-4" style="">
                                     <span style="text-align:left"></span>
                                 </div>
                                 <div class="col-4"></div>
@@ -111,20 +107,65 @@ Amount:
                         </tr>
                     </table>
                     <br/>
+                    <div class="row" style="border: 1px solid black;">
+                        <div class="col-3" style="border: 1px solid black;text-align:left;background-color:#808080">
+                            <span></span>
+                        </div>
+                        <div class="col-3" style="border: 1px solid black;text-align:center;background-color:#808080">
+                            <span>Requested By</span>
+                        </div>
+                        <div class="col-3" style="border: 1px solid black;text-align:center;background-color:#808080">
+                            <span>Department</span>
+                        </div>
+                        <div class="col-3" style="border: 1px solid black;text-align:center;background-color:#808080">
+                            <span>Financial Controller</span>
+                        </div>
+                    </div>
+                    <div class="row" style="border: 1px solid #808080;">
+                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
+                            <span>Name</span>
+                        </div>
+                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
+                            <span t-esc="doc.generated_user_id.name"></span>
+                        </div>
+                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
+                            <span>CEO Office Manager</span>
+                        </div>
+                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
+                            <span style="text-align:left" t-esc="doc.current_user_id.name"></span>
+                        </div>
+                    </div>
+                    <div class="row" style="border: 1px solid #808080;">
+                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
+                            <span>Signature</span>
+                        </div>
+                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
+                        </div>
+                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
+                        </div>
+                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
+                        </div>
+                    </div>
+                    <br/>
                     <div class="row">
-                        <div class="col-1"></div>
-                        <div class="col-7">
+                        <div class="col-12">
                             <div class="row" style="border: 1px solid black;">
-                                <div class="col-12" style="text-align:left;background-color:#808080">
-                                    <spna>For Finance Department Use Only</spna>
+                                <div class="col-7" style="text-align:left;background-color:#808080">
+                                    <span>For Finance Department Use Only</span>
+                                </div>
+                                 <div class="col-5" style="border-left: 1px solid black;text-align:center;background-color:#808080">
+                                    <strong>CEO Approval</strong>
                                 </div>
                             </div>
+                            <div class="row">
+                            <div class="col-7">
+                            
                             <div class="row" style="border: 1px solid #808080;">
                                 <div class="col-6" style="text-align:left;">
                                     <strong>Net Amount Paid</strong>
                                 </div>
                                 <div class="col-6" style="text-align:left;">
-                                    <span style="background-color:#808080;padding-right: 3px;padding-left:3px" t-esc="doc.total_amount"></span>
+                                    <span t-esc="doc.total_amount"></span>
                                 </div>
                             </div>
                             <div class="row" style="border: 1px solid #808080;">
@@ -132,7 +173,7 @@ Amount:
                                     <strong>Paid Method</strong>
                                 </div>
                                 <div class="col-6" style="text-align:left;">
-                                    <span style="text-align:left" t-esc="doc.payment_mode_id.payment_method_id.display_name"></span>
+                                    <span style="text-align:left" t-esc="doc.journal_id.name"></span>
                                 </div>
                             </div>
                             <div class="row" style="border: 1px solid #808080;">
@@ -153,7 +194,7 @@ Amount:
                                     <strong>Bank Account Number</strong>
                                 </div>
                                 <div class="col-6" style="text-align:left;">
-                                <t t-if="doc.payment_line_ids[0].partner_bank_id">
+                                    <t t-if="doc.payment_line_ids[0].partner_bank_id">
                                         <span style="text-align:left" t-esc="doc.company_partner_bank_id.acc_number"></span>
                                     </t>
                                     <t else="">
@@ -166,7 +207,7 @@ Amount:
                                     <strong>Beneficiary Account Name</strong>
                                 </div>
                                 <div class="col-6" style="text-align:left;">
-                                <t t-if="doc.payment_line_ids[0].partner_bank_id">
+                                    <t t-if="doc.payment_line_ids[0].partner_bank_id">
                                         <span style="text-align:left" t-esc="doc.payment_line_ids[0].partner_bank_id.name"></span>
                                     </t>
                                     <t else="">
@@ -179,6 +220,12 @@ Amount:
                                     <strong>Swift Code</strong>
                                 </div>
                                 <div class="col-6" style="text-align:left;">
+                                    <t t-if="doc.payment_line_ids[0].partner_bank_id.swift">
+                                        <span style="text-align:left" t-esc="doc.payment_line_ids[0].partner_bank_id.swift"></span>
+                                    </t>
+                                    <t else="">
+                                        <span>N/A</span>
+                                    </t>
                                 </div>
                             </div>
                             <div class="row" style="border: 1px solid #808080;">
@@ -186,10 +233,17 @@ Amount:
                                     <strong>Reviewed By</strong>
                                 </div>
                                 <div class="col-6" style="text-align:left;">
+                                    <span style="text-align:left" t-esc="doc.current_user_id.name"></span>
                                 </div>
                             </div>
+                            </div>
+                            <div class="col-5" style="border: 1px solid #808080;"></div>
+                            </div>
                         </div>
-                        <div class="col-4"></div>
+                        <!-- <div class="col-5"> -->
+                               
+                            
+                        <!-- </div> -->
                     </div>
                     <br/>
                     <br/>
