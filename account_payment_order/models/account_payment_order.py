@@ -8,6 +8,7 @@ import base64
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
+from .num_to_text_ar import amount_to_text_arabic
 
 
 class AccountPaymentOrder(models.Model):
@@ -113,6 +114,11 @@ class AccountPaymentOrder(models.Model):
         copy=False,
         check_company=True,
     )
+    current_user_id = fields.Many2one(
+        comodel_name="res.users",
+        string="Current user",
+        default=lambda self:self.env.user
+    )
     payment_line_ids = fields.One2many(
         comodel_name="account.payment.line",
         inverse_name="order_id",
@@ -148,6 +154,9 @@ class AccountPaymentOrder(models.Model):
         compute="_compute_move_count", string="Number of Journal Entries"
     )
     description = fields.Char()
+    payment_method = fields.Selection(string='Payment Method', selection=[('cash', 'Cash'), ('check', 'Check'),('sadad', 'SADAD'),('transfer', 'Transfer')], default='cash')
+    total_amount = fields.Float(string='Total Amount', compute="_compute_total_amount", store=True)
+    
 
     @api.depends("payment_mode_id")
     def _compute_allowed_journal_ids(self):
@@ -439,11 +448,12 @@ class AccountPaymentOrder(models.Model):
         else:
             ref = _("Debit order %s") % self.name
         if bank_lines and len(bank_lines) == 1:
-            ref += " - " + bank_lines.name
+            ref += " - " + bank_lines.name 
+        details = f"- {self.description} - {self.payment_line_ids[0].communication}"
         vals = {
             "date": bank_lines[0].date,
             "journal_id": self.journal_id.id,
-            "ref": ref,
+            "ref": ref + details,
             "payment_order_id": self.id,
             "line_ids": [],
         }
@@ -492,7 +502,7 @@ class AccountPaymentOrder(models.Model):
                 break
         vals.update(
             {
-                "name": name,
+                "name": f"{name} - {self.description} - {self.payment_line_ids[0].communication}",
                 "partner_id": partner_id,
                 "account_id": account_id,
                 "credit": (
@@ -526,7 +536,7 @@ class AccountPaymentOrder(models.Model):
         else:
             name = _("Debit bank line %s") % bank_line.name
         vals = {
-            "name": name,
+            "name": f"{name} - {self.description} - {self.payment_line_ids[0].communication}",
             "bank_payment_line_id": bank_line.id,
             "partner_id": bank_line.partner_id.id,
             "account_id": account_id,
@@ -614,3 +624,11 @@ class AccountPaymentOrder(models.Model):
         ctx.update({"search_default_misc_filter": 0})
         action["context"] = ctx
         return action
+    
+    @api.depends('payment_line_ids.amount_currency')
+    def _compute_total_amount(self):
+        for rec in self:
+            rec.total_amount = sum(rec.payment_line_ids.mapped('amount_currency'))
+
+    def _convert_num_to_text(self, amount):
+        return amount_to_text_arabic(abs(amount), 'SAR')

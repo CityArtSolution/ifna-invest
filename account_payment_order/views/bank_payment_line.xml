@@ -99,8 +99,8 @@
     <menuitem
         id="bank_payment_line_menu"
         action="bank_payment_line_action"
-        parent="account.menu_finance_payables"
-        sequence="50"
+        parent="account_payment_order.payment_request_menu"
+        sequence="10"
         groups="group_account_payment"
     />
 </odoo>
