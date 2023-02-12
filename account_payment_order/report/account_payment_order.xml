@@ -176,7 +176,7 @@ Amount:
                                         <strong>Bank Name</strong>
                                     </div>
                                     <div class="col-6" style="text-align:left;">
-                                        <t t-if="doc.company_partner_bank_id.name">
+                                        <t t-if="doc.company_partner_bank_id">
                                             <span style="text-align:left" t-esc="doc.company_partner_bank_id.display_name"></span>
                                         </t>
                                         <t else="">
