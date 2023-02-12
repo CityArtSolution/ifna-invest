@@ -13,8 +13,7 @@
                     <div class="col-4">
                         <img src="/account_payment_order/static/description/header.png" width="50%" alt=""/>
                     </div>
-                    <div class="col-2"></div>
-                    <div class="col-6" style="text-align:right;">
+                    <div class="col-8" style="text-align:right;">
                         <br/>
                         <br/>
                         <strong>Date: <t t-esc="time.strftime('%d/%m/%Y')"/>
@@ -22,7 +21,7 @@
                             <br/>
                             <br/>
                             <br/>
-                            <h3>Payment Order: <span style="color:#00008B;font-size:24px" t-esc="doc.name"></span>
+                            <h3>Payment Order: <span style="color:#00008B;font-size:22px" t-esc="doc.name"></span>
                             </h3>
                         </strong>
                     </div>
