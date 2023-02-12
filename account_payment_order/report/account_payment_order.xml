@@ -17,7 +17,7 @@
                     <div class="col-6" style="text-align:right;">
                         <br/>
                         <br/>
-                        <strong>Date: <t t-esc="doc.date_generated.strftime('%d/%m/%Y')"></t>
+                        <strong>Date: <t t-esc="time.strftime('%d/%m/%Y')"/>
                             <br/>
                             <br/>
                             <br/>
