@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-2"></div>
                         <div class="col-5" style="padding-right:0px">
-                            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="margin-left:180px;max-height: 180px;" alt="Logo"/>
+                            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="margin-left:140px;max-height: 200px;" alt="Logo"/>
                         </div>
                     </div>
                 </div>
