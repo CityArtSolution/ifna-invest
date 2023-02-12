@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Copyright 2017 ACSONE SA/NV
-     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
     <template id="print_account_payment_order_document">
         <t t-set="doc" t-value="doc.with_context({'lang': doc.generated_user_id and doc.generated_user_id.lang or user.lang})" />
@@ -60,10 +58,7 @@ Amount:
                                     <strong>Amount: </strong>
                                         <span style="text-align:left !important;" t-esc="amo1"/>
                                 </div>
-                                <!-- <div class="col-4" style="text-align:left;"> -->
-                                    <!-- <span class="text-center" style="padding:0px;direction: rtl;border-top: none!important;">
-                                    </span> -->
-                                <!-- </div> -->
+                               
                                 <div class="col-4"></div>
 
                             </div>
@@ -74,8 +69,7 @@ Amount:
                                     <strong>Beneficiary: </strong>
                                     <span style="text-align:left" t-esc="doc.payment_line_ids[0].partner_id.name"></span>
                                 </div>
-                                <!-- <div class="col-4" style="">
-                                </div> -->
+                             
                                 <div class="col-4"></div>
 
                             </div>
@@ -86,8 +80,7 @@ Amount:
                                     <strong>Purpose: </strong>
                                     <span style="text-align:left" t-esc="doc.description"></span>
                                 </div>
-                                <!-- <div class="col-4" style=""> -->
-                                <!-- </div> -->
+                              
                                 <div class="col-4"></div>
 
                             </div>
@@ -180,7 +173,7 @@ Amount:
                                     <strong>Bank Name</strong>
                                 </div>
                                 <div class="col-6" style="text-align:left;">
-                                    <t t-if="doc.company_partner_bank_id">
+                                    <t t-if="doc.company_partner_bank_id.name">
                                         <span style="text-align:left" t-esc="doc.company_partner_bank_id.name"></span>
                                     </t>
                                     <t else="">
