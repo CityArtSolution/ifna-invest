@@ -88,6 +88,7 @@
                                 name="payment_mode_id"
                                 domain="[('payment_order_ok', '=', True), ('payment_type', '=', payment_type)]"
                             />
+                            <field name="payment_method"/>
                             <field name="allowed_journal_ids" invisible="1" />
                             <field
                                 name="journal_id"

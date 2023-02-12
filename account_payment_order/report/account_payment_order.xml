@@ -19,7 +19,7 @@
                         <br/>
                         <br/>
                         <br/>
-                        <h3>Payment Order: <span style="color:#00008B;font-size:22px" t-esc="doc.name"></span>
+                        <h3>Payment Request: <span style="color:#00008B;font-size:22px" t-esc="doc.name"></span>
                         </h3>
                     </strong>
                 </div>
@@ -46,7 +46,7 @@ Amount:
                         <div class="row">
                             <div class="col-8" style="text-align:left;">
                                 <strong>Payment Method: </strong>
-                                <span style="text-align:left" t-esc="doc.payment_mode_id.payment_method_id.display_name"></span>
+                                <span style="text-align:left" t-field="doc.payment_method"></span>
                             </div>
                             <div class="col-4"></div>
                         </div>
@@ -154,7 +154,6 @@ Amount:
                         </div>
                         <div class="row">
                             <div class="col-7">
-
                                 <div class="row" style="border: 1px solid #808080;">
                                     <div class="col-6" style="text-align:left;">
                                         <strong>Net Amount Paid</strong>
@@ -177,7 +176,7 @@ Amount:
                                     </div>
                                     <div class="col-6" style="text-align:left;">
                                         <t t-if="doc.company_partner_bank_id">
-                                            <span style="text-align:left" t-esc="doc.company_partner_bank_id.display_name"></span>
+                                            <span style="text-align:left" t-esc="doc.company_partner_bank_id.bank_id.name"></span>
                                         </t>
                                         <t else="">
                                             <span></span>
@@ -189,11 +188,11 @@ Amount:
                                         <strong>Bank Account Number</strong>
                                     </div>
                                     <div class="col-6" style="text-align:left;">
-                                        <t t-if="doc.payment_line_ids[0].partner_bank_id">
+                                        <t t-if="doc.company_partner_bank_id">
                                             <span style="text-align:left" t-esc="doc.company_partner_bank_id.acc_number"></span>
                                         </t>
                                         <t else="">
-                                            <span>N/A</span>
+                                            <span></span>
                                         </t>
                                     </div>
                                 </div>
@@ -203,10 +202,10 @@ Amount:
                                     </div>
                                     <div class="col-6" style="text-align:left;">
                                         <t t-if="doc.payment_line_ids[0].partner_bank_id">
-                                            <span style="text-align:left" t-esc="doc.payment_line_ids[0].partner_bank_id.name"></span>
+                                            <span style="text-align:left" t-esc="doc.payment_line_ids[0].partner_bank_id.bank_id.name"></span>
                                         </t>
                                         <t else="">
-                                            <span>N/A</span>
+                                            <span></span>
                                         </t>
                                     </div>
                                 </div>
@@ -219,7 +218,7 @@ Amount:
                                             <span style="text-align:left" t-esc="doc.payment_line_ids[0].partner_bank_id.swift"></span>
                                         </t>
                                         <t else="">
-                                            <span>N/A</span>
+                                            <span></span>
                                         </t>
                                     </div>
                                 </div>
@@ -235,7 +234,6 @@ Amount:
                             <div class="col-5" style="border: 1px solid #808080;"></div>
                         </div>
                     </div>
-
                 </div>
                 <br/>
                 <br/>

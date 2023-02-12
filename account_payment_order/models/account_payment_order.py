@@ -154,6 +154,7 @@ class AccountPaymentOrder(models.Model):
         compute="_compute_move_count", string="Number of Journal Entries"
     )
     description = fields.Char()
+    payment_method = fields.Selection(string='Payment Method', selection=[('cash', 'Cash'), ('check', 'Check'),('sadad', 'SADAD'),('transfer', 'Transfer')], default='cash')
     total_amount = fields.Float(string='Total Amount', compute="_compute_total_amount", store=True)
     
 
@@ -501,7 +502,7 @@ class AccountPaymentOrder(models.Model):
                 break
         vals.update(
             {
-                "name": name,
+                "name": f"{name} - {self.description} - {self.payment_line_ids[0].communication}",
                 "partner_id": partner_id,
                 "account_id": account_id,
                 "credit": (
@@ -535,7 +536,7 @@ class AccountPaymentOrder(models.Model):
         else:
             name = _("Debit bank line %s") % bank_line.name
         vals = {
-            "name": name,
+            "name": f"{name} - {self.description} - {self.payment_line_ids[0].communication}",
             "bank_payment_line_id": bank_line.id,
             "partner_id": bank_line.partner_id.id,
             "account_id": account_id,
