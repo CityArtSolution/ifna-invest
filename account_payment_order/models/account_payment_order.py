@@ -73,8 +73,8 @@ class AccountPaymentOrder(models.Model):
         selection=[
             ("draft", "Draft"),
             ("open", "Confirmed"),
-            ("generated", "File Generated"),
-            ("uploaded", "File Uploaded"),
+            ("generated", "Draft Journal Entry"),
+            ("uploaded", "Posted Journal Entry"),
             ("cancel", "Cancel"),
         ],
         string="Status",
