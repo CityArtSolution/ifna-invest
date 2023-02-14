@@ -16,11 +16,11 @@ class CrossoveredBudgetLines(models.Model):
         for record in self:
             record.deviation_amount = record.planned_amount + record.practical_amount
             
-    @api.depends('deviation_amount')
+    @api.depends('deviation_amount', 'planned_amount')
     def _compute_deviation_ratio(self):
         for line in self:
-            if line.deviation_amount != 0.00:
-                line.deviation_ratio = float((line.deviation_amount or 0.0) / line.planned_amount)
+            if line.planned_amount != 0.00:
+                line.deviation_ratio = float(line.deviation_amount / line.planned_amount)
             else:
                 line.deviation_ratio = 0.00
                 
