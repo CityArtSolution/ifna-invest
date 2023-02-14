@@ -156,6 +156,7 @@ class AccountPaymentOrder(models.Model):
     description = fields.Char()
     payment_method = fields.Selection(string='Payment Method', selection=[('cash', 'Cash'), ('check', 'Check'),('sadad', 'SADAD'),('transfer', 'Transfer')], default='cash')
     total_amount = fields.Float(string='Total Amount', compute="_compute_total_amount", store=True)
+    department_id = fields.Many2one(comodel_name='account.analytic.account', string='Department')
     
 
     @api.depends("payment_mode_id")
