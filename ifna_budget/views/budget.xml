@@ -43,7 +43,7 @@
             <field name="inherit_id" ref="account_budget.view_crossovered_budget_line_pivot"/>
             <field name="arch" type="xml">
                  <xpath expr="//field[@name='percentage']" position="before">
-                    <field name="deviation_amount" type="measure" widget="percentage"/>
+                    <field name="deviation_amount" type="measure"/>
                     <field name="deviation_ratio" type="measure" widget="percentage"/>
                 </xpath>
             </field>
