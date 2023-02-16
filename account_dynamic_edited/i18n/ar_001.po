@@ -1,0 +1,2216 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_dynamic_edited
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-24 07:31+0000\n"
+"PO-Revision-Date: 2021-04-24 07:31+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_dynamic_edited
+#: code:addons/account_dynamic_edited/report/report_trial_balance_xlsx.py:0
+#: code:addons/account_dynamic_edited/wizard/trial_balance.py:0
+#, python-format
+msgid " To "
+msgstr "الى"
+
+#. module: account_dynamic_edited
+#: code:addons/account_dynamic_edited/wizard/partner_ageing.py:0
+#, python-format
+msgid "\"Bucket order must be ascending\""
+msgstr "يجب أن يكون ترتيب المجموعة تصاعديًا"
+
+#. module: account_dynamic_edited
+#: code:addons/account_dynamic_edited/wizard/general_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/partner_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/trial_balance.py:0
+#, python-format
+msgid "\"Date from\" must be less than or equal to \"Date to\""
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,help:account_dynamic_edited.field_ins_account_financial_report__range_selection
+msgid ""
+"\"From the beginning\" will select all the entries before and on the date "
+"range selected.\"Based on Current Date Range\" will select all the entries "
+"strictly on the date range selected\"Based on Initial Date Range\" will "
+"select only the initial balance for the selected date range"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "&nbsp;"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.general_ledger
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.partner_ageing
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.partner_ledger
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.trial_balance
+msgid "*** END OF DOCUMENT ***"
+msgstr "*** نهاية الوثيقة ***"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_financial_report__financial_year__april_march
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__report_ins_general_ledger__financial_year__april_march
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_partner_ledger__financial_year__april_march
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_trial_balance__financial_year__april_march
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__res_company__financial_year__april_march
+msgid "1 April to 31 March"
+msgstr "من 1 أبريل إلى 31 مارس"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_financial_report__financial_year__january_december
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__report_ins_general_ledger__financial_year__january_december
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_partner_ledger__financial_year__january_december
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_trial_balance__financial_year__january_december
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__res_company__financial_year__january_december
+msgid "1 Jan to 31 Dec"
+msgstr "من 1 يناير إلى 31 ديسمبر"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_financial_report__financial_year__july_june
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__report_ins_general_ledger__financial_year__july_june
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_partner_ledger__financial_year__july_june
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_trial_balance__financial_year__july_june
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__res_company__financial_year__july_june
+msgid "1 july to 30 June"
+msgstr "من 1 يوليو إلى 30 يونيو"
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.general_ledger
+msgid ": General ledger"
+msgstr "دفتر الأستاذ العام :"
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.partner_ageing
+msgid ": Partner Ageing"
+msgstr "متأخرات العملاء/الموردين"
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.partner_ledger
+msgid ": Partner ledger"
+msgstr ": دفتر الشركاء"
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.trial_balance
+msgid ": Trial Balance"
+msgstr ": ميزان المراجعة"
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.trial_balance
+msgid ""
+"<span>&amp;nbsp;</span>\n"
+"                                                <span>&amp;nbsp;</span>\n"
+"                                                <span>&amp;nbsp;</span>"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.general_ledger
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.partner_ledger
+msgid "<span>Ending Balance</span>"
+msgstr "الرصيد الختامي"
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.general_ledger
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.partner_ledger
+msgid "<span>Initial Balance</span>"
+msgstr "الرصيد الافتتاحي"
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.partner_ageing
+msgid "<span>Total</span>"
+msgstr "الاجمالي"
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.general_ledger
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.partner_ledger
+msgid "<strong>Accounts:</strong>"
+msgstr "الحسابات"
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.general_ledger
+msgid "<strong>Analytic Tag:</strong>"
+msgstr "العلامات التحليلية"
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.general_ledger
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.trial_balance
+msgid "<strong>Analytic:</strong>"
+msgstr "تحليلي:"
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.partner_ageing
+msgid "<strong>As on Date:</strong>"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_report_financial
+msgid "<strong>Comparison Date From:</strong>"
+msgstr "تاريخ المقارنة من:"
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_report_financial
+msgid "<strong>Comparison Date To:</strong>"
+msgstr "تاريخ المقارنة إلى:"
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.general_ledger
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_report_financial
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.partner_ledger
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.trial_balance
+msgid "<strong>Date From:</strong>"
+msgstr "من تاريخ:"
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.general_ledger
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_report_financial
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.partner_ledger
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.trial_balance
+msgid "<strong>Date To:</strong>"
+msgstr "الى تاريخ:"
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.general_ledger
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.partner_ledger
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.trial_balance
+msgid "<strong>Display Account</strong>"
+msgstr "عرض الحسابات"
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.general_ledger
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.partner_ledger
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.trial_balance
+msgid "<strong>Journals:</strong>"
+msgstr "اليوميات:"
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.partner_ageing
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.partner_ledger
+msgid "<strong>Partner Tags:</strong>"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.general_ledger
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.partner_ageing
+msgid "<strong>Partners:</strong>"
+msgstr "الشركاء:"
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.partner_ledger
+msgid "<strong>Reconciled:</strong>"
+msgstr "تم مطابقتها:"
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_report_financial
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.partner_ledger
+msgid "<strong>Target Moves:</strong>"
+msgstr "نوع الحركة:"
+
+#. module: account_dynamic_edited
+#: model:ins.account.financial.report,name:account_dynamic_edited.ins_account_financial_report_assets0
+msgid "ASSETS"
+msgstr "الاصول"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/report/report_general_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_partner_ageing_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_trial_balance_xlsx.py:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/wizard/general_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/partner_ageing.py:0
+#: code:addons/account_dynamic_edited/wizard/partner_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/trial_balance.py:0
+#: model:ir.model,name:account_dynamic_edited.model_account_account
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.partner_ledger
+#, python-format
+msgid "Account"
+msgstr "الحساب"
+
+#. module: account_dynamic_edited
+#: model:ir.model,name:account_dynamic_edited.model_ins_account_financial_report
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_account_financial_report__children_ids
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.view_ins_account_financial_report_form
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.view_ins_account_financial_report_search
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.view_ins_account_financial_report_tree
+msgid "Account Report"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_financial_report__account_report_id
+msgid "Account Reports"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: code:addons/account_dynamic_edited/report/report_general_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/wizard/general_ledger.py:0
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_ins_general_ledger__account_tag_ids
+#, python-format
+msgid "Account Tags"
+msgstr "علامات الحسابات"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Account Tags:"
+msgstr "علامات الحسابات:"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ledger__type
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_account_financial_report__type__account_type
+msgid "Account Type"
+msgstr "نوع الحساب"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Account Type:"
+msgstr "نوع الحساب:"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_account_financial_report__account_type_ids
+msgid "Account Types"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.ui.menu,name:account_dynamic_edited.account_reports_ins_wiz
+msgid "Accounting Reports"
+msgstr "تقارير محاسبية"
+
+#. module: account_dynamic_edited
+#: code:addons/account_dynamic_edited/report/report_general_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_partner_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/wizard/general_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/partner_ledger.py:0
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_account_financial_report__account_ids
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_ins_general_ledger__account_ids
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ledger__account_ids
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_trial_balance__account_ids
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_account_financial_report__type__accounts
+#, python-format
+msgid "Accounts"
+msgstr "الحسابات"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Accounts:"
+msgstr "الحسابات:"
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.view_res_company_form
+msgid "Ageing Bucket"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__report_report_ins_general_ledger__display_accounts__all
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_partner_ledger__display_accounts__all
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_trial_balance__display_accounts__all
+msgid "All"
+msgstr "الكل"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_financial_report__target_move__all
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_report_financial
+msgid "All Entries"
+msgstr "كل القيود"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_financial_report__target_move__posted
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_report_financial
+msgid "All Posted Entries"
+msgstr "القيود المرحلة"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__report_ins_general_ledger__target_moves__all_entries
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_partner_ledger__target_moves__all_entries
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_trial_balance__target_moves__all_entries
+msgid "All entries"
+msgstr "كل القيود"
+
+#. module: account_dynamic_edited
+#: code:addons/account_dynamic_edited/report/report_general_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_trial_balance_xlsx.py:0
+#: code:addons/account_dynamic_edited/wizard/general_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/trial_balance.py:0
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_financial_report__analytic_ids
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_ins_general_ledger__analytic_ids
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_trial_balance__analytic_ids
+#, python-format
+msgid "Analytic Accounts"
+msgstr "الحسابات التحليلية"
+
+#. module: account_dynamic_edited
+#: code:addons/account_dynamic_edited/report/report_general_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/wizard/general_ledger.py:0
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_financial_report__analytic_tag_ids
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_ins_general_ledger__analytic_tag_ids
+#, python-format
+msgid "Analytic Tags"
+msgstr "العلامات التحليلية"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Analytic Tags:"
+msgstr "العلامات التحليلية:"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Analytic:"
+msgstr "تحليلي"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Apply"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: code:addons/account_dynamic_edited/report/report_partner_ageing_xlsx.py:0
+#: code:addons/account_dynamic_edited/wizard/partner_ageing.py:0
+#, python-format
+msgid "As on Date"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "As on Date :"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ageing__as_on_date
+msgid "As on date"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_account_financial_report__style_overwrite__0
+msgid "Automatic formatting"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ins.account.financial.report,name:account_dynamic_edited.ins_account_financial_report_balancesheet0
+msgid "BALANCE SHEET"
+msgstr "مركز المالي"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/report/report_financial_report_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_financial_report_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_financial_report_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_general_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_general_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_partner_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_partner_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_trial_balance_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_trial_balance_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_trial_balance_xlsx.py:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/wizard/financial_report.py:0
+#: code:addons/account_dynamic_edited/wizard/financial_report.py:0
+#: code:addons/account_dynamic_edited/wizard/financial_report.py:0
+#: code:addons/account_dynamic_edited/wizard/general_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/general_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/partner_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/partner_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/trial_balance.py:0
+#: code:addons/account_dynamic_edited/wizard/trial_balance.py:0
+#: code:addons/account_dynamic_edited/wizard/trial_balance.py:0
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.general_ledger
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_report_financial
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.partner_ledger
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.trial_balance
+#, python-format
+msgid "Balance"
+msgstr "الرصيد"
+
+#. module: account_dynamic_edited
+#: model:ir.actions.act_window,name:account_dynamic_edited.action_ins_balance_sheet_report
+#: model:ir.actions.client,name:account_dynamic_edited.action_dynamic_allinone_bs_report
+#: model:ir.ui.menu,name:account_dynamic_edited.account_report_bl
+#: model:ir.ui.menu,name:account_dynamic_edited.account_report_bs_wiz
+msgid "Balance Sheet"
+msgstr "مركز المالي"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Balance in FC"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_account_financial_report__range_selection__current_date_range
+msgid "Based on Current Date Range"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_account_financial_report__range_selection__initial_date_range
+msgid "Based on Initial Date Range"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ageing__bucket_1
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_res_company__bucket_1
+msgid "Bucket 1"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ageing__bucket_2
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_res_company__bucket_2
+msgid "Bucket 2"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ageing__bucket_3
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_res_company__bucket_3
+msgid "Bucket 3"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ageing__bucket_4
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_res_company__bucket_4
+msgid "Bucket 4"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ageing__bucket_5
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_res_company__bucket_5
+msgid "Bucket 5"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Bucket-1"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Bucket-2"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Bucket-3"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Bucket-4"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Bucket-5"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.report_ins_general_ledger_wizard
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_partner_ageing_wizard
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_partner_ledger_wizard
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_trial_balance_wizard
+msgid "Cancel"
+msgstr "إلغاء"
+
+#. module: account_dynamic_edited
+#: model:ir.actions.client,name:account_dynamic_edited.action_dynamic_allinone_cf_report
+#: model:ir.ui.menu,name:account_dynamic_edited.account_report_cf_wiz
+msgid "Cash Flow"
+msgstr "التدفقات النقدية"
+
+#. module: account_dynamic_edited
+#: model:ir.actions.act_window,name:account_dynamic_edited.action_ins_cash_flow_report
+#: model:ir.ui.menu,name:account_dynamic_edited.account_report_cashflow
+msgid "Cash Flow Report"
+msgstr "تقرير التدفقات النقدية"
+
+#. module: account_dynamic_edited
+#: model:ins.account.financial.report,name:account_dynamic_edited.ins_account_financial_report_cash_flow0
+msgid "Cash Flow Statement"
+msgstr "بيان التدفقات النقدية"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_account_account__cash_flow_category
+msgid "Cash Flow type"
+msgstr "نوع التدفقات النقدية"
+
+#. module: account_dynamic_edited
+#: model:ins.account.financial.report,name:account_dynamic_edited.ins_cash_in_financial_1
+#: model:ins.account.financial.report,name:account_dynamic_edited.ins_cash_in_investing_1
+#: model:ins.account.financial.report,name:account_dynamic_edited.ins_cash_in_operation_1
+msgid "Cash In"
+msgstr "إيداع"
+
+#. module: account_dynamic_edited
+#: model:ins.account.financial.report,name:account_dynamic_edited.ins_cash_out_financial_2
+#: model:ins.account.financial.report,name:account_dynamic_edited.ins_cash_out_investing_2
+#: model:ins.account.financial.report,name:account_dynamic_edited.ins_cash_out_operation_2
+msgid "Cash Out"
+msgstr "صرف"
+
+#. module: account_dynamic_edited
+#: code:addons/account_dynamic_edited/report/report_general_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/wizard/general_ledger.py:0
+#, python-format
+msgid "Code"
+msgstr "كود"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_financial_report__label_filter
+msgid "Column Label"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model,name:account_dynamic_edited.model_res_company
+msgid "Companies"
+msgstr "شركات"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_financial_report__company_id
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_ins_general_ledger__company_id
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ageing__company_id
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ledger__company_id
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_trial_balance__company_id
+msgid "Company"
+msgstr "الشركة"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Comparison"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: code:addons/account_dynamic_edited/report/report_financial_report_xlsx.py:0
+#: code:addons/account_dynamic_edited/wizard/financial_report.py:0
+#, python-format
+msgid "Comparison Date from"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: code:addons/account_dynamic_edited/report/report_financial_report_xlsx.py:0
+#: code:addons/account_dynamic_edited/wizard/financial_report.py:0
+#, python-format
+msgid "Comparison Date to"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ins.account.financial.report,name:account_dynamic_edited.ins_account_financial_report_cost_of_revenue0
+msgid "Cost of Revenue"
+msgstr "تكلفة الإيرادات"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_account_financial_report__create_uid
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_financial_report__create_uid
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_ins_general_ledger__create_uid
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ageing__create_uid
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ledger__create_uid
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_trial_balance__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_account_financial_report__create_date
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_financial_report__create_date
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_ins_general_ledger__create_date
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ageing__create_date
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ledger__create_date
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_trial_balance__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/report/report_financial_report_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_general_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_general_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_partner_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_partner_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_trial_balance_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_trial_balance_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_trial_balance_xlsx.py:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/wizard/financial_report.py:0
+#: code:addons/account_dynamic_edited/wizard/general_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/general_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/partner_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/partner_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/trial_balance.py:0
+#: code:addons/account_dynamic_edited/wizard/trial_balance.py:0
+#: code:addons/account_dynamic_edited/wizard/trial_balance.py:0
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.general_ledger
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_report_financial
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.partner_ledger
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.trial_balance
+#, python-format
+msgid "Credit"
+msgstr "الدائن"
+
+#. module: account_dynamic_edited
+#: model:ir.model,name:account_dynamic_edited.model_res_currency
+msgid "Currency"
+msgstr "العملة"
+
+#. module: account_dynamic_edited
+#: model:ins.account.financial.report,name:account_dynamic_edited.ins_account_financial_report_current_allocated_earnings0
+msgid "Current Allocated Earnings"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_report_financial
+#, python-format
+msgid "Current Cash Balance"
+msgstr "الرصيد النقدي الحالي"
+
+#. module: account_dynamic_edited
+#: model:ins.account.financial.report,name:account_dynamic_edited.ins_account_financial_report_current_earnings0
+msgid "Current Earnings"
+msgstr "الارباح الحالية"
+
+#. module: account_dynamic_edited
+#: model:ins.account.financial.report,name:account_dynamic_edited.ins_account_financial_report_current_unallocated_earnings0
+msgid "Current Unallocated Earnings"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Custom"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Custom Buckets"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_account_financial_report__range_selection
+msgid "Custom Date Range"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_partner_ageing__partner_type__customer
+msgid "Customer Only"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Customers Only"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/report/report_general_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_partner_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/wizard/general_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/partner_ledger.py:0
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_financial_report__filter_cmp__filter_date
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__report_ins_general_ledger__sort_accounts_by__date
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.general_ledger
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_financial_report_wiz_modified
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.partner_ledger
+#, python-format
+msgid "Date"
+msgstr "التاريخ"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_financial_report__date_range
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_ins_general_ledger__date_range
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ledger__date_range
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_trial_balance__date_range
+msgid "Date Range"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Date Range:"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: code:addons/account_dynamic_edited/report/report_financial_report_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_general_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_partner_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_trial_balance_xlsx.py:0
+#: code:addons/account_dynamic_edited/wizard/financial_report.py:0
+#: code:addons/account_dynamic_edited/wizard/general_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/partner_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/trial_balance.py:0
+#, python-format
+msgid "Date from"
+msgstr "من تاريخ"
+
+#. module: account_dynamic_edited
+#: code:addons/account_dynamic_edited/report/report_financial_report_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_general_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_partner_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_trial_balance_xlsx.py:0
+#: code:addons/account_dynamic_edited/wizard/financial_report.py:0
+#: code:addons/account_dynamic_edited/wizard/general_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/partner_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/trial_balance.py:0
+#, python-format
+msgid "Date to"
+msgstr "الى تاريخ"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Dates"
+msgstr "التواريخ"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/report/report_financial_report_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_general_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_general_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_partner_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_partner_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_trial_balance_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_trial_balance_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_trial_balance_xlsx.py:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/wizard/financial_report.py:0
+#: code:addons/account_dynamic_edited/wizard/general_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/general_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/partner_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/partner_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/trial_balance.py:0
+#: code:addons/account_dynamic_edited/wizard/trial_balance.py:0
+#: code:addons/account_dynamic_edited/wizard/trial_balance.py:0
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.general_ledger
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_report_financial
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.partner_ledger
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.trial_balance
+#, python-format
+msgid "Debit"
+msgstr "المدين"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_res_company__date_range
+msgid "Default Date Range"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_financial_report_wiz_modified
+msgid "Discard"
+msgstr "تجاهل"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_financial_report__debit_credit
+msgid "Display Debit/Credit Columns"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_account_account__display_name
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_account_financial_report__display_name
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_financial_report__display_name
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_ins_general_ledger__display_name
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ageing__display_name
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ledger__display_name
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_trial_balance__display_name
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_account_dynamic_edited_general_ledger__display_name
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_account_dynamic_edited_ins_report_financial__display_name
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_account_dynamic_edited_partner_ageing__display_name
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_account_dynamic_edited_partner_ledger__display_name
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_account_dynamic_edited_trial_balance__display_name
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_res_company__display_name
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_res_currency__display_name
+msgid "Display Name"
+msgstr "الاسم المعروض"
+
+#. module: account_dynamic_edited
+#: code:addons/account_dynamic_edited/report/report_general_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_partner_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_trial_balance_xlsx.py:0
+#: code:addons/account_dynamic_edited/wizard/general_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/partner_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/trial_balance.py:0
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_ins_general_ledger__display_accounts
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ledger__display_accounts
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_trial_balance__display_accounts
+#, python-format
+msgid "Display accounts"
+msgstr "عرض الحسابات"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_account_financial_report__display_detail__detail_flat
+msgid "Display children flat"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_account_financial_report__display_detail__detail_with_hierarchy
+msgid "Display children with hierarchy"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_account_financial_report__display_detail
+msgid "Display details"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/report/report_partner_ageing_xlsx.py:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/wizard/partner_ageing.py:0
+#, python-format
+msgid "Due Date"
+msgstr "تاريخ الاستحقاق"
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.view_res_company_form
+msgid "Dynamic Reports"
+msgstr "التقارير المتغيرة"
+
+#. module: account_dynamic_edited
+#: model:ir.ui.menu,name:account_dynamic_edited.account_reports_ins
+msgid "Dynamic Reports(Wiz)"
+msgstr "التقارير المتغيرة"
+
+#. module: account_dynamic_edited
+#: model:ins.account.financial.report,name:account_dynamic_edited.ins_account_financial_report_equitysum0
+msgid "EQUITY"
+msgstr "حقوق الملكية"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_financial_report__enable_filter
+msgid "Enable Comparison"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_financial_report__date_to
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_financial_report__date_to_cmp
+msgid "End Date"
+msgstr "تاريخ النهاية"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "End Date :"
+msgstr "تاريخ النهاية:"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_ins_general_ledger__date_to
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ledger__date_to
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_trial_balance__date_to
+msgid "End date"
+msgstr "تاريخ النهاية"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.trial_balance
+#, python-format
+msgid "Ending Balance"
+msgstr "الرصيد الختامي"
+
+#. module: account_dynamic_edited
+#: code:addons/account_dynamic_edited/report/report_partner_ageing_xlsx.py:0
+#: code:addons/account_dynamic_edited/wizard/partner_ageing.py:0
+#, python-format
+msgid "Entry #"
+msgstr "القيد #"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/report/report_general_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_partner_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/wizard/general_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/partner_ledger.py:0
+#, python-format
+msgid "Entry Label"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.actions.act_window,name:account_dynamic_edited.action_ins_general_ledger_xlsx
+msgid "Excel"
+msgstr "اكسل"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_res_currency__excel_format
+msgid "Excel format"
+msgstr "صيغة اكسل"
+
+#. module: account_dynamic_edited
+#: model:ins.account.financial.report,name:account_dynamic_edited.ins_account_financial_report_expense0
+msgid "Expense"
+msgstr "مصروف"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Export (XLSX)"
+msgstr "تصدير(XLSX)"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_financial_report__filter_cmp
+msgid "Filter by"
+msgstr "فرز حسب"
+
+#. module: account_dynamic_edited
+#: model:ir.model,name:account_dynamic_edited.model_report_account_dynamic_edited_ins_report_financial
+msgid "Financial Report"
+msgstr "تقرير المالي"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_account_financial_report__style_overwrite
+msgid "Financial Report Style"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.actions.act_window,name:account_dynamic_edited.action_ins_account_financial_report_tree
+#: model:ir.model,name:account_dynamic_edited.model_ins_financial_report
+#: model:ir.ui.menu,name:account_dynamic_edited.ins_account_financial_report
+msgid "Financial Reports"
+msgstr "التقارير المالية"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_financial_report__financial_year
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_ins_general_ledger__financial_year
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ledger__financial_year
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_trial_balance__financial_year
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_res_company__financial_year
+msgid "Financial Year"
+msgstr "السنة المالية"
+
+#. module: account_dynamic_edited
+#: model:ir.actions.report,name:account_dynamic_edited.ins_financial_report_pdf
+msgid "Financial reports"
+msgstr "التقارير المالية"
+
+#. module: account_dynamic_edited
+#: model:ins.account.financial.report,name:account_dynamic_edited.ins_account_financial_report_financing_activity1
+msgid "Financing Activities"
+msgstr "الانشطة المحاسبية"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,help:account_dynamic_edited.field_ins_account_financial_report__sign
+msgid ""
+"For accounts that are typically more debited than credited and that you "
+"would like to print as negative amounts in your reports, you should reverse "
+"the sign of the balance; e.g.: Expense account. The same applies for "
+"accounts that are typically more credited than debited and that you would "
+"like to print as positive amounts in your reports; e.g.: Income account."
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_financial_report__view_format
+msgid "Format"
+msgstr "صيغة"
+
+#. module: account_dynamic_edited
+#: code:addons/account_dynamic_edited/wizard/financial_report.py:0
+#, python-format
+msgid "From date and To date are mandatory to generate this report"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: code:addons/account_dynamic_edited/wizard/trial_balance.py:0
+#, python-format
+msgid "From date and To dates are mandatory for this report"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: code:addons/account_dynamic_edited/wizard/financial_report.py:0
+#, python-format
+msgid "From date is mandatory to generate this report"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: code:addons/account_dynamic_edited/wizard/trial_balance.py:0
+#, python-format
+msgid "From date must not be less than to date"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_account_financial_report__range_selection__from_the_beginning
+msgid "From the Beginning"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: model:ir.actions.act_window,name:account_dynamic_edited.action_report_ins_general_ledger_wizard
+#: model:ir.actions.report,name:account_dynamic_edited.action_print_general_ledger
+#: model:ir.ui.menu,name:account_dynamic_edited.account_report_gl
+#: model:ir.ui.menu,name:account_dynamic_edited.account_report_gl_wiz
+#, python-format
+msgid "General Ledger"
+msgstr "الاستاذ العام"
+
+#. module: account_dynamic_edited
+#: model:ir.actions.client,name:account_dynamic_edited.action_dynamic_allinone_gl_report
+msgid "General Ledger Report"
+msgstr "تقرير الاستاذ العام"
+
+#. module: account_dynamic_edited
+#: model:ins.account.financial.report,name:account_dynamic_edited.ins_account_financial_report_gross_profit0
+msgid "Gross Profit"
+msgstr "اجمالي الربح"
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.view_ins_account_financial_report_search
+msgid "Group By"
+msgstr "تجميع حسب"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,help:account_dynamic_edited.field_ins_financial_report__debit_credit
+msgid ""
+"Help to identify debit and credit with balance line for better "
+"understanding."
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_financial_report__view_format__horizontal
+msgid "Horizontal"
+msgstr "أفقي"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_account_account__id
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_account_financial_report__id
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_financial_report__id
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_ins_general_ledger__id
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ageing__id
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ledger__id
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_trial_balance__id
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_account_dynamic_edited_general_ledger__id
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_account_dynamic_edited_ins_report_financial__id
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_account_dynamic_edited_partner_ageing__id
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_account_dynamic_edited_partner_ledger__id
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_account_dynamic_edited_trial_balance__id
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_res_company__id
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_res_currency__id
+msgid "ID"
+msgstr "المُعرف"
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_trial_balance_wizard
+msgid ""
+"If checked the accounts will act strict to the date range"
+"                                     else it will consider initial balance "
+"to account"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_ins_general_ledger__include_details
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ageing__include_details
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ledger__include_details
+#, python-format
+msgid "Include Details"
+msgstr "تضمين التفاصيل"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_ins_general_ledger__initial_balance
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ledger__initial_balance
+msgid "Include Initial Balance"
+msgstr "تضمين الرصيد الافتتاحي"
+
+#. module: account_dynamic_edited
+#: model:ins.account.financial.report,name:account_dynamic_edited.ins_account_financial_report_income0
+msgid "Income"
+msgstr "الدخل"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/report/report_general_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_partner_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/wizard/general_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/partner_ledger.py:0
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.trial_balance
+#, python-format
+msgid "Initial Balance"
+msgstr "الرصيد الافتتاحي"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_report_financial
+#, python-format
+msgid "Initial Cash Balance"
+msgstr "الرصيد النقدي الافتتاحي"
+
+#. module: account_dynamic_edited
+#: model:ins.account.financial.report,name:account_dynamic_edited.ins_account_financial_report_investing_activity0
+msgid "Investing Activities"
+msgstr "الانشطة الاستثمارية"
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.report_ins_general_ledger_wizard
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_partner_ledger_wizard
+msgid "It will show detailed lines in reports"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_account_financial_report__style_overwrite__5
+msgid "Italic Text (smaller)"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/report/report_general_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_partner_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/wizard/general_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/partner_ledger.py:0
+#, python-format
+msgid "JRNL"
+msgstr "رمز دفتر  اليومية"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/report/report_partner_ageing_xlsx.py:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/wizard/partner_ageing.py:0
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.general_ledger
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.partner_ledger
+#, python-format
+msgid "Journal"
+msgstr "اليومية"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__report_ins_general_ledger__sort_accounts_by__journal
+msgid "Journal and Partner"
+msgstr "اليومية و الشريك"
+
+#. module: account_dynamic_edited
+#: code:addons/account_dynamic_edited/report/report_general_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_partner_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_trial_balance_xlsx.py:0
+#: code:addons/account_dynamic_edited/wizard/general_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/partner_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/trial_balance.py:0
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_financial_report__journal_ids
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_ins_general_ledger__journal_ids
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ledger__journal_ids
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_trial_balance__journal_ids
+#, python-format
+msgid "Journals"
+msgstr "دفاتر اليومية"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Journals:"
+msgstr "دفاتر اليومية"
+
+#. module: account_dynamic_edited
+#: model:ins.account.financial.report,name:account_dynamic_edited.ins_account_financial_report_liabilitysum0
+msgid "LIABILITIES"
+msgstr "خصوم(التزامات)"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_financial_report__date_range__last_financial_year
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__report_ins_general_ledger__date_range__last_financial_year
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_partner_ledger__date_range__last_financial_year
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_trial_balance__date_range__last_financial_year
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__res_company__date_range__last_financial_year
+msgid "Last Financial Year"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_account_account____last_update
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_account_financial_report____last_update
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_financial_report____last_update
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_ins_general_ledger____last_update
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ageing____last_update
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ledger____last_update
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_trial_balance____last_update
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_account_dynamic_edited_general_ledger____last_update
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_account_dynamic_edited_ins_report_financial____last_update
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_account_dynamic_edited_partner_ageing____last_update
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_account_dynamic_edited_partner_ledger____last_update
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_account_dynamic_edited_trial_balance____last_update
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_res_company____last_update
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_res_currency____last_update
+msgid "Last Modified on"
+msgstr "آخر تعديل في"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_financial_report__date_range__last_month
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__report_ins_general_ledger__date_range__last_month
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_partner_ledger__date_range__last_month
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_trial_balance__date_range__last_month
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__res_company__date_range__last_month
+#, python-format
+msgid "Last Month"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_financial_report__date_range__last_quarter
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__report_ins_general_ledger__date_range__last_quarter
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_partner_ledger__date_range__last_quarter
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_trial_balance__date_range__last_quarter
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__res_company__date_range__last_quarter
+#, python-format
+msgid "Last Quarter"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_account_financial_report__write_uid
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_financial_report__write_uid
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_ins_general_ledger__write_uid
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ageing__write_uid
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ledger__write_uid
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_trial_balance__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_account_financial_report__write_date
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_financial_report__write_date
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_ins_general_ledger__write_date
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ageing__write_date
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ledger__write_date
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_trial_balance__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_financial_report__date_range__last_week
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__report_ins_general_ledger__date_range__last_week
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_partner_ledger__date_range__last_week
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_trial_balance__date_range__last_week
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__res_company__date_range__last_week
+#, python-format
+msgid "Last Week"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Last Year"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_account_financial_report__level
+msgid "Level"
+msgstr "المستوى"
+
+#. module: account_dynamic_edited
+#: model:ins.account.financial.report,name:account_dynamic_edited.ins_account_financial_report_liability0
+msgid "Liability"
+msgstr "التزام"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_account_financial_report__style_overwrite__1
+msgid "Main Title 1 (bold, underlined)"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/report/report_general_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_partner_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/wizard/general_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/partner_ledger.py:0
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.general_ledger
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.partner_ledger
+#, python-format
+msgid "Move"
+msgstr "حركة"
+
+#. module: account_dynamic_edited
+#: code:addons/account_dynamic_edited/report/report_financial_report_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_financial_report_xlsx.py:0
+#: code:addons/account_dynamic_edited/wizard/financial_report.py:0
+#: code:addons/account_dynamic_edited/wizard/financial_report.py:0
+#, python-format
+msgid "Name"
+msgstr "الاسم"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_report_financial
+#, python-format
+msgid "Net Cash Balance"
+msgstr "صافي الرصيد النقدي"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_financial_report__filter_cmp__filter_no
+msgid "No Filters"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_account_financial_report__display_detail__no_detail
+msgid "No detail"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_account_financial_report__style_overwrite__4
+msgid "Normal Text"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ins.account.financial.report,name:account_dynamic_edited.ins_account_financial_report_operating_income0
+msgid "Operating Income"
+msgstr "إيرادات التشغيل"
+
+#. module: account_dynamic_edited
+#: model:ins.account.financial.report,name:account_dynamic_edited.ins_account_financial_report_operation0
+msgid "Operations"
+msgstr "العمليات"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Options:"
+msgstr "الخيارات"
+
+#. module: account_dynamic_edited
+#: model:ins.account.financial.report,name:account_dynamic_edited.ins_account_financial_report_other_income0
+msgid "Other Income"
+msgstr "إيرادات أخرى"
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_financial_report_wiz_modified
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.report_ins_general_ledger_wizard
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_partner_ageing_wizard
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_partner_ledger_wizard
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_trial_balance_wizard
+msgid "PDF"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_account_financial_report__parent_id
+msgid "Parent"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.view_ins_account_financial_report_search
+msgid "Parent Report"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/report/report_general_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_partner_ageing_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_partner_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_partner_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/wizard/general_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/partner_ageing.py:0
+#: code:addons/account_dynamic_edited/wizard/partner_ledger.py:0
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ageing__partner_ids
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.general_ledger
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.partner_ageing
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.partner_ledger
+#, python-format
+msgid "Partner"
+msgstr "شريك"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: model:ir.actions.act_window,name:account_dynamic_edited.action_ins_partner_ageing_wizard
+#: model:ir.actions.report,name:account_dynamic_edited.action_print_partner_ageing
+#: model:ir.ui.menu,name:account_dynamic_edited.account_report_pa
+#: model:ir.ui.menu,name:account_dynamic_edited.account_report_pa_wiz
+#, python-format
+msgid "Partner Ageing"
+msgstr "متأخرات العملاء/الموردين"
+
+#. module: account_dynamic_edited
+#: model:ir.actions.client,name:account_dynamic_edited.action_dynamic_allinone_pa_report
+msgid "Partner Ageing Report"
+msgstr "تقرير متأخرات العملاء/الموردين"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: model:ir.actions.act_window,name:account_dynamic_edited.action_ins_partner_ledger_wizard
+#: model:ir.actions.report,name:account_dynamic_edited.action_print_partner_ledger
+#: model:ir.ui.menu,name:account_dynamic_edited.account_report_plg
+#: model:ir.ui.menu,name:account_dynamic_edited.account_report_plg_wiz
+#, python-format
+msgid "Partner Ledger"
+msgstr "دفتر الشركاء"
+
+#. module: account_dynamic_edited
+#: model:ir.actions.client,name:account_dynamic_edited.action_dynamic_allinone_plg_report
+msgid "Partner Ledger Report"
+msgstr "تقرير دفتر الشركاء"
+
+#. module: account_dynamic_edited
+#: code:addons/account_dynamic_edited/report/report_partner_ageing_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_partner_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/wizard/partner_ageing.py:0
+#: code:addons/account_dynamic_edited/wizard/partner_ledger.py:0
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ageing__partner_category_ids
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ledger__partner_category_ids
+#, python-format
+msgid "Partner Tag"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Partner Tag:"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ageing__partner_type
+msgid "Partner Type"
+msgstr "نوع الشريك"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Partner Type:"
+msgstr "نوع الشريك:"
+
+#. module: account_dynamic_edited
+#: code:addons/account_dynamic_edited/report/report_general_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_partner_ageing_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_partner_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/wizard/general_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/partner_ageing.py:0
+#: code:addons/account_dynamic_edited/wizard/partner_ledger.py:0
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_ins_general_ledger__partner_ids
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ledger__partner_ids
+#, python-format
+msgid "Partners"
+msgstr "الشركاء"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Partners:"
+msgstr "الشركاء:"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_partner_ageing__type__payable
+#, python-format
+msgid "Payable Accounts Only"
+msgstr "حسابات الذمم الدائنة فقط"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_partner_ledger__type__payable
+msgid "Payable only"
+msgstr " الذمم الدائنة فقط"
+
+#. module: account_dynamic_edited
+#: code:addons/account_dynamic_edited/wizard/financial_report.py:0
+#, python-format
+msgid "Please choose \"Custom Date Range\" for the report head %s"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__report_ins_general_ledger__target_moves__posted_only
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_partner_ledger__target_moves__posted_only
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_trial_balance__target_moves__posted_only
+msgid "Posted Only"
+msgstr "قيود المرحلة فقط"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_account_financial_report__sign__1
+msgid "Preserve balance sign"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ins.account.financial.report,name:account_dynamic_edited.ins_account_financial_report_previous_unallocated_earnings0
+msgid "Previous Unallocated Earnings"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Print (Pdf)"
+msgstr "طباعة (Pdf)"
+
+#. module: account_dynamic_edited
+#: model:ins.account.financial.report,name:account_dynamic_edited.ins_account_financial_report_profitandloss0
+#: model:ir.actions.act_window,name:account_dynamic_edited.action_ins_profit_and_loss_report
+#: model:ir.actions.client,name:account_dynamic_edited.action_dynamic_allinone_pl_report
+#: model:ir.ui.menu,name:account_dynamic_edited.account_report_pandl
+#: model:ir.ui.menu,name:account_dynamic_edited.account_report_pl_wiz
+msgid "Profit and Loss"
+msgstr "الارباح و الخسائر"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_partner_ageing__type__receivable
+#, python-format
+msgid "Receivable Accounts Only"
+msgstr "حسابات الذمم المدينة فقط"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_partner_ledger__type__receivable
+msgid "Receivable Only"
+msgstr " الذمم الدائنة فقط"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ledger__reconciled
+msgid "Reconcile Type"
+msgstr "نوع التسوية"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/report/report_partner_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/wizard/partner_ledger.py:0
+#, python-format
+msgid "Reconciled"
+msgstr "تمت التسوية"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_partner_ledger__reconciled__reconciled
+msgid "Reconciled Only"
+msgstr "تمت تسويته فقط"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Reconciled:"
+msgstr "تمت التسوية:"
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.general_ledger
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.partner_ledger
+msgid "Reference"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.view_ins_account_financial_report_form
+msgid "Report"
+msgstr "تقرير"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_account_financial_report__name
+msgid "Report Name"
+msgstr "اسم التقرير"
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.view_ins_account_financial_report_search
+msgid "Report Type"
+msgstr "نوع التقرير"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_account_financial_report__account_report_id
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_account_financial_report__type__account_report
+msgid "Report Value"
+msgstr "قيمة التقرير"
+
+#. module: account_dynamic_edited
+#: model:ins.account.financial.report,name:account_dynamic_edited.ins_account_financial_report_retained_earnings0
+msgid "Retained Earnings"
+msgstr "الارباح المحتجزة"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_account_financial_report__sign__-1
+msgid "Reverse balance sign"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_account_financial_report__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Show Debit Credit"
+msgstr "عرض المدين/الدائن"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_trial_balance__show_hierarchy
+#, python-format
+msgid "Show hierarchy"
+msgstr "العرض هرميا"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_account_financial_report__sign
+msgid "Sign on Reports"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_account_financial_report__style_overwrite__6
+msgid "Smallest Text"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_ins_general_ledger__sort_accounts_by
+msgid "Sort By"
+msgstr "ترتيب حسب"
+
+#. module: account_dynamic_edited
+#: code:addons/account_dynamic_edited/report/report_general_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/wizard/general_ledger.py:0
+#, python-format
+msgid "Sort by"
+msgstr "ترتيب حسب"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_financial_report__date_from
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_financial_report__date_from_cmp
+msgid "Start Date"
+msgstr "تاريخ البداية"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Start Date :"
+msgstr "تاريخ البداية :"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_ins_general_ledger__date_from
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ledger__date_from
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_trial_balance__date_from
+msgid "Start date"
+msgstr "تاريخ البداية"
+
+#. module: account_dynamic_edited
+#: code:addons/account_dynamic_edited/wizard/financial_report.py:0
+#, python-format
+msgid "Start date is mandatory!"
+msgstr "تاريخ البداية الزامي!"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_financial_report__strict_range
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_trial_balance__strict_range
+msgid "Strict Range"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_partner_ageing__partner_type__supplier
+msgid "Supplier Only"
+msgstr "مورد فقط"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Suppliers Only"
+msgstr "موردين فقط"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_financial_report__target_move
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_report_ins_general_ledger__target_moves
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ledger__target_moves
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_trial_balance__target_moves
+msgid "Target Moves"
+msgstr "الحركات المستهدفة"
+
+#. module: account_dynamic_edited
+#: code:addons/account_dynamic_edited/report/report_general_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_partner_ledger_xlsx.py:0
+#: code:addons/account_dynamic_edited/wizard/general_ledger.py:0
+#: code:addons/account_dynamic_edited/wizard/partner_ledger.py:0
+#, python-format
+msgid "Target moves"
+msgstr "الحركات المستهدفة"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_financial_report__date_range__this_month
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__report_ins_general_ledger__date_range__this_month
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_partner_ledger__date_range__this_month
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_trial_balance__date_range__this_month
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__res_company__date_range__this_month
+#, python-format
+msgid "This Month"
+msgstr "الشهر الحالي"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_financial_report__date_range__this_quarter
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__report_ins_general_ledger__date_range__this_quarter
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_partner_ledger__date_range__this_quarter
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_trial_balance__date_range__this_quarter
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__res_company__date_range__this_quarter
+#, python-format
+msgid "This Quarter"
+msgstr "الربع الحالي"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_financial_report__date_range__this_week
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__report_ins_general_ledger__date_range__this_week
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_partner_ledger__date_range__this_week
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_trial_balance__date_range__this_week
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__res_company__date_range__this_week
+#, python-format
+msgid "This Week"
+msgstr "الاسبوع الحالي"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "This Year"
+msgstr "السنة الحالية"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_financial_report__date_range__this_financial_year
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__report_ins_general_ledger__date_range__this_financial_year
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_partner_ledger__date_range__this_financial_year
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_trial_balance__date_range__this_financial_year
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__res_company__date_range__this_financial_year
+msgid "This financial Year"
+msgstr "السنة المالية الحالية"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,help:account_dynamic_edited.field_ins_financial_report__label_filter
+msgid ""
+"This label will be displayed on report to show the balance computed for the "
+"given comparison filter."
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_account_financial_report__style_overwrite__2
+msgid "Title 2 (bold)"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_account_financial_report__style_overwrite__3
+msgid "Title 3 (bold, smaller)"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_financial_report__date_range__today
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__report_ins_general_ledger__date_range__today
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_partner_ledger__date_range__today
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_trial_balance__date_range__today
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__res_company__date_range__today
+#, python-format
+msgid "Today"
+msgstr "اليوم"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/report/report_partner_ageing_xlsx.py:0
+#: code:addons/account_dynamic_edited/report/report_partner_ageing_xlsx.py:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/wizard/partner_ageing.py:0
+#: code:addons/account_dynamic_edited/wizard/partner_ageing.py:0
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.partner_ageing
+#, python-format
+msgid "Total"
+msgstr "الاجمالي"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: model:ir.actions.act_window,name:account_dynamic_edited.action_ins_trial_balance_wizard
+#: model:ir.actions.report,name:account_dynamic_edited.action_print_trial_balance
+#: model:ir.ui.menu,name:account_dynamic_edited.account_report_tb
+#: model:ir.ui.menu,name:account_dynamic_edited.account_report_tb_wiz
+#, python-format
+msgid "Trial Balance"
+msgstr "ميزان المراجعة"
+
+#. module: account_dynamic_edited
+#: model:ir.actions.client,name:account_dynamic_edited.action_dynamic_allinone_tb_report
+msgid "Trial Balance Report"
+msgstr "تقرير ميزان المراجعة"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_account_financial_report__type
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ageing__type
+msgid "Type"
+msgstr "نوع"
+
+#. module: account_dynamic_edited
+#: model:ins.account.financial.report,name:account_dynamic_edited.ins_account_financial_report_unallocated_earnings0
+msgid "Unallocated Earnings"
+msgstr "ارباح غير موزعة"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Unfolded"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "Unreconciled"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_partner_ledger__reconciled__unreconciled
+msgid "Unreconciled Only"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_res_company__strict_range
+msgid "Use Strict Range"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,help:account_dynamic_edited.field_res_company__strict_range
+msgid "Use this if you want to show TB with retained earnings section"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_financial_report_wiz_modified
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.report_ins_general_ledger_wizard
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_partner_ageing_wizard
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_partner_ledger_wizard
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_trial_balance_wizard
+msgid "VIEW"
+msgstr "عرض"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_financial_report__view_format__vertical
+msgid "Vertical"
+msgstr "رأسي"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_account_financial_report__type__sum
+msgid "View"
+msgstr "عرض"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "View General Ledger"
+msgstr "عرض دفتر الاستاذ العام"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "View Source move"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "With Balance < Zero"
+msgstr "مع رصيد أقل من صفر"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "With Balance > Zero"
+msgstr "مع رصيد أكبر من صفر"
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "With Balance not Zero"
+msgstr "مع رصيد غير صفري"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ledger__balance_greater_than_zero
+msgid "With balance greater than zero"
+msgstr "مع رصيد أكبر من صفر"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,field_description:account_dynamic_edited.field_ins_partner_ledger__balance_less_than_zero
+msgid "With balance less than zero"
+msgstr "مع رصيد أقل من صفر"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__report_report_ins_general_ledger__display_accounts__balance_not_zero
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__report_ins_partner_ledger__display_accounts__balance_not_zero
+msgid "With balance not equal to zero"
+msgstr "مع رصيد غير صفري"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_trial_balance__display_accounts__balance_not_zero
+msgid "With balance not zero"
+msgstr "مع رصيد غير صفري"
+
+#. module: account_dynamic_edited
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_financial_report_wiz_modified
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.report_ins_general_ledger_wizard
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_partner_ageing_wizard
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_partner_ledger_wizard
+#: model_terms:ir.ui.view,arch_db:account_dynamic_edited.ins_trial_balance_wizard
+msgid "XLSX"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_financial_report__date_range__yesterday
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__report_ins_general_ledger__date_range__yesterday
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_partner_ledger__date_range__yesterday
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__ins_trial_balance__date_range__yesterday
+#: model:ir.model.fields.selection,name:account_dynamic_edited.selection__res_company__date_range__yesterday
+#, python-format
+msgid "Yesterday"
+msgstr "الامس"
+
+#. module: account_dynamic_edited
+#: model:ir.model.fields,help:account_dynamic_edited.field_ins_account_financial_report__style_overwrite
+msgid ""
+"You can set up here the format you want this record to be displayed. If you "
+"leave the automatic formatting, it will be computed based on the financial "
+"reports hierarchy (auto-computed field 'level')."
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model,name:account_dynamic_edited.model_report_ins_general_ledger
+msgid "report.ins.general.ledger"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model,name:account_dynamic_edited.model_ins_partner_ageing
+msgid "ins.partner.ageing"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model,name:account_dynamic_edited.model_ins_partner_ledger
+msgid "ins.partner.ledger"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model,name:account_dynamic_edited.model_ins_trial_balance
+msgid "ins.trial.balance"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model,name:account_dynamic_edited.model_report_account_dynamic_edited_general_ledger
+msgid "report.account_dynamic_edited.general_ledger"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model,name:account_dynamic_edited.model_report_account_dynamic_edited_partner_ageing
+msgid "report.account_dynamic_edited.partner_ageing"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model,name:account_dynamic_edited.model_report_account_dynamic_edited_partner_ledger
+msgid "report.account_dynamic_edited.partner_ledger"
+msgstr ""
+
+#. module: account_dynamic_edited
+#: model:ir.model,name:account_dynamic_edited.model_report_account_dynamic_edited_trial_balance
+msgid "report.account_dynamic_edited.trial_balance"
+msgstr ""
+
+#. module: account_dynamic_edited
+#. openerp-web
+#: code:addons/account_dynamic_edited/static/src/xml/view.xml:0
+#, python-format
+msgid "to"
+msgstr "الى"
