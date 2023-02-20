@@ -9,7 +9,7 @@
             <field name="inherit_id" ref="account_budget.crossovered_budget_view_form"/>
             <field name="arch" type="xml">
 
-                <xpath expr="//field[@name='crossovered_budget_line']//tree//button[@name='action_open_budget_entries']"
+                <xpath expr="//field[@name='crossovered_budget_line']//tree//field[@name='practical_amount']"
                        position="before">
                     <field name="account_ids" widget="many2many_tags" invisible="1"/>
 
