@@ -30,16 +30,6 @@ class AccountLineBudget(models.Model):
             if rec.deviation_value:
                 rec.deviation_ratio = rec.planned_amount / rec.deviation_value
 
-    # @api.depends('deviation_value')
-    # @api.onchange('deviation_value')
-    # def _set_is_positive(self):
-    #     for rec in self:
-    #         if rec.deviation_value > 0:
-    #             rec.is_positive = True
-    #         else:
-    #             rec.is_positive = False
-
     deviation_value = fields.Float(string="Deviation Value", compute='_set_deviation_value',store=True )
     deviation_ratio = fields.Float(string="Deviation Ratio",  compute='_set_deviation_ratio',store=True )
-    # is_positive = fields.Boolean(string="", compute='_set_is_positive' )
     account_ids = fields.Many2many(comodel_name="account.account", string="Budgetary Account", related="general_budget_id.account_ids", )

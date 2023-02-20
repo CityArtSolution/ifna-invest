@@ -9,80 +9,15 @@
             <field name="inherit_id" ref="account_budget.crossovered_budget_view_form"/>
             <field name="arch" type="xml">
 
-                <!--                <xpath expr="//field[@name='crossovered_budget_line']//tree//button[@name='action_open_budget_entries']"-->
-                <!--                       position="before">-->
-                <!--                    <field name="account_ids" widget="many2many_tags"/>-->
-                <!--                    <field name="deviation_value"/>-->
-                <!--                    <field name="deviation_ratio"/>-->
+                <xpath expr="//field[@name='crossovered_budget_line']//tree//button[@name='action_open_budget_entries']"
+                       position="before">
+                    <field name="account_ids" widget="many2many_tags" invisible="1"/>
 
-                <!--                </xpath>-->
-                <xpath expr="//page[@name='budget_lines']" position="replace">
-                    <!-- Add your fields or attributes here -->
-                    <page string="Budget Lines" name="budget_lines">
-                        <field name="crossovered_budget_line"
-                               context="{'default_date_from': date_from,'default_date_to': date_to}" colspan="4"
-                               nolabel="1" attrs="{'readonly':[('state','!=','draft')]}">
-                            <tree string="Budget Lines" decoration-success="is_above_budget and planned_amount &gt; 0"
-                                  decoration-danger="is_above_budget and planned_amount &lt; 0" editable="bottom" >
-                                <field name="general_budget_id"
-                                       domain="['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"/>
-                                <field name="analytic_account_id"
-                                       domain="['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
-                                       groups="analytic.group_analytic_accounting"/>
-                                <field name="date_from"/>
-                                <field name="date_to"/>
-                                <field name="paid_date" groups="base.group_no_one"/>
-                                <field name="currency_id" invisible="1"/>
-                                <field name="planned_amount" sum="Planned Amount"/>
-                                <field name="practical_amount" sum="Practical Amount"/>
-                                <field name="theoritical_amount" sum="Theoretical Amount"/>
-                                <field name="account_ids" widget="many2many_tags" invisible="1"/>
-
-                                <field name="deviation_value"  decoration-danger="deviation_value  &lt; 0 " decoration-success="deviation_value &gt; 0"/>
-                                <field name="deviation_ratio"/>
-                                <field name="percentage" widget="percentage"/>
-                                <button type="object" name="action_open_budget_entries" string="Entries..."
-                                        icon="fa-arrow-circle-o-right"/>
-                                <field name="is_above_budget" invisible="1"/>
-                            </tree>
-                            <form string="Budget Lines">
-                                <group>
-                                    <group>
-                                        <field name="currency_id" invisible="1"/>
-                                        <field name="general_budget_id"/>
-                                        <field name="planned_amount"/>
-                                        <field name="analytic_account_id"
-                                               domain="['|', ('company_id', '=', parent.company_id), ('company_id', '=', False)]"
-                                               groups="analytic.group_analytic_accounting"/>
-                                    </group>
-                                    <group>
-                                        <label for="date_from" string="Period"/>
-                                        <div>
-                                            <field name="date_from" class="oe_inline"/>
-                                            -
-                                            <field name="date_to" class="oe_inline"/>
-                                        </div>
-                                        <field name="paid_date" groups="base.group_no_one"/>
-                                        <field name="company_id" options="{'no_create': True}"
-                                               groups="base.group_multi_company"/>
-                                    </group>
-                                </group>
-                            </form>
-                        </field>
-                    </page>
+                    <field name="deviation_value" decoration-danger="deviation_value  &lt; 0 "
+                           decoration-success="deviation_value &gt; 0"/>
+                    <field name="deviation_ratio"/>
 
                 </xpath>
-
-
-<!--                                <tree string="Student" fonts="bold:exam_reg_no=='1001'" colors="blue:admit_no=='1';">-->
-<!--                                    <field name="partner_id"/>-->
-<!--                                    <field name="admit_no"/>-->
-<!--                                    <field name="exam_reg_no"/>-->
-<!--                                    <field name="programme_id"/>-->
-<!--                                    <field name="area_id"/>-->
-<!--                                    <field name="grade_id"/>-->
-<!--                                    <field name="division_id"/>-->
-<!--                                </tree>-->
 
             </field>
         </record>
