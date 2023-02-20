@@ -36,7 +36,7 @@
                                 <field name="planned_amount" sum="Planned Amount"/>
                                 <field name="practical_amount" sum="Practical Amount"/>
                                 <field name="theoritical_amount" sum="Theoretical Amount"/>
-                                <field name="account_ids" widget="many2many_tags"/>
+                                <field name="account_ids" widget="many2many_tags" invisible="1"/>
 
                                 <field name="deviation_value"  decoration-danger="deviation_value  &lt; 0 " decoration-success="deviation_value &gt; 0"/>
                                 <field name="deviation_ratio"/>
