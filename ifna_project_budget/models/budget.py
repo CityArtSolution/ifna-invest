@@ -27,6 +27,7 @@ class AccountLineBudget(models.Model):
                 from_clause, where_clause, where_clause_params = where_query.get_sql()
                 select = "SELECT SUM(amount) from " + from_clause + " where " + where_clause
                 self._set_deviation_value()
+                self._set_deviation_ratio()
 
             else:
                 aml_obj = self.env['account.move.line']
@@ -41,17 +42,19 @@ class AccountLineBudget(models.Model):
                 from_clause, where_clause, where_clause_params = where_query.get_sql()
                 select = "SELECT sum(credit)-sum(debit) from " + from_clause + " where " + where_clause
                 self._set_deviation_value()
+                self._set_deviation_ratio()
 
 
             self.env.cr.execute(select, where_clause_params)
             line.practical_amount = self.env.cr.fetchone()[0] or 0.0
             self._set_deviation_value()
+            self._set_deviation_ratio()
 
     practical_amount = fields.Monetary(
         compute='_compute_practical_amount', string='Practical Amount',help="Amount really earned/spent.")
 
     @api.depends('planned_amount','practical_amount')
-    # @api.onchange('planned_amount','practical_amount')
+    @api.onchange('planned_amount','practical_amount')
     def _set_deviation_value(self):
         for rec in self:
             for account in rec.general_budget_id.account_ids:
