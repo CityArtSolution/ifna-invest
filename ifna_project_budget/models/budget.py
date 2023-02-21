@@ -10,7 +10,7 @@ class AccountLineBudget(models.Model):
     _inherit = 'crossovered.budget.lines'
 
     @api.depends('planned_amount', 'practical_amount')
-    @api.onchange('planned_amount', 'practical_amount')
+    # @api.onchange('planned_amount', 'practical_amount')
     def _set_deviation_value(self):
         for rec in self:
             for account in rec.general_budget_id.account_ids:
@@ -25,7 +25,7 @@ class AccountLineBudget(models.Model):
                         rec.deviation_value = 0.0
 
     @api.depends('planned_amount', 'deviation_value')
-    @api.onchange('planned_amount', 'deviation_value')
+    # @api.onchange('planned_amount', 'deviation_value')
     def _set_deviation_ratio(self):
         for rec in self:
             if rec.crossovered_budget_id.state == 'confirm':
