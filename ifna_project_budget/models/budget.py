@@ -9,7 +9,7 @@ class AccountBudget(models.Model):
 class AccountLineBudget(models.Model):
     _inherit = 'crossovered.budget.lines'
 
-    @api.depends('planned_amount', 'practical_amount')
+    # @api.depends('planned_amount', 'practical_amount')
     # @api.onchange('planned_amount', 'practical_amount')
     def _set_deviation_value(self):
         for rec in self:
@@ -24,7 +24,7 @@ class AccountLineBudget(models.Model):
                     else:
                         rec.deviation_value = 0.0
 
-    @api.depends('planned_amount', 'deviation_value')
+    # @api.depends('planned_amount', 'deviation_value')
     # @api.onchange('planned_amount', 'deviation_value')
     def _set_deviation_ratio(self):
         for rec in self:
@@ -32,8 +32,8 @@ class AccountLineBudget(models.Model):
                 if rec.deviation_value:
                     rec.deviation_ratio = rec.planned_amount / rec.deviation_value
 
-    deviation_value = fields.Float(string="Deviation Value", compute='_set_deviation_value', store=True)
-    deviation_ratio = fields.Float(string="Deviation Ratio", compute='_set_deviation_ratio', store=True)
+    deviation_value = fields.Float(string="Deviation Value", compute='_set_deviation_value', )
+    deviation_ratio = fields.Float(string="Deviation Ratio", compute='_set_deviation_ratio', )
     account_ids = fields.Many2many(comodel_name="account.account", string="Budgetary Account",
                                    related="general_budget_id.account_ids", )
 
@@ -55,8 +55,6 @@ class AccountLineBudget(models.Model):
                 analytic_line_obj._apply_ir_rules(where_query, 'read')
                 from_clause, where_clause, where_clause_params = where_query.get_sql()
                 select = "SELECT SUM(amount) from " + from_clause + " where " + where_clause
-                self._set_deviation_value()
-                self._set_deviation_ratio()
 
             else:
                 aml_obj = self.env['account.move.line']
@@ -70,10 +68,11 @@ class AccountLineBudget(models.Model):
                 aml_obj._apply_ir_rules(where_query, 'read')
                 from_clause, where_clause, where_clause_params = where_query.get_sql()
                 select = "SELECT sum(credit)-sum(debit) from " + from_clause + " where " + where_clause
-                self._set_deviation_value()
-                self._set_deviation_ratio()
 
             self.env.cr.execute(select, where_clause_params)
             line.practical_amount = self.env.cr.fetchone()[0] or 0.0
             self._set_deviation_value()
             self._set_deviation_ratio()
+
+    practical_amount = fields.Monetary(
+        compute='_compute_practical_amount', string='Practical Amount',help="Amount really earned/spent.")
