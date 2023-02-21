@@ -29,6 +29,12 @@ class AccountLineBudget(models.Model):
         for rec in self:
             if rec.deviation_value:
                 rec.deviation_ratio = rec.planned_amount / rec.deviation_value
+    @api.multi
+    def write(self, values):
+        # Add code here
+        self._set_deviation_value()
+        self._set_deviation_ratio()
+        return super(AccountLineBudget, self).write(values)
 
     deviation_value = fields.Float(string="Deviation Value", compute='_set_deviation_value',store=True )
     deviation_ratio = fields.Float(string="Deviation Ratio",  compute='_set_deviation_ratio',store=True )
