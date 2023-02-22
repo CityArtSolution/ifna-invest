@@ -52,7 +52,7 @@ class AccountLineBudget(models.Model):
         for rec in self:
             for account in rec.general_budget_id.account_ids:
                 if rec.deviation_value or not rec.deviation_value:
-                    if rec.crossovered_budget_id.state == 'confirm':
+                    if rec.crossovered_budget_id.state in ['confirm','validate','done']:
                         if account.user_type_id.internal_group in 'expense':
                             print(account)
                             rec.deviation_value = rec.planned_amount + rec.practical_amount
@@ -67,7 +67,7 @@ class AccountLineBudget(models.Model):
     def _set_deviation_ratio(self):
         for rec in self:
             if rec.deviation_ratio or not rec.deviation_ratio:
-                if rec.crossovered_budget_id.state == 'confirm':
+                if rec.crossovered_budget_id.state in ['confirm','validate','done']:
                     if rec.deviation_value:
                         rec.deviation_ratio = ( abs(rec.deviation_value) /rec.planned_amount )
 
