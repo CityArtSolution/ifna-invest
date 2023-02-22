@@ -15,7 +15,12 @@
 
                     <field name="deviation_value" decoration-danger="deviation_value  &lt; 0 "
                            decoration-success="deviation_value &gt; 0"/>
-                    <field name="deviation_ratio"/>
+                        <field name="deviation_ratio" decoration-danger="deviation_value  &lt; 0 "
+                           decoration-success="deviation_value &gt; 0" widget="percentage">
+<!--                        <label for="deviation_ratio" string="%"/>-->
+                        </field>
+
+
 
                 </xpath>
 

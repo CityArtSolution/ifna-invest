@@ -9,34 +9,6 @@ class AccountBudget(models.Model):
 class AccountLineBudget(models.Model):
     _inherit = 'crossovered.budget.lines'
 
-    # @api.depends('planned_amount', 'practical_amount')
-    # @api.onchange('planned_amount', 'practical_amount')
-    def _set_deviation_value(self):
-        for rec in self:
-            for account in rec.general_budget_id.account_ids:
-                if rec.crossovered_budget_id.state == 'confirm':
-                    if account.user_type_id.internal_group in 'expense':
-                        print(account)
-                        rec.deviation_value = rec.planned_amount + rec.practical_amount
-                        print(rec.deviation_value)
-                    elif account.user_type_id.internal_group in 'income':
-                        rec.deviation_value = rec.practical_amount - rec.planned_amount
-                    else:
-                        rec.deviation_value = 0.0
-
-    # @api.depends('planned_amount', 'deviation_value')
-    # @api.onchange('planned_amount', 'deviation_value')
-    def _set_deviation_ratio(self):
-        for rec in self:
-            if rec.crossovered_budget_id.state == 'confirm':
-                if rec.deviation_value:
-                    rec.deviation_ratio = rec.planned_amount / rec.deviation_value
-
-    deviation_value = fields.Float(string="Deviation Value", compute='_set_deviation_value', )
-    deviation_ratio = fields.Float(string="Deviation Ratio", compute='_set_deviation_ratio', )
-    account_ids = fields.Many2many(comodel_name="account.account", string="Budgetary Account",
-                                   related="general_budget_id.account_ids", )
-
     def _compute_practical_amount(self):
         for line in self:
             acc_ids = line.general_budget_id.account_ids.ids
@@ -71,8 +43,35 @@ class AccountLineBudget(models.Model):
 
             self.env.cr.execute(select, where_clause_params)
             line.practical_amount = self.env.cr.fetchone()[0] or 0.0
-            self._set_deviation_value()
-            self._set_deviation_ratio()
+        # self._set_deviation_value()
+        # self._set_deviation_ratio()
 
-    practical_amount = fields.Monetary(
-        compute='_compute_practical_amount', string='Practical Amount',help="Amount really earned/spent.")
+    @api.depends('planned_amount', 'practical_amount')
+    # @api.onchange('planned_amount', 'practical_amount')
+    def _set_deviation_value(self):
+        for rec in self:
+            for account in rec.general_budget_id.account_ids:
+                if rec.deviation_value or not rec.deviation_value:
+                    if rec.crossovered_budget_id.state == 'confirm':
+                        if account.user_type_id.internal_group in 'expense':
+                            print(account)
+                            rec.deviation_value = rec.planned_amount + rec.practical_amount
+                            print(rec.deviation_value)
+                        if account.user_type_id.internal_group in 'income':
+                            rec.deviation_value = rec.practical_amount - rec.planned_amount
+                        # else:
+                        #     rec.deviation_value = 0.0
+
+    @api.depends('planned_amount', 'deviation_value')
+    # @api.onchange('planned_amount', 'deviation_value')
+    def _set_deviation_ratio(self):
+        for rec in self:
+            if rec.deviation_ratio or not rec.deviation_ratio:
+                if rec.crossovered_budget_id.state == 'confirm':
+                    if rec.deviation_value:
+                        rec.deviation_ratio = ( abs(rec.deviation_value) /rec.planned_amount )
+
+    deviation_value = fields.Float(string="Deviation Value", compute='_set_deviation_value',default=0.0 )
+    deviation_ratio = fields.Float(string="Deviation Ratio", compute='_set_deviation_ratio',default=0.0  )
+    account_ids = fields.Many2many(comodel_name="account.account", string="Budgetary Account",
+                                   related="general_budget_id.account_ids", )
