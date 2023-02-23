@@ -724,6 +724,9 @@ class InsGeneralLedger(models.TransientModel):
                             debit = float(sub_line.get('debit'))
                             credit = float(sub_line.get('credit'))
                     balance = debit - credit
+                    row['debit'] = debit
+                    row['credit'] = credit
+                    row['balance'] = balance
                     row['ending_bal'] = True
                     row['initial_bal'] = False
                     move_lines[account.code]['lines']
