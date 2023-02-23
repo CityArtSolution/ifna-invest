@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b3839cbe-664d-4098-868e-d832382f348b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/ifna_project_budget/models/budget.py" beforeDir="false" afterPath="$PROJECT_DIR$/ifna_project_budget/models/budget.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +27,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/samah-kandil/PycharmProjects/odoo-v15/etmana-api-addons&quot;
+    &quot;last_opened_file_path&quot;: &quot;/home/samah-kandil/PycharmProjects/odoo-v14/gold&quot;
   }
 }</component>
   <component name="RunManager">
@@ -45,7 +45,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$USER_HOME$/Odoo-Versions/odoo15/odoo/odoo-bin" />
-      <option name="PARAMETERS" value="--addons-path=$USER_HOME$/Odoo-Versions/odoo15/odoo/addons,odoo-enterprise-v15,$PROJECT_DIR$ -u ifna_project_budget" />
+      <option name="PARAMETERS" value="--addons-path=$USER_HOME$/Odoo-Versions/odoo15/odoo/addons,odoo-enterprise-v15,$PROJECT_DIR$ -u ifna_budget_analysis_report" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
