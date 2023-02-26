@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b3839cbe-664d-4098-868e-d832382f348b" name="Changes" comment="" />
+    <list default="true" id="b3839cbe-664d-4098-868e-d832382f348b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/ifna_project_budget/models/budget.py" beforeDir="false" afterPath="$PROJECT_DIR$/ifna_project_budget/models/budget.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,7 +45,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$USER_HOME$/Odoo-Versions/odoo15/odoo/odoo-bin" />
-      <option name="PARAMETERS" value="--addons-path=$USER_HOME$/Odoo-Versions/odoo15/odoo/addons,odoo-enterprise-v15,$PROJECT_DIR$ -u ifna_budget_analysis_report" />
+      <option name="PARAMETERS" value="--addons-path=$USER_HOME$/Odoo-Versions/odoo15/odoo/addons,odoo-enterprise-v15,$PROJECT_DIR$ -u ifna_project_budget" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
