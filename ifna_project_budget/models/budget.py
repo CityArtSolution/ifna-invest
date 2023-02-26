@@ -69,7 +69,7 @@ class AccountLineBudget(models.Model):
             if rec.deviation_ratio or not rec.deviation_ratio:
                 if rec.crossovered_budget_id.state in ['confirm','validate','done']:
                     if rec.deviation_value:
-                        rec.deviation_ratio = ( abs(rec.deviation_value) /rec.planned_amount )
+                        rec.deviation_ratio = ( abs(rec.deviation_value) /abs(rec.planned_amount) )
 
     deviation_value = fields.Float(string="Deviation Value", compute='_set_deviation_value',default=0.0 )
     deviation_ratio = fields.Float(string="Deviation Ratio", compute='_set_deviation_ratio',default=0.0  )
