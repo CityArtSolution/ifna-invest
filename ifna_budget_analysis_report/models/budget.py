@@ -52,7 +52,7 @@ class CrossoveredBudgetLines(models.Model):
                         group_line['theoritical_amount'] += budget_line_of_group.theoritical_amount
                     if 'deviation_value' in fields or 'percentage' in fields:
                         group_line['deviation_value'] += budget_line_of_group.deviation_value
-                    if 'deviation_ratio' in fields or 'percentage' in fields:
+                    if 'deviation_ratio' in fields:
                         group_line['deviation_ratio'] += budget_line_of_group.deviation_ratio
 
                     if 'percentage' in fields:

@@ -11,8 +11,8 @@
 
                 <xpath expr="//field[@name='practical_amount']" position="after">
                     <!-- Add your fields or attributes here -->
-                    <field name="deviation_value" type="measure" string="deviation Amount"/>
-                    <field name="deviation_ratio" type="measure"  widget="percentage" string="deviation Ratio"/>
+                    <field name="deviation_value" type="measure" string="Deviation Amount"/>
+                    <field name="deviation_ratio" type="measure"  widget="percentage" string="Deviation Ratio"/>
 
                 </xpath>
 
