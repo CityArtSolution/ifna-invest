@@ -116,6 +116,7 @@
                             <field name="generated_user_id" />
                             <field name="date_uploaded" />
                             <field name="description" />
+                            <field name="department_id" options="{'no_create': True, 'no_create_edit': True}"/>
                         </group>
                     </group>
                     <notebook>

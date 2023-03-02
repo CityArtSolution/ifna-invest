@@ -90,14 +90,11 @@ Amount:
                     </tr>
                     <tr>
                         <div class="row">
-                            <div class="col-4" style="text-align:left;">
-                                <strong>Details</strong>
-                            </div>
-                            <div class="col-4" style="">
-                                <span style="text-align:left"></span>
+                            <div class="col-8" style="text-align:left;">
+                                <strong>Details: </strong>
+                                <span style="text-align:left" t-esc="doc.payment_line_ids[0].communication"></span>
                             </div>
                             <div class="col-4"></div>
-
                         </div>
                     </tr>
                 </table>
@@ -124,7 +121,7 @@ Amount:
                         <span t-esc="doc.generated_user_id.name"></span>
                     </div>
                     <div class="col-3" style="border:1px solid #808080;text-align:center;">
-                        <span>CEO Office Manager</span>
+                        <span t-esc="doc.department_id.name"></span>
                     </div>
                     <div class="col-3" style="border:1px solid #808080;text-align:center;">
                         <span style="text-align:left" t-esc="doc.current_user_id.name"></span>

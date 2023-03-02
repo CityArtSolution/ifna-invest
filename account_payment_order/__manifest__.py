@@ -20,7 +20,7 @@
     "development_status": "Mature",
     "category": "Banking addons",
     "external_dependencies": {"python": ["lxml"]},
-    "depends": ["account_payment_partner", "base_iban"],  # for manual_bank_tranfer
+    "depends": ["account_payment_partner", "base_iban", "analytic"],  # for manual_bank_tranfer
     "data": [
         "views/account_payment_method.xml",
         "security/payment_security.xml",
