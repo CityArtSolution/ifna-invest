@@ -7,8 +7,8 @@
     'author': 'City Art',
     'depends': ['web', 'base', 'account'],
     'data': [
-        "views/views.xml",
-        "views/report_payment.xml",
+        "views/res_partner_bank.xml",
+        "views/report_invoice.xml",
              ],
 
     'demo': [],

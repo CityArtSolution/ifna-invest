@@ -69,7 +69,8 @@
                                     <br/>
                             <li>
                                 <strong>
-                                    <span class="o_force_rtl">رقم الآيبان البنكي : <t t-esc="company.partner_id.bank_ids[0].iban"></t>
+                                    <span class="o_force_rtl"><t t-esc="company.partner_id.bank_ids[0].iban"></t>
+                                        رقم الآيبان البنكي :
                                     </span>
                                 </strong>
                             </li>
