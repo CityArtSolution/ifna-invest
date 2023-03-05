@@ -164,22 +164,22 @@
                                     </strong>
                                 </div>
                             </div>
-<!--                            <div class="row" t-if="o.l10n_sa_delivery_date" name="delivery_date">-->
-<!--                                <div class="col-4">-->
-<!--                                    <strong style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">-->
-<!--                                        Delivery Date:-->
-<!--                                    </strong>-->
-<!--                                </div>-->
-<!--                                <div class="col-4 text-center">-->
-<!--                                    <span t-field="o.l10n_sa_delivery_date"/>-->
-<!--                                </div>-->
-<!--                                <div class="col-4 text-right">-->
-<!--                                    <strong style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">-->
-<!--                                        :-->
-<!--                                        تاريخ التوصيل-->
-<!--                                    </strong>-->
-<!--                                </div>-->
-<!--                            </div>-->
+                            <!--                            <div class="row" t-if="o.l10n_sa_delivery_date" name="delivery_date">-->
+                            <!--                                <div class="col-4">-->
+                            <!--                                    <strong style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">-->
+                            <!--                                        Delivery Date:-->
+                            <!--                                    </strong>-->
+                            <!--                                </div>-->
+                            <!--                                <div class="col-4 text-center">-->
+                            <!--                                    <span t-field="o.l10n_sa_delivery_date"/>-->
+                            <!--                                </div>-->
+                            <!--                                <div class="col-4 text-right">-->
+                            <!--                                    <strong style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">-->
+                            <!--                                        :-->
+                            <!--                                        تاريخ التوصيل-->
+                            <!--                                    </strong>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
                             <div class="row" t-if="o.invoice_origin" name="origin">
                                 <div class="col-4">
                                     <strong style="white-space:nowrap">Source:
@@ -372,9 +372,9 @@
                                 <t t-if="not line.display_type" name="account_invoice_line_accountable">
                                     <td class="border text-right" name="account_invoice_line_name">
                                         <span t-field="line.product_id.name" t-options="{'widget': 'text'}"/>
-                                        <t t-if="line.product_id.name != line.with_context(lang='ar_001').product_id.name">
+                                        <t t-if="line.product_id.name">
                                             <br/>
-                                            <span t-field="line.with_context(lang='ar_001').product_id.name"
+                                            <span t-field="line.product_id.name"
                                                   t-options="{'widget': 'text'}"/>
                                         </t>
                                     </td>
@@ -440,7 +440,8 @@
                 <!-- Add your fields or attributes here -->
                 <div id="total" class="row">
                     <div class="col-6">
-                        <table class="table table-sm" style=" border: 1px solid black;border-collapse: collapse;page-break-inside: avoid;">
+                        <table class="table table-sm"
+                               style=" border: 1px solid black;border-collapse: collapse;page-break-inside: avoid;">
                             <tr class="border-black o_subtotal">
                                 <td>
                                     <strong style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;">
@@ -450,7 +451,8 @@
                                     </strong>
                                 </td>
                                 <td class="text-right">
-                                    <span style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;" t-field="o.amount_untaxed"/>
+                                    <span style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;"
+                                          t-field="o.amount_untaxed"/>
                                 </td>
                             </tr>
                             <t t-set="tax_totals" t-value="json.loads(o.tax_totals_json)"/>
@@ -467,7 +469,8 @@
                                     </strong>
                                 </td>
                                 <td style="background-color:#b1c9b8;" class="text-right">
-                                    <span style="font-size: 16.0092px; font-family: sans-serif;color:white;" class="text-nowrap" t-field="o.amount_total"/>
+                                    <span style="font-size: 16.0092px; font-family: sans-serif;color:white;"
+                                          class="text-nowrap" t-field="o.amount_total"/>
                                 </td>
                             </tr>
 
@@ -515,36 +518,36 @@
             </xpath>
         </template>
 
-    <template id="arabic_english_invoice" inherit_id="l10n_sa_invoice.arabic_english_invoice">
-        <xpath expr="//div[@name='delivery_date']" position="replace">
-            <div class="row" t-if="o.l10n_sa_delivery_date" name="delivery_date">
-                                <div class="col-4">
-                                    <strong style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
-                                        Delivery Date:
-                                    </strong>
-                                </div>
-                                <div class="col-4 text-center">
-                                    <span t-field="o.l10n_sa_delivery_date"/>
-                                </div>
-                                <div class="col-4 text-right">
-                                    <strong style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
-                                        :
-                                        تاريخ التوصيل
-                                    </strong>
-                                </div>
-                            </div>
-        </xpath>
+        <template id="arabic_english_invoice" inherit_id="l10n_sa_invoice.arabic_english_invoice">
+            <xpath expr="//div[@name='delivery_date']" position="replace">
+                <div class="row" t-if="o.l10n_sa_delivery_date" name="delivery_date">
+                    <div class="col-4">
+                        <strong style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
+                            Delivery Date:
+                        </strong>
+                    </div>
+                    <div class="col-4 text-center">
+                        <span t-field="o.l10n_sa_delivery_date"/>
+                    </div>
+                    <div class="col-4 text-right">
+                        <strong style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
+                            :
+                            تاريخ التوصيل
+                        </strong>
+                    </div>
+                </div>
+            </xpath>
 
-        <xpath expr="//t[@t-set='address']" position="after">
-            <t t-set="information_block">
-                <p>
-                    <img t-if="o.l10n_sa_qr_code_str"
-                         style="display:block;"
-                         t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', o.l10n_sa_qr_code_str, 130, 130)"/>
-                </p>
-            </t>
-        </xpath>
-    </template>
+            <xpath expr="//t[@t-set='address']" position="after">
+                <t t-set="information_block">
+                    <p>
+                        <img t-if="o.l10n_sa_qr_code_str"
+                             style="display:block;"
+                             t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', o.l10n_sa_qr_code_str, 130, 130)"/>
+                    </p>
+                </t>
+            </xpath>
+        </template>
 
     </data>
 </odoo>
