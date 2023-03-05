@@ -9,7 +9,9 @@
     'data': [
         "views/res_partner_bank.xml",
         "views/report_invoice.xml",
-             ],
+        # "views/invoice.xml",
+
+    ],
 
     'demo': [],
     'test': [],
