@@ -123,42 +123,42 @@
                         </div>
                         <div class="row" t-if="o.invoice_date" name="invoice_date">
                             <div class="col-4">
-                                <strong style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">Invoice Date:
+                                <strong style="white-space:nowrap">Invoice Date:
                                 </strong>
                             </div>
                             <div class="col-4 text-center">
                                 <span t-field="o.invoice_date"/>
                             </div>
                             <div class="col-4 text-right">
-                                <strong style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">:
+                                <strong style="white-space:nowrap">:
                                     تاريخ الفاتورة
                                 </strong>
                             </div>
                         </div>
                         <div class="row" t-if="o.invoice_date_due and o.move_type == 'out_invoice' and o.state == 'posted'" name="due_date">
                             <div class="col-4">
-                                <strong style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">Due Date:
+                                <strong style="white-space:nowrap">Due Date:
                                 </strong>
                             </div>
                             <div class="col-4 text-center">
                                 <span t-field="o.invoice_date_due"/>
                             </div>
                             <div class="col-4 text-right">
-                                <strong style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">:
+                                <strong style="white-space:nowrap">:
                                     تاريخ الاستحقاق
                                 </strong>
                             </div>
                         </div>
                         <div class="row" t-if="o.l10n_sa_delivery_date" name="delivery_date">
                             <div class="col-4">
-                                <strong style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">Delivery Date:
+                                <strong style="white-space:nowrap">Delivery Date:
                                 </strong>
                             </div>
                             <div class="col-4 text-center">
                                 <span t-field="o.l10n_sa_delivery_date"/>
                             </div>
                             <div class="col-4 text-right">
-                                <strong style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">:
+                                <strong style="white-space:nowrap">:
                                 تاريخ التوصيل
                                 </strong>
                             </div>
@@ -237,7 +237,7 @@
         <xpath expr="//table[@name='invoice_line_table']" position="replace">
             <table class="border table table-sm o_main_table" style="margin-top: 5px;direction: rtl;" name="invoice_line_table">
                 <thead>
-                    <tr style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;">
+                    <tr>
                         <t t-set="colspan" t-value="10"/>
                         <th name="th_description" class="border text-right">
                             <span>
@@ -341,7 +341,7 @@
                         <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
                         <t t-set="current_subtotal" t-value="current_subtotal + line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
 
-                        <tr style="font-size: 16.0092px; font-family: sans-serif;" class="border" t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
+                        <tr class="border" t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
                             <t t-if="not line.display_type" name="account_invoice_line_accountable">
                                 <td class="border text-right" name="account_invoice_line_name">
                                     <span t-field="line.product_id.name" t-options="{'widget': 'text'}"/>

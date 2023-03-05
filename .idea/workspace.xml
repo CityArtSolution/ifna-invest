@@ -6,38 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b3839cbe-664d-4098-868e-d832382f348b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account_payment_partner/views/report_invoice.xml" beforeDir="false" afterPath="$PROJECT_DIR$/account_payment_partner/views/report_invoice.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bstt_account_invoice/reports/invoice_report.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bstt_account_invoice/reports/invoice_report.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_print/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_print/__manifest__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_print/models/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_print/models/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_print/static/description/src/css/pos_style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_print/static/description/src/css/web_style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_print/static/description/src/fonts/Almarai/Almarai-Bold.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_print/static/description/src/fonts/Almarai/Almarai-Bold.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_print/static/description/src/fonts/Almarai/Almarai-Bold.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_print/static/description/src/fonts/Almarai/Almarai-Bold.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_print/static/description/src/fonts/Almarai/Almarai-Bold.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_print/static/description/src/fonts/Almarai/Almarai-Extrabold.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_print/static/description/src/fonts/Almarai/Almarai-Extrabold.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_print/static/description/src/fonts/Almarai/Almarai-Extrabold.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_print/static/description/src/fonts/Almarai/Almarai-Extrabold.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_print/static/description/src/fonts/Almarai/Almarai-Extrabold.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_print/static/description/src/fonts/Almarai/Almarai-Light.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_print/static/description/src/fonts/Almarai/Almarai-Light.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_print/static/description/src/fonts/Almarai/Almarai-Light.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_print/static/description/src/fonts/Almarai/Almarai-Light.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_print/static/description/src/fonts/Almarai/Almarai-Light.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_print/static/description/src/fonts/Almarai/Almarai-Regular.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_print/static/description/src/fonts/Almarai/Almarai-Regular.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_print/static/description/src/fonts/Almarai/Almarai-Regular.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_print/static/description/src/fonts/Almarai/Almarai-Regular.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_print/static/description/src/fonts/Almarai/Almarai-Regular.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_print/static/description/src/scss/almaraifont.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_print/static/images/footer.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_print/static/images/header.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_print/views/invoice.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ifna_invoice_report/views/report_invoice.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ifna_invoice_report/views/report_invoice.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
