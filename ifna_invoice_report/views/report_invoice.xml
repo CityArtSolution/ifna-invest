@@ -197,10 +197,10 @@
                             </div>
 
                         </div>
-<!--                        <div class="col-3" colspan="5" name="qr_code">-->
-<!--                            <img t-if="o.l10n_sa_qr_code_str" style="display:block;margin: auto;"-->
-<!--                                 t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', o.l10n_sa_qr_code_str, 100, 100)"/>-->
-<!--                        </div>-->
+                        <div class="col-3" colspan="5" name="qr_code">
+                            <img t-if="o.l10n_sa_qr_code_str" style="display:block;margin: auto;"
+                                 t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', o.l10n_sa_qr_code_str, 100, 100)"/>
+                        </div>
                     </div>
                     <div class="col-auto mw-100 mb-4" t-if="o.ref" name="reference">
                         <div class="col-4">
@@ -539,13 +539,13 @@
                 </div>
             </xpath>
 
-            <xpath expr="//t[@t-set='address']" position="after">
+            <xpath expr="//t[@t-set='information_block']" position="replace">
                 <t t-set="information_block">
-                    <p>
-                        <img t-if="o.l10n_sa_qr_code_str"
-                             style="display:block;"
-                             t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', o.l10n_sa_qr_code_str, 130, 130)"/>
-                    </p>
+<!--                    <p>-->
+<!--                        <img t-if="o.l10n_sa_qr_code_str"-->
+<!--                             style="display:block;"-->
+<!--                             t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', o.l10n_sa_qr_code_str, 130, 130)"/>-->
+<!--                    </p>-->
                 </t>
             </xpath>
         </template>
