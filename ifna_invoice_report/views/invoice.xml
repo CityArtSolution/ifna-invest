@@ -104,15 +104,15 @@
 <!--                                        <span t-field="o.partner_id.vat"/>-->
 <!--                                    </div>-->
                                 </t>
-                                 <br/>
-                                 <br/>
+
+
                                 <div class="col-4" style="text-align:left">
                                     <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'">
                                         <pre>Tax Invoice</pre>
                                     </span>
                                 </div>
                                 <div class="col-4 text-center">
-                                    <span t-if="o.name != '/'" t-field="o.name"/>
+                                    <pre> <span t-if="o.name != '/'" t-field="o.name"/>  </pre>
                                 </div>
                                 <div class="col-4" style="text-align:right">
                                     <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'">
@@ -130,82 +130,82 @@
                                 <div class="col-8">
                                     <div class="row" t-if="o.name" name="inv_name">
                                         <div class="col-4">
-                                            <strong style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
+                                            <pre style="font-size: 15.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
                                                 Invoice Number:
-                                            </strong>
+                                            </pre>
                                         </div>
                                         <div class="col-4 text-center">
                                             <span t-if="o.name != '/'" t-field="o.name"/>
                                         </div>
                                         <div class="col-4 text-right">
-                                            <strong style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
+                                            <pre style="font-size: 15.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
                                                 :
                                                 رقم الفاتورة
-                                            </strong>
+                                            </pre>
                                         </div>
                                     </div>
                                     <div class="row" t-if="o.invoice_date" name="invoice_date">
                                         <div class="col-4">
-                                            <strong style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
+                                            <pre style="font-size: 15.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
                                                 Invoice Date:
-                                            </strong>
+                                            </pre>
                                         </div>
                                         <div class="col-4 text-center">
                                             <span t-field="o.invoice_date"/>
                                         </div>
                                         <div class="col-4 text-right">
-                                            <strong style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
+                                            <pre style="font-size: 15.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
                                                 :
                                                 تاريخ الفاتورة
-                                            </strong>
+                                            </pre>
                                         </div>
                                     </div>
                                     <div class="row"
                                          t-if="o.invoice_date_due and o.move_type == 'out_invoice' and o.state == 'posted'"
                                          name="due_date">
                                         <div class="col-4">
-                                            <strong style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
+                                            <pre style="font-size: 15.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
                                                 Due Date:
-                                            </strong>
+                                            </pre>
                                         </div>
                                         <div class="col-4 text-center">
                                             <span t-field="o.invoice_date_due"/>
                                         </div>
                                         <div class="col-4 text-right">
-                                            <strong style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
+                                            <pre style="font-size: 15.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
                                                 :
                                                 تاريخ الاستحقاق
-                                            </strong>
+                                            </pre>
                                         </div>
                                     </div>
                                     <div class="row" t-if="o.l10n_sa_delivery_date" name="delivery_date">
                                         <div class="col-4">
-                                            <strong style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
+                                            <pre style="font-size: 15.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
                                                 Delivery Date:
-                                            </strong>
+                                            </pre>
                                         </div>
                                         <div class="col-4 text-center">
                                             <span t-field="o.l10n_sa_delivery_date"/>
                                         </div>
                                         <div class="col-4 text-right">
-                                            <strong style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
+                                            <pre style="font-size: 15.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
                                                 :
                                                 تاريخ التوصيل
-                                            </strong>
+                                            </pre>
                                         </div>
                                     </div>
                                     <div class="row" t-if="o.invoice_origin" name="origin">
                                         <div class="col-4">
-                                            <strong style="white-space:nowrap">Source:
-                                            </strong>
+                                            <pre style="white-space:nowrap">Source:
+                                            </pre>
                                         </div>
                                         <div class="col-4 text-center">
                                             <span t-field="o.invoice_origin"/>
                                         </div>
                                         <div class="col-4 text-right">
-                                            <strong style="white-space:nowrap">:
+                                            <pre style="white-space:nowrap">:
                                                 المصدر
-                                            </strong>
+                                            </pre>
                                         </div>
                                     </div>
 
@@ -214,30 +214,19 @@
                             </div>
                             <div class="col-auto mw-100 mb-4" t-if="o.ref" name="reference">
                                 <div class="col-4">
-                                    <strong style="white-space:nowrap">Reference:
-                                    </strong>
+                                    <pre style="white-space:nowrap">Reference:
+                                    </pre>
                                 </div>
                                 <div class="col-4">
-                                    <span t-field="o.ref"/>
+                                    <pre> <span t-field="o.ref"/> </pre>
                                 </div>
                                 <div class="col-4 text-right">
-                                    <strong style="white-space:nowrap">:
+                                    <pre style="white-space:nowrap">:
                                         رقم الإشارة
-                                    </strong>
+                                    </pre>
                                 </div>
                             </div>
                         </div>
-                        <style>
-                            div.round {
-                            border-radius: 35px;
-                            white-space: nowrap;
-                            direction: rtl;
-                            background-color: #e7edef;
-                            display: block;
-                            padding: 25px;
-                            margin: 25px;
-                            }
-                        </style>
                         <!--                                                <div class="row">-->
                         <!--                                                    <div class="col-1"></div>-->
                         <!--                                                    <div class="col-9 round">-->
@@ -266,105 +255,103 @@
                         <!--                                                </div>-->
                         <t t-set="display_discount" t-value="any(l.discount for l in o.invoice_line_ids)"/>
                         <br/>
-                        <br/>
-                        <br/>
                         <table class="border table table-sm o_main_table" style="margin-top: 5px;direction: rtl;"
                                name="invoice_line_table">
                             <thead>
-                                <tr style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;">
+                                <tr style="font-size: 15.0092px; font-family: sans-serif;color:#b1c9b8;">
                                     <t t-set="colspan" t-value="10"/>
 
                                     <th name="th_description" class="border text-right">
-                                        <span>
+                                        <pre>
                                             Description
-                                        </span>
+                                        </pre>
                                         <br/>
-                                        <span>
+                                        <pre>
                                             الوصف
-                                        </span>
+                                        </pre>
                                     </th>
                                     <th t-if="o.env.user.has_group('bstt_account_invoice.group_show_product_code')"
                                         name="th_internal_reference" class="border text-left">
-                                        <span>
+                                        <pre>
                                             Code
-                                        </span>
+                                        </pre>
                                         <br/>
-                                        <span>
+                                        <pre>
                                             الكود
-                                        </span>
+                                        </pre>
                                     </th>
                                     <th name="th_source" class="border d-none text-left" t-if="0">
-                                        <span>
+                                        <pre>
                                             Source Document
-                                        </span>
+                                        </pre>
                                         <br/>
-                                        <span>
+                                        <pre>
                                             المستند المصدر
-                                        </span>
+                                        </pre>
                                     </th>
                                     <th name="th_quantity" class="border text-right">
-                                        <span>
+                                        <pre>
                                             Quantity
-                                        </span>
+                                        </pre>
                                         <br/>
-                                        <span>
+                                        <pre>
                                             الكمية
-                                        </span>
+                                        </pre>
                                     </th>
                                     <th name="th_priceunit" class="border text-right">
-                                        <span>
+                                        <pre>
                                             Unit price
-                                        </span>
+                                        </pre>
                                         <br/>
-                                        <span>
+                                        <pre>
                                             سعر الوحدة
-                                        </span>
+                                        </pre>
                                     </th>
                                     <th name="th_price_unit" t-if="display_discount" class="border text-right">
-                                        <span>
+                                        <pre>
                                             Disc.%
-                                        </span>
+                                        </pre>
                                         <br/>
-                                        <span>
+                                        <pre>
                                             خصم %
-                                        </span>
+                                        </pre>
                                         <t t-set="colspan" t-value="colspan+1"/>
                                     </th>
                                     <th name="th_taxes" class="border text-right">
-                                        <span>
+                                        <pre>
                                             Taxes
-                                        </span>
+                                        </pre>
                                         <br/>
-                                        <span>
+                                        <pre>
                                             الضرائب
-                                        </span>
+                                        </pre>
                                     </th>
                                     <th name="th_subtotal" class="border text-right">
-                                        <span>
+                                        <pre>
                                             Amount
-                                        </span>
+                                        </pre>
                                         <br/>
-                                        <span>
+                                        <pre>
                                             مبلغ
-                                        </span>
+                                        </pre>
                                     </th>
                                     <th name="border th_tax_amount" class="text-right">
-                                        <span>
+                                        <pre>
                                             VAT Amount
-                                        </span>
+                                        </pre>
                                         <br/>
-                                        <span>
+                                        <pre>
                                             قيمة الضريبة
-                                        </span>
+                                        </pre>
                                     </th>
                                     <th name="th_total" class="border text-right">
-                                        <span>
+                                        <pre>
                                             Total Price
-                                        </span>
+                                        </pre>
                                         <br/>
-                                        <span>
+                                        <pre>
                                             السعر الاجمالي
-                                        </span>
+                                        </pre>
                                     </th>
                                 </tr>
                             </thead>
