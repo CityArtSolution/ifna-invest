@@ -55,24 +55,25 @@
                     <div class="page">
                         <header style="font-family:'arial';padding:5px">
                             <div>
-                                <div class="text-right" width="100%" style="float:left; font-size:13px;">
+                                <div class="text-right" width="100%" style="float:right; font-size:13px;">
                                     <img style="margin-left: auto;display: block;margin-right: auto;height:140pt;width:140pt"
                                          src="ifna_invoice_report/static/img/header.jpeg"/>
 
                                 </div>
                                 <div class="text-right" width="100%"
-                                     style="font-size: 16.0092px; font-family: sans-serif;float:right;">
+                                     style="font-size: 16.0092px; font-family: sans-serif;float:left;">
+                                    <pre style="display:block;">شركة افناء للإستثمار</pre>
+                                    <pre style="display:block;">Vat Number: 311461336300003</pre>
+                                    <pre style="display:block;">Email: iabdulbari@afnaa.sa</pre>
+                                    <pre style="display:block;">الرياض - حى النخيل </pre>
+                                    <pre style="display:block;">التخصصى طريق 7813 - 9 - رقم مكتب</pre>
+                                    <pre style="display:block;">12383-4334, Saudi Arabia</pre>
 
-                                    <span style="display:block;">شركة افناء للإستثمار
-                                    </span>
-                                    <span style="display:block;">Vat Number: 311461336300003</span>
-                                    <span style="display:block;">Email: iabdulbari@afnaa.sa</span>
-                                    <span style="display:block;">لرياض , النخيل حى . التخصصى طريق 7813 - 9 - رقم
-                                        مكتب
-                                        12383-4334, Saudi Arabia
-                                    </span>
+
                                 </div>
                             </div>
+                            <br/>
+                            <br/>
 
                         </header>
                         <br/>
@@ -81,6 +82,8 @@
 
                         <h3>
                             <div class="row">
+                                <br/>
+                                <br/>
                                 <div class="col-4" style="text-align:left">
                                     <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'">
                                         Tax Invoice
@@ -271,14 +274,16 @@
                         <!--                            <div class="col-2"></div>-->
                         <!--                        </div>-->
                         <t t-set="display_discount" t-value="any(l.discount for l in o.invoice_line_ids)"/>
-                         <br/> <br/> <br/>
+                        <br/>
+                        <br/>
+                        <br/>
                         <table class="border table table-sm o_main_table" style="margin-top: 5px;direction: rtl;"
                                name="invoice_line_table">
                             <thead>
                                 <tr style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;">
                                     <t t-set="colspan" t-value="10"/>
 
-                                     <th name="th_description" class="border text-right">
+                                    <th name="th_description" class="border text-right">
                                         <span>
                                             Description
                                         </span>
@@ -388,16 +393,16 @@
                                         t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
                                         <t t-if="not line.display_type" name="account_invoice_line_accountable">
                                             <td class="border text-right" name="account_invoice_line_name">
-<!--                                                <span t-field="line.product_id.name" t-options="{'widget': 'text'}"/>-->
+                                                <!--                                                <span t-field="line.product_id.name" t-options="{'widget': 'text'}"/>-->
                                                 <t t-if="line.name">
                                                     <br/>
                                                     <span t-field="line.name"
                                                           t-options="{'widget': 'text'}"/>
                                                 </t>
                                             </td>
-<!--                                             <td class="border text-right">-->
-<!--                                                <span t-field="line.name"/>-->
-<!--                                            </td>-->
+                                            <!--                                             <td class="border text-right">-->
+                                            <!--                                                <span t-field="line.name"/>-->
+                                            <!--                                            </td>-->
                                             <td t-if="o.env.user.has_group('bstt_account_invoice.group_show_product_code')"
                                                 class="border text-right">
                                                 <span t-field="line.product_id.default_code"/>
