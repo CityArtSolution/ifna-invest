@@ -2,6 +2,32 @@
 <odoo>
     <data>
 
+        <record id="paperformat_custom_invoice" model="report.paperformat">
+            <field name="name">Tax Invoice Format</field>
+            <field name="default" eval="False"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">45</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">15</field>
+        </record>
+
+        <!--         data action  -->
+        <record id="action_tax_invoice_report" model="ir.actions.report">
+            <field name="name">Tax Invoice - فاتورة ضريبية</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">ifna_invoice_report.report_invoice</field>
+            <field name="report_file">ifna_invoice_report.report_invoice</field>
+            <field name="print_report_name">(object._get_report_base_filename())</field>
+            <field name="paperformat_id" ref="ifna_invoice_report.paperformat_custom_invoice"/>
+            <field name="binding_model_id" ref="model_account_move"/>
+            <field name="binding_type">report</field>
+        </record>
+
         <template id="report_invoice_new"
                   inherit_id="l10n_gcc_invoice.arabic_english_invoice">
 
@@ -590,6 +616,13 @@
             </xpath>
 
         </template>
+
+    <template id="report_invoice" inherit_id="account.report_invoice">
+        <xpath expr='//t[@t-call="l10n_gcc_invoice.arabic_english_invoice"]' position="replace">
+            <t t-if="o._get_name_invoice_report() == 'l10n_gcc_invoice.arabic_english_invoice'"
+               t-call="ifna_invoice_report.report_invoice_new" t-lang="lang"/>
+        </xpath>
+    </template>
 
 
     </data>
