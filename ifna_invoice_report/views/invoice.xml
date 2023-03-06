@@ -49,7 +49,7 @@
                                          src="ifna_invoice_report/static/img/header.jpeg"/>
 
                                 </div>
-                                <div class="text-right" width="100%"
+                                <div class="text-left" width="100%"
                                      style="font-size: 14.0092px; font-family: sans-serif;float:left;">
                                     <pre style="display:block;">شركة افناء للإستثمار</pre>
                                     <pre style="display:block;">Vat Number:311461336300003</pre>
