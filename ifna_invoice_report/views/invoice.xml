@@ -50,7 +50,7 @@
 
                                 </div>
                                 <div class="text-left" width="100%"
-                                     style="font-size: 14.0092px; font-family: sans-serif;float:left;">
+                                     style="font-size: 15.0092px; font-family: sans-serif;float:left;">
                                     <pre style="display:block;">شركة افناء للإستثمار</pre>
                                     <pre style="display:block;">Vat Number:311461336300003</pre>
                                     <pre style="display:block;">Email:iabdulbari@afnaa.sa</pre>
@@ -71,7 +71,7 @@
                         <br/>
                         <hr style="width:100%" size="10" color="#717070"/>
                         <div >
-                            <div  style="font-size: 16.0092px; font-family: sans-serif;text-align:right;float:right">
+                            <div  style="font-size: 15.0092px; font-family: sans-serif;text-align:right;float:right">
                                         <span t-field="o.partner_id.name"/>
                                         <span t-field="o.partner_id.vat"/>
                                         <span t-field="o.partner_id.ref"/>
@@ -93,35 +93,22 @@
                                 <br/>
 
                                 <t t-set="address">
-                                    <address t-field="o.partner_id"
-                                             t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'
-                                             style="text-align: right"/>
-                                    <div t-if="o.partner_id.vat" class="mt16" style="text-align: right">
-                                        <t t-if="o.company_id.account_fiscal_country_id.vat_label"
-                                           t-esc="o.company_id.account_fiscal_country_id.vat_label"
-                                           id="inv_tax_id_label"/>
-                                        <t t-else="">Tax ID</t>:
-                                        <span t-field="o.partner_id.vat"/>
-                                    </div>
+<!--                                    <address t-field="o.partner_id"-->
+<!--                                             t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'-->
+<!--                                             style="text-align: right"/>-->
+<!--                                    <div t-if="o.partner_id.vat" class="mt16" style="text-align: right">-->
+<!--                                        <t t-if="o.company_id.account_fiscal_country_id.vat_label"-->
+<!--                                           t-esc="o.company_id.account_fiscal_country_id.vat_label"-->
+<!--                                           id="inv_tax_id_label"/>-->
+<!--                                        <t t-else="">Tax ID</t>:-->
+<!--                                        <span t-field="o.partner_id.vat"/>-->
+<!--                                    </div>-->
                                 </t>
+                                 <br/>
+                                 <br/>
                                 <div class="col-4" style="text-align:left">
                                     <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'">
-                                        Tax Invoice
-                                    </span>
-                                    <span t-if="o.move_type == 'out_invoice' and o.state == 'draft'">
-                                        Draft Invoice
-                                    </span>
-                                    <span t-if="o.move_type == 'out_invoice' and o.state == 'cancel'">
-                                        Cancelled Invoice
-                                    </span>
-                                    <span t-if="o.move_type == 'out_refund'">
-                                        Credit Note
-                                    </span>
-                                    <span t-if="o.move_type == 'in_refund'">
-                                        Vendor Credit Note
-                                    </span>
-                                    <span t-if="o.move_type == 'in_invoice'">
-                                        Vendor Bill
+                                        <pre>Tax Invoice</pre>
                                     </span>
                                 </div>
                                 <div class="col-4 text-center">
@@ -129,23 +116,9 @@
                                 </div>
                                 <div class="col-4" style="text-align:right">
                                     <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'">
-                                        فاتورة ضريبية
+                                       <pre>   فاتورة ضريبية</pre>
                                     </span>
-                                    <span t-if="o.move_type == 'out_invoice' and o.state == 'draft'">
-                                        مسودة فاتورة
-                                    </span>
-                                    <span t-if="o.move_type == 'out_invoice' and o.state == 'cancel'">
-                                        فاتورة ملغاة
-                                    </span>
-                                    <span t-if="o.move_type == 'out_refund'">
-                                        إشعار خصم
-                                    </span>
-                                    <span t-if="o.move_type == 'in_refund'">
-                                        إشعار خصم المورد
-                                    </span>
-                                    <span t-if="o.move_type == 'in_invoice'">
-                                        فاتورة المورد
-                                    </span>
+
                                 </div>
                             </div>
                         </h3>
