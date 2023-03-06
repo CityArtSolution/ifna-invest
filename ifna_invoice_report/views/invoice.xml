@@ -37,12 +37,11 @@
                     <t t-set="o" t-value="o.with_context(lang=lang)"/>
                     <t t-set="forced_vat"
                        t-value="o.fiscal_position_id.foreign_vat"/> <!-- So that it appears in the footer of the report instead of the company VAT if it's set -->
-
-
                     <t t-set="o_sec" t-value="o.with_context(lang='ar_001')"/>
                     <t t-set="o" t-value="o.with_context(lang='en_US')"/>
 
                     <div class="page">
+
                         <header style="font-family:'arial';padding:5px">
                             <div>
                                 <div class="text-right" width="100%" style="float:right; font-size:13px;">
@@ -71,11 +70,26 @@
                         <br/>
                         <br/>
                         <hr style="width:100%" size="10" color="#717070"/>
-
+                        <div >
+                            <div  style="font-size: 16.0092px; font-family: sans-serif;text-align:right;float:right">
+                                        <span t-field="o.partner_id.name"/>
+                                        <span t-field="o.partner_id.vat"/>
+                                        <span t-field="o.partner_id.ref"/>
+                                        <span t-esc='o.with_context(lang="ar_001").partner_id'
+                                              t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')"
+                                              class="add address-inline"/>
+                                <div style="float:left" class="col-3" colspan="5" name="qr_code">
+                                    <img t-if="o.l10n_sa_qr_code_str" style="display:block;margin: auto;"
+                                         t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', o.l10n_sa_qr_code_str, 100, 100)"/>
+                                </div>
+                            </div>
+                            <div class="col-2"></div>
+                        </div>
                         <h3>
                             <div class="row">
                                 <br/>
                                 <br/>
+
                                 <t t-set="address">
                                     <address t-field="o.partner_id"
                                              t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'
@@ -221,10 +235,7 @@
                                     </div>
 
                                 </div>
-                                <div class="col-3" colspan="5" name="qr_code">
-                                    <img t-if="o.l10n_sa_qr_code_str" style="display:block;margin: auto;"
-                                         t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', o.l10n_sa_qr_code_str, 100, 100)"/>
-                                </div>
+
                             </div>
                             <div class="col-auto mw-100 mb-4" t-if="o.ref" name="reference">
                                 <div class="col-4">
@@ -252,32 +263,32 @@
                             margin: 25px;
                             }
                         </style>
-                        <!--                        <div class="row">-->
-                        <!--                            <div class="col-1"></div>-->
-                        <!--                            <div class="col-9 round">-->
-                        <!--                                <div class="customer">-->
-                        <!--                                    <div class="row">-->
-                        <!--                                        <span>اسم العميل:</span>-->
-                        <!--                                        <span t-field="o.partner_id.name"/>-->
-                        <!--                                    </div>-->
-                        <!--                                    <div class="row">-->
-                        <!--                                        <span>الرقم الضريبي:</span>-->
-                        <!--                                        <span t-field="o.partner_id.vat"/>-->
-                        <!--                                    </div>-->
-                        <!--                                    <div class="row">-->
-                        <!--                                        <span>كود العميل:</span>-->
-                        <!--                                        <span t-field="o.partner_id.ref"/>-->
-                        <!--                                    </div>-->
-                        <!--                                    <div class="row">-->
-                        <!--                                        <span>عنوان العميل:</span>-->
-                        <!--                                        <span t-esc='o.with_context(lang="ar_001").partner_id'-->
-                        <!--                                              t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')"-->
-                        <!--                                              class="add address-inline"/>-->
-                        <!--                                    </div>-->
-                        <!--                                </div>-->
-                        <!--                            </div>-->
-                        <!--                            <div class="col-2"></div>-->
-                        <!--                        </div>-->
+                        <!--                                                <div class="row">-->
+                        <!--                                                    <div class="col-1"></div>-->
+                        <!--                                                    <div class="col-9 round">-->
+                        <!--                                                        <div class="customer">-->
+                        <!--                                                            <div class="row">-->
+                        <!--                                                                <span>اسم العميل:</span>-->
+                        <!--                                                                <span t-field="o.partner_id.name"/>-->
+                        <!--                                                            </div>-->
+                        <!--                                                            <div class="row">-->
+                        <!--                                                                <span>الرقم الضريبي:</span>-->
+                        <!--                                                                <span t-field="o.partner_id.vat"/>-->
+                        <!--                                                            </div>-->
+                        <!--                                                            <div class="row">-->
+                        <!--                                                                <span>كود العميل:</span>-->
+                        <!--                                                                <span t-field="o.partner_id.ref"/>-->
+                        <!--                                                            </div>-->
+                        <!--                                                            <div class="row">-->
+                        <!--                                                                <span>عنوان العميل:</span>-->
+                        <!--                                                                <span t-esc='o.with_context(lang="ar_001").partner_id'-->
+                        <!--                                                                      t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')"-->
+                        <!--                                                                      class="add address-inline"/>-->
+                        <!--                                                            </div>-->
+                        <!--                                                        </div>-->
+                        <!--                                                    </div>-->
+                        <!--                                                    <div class="col-2"></div>-->
+                        <!--                                                </div>-->
                         <t t-set="display_discount" t-value="any(l.discount for l in o.invoice_line_ids)"/>
                         <br/>
                         <br/>
