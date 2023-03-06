@@ -162,9 +162,9 @@
                                          t-if="o.invoice_date_due and o.move_type == 'out_invoice' and o.state == 'posted'"
                                          name="due_date">
                                         <div class="col-4">
-                                            <strong style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
+                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
                                                 Due Date:
-                                            </strong>
+                                            </span>
                                         </div>
                                         <div class="col-4 text-center">
                                             <span t-field="o.invoice_date_due"/>
@@ -194,8 +194,8 @@
                                     </div>
                                     <div class="row" t-if="o.invoice_origin" name="origin">
                                         <div class="col-4">
-                                            <strong style="white-space:nowrap">Source:
-                                            </strong>
+                                            <span style="white-space:nowrap">Source:
+                                            </span>
                                         </div>
                                         <div class="col-4 text-center">
                                             <span t-field="o.invoice_origin"/>
