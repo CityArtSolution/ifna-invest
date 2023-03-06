@@ -170,26 +170,26 @@
                                             <span t-field="o.invoice_date_due"/>
                                         </div>
                                         <div class="col-4 text-right">
-                                            <strong style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
+                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
                                                 :
                                                 تاريخ الاستحقاق
-                                            </strong>
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="row" t-if="o.l10n_sa_delivery_date" name="delivery_date">
                                         <div class="col-4">
-                                            <strong style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
+                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
                                                 Delivery Date:
-                                            </strong>
+                                            </span>
                                         </div>
                                         <div class="col-4 text-center">
                                             <span t-field="o.l10n_sa_delivery_date"/>
                                         </div>
                                         <div class="col-4 text-right">
-                                            <strong style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
+                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
                                                 :
                                                 تاريخ التوصيل
-                                            </strong>
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="row" t-if="o.invoice_origin" name="origin">
