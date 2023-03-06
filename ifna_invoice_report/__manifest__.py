@@ -8,7 +8,7 @@
     'depends': ['web', 'base', 'account','l10n_sa_invoice','l10n_gcc_invoice'],
     'data': [
         "views/res_partner_bank.xml",
-        "views/report_invoice.xml",
+        # "views/report_invoice.xml",
         "views/invoice.xml",
 
     ],
