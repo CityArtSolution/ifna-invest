@@ -78,11 +78,12 @@
                                         <span t-esc='o.with_context(lang="ar_001").partner_id'
                                               t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')"
                                               class="add address-inline"/>
-                                <div style="float:left" class="col-3" colspan="5" name="qr_code">
+
+                            </div>
+                            <div style="float:left" class="col-3" colspan="5" name="qr_code">
                                     <img t-if="o.l10n_sa_qr_code_str" style="display:block;margin: auto;"
                                          t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', o.l10n_sa_qr_code_str, 100, 100)"/>
                                 </div>
-                            </div>
                             <div class="col-2"></div>
                         </div>
                         <h3>
