@@ -75,6 +75,8 @@
                             </div>
 
                         </header>
+                        <br/>
+                        <br/>
                         <hr style="width:100%" size="10" color="#717070"/>
 
                         <h3>
@@ -269,6 +271,7 @@
                         <!--                            <div class="col-2"></div>-->
                         <!--                        </div>-->
                         <t t-set="display_discount" t-value="any(l.discount for l in o.invoice_line_ids)"/>
+                         <br/> <br/> <br/>
                         <table class="border table table-sm o_main_table" style="margin-top: 5px;direction: rtl;"
                                name="invoice_line_table">
                             <thead>
