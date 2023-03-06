@@ -50,13 +50,13 @@
 
                                 </div>
                                 <div class="text-right" width="100%"
-                                     style="font-size: 16.0092px; font-family: sans-serif;float:left;">
-                                    <span style="display:block;">شركة افناء للإستثمار</span>
-                                    <span style="display:block;">Vat Number:311461336300003</span>
-                                    <span style="display:block;">Email:iabdulbari@afnaa.sa</span>
-                                    <span style="display:block;">الرياض - حى النخيل</span>
-                                    <span style="display:block;">رقم مكتب - 9 - التخصصى طريق 7813</span>
-                                    <span style="display:block;">12383-4334 Saudi Arabia</span>
+                                     style="font-size: 14.0092px; font-family: sans-serif;float:left;">
+                                    <pre style="display:block;">شركة افناء للإستثمار</pre>
+                                    <pre style="display:block;">Vat Number:311461336300003</pre>
+                                    <pre style="display:block;">Email:iabdulbari@afnaa.sa</pre>
+                                    <pre style="display:block;">الرياض - حى النخيل</pre>
+                                    <pre style="display:block;">رقم مكتب - 9 - التخصصى طريق 7813</pre>
+                                    <pre style="display:block;">12383-4334 Saudi Arabia</pre>
                                     <br/>
                                     <br/>
 
@@ -85,6 +85,7 @@
                                          t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', o.l10n_sa_qr_code_str, 100, 100)"/>
                                 </div>
                             <div class="col-2"></div>
+                            <br/>
                         </div>
                         <h3>
                             <div class="row">
