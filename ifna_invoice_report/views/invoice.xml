@@ -74,11 +74,8 @@
                             </div>
                             </div>
 
-
-
-
                         </header>
-                                    <hr style="width:100%" size="10" color="#717070"/>
+                        <hr style="width:100%" size="10" color="#717070"/>
 
                         <h3>
                             <div class="row">
@@ -609,6 +606,28 @@
                             </div>
                         </p>
 
+                    </div>
+
+
+                      <div class="footer" style="font-family:'arial'">
+                        <hr style="width:100%" size="10" color="black"/>
+<div style="width:100%;height:100%;font-size:12px; display:block;">
+                        <center>
+                            <h6 style="margin:0">
+                                <strong>Afnaa Company for Investment </strong>
+                                <strong>شركة افناء للإستثمار </strong>
+                            </h6>
+                        </center>
+                        <center>
+                            <p style="margin:0"> Bank Name : Inma Bank  اسم البنك : البنك الانماء</p>
+                        </center>
+                        <center>
+                            <p style="margin:0">Account Number : 68204323706000 رقم الحساب</p>
+                        </center>
+                        <center>
+                            <p style="margin:0">IBAN : SA94050000068204323706000   رقم الآيبان البنكي </p>
+                        </center>
+                    </div>
                     </div>
                 </t>
 
