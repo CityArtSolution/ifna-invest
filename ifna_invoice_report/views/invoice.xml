@@ -81,7 +81,7 @@
                             </div>
                             <div style="float:left" class="col-4" colspan="5" name="qr_code">
                                     <img t-if="o.l10n_sa_qr_code_str" style="display:block;"
-                                         t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', o.l10n_sa_qr_code_str, 110, 110)"/>
+                                         t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', o.l10n_sa_qr_code_str, 120, 120)"/>
                                 </div>
                             <div class="col-2"></div>
                             <br/>
