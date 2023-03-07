@@ -12,7 +12,7 @@
             <field name="margin_left">0</field>
             <field name="margin_right">0</field>
             <field name="header_line" eval="False"/>
-            <field name="header_spacing">15</field>
+            <field name="header_spacing">10</field>
         </record>
 
         <!--         data action  -->
@@ -50,13 +50,13 @@
 
                                 </div>
                                 <div class="text-left" width="100%"
-                                     style="font-size: 15.0092px; font-family: sans-serif;float:left;">
-                                    <pre style="display:block;">شركة افناء للإستثمار</pre>
-                                    <pre style="display:block;">Vat Number:311461336300003</pre>
-                                    <pre style="display:block;">Email:iabdulbari@afnaa.sa</pre>
-                                    <pre style="display:block;">الرياض - حى النخيل</pre>
-                                    <pre style="display:block;">رقم مكتب - 9 - التخصصى طريق 7813</pre>
-                                    <pre style="display:block;">12383-4334 Saudi Arabia</pre>
+                                     style="font-size: 16.0092px; font-family: sans-serif;float:left;">
+                                    <span style="display:block;">شركة افناء للإستثمار</span>
+                                    <span style="display:block;">Vat Number:311461336300003</span>
+                                    <span style="display:block;">Email:iabdulbari@afnaa.sa</span>
+                                    <span style="display:block;">الرياض - حى النخيل</span>
+                                    <span style="display:block;">رقم مكتب - 9 - التخصصى طريق 7813</span>
+                                    <span style="display:block;">12383-4334 Saudi Arabia</span>
                                     <br/>
                                     <br/>
 
@@ -67,7 +67,6 @@
                             <br/>
 
                         </header>
-                        <br/>
                         <br/>
                         <hr style="width:100%" size="10" color="#717070"/>
                         <div >
@@ -90,7 +89,6 @@
                         <h3>
                             <div class="row">
                                 <br/>
-                                <br/>
 
                                 <t t-set="address">
 <!--                                    <address t-field="o.partner_id"-->
@@ -105,16 +103,16 @@
 <!--                                    </div>-->
                                 </t>
                                 <div class="col-4" style="text-align:left">
-                                    <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'">
-                                        <pre>Tax Invoice</pre>
+                                    <span style="font-size: 16.0092px; font-family: sans-serif;" t-if="o.move_type == 'out_invoice' and o.state == 'posted'">
+                                        Tax Invoice
                                     </span>
                                 </div>
                                 <div class="col-4 text-center">
-                                    <pre> <span t-if="o.name != '/'" t-field="o.name"/> </pre>
+                                     <span style="font-size: 16.0092px; font-family: sans-serif;" t-if="o.name != '/'" t-field="o.name"/>
                                 </div>
                                 <div class="col-4" style="text-align:right">
-                                    <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'">
-                                       <pre>   فاتورة ضريبية</pre>
+                                    <span style="font-size: 16.0092px; font-family: sans-serif;" t-if="o.move_type == 'out_invoice' and o.state == 'posted'">
+                                         فاتورة ضريبية
                                     </span>
 
                                 </div>
@@ -128,7 +126,7 @@
                                 <div class="col-8">
                                     <div class="row" t-if="o.name" name="inv_name">
                                         <div class="col-4">
-                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
+                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#879c8b;white-space:nowrap">
                                                 Invoice Number:
                                             </span>
                                         </div>
@@ -136,7 +134,7 @@
                                             <span t-if="o.name != '/'" t-field="o.name"/>
                                         </div>
                                         <div class="col-4 text-right">
-                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
+                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#879c8b;white-space:nowrap">
                                                 :
                                                 رقم الفاتورة
                                             </span>
@@ -144,7 +142,7 @@
                                     </div>
                                     <div class="row" t-if="o.invoice_date" name="invoice_date">
                                         <div class="col-4">
-                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
+                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#879c8b;white-space:nowrap">
                                                 Invoice Date:
                                             </span>
                                         </div>
@@ -152,7 +150,7 @@
                                             <span t-field="o.invoice_date"/>
                                         </div>
                                         <div class="col-4 text-right">
-                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
+                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#879c8b;white-space:nowrap">
                                                 :
                                                 تاريخ الفاتورة
                                             </span>
@@ -162,7 +160,7 @@
                                          t-if="o.invoice_date_due and o.move_type == 'out_invoice' and o.state == 'posted'"
                                          name="due_date">
                                         <div class="col-4">
-                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
+                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#879c8b;white-space:nowrap">
                                                 Due Date:
                                             </span>
                                         </div>
@@ -170,7 +168,7 @@
                                             <span t-field="o.invoice_date_due"/>
                                         </div>
                                         <div class="col-4 text-right">
-                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
+                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#879c8b;white-space:nowrap">
                                                 :
                                                 تاريخ الاستحقاق
                                             </span>
@@ -178,7 +176,7 @@
                                     </div>
                                     <div class="row" t-if="o.l10n_sa_delivery_date" name="delivery_date">
                                         <div class="col-4">
-                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
+                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#879c8b;white-space:nowrap">
                                                 Delivery Date:
                                             </span>
                                         </div>
@@ -186,7 +184,7 @@
                                             <span t-field="o.l10n_sa_delivery_date"/>
                                         </div>
                                         <div class="col-4 text-right">
-                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#b1c9b8;white-space:nowrap">
+                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#879c8b;white-space:nowrap">
                                                 :
                                                 تاريخ التوصيل
                                             </span>
