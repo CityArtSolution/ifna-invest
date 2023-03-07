@@ -8,7 +8,7 @@
             <field name="format">A4</field>
             <field name="orientation">Portrait</field>
             <field name="margin_top">10</field>
-            <field name="margin_bottom">45</field>
+            <field name="margin_bottom">25</field>
             <field name="margin_left">0</field>
             <field name="margin_right">0</field>
             <field name="header_line" eval="False"/>
@@ -91,18 +91,9 @@
                                 <br/>
 
                                 <t t-set="address">
-<!--                                    <address t-field="o.partner_id"-->
-<!--                                             t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'-->
-<!--                                             style="text-align: right"/>-->
-<!--                                    <div t-if="o.partner_id.vat" class="mt16" style="text-align: right">-->
-<!--                                        <t t-if="o.company_id.account_fiscal_country_id.vat_label"-->
-<!--                                           t-esc="o.company_id.account_fiscal_country_id.vat_label"-->
-<!--                                           id="inv_tax_id_label"/>-->
-<!--                                        <t t-else="">Tax ID</t>:-->
-<!--                                        <span t-field="o.partner_id.vat"/>-->
-<!--                                    </div>-->
+
                                 </t>
-                                <div class="col-4" style="text-align:left">
+                                <div class="col-4" style="text-align:left;float:left">
                                     <span style="font-size: 16.0092px; font-family: sans-serif;" t-if="o.move_type == 'out_invoice' and o.state == 'posted'">
                                         Tax Invoice
                                     </span>
@@ -367,11 +358,14 @@
                                         t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
                                         <t t-if="not line.display_type" name="account_invoice_line_accountable">
                                             <td class="border text-right" name="account_invoice_line_name">
-                                                <!--                                                <span t-field="line.product_id.name" t-options="{'widget': 'text'}"/>-->
                                                 <t t-if="line.name">
                                                     <br/>
                                                     <span t-field="line.name"
                                                           t-options="{'widget': 'text'}"/>
+                                                </t>
+                                                <t t-else="">>
+                                                    <br/>
+                                                     <span t-field="line.product_id.name" t-options="{'widget': 'text'}"/>
                                                 </t>
                                             </td>
                                             <!--                                             <td class="border text-right">-->
