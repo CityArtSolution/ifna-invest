@@ -126,7 +126,7 @@
                                 <div class="col-8">
                                     <div class="row" t-if="o.name" name="inv_name">
                                         <div class="col-4">
-                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#879c8b;white-space:nowrap">
+                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#62ab8700;white-space:nowrap">
                                                 Invoice Number:
                                             </span>
                                         </div>
@@ -134,7 +134,7 @@
                                             <span t-if="o.name != '/'" t-field="o.name"/>
                                         </div>
                                         <div class="col-4 text-right">
-                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#879c8b;white-space:nowrap">
+                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#62ab8700;white-space:nowrap">
                                                 :
                                                 رقم الفاتورة
                                             </span>
@@ -142,7 +142,7 @@
                                     </div>
                                     <div class="row" t-if="o.invoice_date" name="invoice_date">
                                         <div class="col-4">
-                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#879c8b;white-space:nowrap">
+                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#62ab8700;white-space:nowrap">
                                                 Invoice Date:
                                             </span>
                                         </div>
@@ -150,7 +150,7 @@
                                             <span t-field="o.invoice_date"/>
                                         </div>
                                         <div class="col-4 text-right">
-                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#879c8b;white-space:nowrap">
+                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#62ab8700;white-space:nowrap">
                                                 :
                                                 تاريخ الفاتورة
                                             </span>
@@ -160,7 +160,7 @@
                                          t-if="o.invoice_date_due and o.move_type == 'out_invoice' and o.state == 'posted'"
                                          name="due_date">
                                         <div class="col-4">
-                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#879c8b;white-space:nowrap">
+                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#62ab8700;white-space:nowrap">
                                                 Due Date:
                                             </span>
                                         </div>
@@ -168,7 +168,7 @@
                                             <span t-field="o.invoice_date_due"/>
                                         </div>
                                         <div class="col-4 text-right">
-                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#879c8b;white-space:nowrap">
+                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#62ab8700;white-space:nowrap">
                                                 :
                                                 تاريخ الاستحقاق
                                             </span>
@@ -176,7 +176,7 @@
                                     </div>
                                     <div class="row" t-if="o.l10n_sa_delivery_date" name="delivery_date">
                                         <div class="col-4">
-                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#879c8b;white-space:nowrap">
+                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#62ab8700;white-space:nowrap">
                                                 Delivery Date:
                                             </span>
                                         </div>
@@ -184,7 +184,7 @@
                                             <span t-field="o.l10n_sa_delivery_date"/>
                                         </div>
                                         <div class="col-4 text-right">
-                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#879c8b;white-space:nowrap">
+                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:#62ab8700;white-space:nowrap">
                                                 :
                                                 تاريخ التوصيل
                                             </span>
