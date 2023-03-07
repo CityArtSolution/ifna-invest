@@ -242,13 +242,13 @@
                         <!--                                                </div>-->
                         <t t-set="display_discount" t-value="any(l.discount for l in o.invoice_line_ids)"/>
                         <br/>
-                        <table class="border table table-sm o_main_table" style="margin-top: 5px;direction: rtl;"
+                        <table class="table table-sm o_main_table" style="border:1px solid gray;margin-top: 5px;direction: rtl;"
                                name="invoice_line_table">
                             <thead>
                                 <tr style="font-size: 16.0092px; font-family: sans-serif;color:#72ad89;">
                                     <t t-set="colspan" t-value="10"/>
 
-                                    <th name="th_description" class="border text-right">
+                                    <th name="th_description" style="border:1px solid gray;" class="text-right">
                                         <span>
                                             Description
                                         </span>
@@ -257,7 +257,7 @@
                                             الوصف
                                         </span>
                                     </th>
-                                    <th t-if="o.env.user.has_group('bstt_account_invoice.group_show_product_code')"
+                                    <th style="border:1px solid gray;" t-if="o.env.user.has_group('bstt_account_invoice.group_show_product_code')"
                                         name="th_internal_reference" class="border text-left">
                                         <span>
                                             Code
@@ -267,7 +267,7 @@
                                             الكود
                                         </span>
                                     </th>
-                                    <th name="th_source" class="border d-none text-left" t-if="0">
+                                    <th style="border:1px solid gray;" name="th_source" class="d-none text-left" t-if="0">
                                         <span>
                                             Source Document
                                         </span>
@@ -276,7 +276,7 @@
                                             المستند المصدر
                                         </span>
                                     </th>
-                                    <th name="th_quantity" class="border text-right">
+                                    <th style="border:1px solid gray;" name="th_quantity" class="text-right">
                                         <span>
                                             Quantity
                                         </span>
@@ -285,7 +285,7 @@
                                             الكمية
                                         </span>
                                     </th>
-                                    <th name="th_priceunit" class="border text-right">
+                                    <th style="border:1px solid gray;" name="th_priceunit" class="text-right">
                                         <span>
                                             Unit price
                                         </span>
@@ -294,7 +294,7 @@
                                             سعر الوحدة
                                         </span>
                                     </th>
-                                    <th name="th_price_unit" t-if="display_discount" class="border text-right">
+                                    <th style="border:1px solid gray;" name="th_price_unit" t-if="display_discount" class="text-right">
                                         <span>
                                             Disc.%
                                         </span>
@@ -304,7 +304,7 @@
                                         </span>
                                         <t t-set="colspan" t-value="colspan+1"/>
                                     </th>
-                                    <th name="th_taxes" class="border text-right">
+                                    <th style="border:1px solid gray;" name="th_taxes" class="text-right">
                                         <span>
                                             Taxes
                                         </span>
@@ -313,7 +313,7 @@
                                             الضرائب
                                         </span>
                                     </th>
-                                    <th name="th_subtotal" class="border text-right">
+                                    <th style="border:1px solid gray;" name="th_subtotal" class="text-right">
                                         <span>
                                             Amount
                                         </span>
@@ -322,7 +322,7 @@
                                             مبلغ
                                         </span>
                                     </th>
-                                    <th name="border th_tax_amount" class="text-right">
+                                    <th style="border:1px solid gray;" name="th_tax_amount" class="text-right">
                                         <span>
                                             VAT Amount
                                         </span>
@@ -331,7 +331,7 @@
                                             قيمة الضريبة
                                         </span>
                                     </th>
-                                    <th name="th_total" class="border text-right">
+                                    <th style="border:1px solid gray;" name="th_total" class="text-right">
                                         <span>
                                             Total Price
                                         </span>
@@ -357,7 +357,7 @@
                                     <tr style="font-size: 16.0092px; font-family: sans-serif;" class="border"
                                         t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
                                         <t t-if="not line.display_type" name="account_invoice_line_accountable">
-                                            <td class="border text-right" name="account_invoice_line_name">
+                                            <td style="border:1px solid gray;" class=" text-right" name="account_invoice_line_name">
                                                 <t t-if="line.name">
                                                     <br/>
                                                     <span t-field="line.name"
@@ -371,43 +371,43 @@
                                             <!--                                             <td class="border text-right">-->
                                             <!--                                                <span t-field="line.name"/>-->
                                             <!--                                            </td>-->
-                                            <td t-if="o.env.user.has_group('bstt_account_invoice.group_show_product_code')"
-                                                class="border text-right">
+                                            <td style="border:1px solid gray;" t-if="o.env.user.has_group('bstt_account_invoice.group_show_product_code')"
+                                                class=" text-right">
                                                 <span t-field="line.product_id.default_code"/>
                                             </td>
-                                            <td class="border text-right">
+                                            <td style="border:1px solid gray;" class=" text-right">
                                                 <span t-field="line.quantity"/>
                                                 <span t-field="line.product_uom_id" groups="uom.group_uom"/>
                                             </td>
-                                            <td class="border text-right">
+                                            <td style="border:1px solid gray;" class=" text-right">
                                                 <span class="text-nowrap" t-field="line.price_unit"/>
                                             </td>
-                                            <td t-if="display_discount" class="border text-right">
+                                            <td style="border:1px solid gray;" t-if="display_discount" class=" text-right">
                                                 <span class="text-nowrap" t-field="line.discount"/>
                                             </td>
-                                            <td class="border text-right">
+                                            <td style="border:1px solid gray;" class=" text-right">
                                                 <span t-esc="', '.join(map(lambda x: (x.description or x.name), line.tax_ids))"
                                                       id="line_tax_ids"/>
                                             </td>
-                                            <td class="border text-right o_price_total">
+                                            <td style="border:1px solid gray;" class=" text-right o_price_total">
                                                 <span class="text-nowrap" t-field="line.price_subtotal"/>
                                             </td>
-                                            <td class="border text-right">
+                                            <td style="border:1px solid gray;" class=" text-right">
                                                 <span class="text-nowrap" t-field="line.l10n_gcc_invoice_tax_amount"/>
                                             </td>
-                                            <td class="border text-right o_price_total" style="background: #D3D8D7">
+                                            <td  class=" text-right o_price_total" style="border:1px solid gray;background: #D3D8D7">
                                                 <span class="text-nowrap" t-field="line.price_total"/>
                                             </td>
                                         </t>
                                         <t t-if="line.display_type == 'line_section'">
-                                            <td class="border" colspan="99" style="background: #D3D8D7">
+                                            <td colspan="99" style="border:1px solid gray;background: #D3D8D7">
                                                 <span t-field="line.name" t-options="{'widget': 'text'}"/>
                                             </td>
                                             <t t-set="current_section" t-value="line"/>
                                             <t t-set="current_subtotal" t-value="0"/>
                                         </t>
                                         <t t-if="line.display_type == 'line_note'">
-                                            <td class="border" colspan="99" style="background: #D3D8D7">
+                                            <td  colspan="99" style="border:1px solid gray;background: #D3D8D7">
                                                 <span t-field="line.name" t-options="{'widget': 'text'}"/>
                                             </td>
                                         </t>
@@ -416,7 +416,7 @@
                                     <t t-if="current_section and (line_last or lines[line_index+1].display_type == 'line_section')">
                                         <tr class="border is-subtotal text-right"
                                             style="background: #D3D8D7  !important;">
-                                            <td cclass="border" olspan="99" style="background: #D3D8D7  !important;">
+                                            <td  colspan="99" style="border:1px solid gray;background: #D3D8D7  !important;">
                                                 <strong class="mr16" style="display: inline-block">Subtotal/الإجمالي
                                                     الفرعي
                                                 </strong>
