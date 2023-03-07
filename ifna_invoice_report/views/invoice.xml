@@ -93,7 +93,7 @@
                                 <t t-set="address">
 
                                 </t>
-                                <div class="col-4" style="text-align:left;float:left">
+                                <div class="col-4" style="text-align:left;">
                                     <span style="font-size: 16.0092px; font-family: sans-serif;" t-if="o.move_type == 'out_invoice' and o.state == 'posted'">
                                         Tax Invoice
                                     </span>
@@ -214,32 +214,7 @@
                                 </div>
                             </div>
                         </div>
-<!--              <div class="row">&ndash;&gt;-->
-                        <!--                                                    <div class="col-1"></div>-->
-                        <!--                                                    <div class="col-9 round">-->
-                        <!--                                                        <div class="customer">-->
-                        <!--                                                            <div class="row">-->
-                        <!--                                                                <span>اسم العميل:</span>-->
-                        <!--                                                                <span t-field="o.partner_id.name"/>-->
-                        <!--                                                            </div>-->
-                        <!--                                                            <div class="row">-->
-                        <!--                                                                <span>الرقم الضريبي:</span>-->
-                        <!--                                                                <span t-field="o.partner_id.vat"/>-->
-                        <!--                                                            </div>-->
-                        <!--                                                            <div class="row">-->
-                        <!--                                                                <span>كود العميل:</span>-->
-                        <!--                                                                <span t-field="o.partner_id.ref"/>-->
-                        <!--                                                            </div>-->
-                        <!--                                                            <div class="row">-->
-                        <!--                                                                <span>عنوان العميل:</span>-->
-                        <!--                                                                <span t-esc='o.with_context(lang="ar_001").partner_id'-->
-                        <!--                                                                      t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')"-->
-                        <!--                                                                      class="add address-inline"/>-->
-                        <!--                                                            </div>-->
-                        <!--                                                        </div>-->
-                        <!--                                                    </div>-->
-                        <!--                                                    <div class="col-2"></div>-->
-                        <!--                                                </div>-->
+
                         <t t-set="display_discount" t-value="any(l.discount for l in o.invoice_line_ids)"/>
                         <br/>
                         <table class="table table-sm o_main_table" style="border:1px solid gray;margin-top: 5px;direction: rtl;"
