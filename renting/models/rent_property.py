@@ -17,9 +17,8 @@ class RentPropertyModel(models.Model):
     country = fields.Many2one('res.country', string='الدولة')
     property_address_Postal_code = fields.Char(string=' العنوان الوطني')
     property_extra_number = fields.Char(string='Extra Number')
-    unit_ids = fields.One2many('product.template', 'property_id', string='Unit ID',
-                               copy=True)  # Related field to products
-
+    unit_ids = fields.Many2many('product.template', string='Unit ID',
+                                copy=True)  # Related field to products
     # General Info Tab Fields
     property_construction_date = fields.Date(string='Construction Date')
     rent_config_property_type_id = fields.Many2one('rent.config.property.types', string='Property Type',
