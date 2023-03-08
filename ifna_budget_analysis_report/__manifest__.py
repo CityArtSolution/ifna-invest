@@ -15,7 +15,7 @@
 
     ],
     'data': [
-        'views/budget.xml',
+        'views/views.xml',
         # 'views/purchase.xml',
     ],
     'auto_install': False,

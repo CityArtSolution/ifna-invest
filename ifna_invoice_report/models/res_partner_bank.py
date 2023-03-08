@@ -10,4 +10,10 @@ class ResPartnerBank(models.Model):
 
     iban = fields.Char(string='Iban')
     swift = fields.Char(string='Swift')
+
+
+class NewModule(models.Model):
+    _inherit = 'account.move'
+
+
     
