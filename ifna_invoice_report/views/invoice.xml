@@ -70,11 +70,11 @@
                         <br/>
                         <hr style="width:100%" size="10" color="#717070"/>
                         <div>
-                            <div style="text-align:right;" class="pt-5">
+                            <div style="float:right;text-align:right;" class="col-6">
                                 <t t-set="address">
                                     <address t-field="o.partner_id"
                                              t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'
-                                             class="mb-0"/>
+                                             />
                                     <p t-if="o.partner_id.vat">
                                         <t t-esc="o.company_id.country_id.vat_label or 'Tax ID'"/>:
                                         <span t-field="o.partner_id.vat"/>
@@ -93,7 +93,6 @@
                         <h3>
                             <div class="row">
                                 <t t-set="address">
-
                                 </t>
                                 <div class="col-4" style="text-align:left;">
                                     <span style="font-size: 29.0092px; font-family: sans-serif;"
