@@ -6,38 +6,38 @@ from odoo import api, models, fields
 class RentProduct(models.Model):
     _inherit = 'product.template'
 
-    unit_number = fields.Char(string='رقم الوحدة')
-    unit_area = fields.Char(string='مساحة الوحدة')
-    unit_floor_number = fields.Char(string='رقم الطابق')
-    unit_rooms_number = fields.Char(string='عدد الغرف')
-    unit_state = fields.Char(compute='_get_state', string='الحالة', default='شاغرة')
+    unit_number = fields.Char(string='رقم الوحدة', copy=True)
+    unit_area = fields.Char(string='مساحة الوحدة', copy=True)
+    unit_floor_number = fields.Char(string='رقم الطابق', copy=True)
+    unit_rooms_number = fields.Char(string='عدد الغرف', copy=True)
+    unit_state = fields.Char(compute='_get_state', string='الحالة', default='شاغرة', copy=True)
 
-    rent_unit_area = fields.Float(string='المساحة')
+    rent_unit_area = fields.Float(string='المساحة', copy=True)
 
     # unit_contain_two_scales = fields.Boolean(string='Contain Two Scales')
     # unit_furniture = fields.Boolean(string='Furniture?')
-    furniture_bedroom = fields.Boolean(string='غرفة نوم')
-    furniture_bedroom_no = fields.Integer(string=' عدد غرف النوم')
-    furniture_bathroom = fields.Boolean(string='حمام')
-    furniture_bathroom_no = fields.Integer(string=' عدد الحمام')
-    furniture_reception = fields.Boolean(string='ريسيبشن')
-    furniture_reception_no = fields.Integer(string=' عدد الريسيبشن')
-    furniture_kitchen = fields.Boolean(string='مطبخ')
-    furniture_service_room = fields.Boolean(string='غرفة خدم')
-    furniture_inventory = fields.Boolean(string='مخزن')
-    furniture_inventory_no = fields.Integer(string=' عدد المخازن')
-    furniture_setting_room = fields.Boolean(string='غرفة المعيشة')
-    furniture_setting_room_no = fields.Integer(string=' عدد غرف المعيشة')
-    furniture_central_air_conditioner = fields.Boolean(string='تكييف مركزي')
-    furniture_split_air_conditioner = fields.Boolean(string='تكييف سبليت')
-    furniture_split_air_conditioner_no = fields.Integer(string=' عدد تكييف سبليت')
-    furniture_evaporator_cooler = fields.Boolean(string='مدخنة')
-    furniture_evaporator_cooler_no = fields.Integer(string=' عدد المداخن')
-    furniture_kitchen_installed = fields.Boolean(string='مطبخ مجهز')
-    furniture_locker_installed = fields.Boolean(string='غرفة ملابس')
-    furniture_locker_installed_no = fields.Integer(string=' عدد غرف الملابس')
+    furniture_bedroom = fields.Boolean(string='غرفة نوم', copy=True)
+    furniture_bedroom_no = fields.Integer(string=' عدد غرف النوم', copy=True)
+    furniture_bathroom = fields.Boolean(string='حمام', copy=True)
+    furniture_bathroom_no = fields.Integer(string=' عدد الحمام', copy=True)
+    furniture_reception = fields.Boolean(string='ريسيبشن', copy=True)
+    furniture_reception_no = fields.Integer(string=' عدد الريسيبشن', copy=True)
+    furniture_kitchen = fields.Boolean(string='مطبخ', copy=True)
+    furniture_service_room = fields.Boolean(string='غرفة خدم', copy=True)
+    furniture_inventory = fields.Boolean(string='مخزن', copy=True)
+    furniture_inventory_no = fields.Integer(string=' عدد المخازن', copy=True)
+    furniture_setting_room = fields.Boolean(string='غرفة المعيشة', copy=True)
+    furniture_setting_room_no = fields.Integer(string=' عدد غرف المعيشة', copy=True)
+    furniture_central_air_conditioner = fields.Boolean(string='تكييف مركزي', copy=True)
+    furniture_split_air_conditioner = fields.Boolean(string='تكييف سبليت', copy=True)
+    furniture_split_air_conditioner_no = fields.Integer(string=' عدد تكييف سبليت', copy=True)
+    furniture_evaporator_cooler = fields.Boolean(string='مدخنة', copy=True)
+    furniture_evaporator_cooler_no = fields.Integer(string=' عدد المداخن', copy=True)
+    furniture_kitchen_installed = fields.Boolean(string='مطبخ مجهز', copy=True)
+    furniture_locker_installed = fields.Boolean(string='غرفة ملابس', copy=True)
+    furniture_locker_installed_no = fields.Integer(string=' عدد غرف الملابس', copy=True)
 
-    unit_construction_date = fields.Date(string='تاريخ الانشاء')
+    unit_construction_date = fields.Date(string='تاريخ الانشاء', copy=True)
 
     rent_config_unit_overlook_id = fields.Many2one('rent.config.unit.overlooks', string='Unit Overlooking',
                                                    copy=True)  # Related field to menu item "Unit Views"
@@ -49,36 +49,48 @@ class RentProduct(models.Model):
                                                  copy=True)  # Related field to menu item "Unit Finishes"
 
     property_id = fields.Many2one('rent.property', string='عمارة', copy=True)  # Related field to Properties
-    property_address_build = fields.Many2one('rent.property.build', string='المجمع',
+    property_address_build = fields.Many2one('rent.property.build', copy=True, string='المجمع',
                                              related='property_id.property_address_build', store=True, index=True)
-    property_address_city = fields.Many2one('rent.property.city', string='المدينة',
+    property_address_city = fields.Many2one('rent.property.city', string='المدينة', copy=True,
                                             related='property_id.property_address_city', store=True)
-    country = fields.Many2one('res.country', string='الدولة', related='property_id.country', store=True, index=True)
-    operating_unit = fields.Many2many('operating.unit', string='الفرع ')
+    country = fields.Many2one('res.country', string='الدولة', related='property_id.country', store=True, index=True,
+                              copy=True)
+    operating_unit = fields.Many2many('operating.unit', string='الفرع ', copy=True)
 
-    entry_number = fields.Char('عدد المداخل')
-    entry_overlook = fields.Char('المداخل تطل علي')
+    entry_number = fields.Char('عدد المداخل', copy=True)
+    entry_overlook = fields.Char('المداخل تطل علي', copy=True)
 
-    unit_gas = fields.Char(string='رقم عداد الغاز')
-    unit_electricity = fields.Char(string='رقم عداد الكهرباء')
-    unit_water = fields.Char(string='رقم عداد المياه')
+    unit_gas = fields.Char(string='رقم عداد الغاز', copy=True)
+    unit_electricity = fields.Char(string='رقم عداد الكهرباء', copy=True)
+    unit_water = fields.Char(string='رقم عداد المياه', copy=True)
 
     # unit_maintenance_count = fields.Integer(string='Total Maintenance', compute='_get_count', readonly=True)
     unit_expenses_count = fields.Integer(string='Total Expenses', compute='_unit_expenses_count', readonly=True)
     unit_sales_count = fields.Integer(string='Total Sales', compute='_unit_sales_count', readonly=True)
     unit_price = fields.Float(string='قيمة الوحدة', compute='_get_unit_price')
-    unit_price_unit = fields.Char(string='مدة تأجير الوحدة')
+    unit_price_unit = fields.Char(string='مدة تأجير الوحدة', copy=True)
     state_id = fields.Char()
-    analytic_account = fields.Many2one('account.analytic.account', string='الحساب التحليلي', readonly=True)
+    analytic_account = fields.Many2one('account.analytic.account', copy=True, string='الحساب التحليلي', readonly=True)
     ref_analytic_account = fields.Char(string='رقم اشارة الحساب التحليلي', readonly=True)
     property_analytic_account = fields.Many2one('account.analytic.account', string='الحساب التحليلي للعقار',
                                                 related='property_id.analytic_account')
     property_analytic_account_parent = fields.Many2one('account.analytic.group',
                                                        related='property_id.analytic_account.group_id')
 
+    def write(self, values):
+        if 'name' in values:
+            name = values.get('name')
+            if self.analytic_account:
+                self.analytic_account.name = name
+        if 'unit_number' in values:
+            unit_number = values.get('unit_number')
+            if self.analytic_account:
+                self.analytic_account.code = str(self.property_id.ref_analytic_account) + '-' + str(unit_number)
+        result = super(RentProduct, self).write(values)
+        return result
+
     @api.model_create_multi
     def create(self, vals_list):
-
         res = super(RentProduct, self).create(vals_list)
         if res.rent_ok:
             res.ref_analytic_account = str(res.property_id.ref_analytic_account) + '-' + str(res.unit_number)
