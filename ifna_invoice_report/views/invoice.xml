@@ -50,13 +50,13 @@
 
                                 </div>
                                 <div class="text-left" width="100%"
-                                     style="font-size: 17px; font-family: sans-serif;float:left;">
-                                    <span style="display:block;">شركة افناء للإستثمار</span>
-                                    <span style="display:block;">Vat Number:311461336300003</span>
-                                    <span style="display:block;">Email:iabdulbari@afnaa.sa</span>
-                                    <span style="display:block;">الرياض - حى النخيل</span>
-                                    <span style="display:block;">رقم مكتب - 9 - التخصصى طريق 7813</span>
-                                    <span style="display:block;">12383-4334 Saudi Arabia</span>
+                                     style="font-family: sans-serif;float:left;">
+                                    <span style="display:block;font-size: 20px; ">شركة افناء للإستثمار</span>
+                                    <span style="display:block;font-size: 17px; ">Vat Number:311461336300003</span>
+                                    <span style="display:block;font-size: 17px; ">Email:iabdulbari@afnaa.sa</span>
+                                    <span style="display:block;font-size: 17px; ">الرياض - حى النخيل</span>
+                                    <span style="display:block;font-size: 17px; ">رقم مكتب - 9 - التخصصى طريق 7813</span>
+                                    <span style="display:block;font-size: 17px; ">12383-4334 Saudi Arabia</span>
                                     <br/>
                                     <br/>
 
@@ -95,17 +95,17 @@
                                 <t t-set="address">
                                 </t>
                                 <div class="col-4" style="text-align:left;">
-                                    <span style="font-size: 29.0092px; font-family: sans-serif;"
+                                    <span style="font-size: 25.0092px; font-family: sans-serif;"
                                           t-if="o.move_type == 'out_invoice' and o.state == 'posted'">
                                         Tax Invoice
                                     </span>
                                 </div>
                                 <div class="col-4 text-center">
-                                    <span style="font-size: 29.0092px; font-family: sans-serif;" t-if="o.name != '/'"
+                                    <span style="font-size: 25.0092px; font-family: sans-serif;" t-if="o.name != '/'"
                                           t-field="o.name"/>
                                 </div>
                                 <div class="col-4" style="text-align:right">
-                                    <span style="font-size: 29.0092px; font-family: sans-serif;"
+                                    <span style="font-size: 25.0092px; font-family: sans-serif;"
                                           t-if="o.move_type == 'out_invoice' and o.state == 'posted'">
                                         فاتورة ضريبية
                                     </span>
