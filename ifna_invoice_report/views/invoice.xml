@@ -7,12 +7,12 @@
             <field name="default" eval="False"/>
             <field name="format">A4</field>
             <field name="orientation">Portrait</field>
-            <field name="margin_top">10</field>
+            <field name="margin_top">5</field>
             <field name="margin_bottom">35</field>
             <field name="margin_left">0</field>
             <field name="margin_right">0</field>
             <field name="header_line" eval="False"/>
-            <field name="header_spacing">10</field>
+            <field name="header_spacing">5</field>
         </record>
 
         <!--         data action  -->
@@ -40,37 +40,31 @@
                     <t t-set="o_sec" t-value="o.with_context(lang='ar_001')"/>
                     <t t-set="o" t-value="o.with_context(lang='en_US')"/>
 
-                    <div class="page">
+                    <div class="page" style="color: darkslategray;">
 
-                        <header style="font-family:'arial';padding:5px">
+                        <header>
                             <div>
                                 <div class="text-right" width="100%" style="float:right; font-size:13px;">
                                     <img style="margin-left: auto;display: block;margin-right: auto;height:140pt;width:140pt"
                                          src="ifna_invoice_report/static/img/header.jpeg"/>
 
                                 </div>
-                                <div class="text-left" width="100%"
-                                     style="font-family: sans-serif;float:left;">
-                                    <span style="display:block;font-size: 22px; ">شركة افناء للإستثمار</span>
-                                    <span style="display:block;font-size: 20px; ">Vat Number:311461336300003</span>
-                                    <span style="display:block;font-size: 20px; ">Email:iabdulbari@afnaa.sa</span>
-                                    <span style="display:block;font-size: 20px; ">الرياض - حى النخيل</span>
-                                    <span style="display:block;font-size: 20px; ">رقم مكتب - 9 - التخصصى طريق 7813</span>
-                                    <span style="display:block;font-size: 20px; ">12383-4334 Saudi Arabia</span>
-                                    <br/>
-                                    <br/>
-
+                                <div class="text-left" width="100%" style="font-family: sans-serif;float:left;">
+                                    <span style="display:block;font-size: 35px !important;padding:3px ">شركة افناء للإستثمار</span>
+                                    <span style="display:block;font-size: 15px !important;padding:3px ">Vat Number:311461336300003</span>
+                                    <span style="display:block;font-size: 15px !important;padding:3px ">Email:iabdulbari@afnaa.sa</span>
+                                    <span style="display:block;font-size: 15px !important;padding:3px ">الرياض - حى النخيل</span>
+                                    <span style="display:block;font-size: 15px !important;padding:3px ">رقم مكتب - 9 - التخصصى طريق 7813</span>
+                                    <span style="display:block;font-size: 15px !important;padding:3px ">12383-4334 Saudi Arabia</span>
 
                                 </div>
                             </div>
-                            <br/>
-                            <br/>
 
                         </header>
                         <br/>
                         <hr style="width:100%" size="10" color="#717070"/>
                         <div>
-                            <div style="float:right;text-align:right;" class="col-6">
+                            <div style="float:right;text-align:right;" class="col-11">
                                 <t t-set="address">
                                     <address t-field="o.partner_id"
                                              t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'
@@ -83,7 +77,7 @@
                                 <t t-call="web.address_layout"/>
 
                             </div>
-                            <div style="float:left" class="col-4" colspan="5" name="qr_code">
+                            <div style="float:left" class="col-1" colspan="5" name="qr_code">
                                     <img t-if="o.l10n_sa_qr_code_str" style="display:block;"
                                          t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', o.l10n_sa_qr_code_str, 120, 120)"/>
                                 </div>
@@ -91,9 +85,8 @@
                             <br/>
                         </div>
                         <h3>
-                            <div class="row">
-                                <t t-set="address">
-                                </t>
+                            <div class="row" style="padding-left: 20px;">
+                                <t t-set="address"></t>
                                 <div class="col-4" style="text-align:left;">
                                     <span style="font-size: 20.0092px; font-family: sans-serif;"
                                           t-if="o.move_type == 'out_invoice' and o.state == 'posted'">
@@ -538,9 +531,9 @@
                     </div>
 
 
-                    <div class="footer">
+                    <div class="footer" style="color: darkslategray;">
                         <hr style="width:100%" size="10" color="black"/>
-                        <div style="width:100%;height:100%;font-size: 12.0092px; font-family: 'sans-serif' display:block;">
+                        <div style="width:100%;height:100%;font-size: 12.0092px; display:block;">
                             <center>
                                 <h6 style="margin:0">
                                    اسم الحساب / شركة افناء للإستثمار
