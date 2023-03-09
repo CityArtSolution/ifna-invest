@@ -51,12 +51,12 @@
                                 </div>
                                 <div class="text-left" width="100%"
                                      style="font-family: sans-serif;float:left;">
-                                    <span style="display:block;font-size: 20px; ">شركة افناء للإستثمار</span>
-                                    <span style="display:block;font-size: 17px; ">Vat Number:311461336300003</span>
-                                    <span style="display:block;font-size: 17px; ">Email:iabdulbari@afnaa.sa</span>
-                                    <span style="display:block;font-size: 17px; ">الرياض - حى النخيل</span>
-                                    <span style="display:block;font-size: 17px; ">رقم مكتب - 9 - التخصصى طريق 7813</span>
-                                    <span style="display:block;font-size: 17px; ">12383-4334 Saudi Arabia</span>
+                                    <span style="display:block;font-size: 22px; ">شركة افناء للإستثمار</span>
+                                    <span style="display:block;font-size: 20px; ">Vat Number:311461336300003</span>
+                                    <span style="display:block;font-size: 20px; ">Email:iabdulbari@afnaa.sa</span>
+                                    <span style="display:block;font-size: 20px; ">الرياض - حى النخيل</span>
+                                    <span style="display:block;font-size: 20px; ">رقم مكتب - 9 - التخصصى طريق 7813</span>
+                                    <span style="display:block;font-size: 20px; ">12383-4334 Saudi Arabia</span>
                                     <br/>
                                     <br/>
 
@@ -95,17 +95,17 @@
                                 <t t-set="address">
                                 </t>
                                 <div class="col-4" style="text-align:left;">
-                                    <span style="font-size: 25.0092px; font-family: sans-serif;"
+                                    <span style="font-size: 20.0092px; font-family: sans-serif;"
                                           t-if="o.move_type == 'out_invoice' and o.state == 'posted'">
                                         Tax Invoice
                                     </span>
                                 </div>
                                 <div class="col-4 text-center">
-                                    <span style="font-size: 25.0092px; font-family: sans-serif;" t-if="o.name != '/'"
+                                    <span style="font-size: 20.0092px; font-family: sans-serif;" t-if="o.name != '/'"
                                           t-field="o.name"/>
                                 </div>
                                 <div class="col-4" style="text-align:right">
-                                    <span style="font-size: 25.0092px; font-family: sans-serif;"
+                                    <span style="font-size: 20.0092px; font-family: sans-serif;"
                                           t-if="o.move_type == 'out_invoice' and o.state == 'posted'">
                                         فاتورة ضريبية
                                     </span>
@@ -419,44 +419,44 @@
                                             </td>
                                         </tr>
 
-                                        <t t-if="print_with_payments">
+<!--                                        <t t-if="print_with_payments">-->
                                             <t t-if="o.payment_state != 'invoicing_legacy'">
                                                 <t t-set="payments_vals"
                                                    t-value="o.sudo()._get_reconciled_info_JSON_values()"/>
                                                 <t t-foreach="payments_vals" t-as="payment_vals">
                                                     <tr class="border-black o_total">
-                                                        <td>
+                                                        <td style="background-color:#72ad89;">
                                                             <i class="row">
-                                                                <div class="col-7 oe_form_field oe_payment_label">
+                                                                <div class="col-7 oe_form_field oe_payment_label" style="font-size: 16.0092px; font-family: sans-serif;color:white;">
                                                                     Paid on/دفعت في:
                                                                 </div>
-                                                                <div class="col-5 pl-0 oe_form_field oe_payment_label">
-                                                                    <t t-out="payment_vals['date']"/>
+                                                                <div style="font-size: 16.0092px; font-family: sans-serif;color:white;" class="col-5 pl-0 oe_form_field oe_payment_label">
+                                                                    <t  t-out="payment_vals['date']"/>
                                                                 </div>
                                                             </i>
                                                         </td>
-                                                        <td class="text-right">
-                                                            <span t-out="payment_vals['amount']"
+                                                        <td style="background-color:#72ad89;" class="text-right">
+                                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:white;" t-out="payment_vals['amount']"
                                                                   t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
                                                         </td>
                                                     </tr>
                                                 </t>
                                                 <t t-if="len(payments_vals) > 0">
                                                     <tr class="border-black">
-                                                        <td>
-                                                            <strong>
+                                                        <td style="background-color:#72ad89;">
+                                                            <strong style="font-size: 16.0092px; font-family: sans-serif;color:white;">
                                                                 Amount Due
                                                                 /
                                                                 المبلغ المستحق
                                                             </strong>
                                                         </td>
-                                                        <td class="text-right">
-                                                            <span t-field="o.amount_residual"/>
+                                                        <td style="background-color:#72ad89;" class="text-right">
+                                                            <span style="font-size: 16.0092px; font-family: sans-serif;color:white;" t-field="o.amount_residual"/>
                                                         </td>
                                                     </tr>
                                                 </t>
                                             </t>
-                                        </t>
+<!--                                        </t>-->
                                     </table>
                                 </div>
                             </div>
