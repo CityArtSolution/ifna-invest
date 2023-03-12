@@ -332,8 +332,8 @@ class RentSaleOrderLine(models.Model):
             self.env['sale.order.line'].sudo().create(
                 {
                     'product_uom_qty': 1,
-                    'product_id': rec.product_id.product_variant_id.id,
-                    'name': rec.product_id.product_variant_id.name,
+                    'product_id': rec.service_id.product_variant_id.id,
+                    'name': rec.service_id.product_variant_id.name,
                     'order_id': self.order_id.id,
                     'price_unit': self.price_unit * (rec.percentage/100),
                     'rent_product_id': self.product_id.id,
