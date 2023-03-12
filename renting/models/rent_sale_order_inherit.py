@@ -323,7 +323,7 @@ class RentSaleOrderLine(models.Model):
     # Rental Additional Service
     rent_ok = fields.Boolean(related='product_id.product_tmpl_id.rent_ok')
     rent_product_id = fields.Many2one(comodel_name="product.product")
-    rental_pricing_id = fields.Many2one(comodel_name="rental.pricing", string="Rental Pricing",domain="[('product_id','=',product_id.product_tmpl_id.id)]")
+    rental_pricing_id = fields.Many2one(comodel_name="rental.pricing", string="Rental Pricing",domain="[('product_template_id','=',product_id.product_tmpl_id.id)]")
     def action_get_service(self):
         for order_line in self.order_id.order_line:
             if order_line.rent_product_id.id == self.product_id.id:
