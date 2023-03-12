@@ -75,7 +75,9 @@ class RentProduct(models.Model):
                                                 related='property_id.analytic_account')
     property_analytic_account_parent = fields.Many2one('account.analytic.group',
                                                        related='property_id.analytic_account.group_id')
-
+    
+    # Additional Service
+    additional_service_ids = fields.One2many(comodel_name="rental.additional.service", inverse_name="product_id")
     @api.model_create_multi
     def create(self, vals_list):
 
@@ -159,3 +161,15 @@ class RentProduct(models.Model):
             'context': {'default_is_rental_order': True, 'default_property_name': self.property_id.id,
                         'default_unit_number': self.id, 'default_analytic_account_id': self.analytic_account.id},
         }
+
+
+class RentalAdditionalService(models.Model):
+    _name = 'rental.additional.service'
+    _rec_name = 'name'
+    name = fields.Char(string="Name",compute='get_concatenation_name' )
+    service_id = fields.Many2one(comodel_name="product.template", string="Service", required=True, )
+    percentage = fields.Float(string="Percentage",  required=True, )
+    product_id = fields.Many2one(comodel_name="product.template")
+    def get_concatenation_name(self):
+        for rec in self:
+            rec.name=rec.service_id.name+"-"+str(rec.percentage)+"%"
