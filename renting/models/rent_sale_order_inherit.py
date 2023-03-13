@@ -406,7 +406,6 @@ class RentSaleOrderLine(models.Model):
             if self.env.context.get('import_file', False) and not self.env.user.user_has_groups(
                     'account.group_account_manager'):
                 line.tax_id.invalidate_cache(['invoice_repartition_line_ids'], [line.tax_id.id])
-<<<<<<< HEAD
 
     @api.onchange('product_id')
     def check_rental_details(self):
@@ -415,5 +414,3 @@ class RentSaleOrderLine(models.Model):
             for pricing_unit in self.product_id.product_tmpl_id.rental_pricing_ids:
                 self.rental_pricing_id =pricing_unit
                 break
-=======
->>>>>>> 2c139b7fdbcda4aa5724c12fb6a278cba73ab3db
