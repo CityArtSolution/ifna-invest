@@ -21,7 +21,8 @@ class RentRentalPricing(models.Model):
     _inherit = 'rental.pricing'
 
     unit = fields.Selection(units, string='Unit', required='true')
-
+    # Additional Service
+    service_ids = fields.Many2many(comodel_name="rental.additional.service",domain="[('product_id','=',product_template_id)]" )
     def _compute_price(self, duration, unit):
         """Compute the price for a specified duration of the current pricing rule.
 

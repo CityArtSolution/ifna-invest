@@ -41,6 +41,10 @@
                        position="after">
                     <field name="insurance_value" optional="hide"/>
                     <field name="is_rental"/>
+<!--                    <field name="rent_ok"/>-->
+                    <field name="rental_pricing_id" attrs="{'invisible':[('is_rental','=', False)],'required':[('is_rental','=', True)]}" options="{'no_create_edit': True}"/>
+                    <button name="action_get_service" class="oe_highlight" type="object" string="Get Services"
+                            attrs="{'invisible':['|',('is_rental','=', False),('rental_pricing_id','=', False)]}"/>
                     <field name="contract_admin_fees" optional="hide"/>
                     <field name="contract_service_fees" optional="hide"/>
                     <field name="contract_admin_sub_fees" optional="hide"/>

@@ -25,3 +25,4 @@ access_rent_property_city,access_rent_property_city,model_rent_property_city,bas
 access_rent_property_maintain,access_rent_property_maintain,model_rent_property_maintain,base.group_user,1,1,1,1
 access_rent_sale_invoices,access_rent_sale_invoices,model_rent_sale_invoices,base.group_user,1,1,1,1
 access_rent_sale_state,access_rent_sale_state,model_rent_sale_state,base.group_user,1,1,1,1
+access_rental_additional_service,access_rental_additional_service,model_rental_additional_service,base.group_user,1,1,1,1

@@ -367,7 +367,24 @@ class RentSaleOrderLine(models.Model):
     contract_service_fees = fields.Float(string='رسوم الخدمات')
     contract_admin_sub_fees = fields.Float(string='رسوم ادارية خاضعة')
     contract_service_sub_fees = fields.Float(string='رسوم الخدمات خاضعة')
-
+    # Rental Additional Service
+    rent_ok = fields.Boolean(related='product_id.product_tmpl_id.rent_ok')
+    rent_product_id = fields.Many2one(comodel_name="product.product")
+    rental_pricing_id = fields.Many2one(comodel_name="rental.pricing", string="Rental Pricing",domain="[('product_template_id','=',product_template_id)]")
+    def action_get_service(self):
+        for order_line in self.order_id.order_line:
+            if order_line.rent_product_id.id == self.product_id.id:
+                order_line.unlink()
+        for rec in self.rental_pricing_id.service_ids:
+            self.env['sale.order.line'].sudo().create(
+                {
+                    'product_uom_qty': 1,
+                    'product_id': rec.service_id.product_variant_id.id,
+                    'name': rec.service_id.product_variant_id.name,
+                    'order_id': self.order_id.id,
+                    'price_unit': self.price_unit * (rec.percentage/100),
+                    'rent_product_id': self.product_id.id,
+                })
     @api.depends('product_uom_qty', 'discount', 'price_unit', 'tax_id')
     def _compute_amount(self):
         """
