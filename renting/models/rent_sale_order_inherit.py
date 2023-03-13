@@ -4,6 +4,9 @@ from odoo import models, fields, api, _
 from datetime import datetime
 from odoo.exceptions import UserError
 
+INSURANCE_ADMIN_FEES_FIELDS = ['insurance_value', 'contract_admin_fees', 'contract_service_fees',
+                               'contract_admin_sub_fees', 'contract_service_sub_fees']
+
 
 class RentSaleOrder(models.Model):
     _inherit = 'sale.order'
@@ -129,18 +132,23 @@ class RentSaleOrder(models.Model):
 
             for i in range(1, rec.invoice_number + 1):
 
-                total_other_amount = sum((i.insurance_value + i.contract_admin_fees + i.contract_service_fees + i.contract_admin_sub_fees + i.contract_service_sub_fees)
+                total_other_amount = sum((
+                                                     i.insurance_value + i.contract_admin_fees + i.contract_service_fees + i.contract_admin_sub_fees + i.contract_service_sub_fees)
                                          for i in rec.order_line)
-                taxed_total_other_amount = sum((i.contract_admin_sub_fees + i.contract_service_sub_fees) for i in rec.order_line)
+                taxed_total_other_amount = sum(
+                    (i.contract_admin_sub_fees + i.contract_service_sub_fees) for i in rec.order_line)
 
                 total_property_amount_without_tax = sum((i.product_uom_qty * i.price_unit) for i in rec.order_line)
 
                 property_amount_per_inv = total_property_amount_without_tax / rec.invoice_number
 
-                total_tax_first_inv = sum((property_amount_per_inv + taxed_total_other_amount) * (tax.amount / 100) for tax in rec.order_line.tax_id )
-                total_tax = sum((property_amount_per_inv) * (tax.amount / 100) for tax in rec.order_line.tax_id )
+                total_tax_first_inv = sum(
+                    (property_amount_per_inv + taxed_total_other_amount) * (tax.amount / 100) for tax in
+                    rec.order_line.tax_id)
+                total_tax = sum((property_amount_per_inv) * (tax.amount / 100) for tax in rec.order_line.tax_id)
 
-                todate = fromdate + relativedelta(days=diff)
+                # todate = fromdate + relativedelta(days=diff)
+                todate = fromdate + relativedelta(months=1) - relativedelta(days=1)
 
                 if i == 1:
                     amount = property_amount_per_inv + total_other_amount + total_tax_first_inv
@@ -187,7 +195,7 @@ class RentSaleOrder(models.Model):
     no_of_invoiced_amount = fields.Float(string="المبالغ المفوترة", compute="compute_no_invoiced", store=True)
     no_of_not_invoiced_amount = fields.Float(string="المبالغ الغير مفوترة", compute="compute_no_invoiced", store=True)
 
-    @api.depends('order_contract_invoice.status','order_contract_invoice.amount')
+    @api.depends('order_contract_invoice.status', 'order_contract_invoice.amount')
     def compute_no_invoiced(self):
         for order in self:
             order.no_of_invoiced = 0
@@ -195,9 +203,11 @@ class RentSaleOrder(models.Model):
             order.no_of_invoiced_amount = 0
             order.no_of_not_invoiced_amount = 0
             order.no_of_invoiced = len(order.order_contract_invoice.filtered(lambda s: s.status == 'invoiced'))
-            order.no_of_invoiced_amount = sum(order.order_contract_invoice.filtered(lambda s: s.status == 'invoiced').mapped('amount'))
+            order.no_of_invoiced_amount = sum(
+                order.order_contract_invoice.filtered(lambda s: s.status == 'invoiced').mapped('amount'))
             order.no_of_not_invoiced = len(order.order_contract_invoice.filtered(lambda s: s.status == 'uninvoiced'))
-            order.no_of_not_invoiced_amount = sum(order.order_contract_invoice.filtered(lambda s: s.status == 'uninvoiced').mapped('amount'))
+            order.no_of_not_invoiced_amount = sum(
+                order.order_contract_invoice.filtered(lambda s: s.status == 'uninvoiced').mapped('amount'))
 
     @api.depends('order_contract_invoice.status')
     def _compute_full_invoiced(self):
@@ -308,11 +318,48 @@ class RentSaleOrder(models.Model):
     #
     #     return res
 
+    @api.model
+    def create_invoices_cron(self):
+        for i in self.env['sale.order'].search([]):
+            if i.order_contract_invoice:
+                for rec in i.order_contract_invoice:
+                    if rec.fromdate.date() == fields.Date.today() and rec.status == "uninvoiced":
+                        print("..................", i.id)
+                        print("..................", rec.status)
+
+                        invoice_lines = []
+                        invoiceable_lines = i.order_line
+                        if rec.sequence == 1:
+                            seq = 0
+                            for type in INSURANCE_ADMIN_FEES_FIELDS:
+                                seq += 1
+                                fees_sum = rec._prepare_invoice_line_insurance_admin_fees_sum(type, seq)
+                                if fees_sum.get('name', False):
+                                    invoice_lines.append([0, 0, fees_sum])
+                        for line in invoiceable_lines:
+                            invoice_lines.append([0, 0, rec._prepare_invoice_line(line)])
+                            if rec.sequence == 1:
+                                seq = 0
+                                for type in INSURANCE_ADMIN_FEES_FIELDS:
+                                    seq += 1
+                                    if line.mapped(type)[0] > 0:
+                                        invoice_lines.append(
+                                            [0, 0, rec._prepare_invoice_line_insurance_admin_fees(type, line, seq)])
+
+                        vals = rec._prepare_invoice(invoice_lines)
+                        print(vals)
+                        invoice = self.env['account.move'].create(vals)
+                        rec.invoice_date = fields.Date.today()
+                        rec.status = 'invoiced'
+                        return invoice
+
 
 class RentSaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     property_number = fields.Many2one('rent.property', string='العقار')
+    analytic_account = fields.Many2one('account.analytic.account', string='الحساب التحليلي',
+                                       related='product_id.analytic_account')
     pickup_date = fields.Datetime(string="Pickup", related='order_id.fromdate', store=True)
     return_date = fields.Datetime(string="Return", related='order_id.todate', store=True)
     insurance_value = fields.Float(string='قيمة التأمين')
@@ -342,4 +389,3 @@ class RentSaleOrderLine(models.Model):
             if self.env.context.get('import_file', False) and not self.env.user.user_has_groups(
                     'account.group_account_manager'):
                 line.tax_id.invalidate_cache(['invoice_repartition_line_ids'], [line.tax_id.id])
-
