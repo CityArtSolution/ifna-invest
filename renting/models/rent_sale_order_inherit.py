@@ -360,3 +360,10 @@ class RentSaleOrderLine(models.Model):
                     'account.group_account_manager'):
                 line.tax_id.invalidate_cache(['invoice_repartition_line_ids'], [line.tax_id.id])
 
+    @api.onchange('product_id')
+    def check_rental_details(self):
+        if self.product_id.product_tmpl_id.rent_ok:
+            self.is_rental =True
+            for pricing_unit in self.product_id.product_tmpl_id.rental_pricing_ids:
+                self.rental_pricing_id =pricing_unit
+                break

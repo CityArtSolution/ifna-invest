@@ -104,6 +104,7 @@
                                         <field name="name"/>
                                         <field name="unit_price"/>
                                         <field name="unit_price_unit"/>
+<!--                                        <field name="property_id"/>-->
                                     </tree>
                                 </field>
                             </page>
