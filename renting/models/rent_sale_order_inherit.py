@@ -172,7 +172,8 @@ class RentSaleOrder(models.Model):
         self.get_invoice_number()
 
     def get_invoice_number(self):
-        diff = relativedelta(self.todate, self.fromdate)
+        todate=self.todate+relativedelta(days=1)
+        diff = relativedelta(todate, self.fromdate)
         m = month = 0
         if diff.years != 0:
             m = diff.years * 12
