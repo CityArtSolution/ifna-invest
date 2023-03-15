@@ -324,9 +324,6 @@ class RentSaleOrder(models.Model):
             if i.order_contract_invoice:
                 for rec in i.order_contract_invoice:
                     if rec.fromdate.date() == fields.Date.today() and rec.status == "uninvoiced":
-                        print("..................", i.id)
-                        print("..................", rec.status)
-
                         invoice_lines = []
                         invoiceable_lines = i.order_line
                         if rec.sequence == 1:
