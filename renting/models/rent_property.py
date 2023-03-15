@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 
 
 class RentPropertyModel(models.Model):
@@ -18,7 +19,7 @@ class RentPropertyModel(models.Model):
     property_address_Postal_code = fields.Char(string=' العنوان الوطني')
     property_extra_number = fields.Char(string='Extra Number')
     unit_ids = fields.Many2many('product.template', string='Unit ID',
-                                copy=True)  # Related field to products
+                                copy=True,domain="[('rent_ok','=',True)]")  # Related field to products
     # General Info Tab Fields
     property_construction_date = fields.Date(string='Construction Date')
     rent_config_property_type_id = fields.Many2one('rent.config.property.types', string='Property Type',
@@ -208,7 +209,14 @@ class RentPropertyModel(models.Model):
                         'default_analytic_account': self.analytic_account.id},
         }
 
-
+    @api.onchange('unit_ids')
+    def relate_property_with_products(self):
+        for unit in self.unit_ids:
+            if unit.property_id:
+                if unit.property_id.id != self._origin.id:
+                    raise ValidationError('This Unit : "%s" Already Related with another property : "%s" , kindly remove it from there first !' %(unit.name,unit.property_id.property_name))
+            else:
+                unit.property_id = self._origin.id
 class RentPropertysecurity(models.Model):
     _name = 'security.rent.property'
 

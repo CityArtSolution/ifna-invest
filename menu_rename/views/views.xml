@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+
+
+        <record id="sale_renting.rental_menu_root" model="ir.ui.menu">
+            <field name="name">Property</field>
+        </record>
+
+        <record id="account.menu_finance_receivables" model="ir.ui.menu">
+            <field name="name">Students</field>
+        </record>
+
+    </data>
+</odoo>

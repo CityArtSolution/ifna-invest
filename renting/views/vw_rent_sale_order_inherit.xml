@@ -37,12 +37,14 @@
                             attrs="{'invisible': ['|','|', ('state', 'not in', ['draft', 'sent','sale']), ('id', '=', False), ('no_of_invoiced', '>', 0)]}"/>
                     <field name="no_of_invoiced" invisible="1"/>
                 </xpath>
+                <xpath expr="// field [@ name = 'order_line'] / tree / field [@ name = 'name']" position="after">
+                    <field name="is_rental"/>
+<!--                    <field name="rent_ok"/>-->
+                    <field name="rental_pricing_id" attrs="{'invisible':[('is_rental','=', False)],'required':[('is_rental','=', True)]}" options="{'no_create_edit': True}"/>                </xpath>
                 <xpath expr="// field [@ name = 'order_line'] / tree / field [@ name = 'tax_id']"
                        position="after">
                     <field name="insurance_value" optional="hide"/>
-                    <field name="is_rental"/>
-<!--                    <field name="rent_ok"/>-->
-                    <field name="rental_pricing_id" attrs="{'invisible':[('is_rental','=', False)],'required':[('is_rental','=', True)]}" options="{'no_create_edit': True}"/>
+
                     <button name="action_get_service" class="oe_highlight" type="object" string="Get Services"
                             attrs="{'invisible':['|',('is_rental','=', False),('rental_pricing_id','=', False)]}"/>
                     <field name="contract_admin_fees" optional="hide"/>

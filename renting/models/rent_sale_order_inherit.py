@@ -172,7 +172,8 @@ class RentSaleOrder(models.Model):
         self.get_invoice_number()
 
     def get_invoice_number(self):
-        diff = relativedelta(self.todate, self.fromdate)
+        todate=self.todate+relativedelta(days=1)
+        diff = relativedelta(todate, self.fromdate)
         m = month = 0
         if diff.years != 0:
             m = diff.years * 12
@@ -379,6 +380,7 @@ class RentSaleOrderLine(models.Model):
                     'product_id': rec.service_id.product_variant_id.id,
                     'name': rec.service_id.product_variant_id.name,
                     'order_id': self.order_id.id,
+                    'analytic_account': self.analytic_account.id,
                     'price_unit': self.price_unit * (rec.percentage/100),
                     'rent_product_id': self.product_id.id,
                 })
@@ -403,3 +405,11 @@ class RentSaleOrderLine(models.Model):
             if self.env.context.get('import_file', False) and not self.env.user.user_has_groups(
                     'account.group_account_manager'):
                 line.tax_id.invalidate_cache(['invoice_repartition_line_ids'], [line.tax_id.id])
+
+    @api.onchange('product_id')
+    def check_rental_details(self):
+        if self.product_id.product_tmpl_id.rent_ok:
+            self.is_rental =True
+            for pricing_unit in self.product_id.product_tmpl_id.rental_pricing_ids:
+                self.rental_pricing_id =pricing_unit
+                break

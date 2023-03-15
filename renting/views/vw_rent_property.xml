@@ -99,11 +99,12 @@
                                 </group>
                             </page>
                             <page string="Property Units">
-                                <field name="unit_ids" context="{'default_property_id':'property_id'}">
+                                <field name="unit_ids" options="{'no_create_edit': True}">
                                     <tree string="Units" editable="bottom">
                                         <field name="name"/>
                                         <field name="unit_price"/>
                                         <field name="unit_price_unit"/>
+<!--                                        <field name="property_id"/>-->
                                     </tree>
                                 </field>
                             </page>
