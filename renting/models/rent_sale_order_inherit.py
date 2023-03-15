@@ -383,6 +383,7 @@ class RentSaleOrderLine(models.Model):
                     'product_id': rec.service_id.product_variant_id.id,
                     'name': rec.service_id.product_variant_id.name,
                     'order_id': self.order_id.id,
+                    'analytic_account': self.analytic_account.id,
                     'price_unit': self.price_unit * (rec.percentage/100),
                     'rent_product_id': self.product_id.id,
                 })

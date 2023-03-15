@@ -13,7 +13,7 @@
             </field>
         </record>
         <record id="rental_additional_service_action_view" model="ir.actions.act_window">
-            <field name="name">rental.additional.service.form.view</field>
+            <field name="name">Additional Services</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">rental.additional.service</field>
             <field name="view_mode">tree,form</field>
