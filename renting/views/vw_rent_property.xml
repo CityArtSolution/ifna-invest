@@ -99,7 +99,7 @@
                                 </group>
                             </page>
                             <page string="Property Units">
-                                <field name="unit_ids" options="{'no_create_edit': True}">
+                                <field name="unit_ids" context="{'default_rent_ok':True,'default_property_id':id,'default_operating_unit':[property_address_area]}" options="{'no_create_edit': True}">
                                     <tree string="Units" editable="bottom">
                                         <field name="name"/>
                                         <field name="unit_price"/>
