@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, models, fields
+from odoo import api, models, fields,_
 
 
 class RentProduct(models.Model):
@@ -172,7 +172,17 @@ class RentProduct(models.Model):
             'context': {'default_is_rental_order': True, 'default_property_name': self.property_id.id,
                         'default_unit_number': self.id, 'default_analytic_account_id': self.analytic_account.id},
         }
-
+    def display_product_form(self):
+        """Display details of product."""
+        self.ensure_one()
+        return {
+            'name': _('Product'),
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'product.template',
+            'type': 'ir.actions.act_window',
+            'res_id': self.id
+        }
 
 class RentalAdditionalService(models.Model):
     _name = 'rental.additional.service'
