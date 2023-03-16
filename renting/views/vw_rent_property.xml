@@ -104,7 +104,8 @@
                                         <field name="name"/>
                                         <field name="unit_price"/>
                                         <field name="unit_price_unit"/>
-<!--                                        <field name="property_id"/>-->
+                                        <button type="object" string="Open" name="display_product_form"/>
+                                        <!--                                        <field name="property_id"/>-->
                                     </tree>
                                 </field>
                             </page>
