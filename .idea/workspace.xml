@@ -23,13 +23,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/samah-kandil/PycharmProjects/odoo-v15/etmana-api-addons"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/samah-kandil/PycharmProjects/odoo-v15/etmana-api-addons&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="odoo-bin" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="ifna-invest" />
@@ -45,7 +45,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$USER_HOME$/Odoo-Versions/odoo15/odoo/odoo-bin" />
-      <option name="PARAMETERS" value="--addons-path=$USER_HOME$/Odoo-Versions/odoo15/odoo/addons,$USER_HOME$/Odoo-Versions/odoo15/odoo/odoo-enterprise-v15,$PROJECT_DIR$ -u ifna_invoice_report --xmlrpc-port=3434" />
+      <option name="PARAMETERS" value="--addons-path=$USER_HOME$/Odoo-Versions/odoo15/odoo/addons,$USER_HOME$/Odoo-Versions/odoo15/odoo/odoo-enterprise-v15,$PROJECT_DIR$ -u ifna_helpdesk_custom --xmlrpc-port=3434" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
