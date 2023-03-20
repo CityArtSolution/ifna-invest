@@ -31,7 +31,7 @@ class SalesInherit(models.Model):
                 'utm.mixin']
 
     def send_contract_end_notification(self):
-        group = self.env.ref('rental_contract_notification.notify_group')
+        group = self.env.ref('rental_contract_notification.internal_notify_group')
         contract_expiry_days = self.env['ir.config_parameter'].sudo().get_param(
             'rental_contract_notification.contract_expiry_days')
         if not contract_expiry_days:
