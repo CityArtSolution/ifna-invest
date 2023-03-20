@@ -127,24 +127,24 @@
                                                       t-options="{'widget': 'text'}"/>
                                             </td>
                                             <td class="text-center"
-                                                style="border: 1px solid; width:20% ;vertical-align: middle;">
+                                                style="font-size:11px;border: 1px solid; width:20% ;vertical-align: middle;">
                                                 <span t-field="line.partner_id.name"
                                                       t-options="{'widget': 'text'}"/>
                                             </td>
-                                            <td class="text-center" style="border: 1px solid; vertical-align: middle;">
+                                            <td class="text-center" style="font-size:11px;border: 1px solid; vertical-align: middle;">
                                                 <span t-field="line.name"/>
                                             </td>
-                                            <td class="text-center" style="border: 1px solid; vertical-align: middle;">
+                                            <td class="text-center" style="font-size:11px;border: 1px solid; vertical-align: middle;">
                                                 <span t-field="line.analytic_account_id"/>
                                             </td>
-                                            <td class="text-center" style="border: 1px solid; vertical-align: middle;">
+                                            <td class="text-center" style="font-size:11px;border: 1px solid; vertical-align: middle;">
                                                 <span t-field="line.analytic_tag_ids" t-options="{'widget': 'text'}"/>
                                             </td>
-                                            <td style="border: 1px solid; vertical-align: middle;"
+                                            <td style="font-size:11px;border: 1px solid; vertical-align: middle;"
                                                 t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
                                                 <span class="text-nowrap" t-field="line.debit"/>
                                             </td>
-                                            <td style="border: 1px solid; vertical-align: middle;"
+                                            <td style="font-size:11px;border: 1px solid; vertical-align: middle;"
                                                 t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
                                                 <span class="text-nowrap" t-field="line.credit"/>
                                             </td>
