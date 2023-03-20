@@ -1,2 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_create_project_create_project,create_project.create_project,model_create_project_create_project,base.group_user,1,1,1,1
