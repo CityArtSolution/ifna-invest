@@ -179,6 +179,39 @@
                                     </th>
                                 </thead>
                             </table>
+
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th class="text-right">Totals For Journal Number :
+
+                                        </th>
+                                        <th class="text-right">
+                                            <span t-field="doc.account_id.name"/>
+                                        </th>
+                                        <th class="text-right">
+                                            <span t-field="doc.account_id.name"/>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="o.OBJECTS" t-as="OBJECT">
+                                        <td class="text-right">
+
+                                            <span t-field="doc.name"/>
+                                        </td>
+                                        <td class="text-right">
+
+                                            <span t-field="line.credit" sum="Total Credit"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="line.debit" sum="Total Debit"/>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
                         </div>
                         <div class="footer">
                             <div class="text-right">
