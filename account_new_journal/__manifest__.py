@@ -14,7 +14,7 @@
     'data': [
 
         'views/views.xml',
-        # 'views/journal_entry_report.xml',
+        'views/journal_entry_report.xml',
     ],
     'demo': [],
     'license': 'OPL-1',

@@ -4,6 +4,7 @@ import time
 from odoo import models, fields, _, api
 from odoo.exceptions import ValidationError
 
+
 class Journal(models.Model):
     _inherit = 'account.move'
 
@@ -11,22 +12,17 @@ class Journal(models.Model):
         lines_dict = {}
         lines = []
         for rec in self:
-            orders = rec.env['account.move.line'].search(
-                [('move_id.move_type', '=', 'entry')])
-            print(orders)
-            for line in orders:
-                lines.append({
-                    'account': line.account_id.name,
-                    'debit': line.debit,
-                    'credit': line.credit
-                })
-            for order in orders:
-                for order_item in order.account_id:
-                    if order_item.id in lines_dict:
-                        lines_dict[order_item.id] += order.debit
-                        lines_dict[order_item.id] += order.credit
-                        # product_dict[order_item.id].append(order.price_unit)
-                    else:
-                        lines_dict[order_item.id] = order.debit
-                        lines_dict[order_item.id] = order.credit
-            print(lines_dict)
+            if rec.move_type == 'entry':
+                for line in rec.line_ids:
+                    lines.append({
+                         line.account_id:line.debit + line.credit,
+                    })
+                print(lines)
+                for order in lines:
+                    for item in order:
+                        if item in lines_dict:
+                            lines_dict[item] += order[item]
+                        else:
+                            lines_dict[item] = order[item]
+                print(lines_dict)
+            return lines_dict

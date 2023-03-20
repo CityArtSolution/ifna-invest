@@ -182,33 +182,31 @@
 
                             <table class="table table-condensed">
                                 <thead>
+                                    <t t-set="lines" t-value="doc.calculate_total_account()"/>
                                     <tr>
                                         <th class="text-right">Totals For Journal Number :
 
                                         </th>
-                                        <th class="text-right">
-                                            <span t-field="line.account_id.name"/>
-                                        </th>
-                                        <th class="text-right">
-                                            <span t-field="line.account_id.name"/>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-<!--                                    <tr t-foreach="o.OBJECTS" t-as="OBJECT">-->
                                         <td class="text-right">
 
                                             <span t-field="doc.name"/>
                                         </td>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="lines" t-as="line">
+
+                                        <th class="text-right">
+                                            <span t-esc="line.name"/>
+                                        </th>
                                         <td class="text-right">
 
-                                            <span t-field="line.credit" sum="Total Credit"/>
-                                        </td>
-                                        <td class="text-right">
-                                            <span t-field="line.debit" sum="Total Debit"/>
+                                            <span t-esc="lines[line]"/>
                                         </td>
 
-<!--                                    </tr>-->
+                                    </tr>
                                 </tbody>
                             </table>
 
