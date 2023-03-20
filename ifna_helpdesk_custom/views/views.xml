@@ -47,6 +47,10 @@
                     <!-- Add your fields or attributes here -->
                     <field name="ticket_type_id" domain="[('helpdesk_teams_ids','in',team_id)]"/>
                 </xpath>
+                <xpath expr="//field[@name='user_id']" position="replace">
+                    <!-- Add your fields or attributes here -->
+                    <field name="user_id" class="field_user_id" domain="[(1,'=',1)]" widget="many2one_avatar_user"/>
+                </xpath>
 
             </field>
         </record>

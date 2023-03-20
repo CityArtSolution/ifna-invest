@@ -5,6 +5,9 @@ from odoo.exceptions import UserError, AccessError
 class HelpDeskCustom(models.Model):
     _inherit = 'helpdesk.ticket'
 
+    user_id = fields.Many2one(
+        'res.users', string='Assigned to', compute='_compute_user_and_stage_ids', store=True,
+        readonly=False, tracking=True)
 
 class HelpDeskCustomType(models.Model):
     _inherit = 'helpdesk.ticket.type'
