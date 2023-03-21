@@ -67,6 +67,7 @@ class RentProductProduct(models.Model):
     ref_analytic_account = fields.Char(string='رقم اشارة الحساب التحليلي', readonly=True)
     property_analytic_account = fields.Many2one('account.analytic.account', string='الحساب التحليلي للعقار',
                                                 related='property_id.analytic_account')
+    property_id = fields.Many2one('rent.property', string='عمارة', copy=True)  # Related field to Properties
 
     def _get_state(self):
         for rec in self:
