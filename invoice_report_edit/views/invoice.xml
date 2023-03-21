@@ -350,6 +350,15 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                    <td class="text-left" colspan="3">
+                                        <span>Swift:</span>
+                                    </td>
+                                    <td class="text-left" colspan="3">
+                                        <span t-field="o.company_id.partner_id.bank_ids[0].bank_id.swift"/>,
+
+                                    </td>
+                                </tr>
+                                    <tr>
                                         <td class="text-left" colspan="3">
                                             <span>Name:</span>
                                         </td>
