@@ -56,15 +56,31 @@
             <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='ticket_type_id']" position="replace">
-                    <!-- Add your fields or attributes here -->
                     <field name="ticket_type_id" domain="[('helpdesk_teams_ids','in',team_id)]"/>
                 </xpath>
                 <xpath expr="//field[@name='user_id']" position="replace">
-                    <!-- Add your fields or attributes here -->
                     <field name="user_id" class="field_user_id" domain="[(1,'=',1)]" widget="many2one_avatar_user"/>
                 </xpath>
-
             </field>
         </record>
+
+        <record id="helpdesk_ticket_new_form_view_repair" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.new</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk_repair.helpdesk_ticket_view_form_inherit_stock_user"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='use_product_repairs']" position="after">
+                    <field name="ticket_name" invisible="1"/>
+                </xpath>
+                <xpath expr="//button[@name='%(helpdesk_repair.action_repair_order_form)d']" position="replace">
+                    <button name="%(helpdesk_repair.action_repair_order_form)d" type="action"
+                            groups="stock.group_stock_user"
+                            string="Repair" attrs="{'invisible': [('use_product_repairs', '=', False)]}"
+                            context="{'default_product_id': product_id, 'default_description': ticket_name, 'default_lot_id': lot_id, 'default_partner_id': partner_id, 'default_ticket_id': id, 'default_company_id': company_id}"/>
+                </xpath>
+            </field>
+        </record>
+
     </data>
 </odoo>
