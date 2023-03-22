@@ -187,24 +187,34 @@
                                         <th class="text-right">Totals For Journal Number :
 
                                         </th>
-                                        <td class="text-right">
 
-                                            <span t-field="doc.name"/>
-                                        </td>
+                                        <th class="text-right">
+                                            Account
+                                        </th>
 
+                                        <th class="text-right">
+                                            Total
+                                        </th>
 
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr t-foreach="lines" t-as="line">
+                                        <td class="text-right">
 
-                                        <th class="text-right">
-                                            <span t-esc="line.name"/>
-                                        </th>
+                                            <span t-field="doc.name"/>
+                                        </td>
+
+                                        <td class="text-right">
+                                            <span t-esc="line"/>
+                                        </td>
+
                                         <td class="text-right">
 
                                             <span t-esc="lines[line]"/>
+<!--                                            <span t-esc="line[l]"/>-->
                                         </td>
+
 
                                     </tr>
                                 </tbody>
