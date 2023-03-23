@@ -195,9 +195,9 @@
                                         <th class="text-right">
                                             Total
                                         </th>
-                                        <th class="text-right">
-                                            Analytic Account
-                                        </th>
+<!--                                        <th class="text-right">-->
+<!--                                            Analytic Account-->
+<!--                                        </th>-->
 
                                     </tr>
                                 </thead>
@@ -207,29 +207,27 @@
 
                                             <span t-field="doc.name"/>
                                         </td>
-                                        <t t-if="line.debit">
                                             <td class="text-right">
                                                 <span t-esc="item.get('account_id')[1]"/>
                                             </td>
 
                                             <td class="text-right">
-                                                <t t-if="item.get('credit')>0">
+                                                <t t-if="item.get('credit')">
 
                                                     <span t-esc="item.get('credit')"/>
-                                                        -
+                                                    -
                                                 </t>
-                                                <t t-if="item.get('debit')>0">
+                                                <t t-if="item.get('debit')">
 
                                                 <span t-esc="item.get('debit')"/>
                                                 </t>
 
                                             </td>
-                                             <td class="text-right">
-                                                <span t-esc="item.get('analytic_account_id')"/>
-                                            </td>
+<!--                                             <td class="text-right">-->
+<!--                                                <span t-esc="item.get('new_analytic_account_id')"/>-->
+<!--                                            </td>-->
 
 
-                                        </t>
                                     </tr>
                                 </tbody>
                             </table>

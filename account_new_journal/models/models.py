@@ -5,6 +5,16 @@ from odoo import models, fields, _, api
 from odoo.exceptions import ValidationError
 
 
+class NewModule(models.Model):
+    _inherit = 'account.move.line'
+
+    analytic_account_id = fields.Many2one('account.analytic.account', string='Analytic Account',
+                                          index=True, compute="_compute_analytic_account_id", store=True,
+                                          readonly=False,
+                                          check_company=True, copy=True)
+    new_analytic_account_id = fields.Many2one('account.analytic.account', related='analytic_account_id',)
+
+
 class Journal(models.Model):
     _inherit = 'account.move'
 
@@ -18,9 +28,10 @@ class Journal(models.Model):
                                                                      groupby=['account_id', 'analytic_account_id'])
             print('lines', lines_dict)
             for line in lines_dict:
-                print('account',line.get('account_id')[0])
-                print('account analytic',line.get('analytic_account_id'))
+                print('account', line.get('account_id')[0])
+                print('account analytic', line.get('new_analytic_account_id.id'))
             return lines_dict
+
 
     # def calculate_total_account(self):
     #     lines_dict = {}
