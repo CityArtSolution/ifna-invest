@@ -8,11 +8,22 @@ from odoo.exceptions import ValidationError
 class NewModule(models.Model):
     _inherit = 'account.move.line'
 
+    # def samah(self):
+    #     accounts = self.env['account.analytic.account']
+    #     for line in self:
+    #         if '__domain' in line:
+    #             accounts = self.search(line['__domain'])
+    #         if 'debit' in fields:
+    #             line['debit'] = sum(accounts.mapped('debit'))
+    #         if 'credit' in fields:
+    #             line['credit'] = sum(accounts.mapped('credit'))
+    #         print(line)
+
     analytic_account_id = fields.Many2one('account.analytic.account', string='Analytic Account',
                                           index=True, compute="_compute_analytic_account_id", store=True,
                                           readonly=False,
                                           check_company=True, copy=True)
-    new_analytic_account_id = fields.Many2one('account.analytic.account', related='analytic_account_id',)
+    new_analytic_account_id = fields.Many2one('account.analytic.account', related='analytic_account_id', )
 
 
 class Journal(models.Model):
@@ -23,15 +34,20 @@ class Journal(models.Model):
         for rec in self:
             if rec.move_type == 'entry':
                 lines_dict = rec.env['account.move.line'].read_group(domain=[('move_id', '=', rec.id)],
-                                                                     fields=['account_id', 'analytic_account_id',
+                                                                     fields=['account_id','analytic_account_id',
                                                                              'credit', 'debit'],
-                                                                     groupby=['account_id', 'analytic_account_id'])
-            print('lines', lines_dict)
-            for line in lines_dict:
-                print('account', line.get('account_id')[0])
-                print('account analytic', line.get('new_analytic_account_id.id'))
-            return lines_dict
+                                                                     groupby=['account_id','analytic_account_id'],lazy=False,)
 
+                new = rec.env['account.move.line'].read_group(domain=[('move_id', '=', rec.id)],
+                                                              fields=['analytic_account_id', 'debit', 'credit'],
+                                                              groupby=['analytic_account_id'])
+
+            print('lines', lines_dict)
+            print('new', new)
+            for line in lines_dict:
+                print('account', line.get('account_id'))
+                print('account analytic', line.get('analytic_account_id'))
+            return lines_dict
 
     # def calculate_total_account(self):
     #     lines_dict = {}
@@ -59,10 +75,3 @@ class Journal(models.Model):
     #             print(lines_dict)
     #             return lines_dict
 
-# {'Current Assets': 100.0, 'تـأمين': account.analytic.account(21,),
-#  'Account Receivable (PoS)': 100.0, 'رسوم ادارية': account.analytic.account(19,),
-#  'Bank': 200.0, 'رسوم ادارية خاضعة': account.analytic.account(23,)}
-
-# {'Current Assets': 300.0, 'تـأمين': account.analytic.account(21, 21),
-# 'Account Receivable (PoS)': 100.0, 'رسوم ادارية': account.analytic.account(19,),
-# 'Bank': 200.0, 'رسوم ادارية خاضعة': account.analytic.account(23,)}

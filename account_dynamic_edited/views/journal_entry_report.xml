@@ -195,9 +195,9 @@
                                         <th class="text-right">
                                             Total
                                         </th>
-<!--                                        <th class="text-right">-->
-<!--                                            Analytic Account-->
-<!--                                        </th>-->
+                                        <th class="text-right">
+                                            Analytic Account
+                                        </th>
 
                                     </tr>
                                 </thead>
@@ -223,9 +223,9 @@
                                                 </t>
 
                                             </td>
-<!--                                             <td class="text-right">-->
-<!--                                                <span t-esc="item.get('new_analytic_account_id')"/>-->
-<!--                                            </td>-->
+                                             <td class="text-right">
+                                                <span t-esc="item.get('analytic_account_id')[1]"/>
+                                            </td>
 
 
                                     </tr>

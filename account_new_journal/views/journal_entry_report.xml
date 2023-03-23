@@ -224,7 +224,7 @@
 
                                             </td>
                                              <td class="text-right">
-                                                <span t-esc="item.get('new_analytic_account_id')"/>
+                                                <span t-esc="item.get('analytic_account_id')[1]"/>
                                             </td>
 
 
