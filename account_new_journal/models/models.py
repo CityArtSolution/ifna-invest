@@ -30,6 +30,7 @@ class Journal(models.Model):
     _inherit = 'account.move'
 
     def calculate_total_account(self):
+        accounts=[]
         lines_dict = {}
         for rec in self:
             if rec.move_type == 'entry':
@@ -37,8 +38,21 @@ class Journal(models.Model):
                                                                      fields=['account_id','analytic_account_id',
                                                                              'credit', 'debit'],
                                                                      groupby=['account_id','analytic_account_id'],lazy=False,)
-            # print(lines_dict)
-            # for line in lines_dict:
-            #     print('debit', line.get('debit'))
-            #     print('credit', line.get('credit'))
+            print(lines_dict)
+            for line in lines_dict:
+                # print('debit', line.get('debit'))
+                # print('credit', line.get('credit'))
+                if line.get('debit') > line.get('credit'):
+                    accounts.append(
+                        {
+                            line.get('account_id'):line.get('debit')
+                        }
+                    )
+                else:
+                    accounts.append(
+                        {
+                            line.get('account_id'): line.get('credit')
+                        }
+                    )
+            print('accountssss',accounts)
             return lines_dict
