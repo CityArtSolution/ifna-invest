@@ -59,7 +59,7 @@
                 <xpath expr="// field [@ name = 'order_line'] / tree / field [@ name = 'product_id']"
                        position="before">
                     <field name="property_number"/>
-                    <field name="analytic_account"/>
+                    <field name="property_analytic_account"/>
                     <field name="pickup_date" invisible="1" force_save="1"/>
                     <field name="return_date" invisible="1" force_save="1"/>
                 </xpath>
