@@ -4,6 +4,7 @@ from odoo.exceptions import UserError, ValidationError
 from markupsafe import Markup
 from collections import defaultdict
 
+
 class HelpDeskCustom(models.Model):
     _inherit = 'repair.order'
 
@@ -11,7 +12,6 @@ class HelpDeskCustom(models.Model):
     analytic_account_id = fields.Many2one(
         'account.analytic.account', string='الحساب التحليلي', related="product_id.product_tmpl_id.analytic_account",
         tracking=True)
-
 
     def _create_invoices(self, group=False):
         """ Creates invoice(s) for repair order.
@@ -34,14 +34,16 @@ class HelpDeskCustom(models.Model):
 
             journal = repair.env['account.move'].with_context(move_type='out_invoice')._get_default_journal()
             if not journal:
-                raise UserError(_('Please define an accounting sales journal for the company %s (%s).') % (company.name, company.id))
+                raise UserError(_('Please define an accounting sales journal for the company %s (%s).') % (
+                company.name, company.id))
 
             if (partner_invoice.id, currency.id, company.id) not in grouped_invoices_vals:
                 grouped_invoices_vals[(partner_invoice.id, currency.id, company.id)] = []
             current_invoices_list = grouped_invoices_vals[(partner_invoice.id, currency.id, company.id)]
 
             if not group or len(current_invoices_list) == 0:
-                fpos = self.env['account.fiscal.position'].get_fiscal_position(partner_invoice.id, delivery_id=repair.address_id.id)
+                fpos = self.env['account.fiscal.position'].get_fiscal_position(partner_invoice.id,
+                                                                               delivery_id=repair.address_id.id)
                 invoice_vals = {
                     'move_type': 'out_invoice',
                     'partner_id': partner_invoice.id,
@@ -62,7 +64,7 @@ class HelpDeskCustom(models.Model):
                 invoice_vals['invoice_origin'] += ', ' + repair.name
                 invoice_vals['repair_ids'].append((4, repair.id))
                 if not is_html_empty(narration):
-                    if  is_html_empty(invoice_vals['narration']):
+                    if is_html_empty(invoice_vals['narration']):
                         invoice_vals['narration'] = narration
                     else:
                         invoice_vals['narration'] += Markup('<br/>') + narration
@@ -160,7 +162,9 @@ class HelpDeskCustom(models.Model):
         for company_id, invoices_vals_list in invoices_vals_list_per_company.items():
             # VFE TODO remove the default_company_id ctxt key ?
             # Account fallbacks on self.env.company, which is correct with with_company
-            self.env['account.move'].with_company(company_id).with_context(default_company_id=company_id, default_move_type='out_invoice').create(invoices_vals_list)
+            self.env['account.move'].with_company(company_id).with_context(default_company_id=company_id,
+                                                                           default_move_type='out_invoice').create(
+                invoices_vals_list)
 
         repairs.write({'invoiced': True})
         repairs.mapped('operations').filtered(lambda op: op.type == 'add').write({'invoiced': True})
@@ -269,4 +273,3 @@ class HelpDeskCustom(models.Model):
             produced_lines.write({'consume_line_ids': [(6, 0, consumed_lines.ids)]})
             res[repair.id] = move.id
         return res
-
