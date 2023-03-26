@@ -180,62 +180,99 @@
                                 </thead>
                             </table>
 
-                            <table class="table table-condensed">
-                                <thead>
-                                    <t t-set="items" t-value="doc.calculate_total_account()"/>
-                                    <tr>
-<!--                                        <th class="text-right">Totals For Journal Number :-->
 
-<!--                                        </th>-->
+                        </div>
+                          <div>
+                            <span class="text-left">Totals For Journal Number :</span>
+                            <span class="text-left" t-field="doc.name"/>
 
-                                        <th class="text-right">
-                                            Account
-                                        </th>
+                        </div>
 
-                                        <th class="text-right">
-                                            Analytic Account
-                                        </th>
+                        <div class="content" style="margin-left:-5px;margin-right:-5px">
+                            <div style="float: left; width: 50%; padding: 5px;">
+                                <table style="width:100%" dir="ltr" class="table table-condensed">
+                                    <thead>
+                                        <t t-set="items" t-value="doc.calculate_total_account()"/>
+                                        <tr>
 
-                                        <th class="text-right">
-                                            Total
-                                        </th>
+                                            <th class="text-left">
+                                                Account
+                                            </th>
+                                            <th class="text-left">
+                                                Analytic Account
+                                            </th>
 
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="items" t-as="item">
+                                            <td class="text-left">
+                                                <span t-esc="item.get('account_id')[1]"/>
+                                            </td>
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr t-foreach="items" t-as="item">
-<!--                                        <td class="text-right">-->
-
-<!--                                            <span t-field="doc.name"/>-->
-<!--                                        </td>-->
-
-                                        <td class="text-right">
-                                            <span t-esc="item.get('account_id')[1]"/>
-                                        </td>
-
-                                        <td class="text-right">
-                                            <span t-esc="item.get('analytic_account_id')[1]"/>
-                                        </td>
-
-                                        <td class="text-right">
-                                            <t t-if="item.get('credit')">
-
-                                                <span t-esc="item.get('credit')"/>
-                                                -
-                                            </t>
-                                            <t t-if="item.get('debit')">
-
-                                                <span t-esc="item.get('debit')"/>
-                                            </t>
-
-                                        </td>
+                                            <td class="text-left">
+                                                <span t-esc="item.get('analytic_account_id')[1]"/>
+                                            </td>
 
 
-                                    </tr>
-                                </tbody>
-                            </table>
+                                        </tr>
+                                    </tbody>
+                                </table>
 
+                            </div>
+                            <div style="float: left; width: 50%; padding: 5px;">
+                                <table style="width:100%" dir="ltr" class="table table-condensed">
+                                    <thead>
+                                        <t t-set="items" t-value="doc.calculate_total_account()"/>
+                                        <tr>
+
+
+                                            <th class="text-left">
+                                                Total
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="items" t-as="item">
+
+                                            <td class="text-left">
+
+                                                <t t-if="item.get('debit')">
+
+                                                    <span t-esc="item.get('debit')"/>
+                                                </t>
+                                                <t t-if="item.get('credit')">
+
+                                                    <span t-esc="item.get('credit')"/>
+                                                    -
+                                                </t>
+
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+
+                        </div>
+
+                        <div width="100%">
+                            <span dir="ltr"
+                                  style="float:right; font-size:13px;display:inline;">
+                                Approved By:
+                            </span>
+                            <span dir="ltr"
+                                  style="float:left; font-size:13px;display:inline;">
+                                Prepared By:
+                            </span>
+                            <span dir="ltr"
+                                  style="text-align:center; font-size:13px;display:block;">
+                                Audited By:
+                            </span>
                         </div>
                         <div class="footer">
                             <div class="text-right">
