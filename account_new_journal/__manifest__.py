@@ -10,7 +10,7 @@
     'maintainer': 'Pycus Technologies',
     'website': '',
     'images': ['static/description/banner.gif'],
-    'depends': ['account', 'web','base'],
+    'depends': ['account', 'web','base','analytic'],
     'data': [
 
         'views/views.xml',

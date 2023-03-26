@@ -182,37 +182,53 @@
 
                             <table class="table table-condensed">
                                 <thead>
-                                    <t t-set="lines" t-value="doc.calculate_total_account()"/>
+                                    <t t-set="items" t-value="doc.calculate_total_account()"/>
                                     <tr>
-                                        <th class="text-right">Totals For Journal Number :
+<!--                                        <th class="text-right">Totals For Journal Number :-->
 
-                                        </th>
+<!--                                        </th>-->
 
                                         <th class="text-right">
                                             Account
                                         </th>
 
                                         <th class="text-right">
+                                            Analytic Account
+                                        </th>
+
+                                        <th class="text-right">
                                             Total
                                         </th>
+
 
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr t-foreach="lines" t-as="line">
-                                        <td class="text-right">
+                                    <tr t-foreach="items" t-as="item">
+<!--                                        <td class="text-right">-->
 
-                                            <span t-field="doc.name"/>
+<!--                                            <span t-field="doc.name"/>-->
+<!--                                        </td>-->
+
+                                        <td class="text-right">
+                                            <span t-esc="item.get('account_id')[1]"/>
                                         </td>
 
                                         <td class="text-right">
-                                            <span t-esc="line"/>
+                                            <span t-esc="item.get('analytic_account_id')[1]"/>
                                         </td>
 
                                         <td class="text-right">
+                                            <t t-if="item.get('credit')">
 
-                                            <span t-esc="lines[line]"/>
-<!--                                            <span t-esc="line[l]"/>-->
+                                                <span t-esc="item.get('credit')"/>
+                                                -
+                                            </t>
+                                            <t t-if="item.get('debit')">
+
+                                                <span t-esc="item.get('debit')"/>
+                                            </t>
+
                                         </td>
 
 
