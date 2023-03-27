@@ -35,7 +35,7 @@ class RentSaleInvoices(models.Model):
             'discount': line.discount,
             'price_unit': line.price_unit / self.sale_order_id.invoice_number,
             'tax_ids': [(6, 0, line.tax_id.ids)],
-            'analytic_account_id': line.product_id.analytic_account.id,
+            'analytic_account_id': line.product_id.product_tmpl_id.analytic_account.id,
             'sale_line_ids': [(4, line.id)],
             'exclude_from_invoice_tab': False,
         }
