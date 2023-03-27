@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b3839cbe-664d-4098-868e-d832382f348b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account_dynamic_edited/views/journal_entry_report.xml" beforeDir="false" afterPath="$PROJECT_DIR$/account_dynamic_edited/views/journal_entry_report.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account_new_journal/views/journal_entry_report.xml" beforeDir="false" afterPath="$PROJECT_DIR$/account_new_journal/views/journal_entry_report.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,13 +23,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/samah-kandil/PycharmProjects/odoo-v15/etmana-api-addons&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/home/samah-kandil/PycharmProjects/odoo-v16/QKITCHN"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="odoo-bin" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="ifna-invest" />
