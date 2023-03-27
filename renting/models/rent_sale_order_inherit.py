@@ -133,7 +133,7 @@ class RentSaleOrder(models.Model):
             for i in range(1, rec.invoice_number + 1):
 
                 total_other_amount = sum((
-                                                     i.insurance_value + i.contract_admin_fees + i.contract_service_fees + i.contract_admin_sub_fees + i.contract_service_sub_fees)
+                                                 i.insurance_value + i.contract_admin_fees + i.contract_service_fees + i.contract_admin_sub_fees + i.contract_service_sub_fees)
                                          for i in rec.order_line)
                 taxed_total_other_amount = sum(
                     (i.contract_admin_sub_fees + i.contract_service_sub_fees) for i in rec.order_line)
@@ -172,7 +172,7 @@ class RentSaleOrder(models.Model):
         self.get_invoice_number()
 
     def get_invoice_number(self):
-        todate=self.todate+relativedelta(days=1)
+        todate = self.todate + relativedelta(days=1)
         diff = relativedelta(todate, self.fromdate)
         m = month = 0
         if diff.years != 0:
@@ -356,8 +356,10 @@ class RentSaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     property_number = fields.Many2one('rent.property', string='العقار')
+    property_analytic_account = fields.Many2one('account.analytic.account', string='الحساب التحليلي',
+                                                related='property_number.analytic_account')
     analytic_account = fields.Many2one('account.analytic.account', string='الحساب التحليلي',
-                                       related='product_id.analytic_account')
+                                       related='product_id.product_tmpl_id.analytic_account')
     pickup_date = fields.Datetime(string="Pickup", related='order_id.fromdate', store=True)
     return_date = fields.Datetime(string="Return", related='order_id.todate', store=True)
     insurance_value = fields.Float(string='قيمة التأمين')
@@ -368,7 +370,9 @@ class RentSaleOrderLine(models.Model):
     # Rental Additional Service
     rent_ok = fields.Boolean(related='product_id.product_tmpl_id.rent_ok')
     rent_product_id = fields.Many2one(comodel_name="product.product")
-    rental_pricing_id = fields.Many2one(comodel_name="rental.pricing", string="Rental Pricing",domain="[('product_template_id','=',product_template_id)]")
+    rental_pricing_id = fields.Many2one(comodel_name="rental.pricing", string="Rental Pricing",
+                                        domain="[('product_template_id','=',product_template_id)]")
+
     def action_get_service(self):
         for order_line in self.order_id.order_line:
             if order_line.rent_product_id.id == self.product_id.id:
@@ -381,9 +385,10 @@ class RentSaleOrderLine(models.Model):
                     'name': rec.service_id.product_variant_id.name,
                     'order_id': self.order_id.id,
                     'analytic_account': self.analytic_account.id,
-                    'price_unit': self.price_unit * (rec.percentage/100),
+                    'price_unit': self.price_unit * (rec.percentage / 100),
                     'rent_product_id': self.product_id.id,
                 })
+
     @api.depends('product_uom_qty', 'discount', 'price_unit', 'tax_id')
     def _compute_amount(self):
         """
@@ -409,7 +414,7 @@ class RentSaleOrderLine(models.Model):
     @api.onchange('product_id')
     def check_rental_details(self):
         if self.product_id.product_tmpl_id.rent_ok:
-            self.is_rental =True
+            self.is_rental = True
             for pricing_unit in self.product_id.product_tmpl_id.rental_pricing_ids:
-                self.rental_pricing_id =pricing_unit
+                self.rental_pricing_id = pricing_unit
                 break

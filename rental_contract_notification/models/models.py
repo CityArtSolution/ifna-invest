@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api
 from odoo import SUPERUSER_ID
+from odoo.exceptions import UserError, ValidationError
 
 
 class ContractConfigurationSettings(models.TransientModel):
@@ -31,11 +32,11 @@ class SalesInherit(models.Model):
                 'utm.mixin']
 
     def send_contract_end_notification(self):
-        group = self.env.ref('rental_contract_notification.internal_notify_group')
+        group = self.env.ref('rental_contract_notification.notify_group')
         contract_expiry_days = self.env['ir.config_parameter'].sudo().get_param(
             'rental_contract_notification.contract_expiry_days')
-        if not contract_expiry_days:
-            raise Warning('Please Configure Contract Expiry Notification Days In the Rental Configuration')
+        if not int(contract_expiry_days):
+            raise UserError('Please Configure Contract Expiry Notification Days In the Rental Configuration')
         notification_user = self.env['res.users'].search([]).filtered(lambda i: group in i.groups_id)
         super_user = self.env['res.users'].browse(SUPERUSER_ID)
         template_id = self.env.ref('rental_contract_notification.contract_notification_template')
