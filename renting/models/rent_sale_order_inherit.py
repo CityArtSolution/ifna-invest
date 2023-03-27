@@ -16,8 +16,12 @@ class RentSaleOrder(models.Model):
     todate = fields.Datetime(string='To Date', default=datetime.today(), copy=False, required=True)
     # Fields in Contract Info Tab
     order_contract = fields.Binary(string='العقد')
+    # invoice_terms = fields.Selection(
+    #     [('monthly', 'شهري'), ('qua-year', '3 شهور'), ('half-year', '6 أشهر'), ('year', 'سنوي')],
+    #     string='Invoice Terms',
+    #     default='monthly')
     invoice_terms = fields.Selection(
-        [('monthly', 'شهري'), ('qua-year', '3 شهور'), ('half-year', '6 أشهر'), ('year', 'سنوي')],
+        [('monthly', 'monthly'), ('quarterly', 'quarterly'), ('semi', 'Semi'), ('yearly', 'yearly')],
         string='Invoice Terms',
         default='monthly')
     order_contract_invoice = fields.One2many('rent.sale.invoices', 'sale_order_id', string='العقد')
@@ -115,7 +119,7 @@ class RentSaleOrder(models.Model):
             if rec.invoice_number <= 0:
                 raise UserError(_('من فضلك اكتب عدد الفواتير'))
             rec.order_contract_invoice = False
-            fromdate = rec.fromdate
+            fromdate = rec.fromdate.replace(day=1)
             d1 = fields.Datetime.from_string(rec.fromdate)
             d2 = fields.Datetime.from_string(rec.todate)
             total_contract_period = d2 - d1
@@ -129,11 +133,10 @@ class RentSaleOrder(models.Model):
             # if abs(total_contract_period.days) % abs(rec.invoice_number) >0:
             #     raise UserError(_('يجب كتابة عدد فواتير مناسب لمدة العقد'))
             #
-
-            for i in range(1, rec.invoice_number + 1):
+            for i in range(0, rec.invoice_number + 1):
 
                 total_other_amount = sum((
-                                                 i.insurance_value + i.contract_admin_fees + i.contract_service_fees + i.contract_admin_sub_fees + i.contract_service_sub_fees)
+                                                     i.insurance_value + i.contract_admin_fees + i.contract_service_fees + i.contract_admin_sub_fees + i.contract_service_sub_fees)
                                          for i in rec.order_line)
                 taxed_total_other_amount = sum(
                     (i.contract_admin_sub_fees + i.contract_service_sub_fees) for i in rec.order_line)
@@ -147,8 +150,14 @@ class RentSaleOrder(models.Model):
                     rec.order_line.tax_id)
                 total_tax = sum((property_amount_per_inv) * (tax.amount / 100) for tax in rec.order_line.tax_id)
 
-                # todate = fromdate + relativedelta(days=diff)
-                todate = fromdate + relativedelta(months=1) - relativedelta(days=1)
+                if rec.invoice_terms == "monthly":
+                    todate = fromdate + relativedelta(months=1) - relativedelta(days=1)
+                if rec.invoice_terms == "quarterly":
+                    todate = fromdate + relativedelta(months=3) - relativedelta(days=1)
+                if rec.invoice_terms == "semi":
+                    todate = fromdate + relativedelta(months=6) - relativedelta(days=1)
+                if rec.invoice_terms == "yearly":
+                    todate = fromdate + relativedelta(years=1) - relativedelta(days=1)
 
                 if i == 1:
                     amount = property_amount_per_inv + total_other_amount + total_tax_first_inv
@@ -167,19 +176,34 @@ class RentSaleOrder(models.Model):
                     })
                 fromdate = todate + relativedelta(days=1)
 
-    @api.onchange("fromdate", "todate")
+    @api.onchange("fromdate", "todate", "invoice_terms")
     def onchang_contract_dates(self):
         self.get_invoice_number()
 
     def get_invoice_number(self):
-        todate = self.todate + relativedelta(days=1)
-        diff = relativedelta(todate, self.fromdate)
-        m = month = 0
-        if diff.years != 0:
-            m = diff.years * 12
-        if diff.months != 0:
-            month = diff.months
-        self.invoice_number = month + m
+        for rec in self:
+            todate = rec.todate + relativedelta(days=1)
+            diff = relativedelta(todate, rec.fromdate)
+            print("///////////////////diff", diff)
+            m = month = 0
+            if diff.years != 0:
+                m = diff.years * 12
+            if diff.months != 0:
+                month = diff.months
+            print("///////////////,", month + m)
+            months = m + month
+
+            if rec.invoice_terms == "monthly":
+                rec.invoice_number = month + m
+
+            if rec.invoice_terms == "quarterly":
+                rec.invoice_number = months / 3
+
+            if rec.invoice_terms == "semi":
+                rec.invoice_number = months / 6
+
+            if rec.invoice_terms == "yearly":
+                rec.invoice_number = diff.years
 
     def action_confirm(self):
         if self.invoice_number == 0:
