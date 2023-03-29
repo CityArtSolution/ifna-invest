@@ -166,6 +166,7 @@ class RentSaleOrder(models.Model):
                         'name': "فاتورة رقم " + str(i),
                         'sequence': i,
                         'fromdate': fromdate,
+                        'invoice_date': fromdate.date(),
                         'todate': rec.todate if rec.invoice_number == i else todate,
                         'amount': amount,
                         'sale_order_id': rec.id,
@@ -392,7 +393,6 @@ class RentSaleOrder(models.Model):
                         vals = rec._prepare_invoice(invoice_lines)
                         print(vals)
                         self.env['account.move'].create(vals)
-                        rec.invoice_date = fields.Date.today()
                         rec.status = 'invoiced'
 
 

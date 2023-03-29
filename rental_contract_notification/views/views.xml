@@ -1,24 +1,6 @@
 <odoo>
     <data>
 
-        <record id="contract_notification_template" model="mail.template">
-            <field name="name">Contract e-mail template</field>
-            <field name="email_from">${object.company_id and object.company_id.email or ''}</field>
-            <field name="subject"> End of Contract Notification -${object.name}</field>
-            <field name="email_to">${object.email|safe}</field>
-            <field name="lang">${object.lang}</field>
-            <field name="model_id" ref="rental_contract_notification.model_sale_order"/>
-            <field name="auto_delete" eval="True"/>
-            <field name="body_html">
-                    <![CDATA[
-                          <p>Dear,<br/><br/>
-                          The Contract
-                          <strong>"${(object.name)}"</strong>
-                          will End in <strong>${(object.todate)}.</strong><br/><br/>
-                          Regards,<br/><br/>
-                          ${(object.company_id.name)}]]>
-            </field>
-        </record>
 
         <record id="res_config_settings_view_form" model="ir.ui.view">
             <field name="name">res.config.settings.view.form.inherit</field>

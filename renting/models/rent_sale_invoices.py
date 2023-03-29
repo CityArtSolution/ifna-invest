@@ -137,6 +137,7 @@ class RentSaleInvoices(models.Model):
             "invoice_line_ids": invoice_lines,
             'company_id': self.sale_order_id.company_id.id,
             'operating_unit_id': self.operating_unit.id,
+            'invoice_date': self.invoice_date,
             'fromdate': self.fromdate,
             'todate': self.todate,
         }
@@ -164,7 +165,6 @@ class RentSaleInvoices(models.Model):
         vals = self._prepare_invoice(invoice_lines)
         print(vals)
         invoice = self.env['account.move'].create(vals)
-        self.invoice_date = fields.Date.today()
         self.status = 'invoiced'
         return invoice
 
