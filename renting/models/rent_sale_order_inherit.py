@@ -422,6 +422,11 @@ class RentSaleOrderLine(models.Model):
             if order_line.rent_product_id.id == self.product_id.id:
                 order_line.unlink()
         for rec in self.rental_pricing_id.service_ids:
+            if rec.type == 'amount':
+                price = rec.percentage
+            if rec.type == 'percentage':
+                price = self.price_unit * (rec.percentage / 100)
+
             self.env['sale.order.line'].sudo().create(
                 {
                     'product_uom_qty': 1,
@@ -429,7 +434,7 @@ class RentSaleOrderLine(models.Model):
                     'name': rec.service_id.product_variant_id.name,
                     'order_id': self.order_id.id,
                     'analytic_account': self.analytic_account.id,
-                    'price_unit': self.price_unit * (rec.percentage / 100),
+                    'price_unit': price,
                     'rent_product_id': self.product_id.id,
                 })
 

@@ -8,7 +8,9 @@
             <field name="arch" type="xml">
                 <tree editable="bottom">
                     <field name="service_id"/>
-                    <field name="percentage"/>
+                    <field name="type"/>
+                    <field name="percentage" string="Amount" attrs="{'invisible': [('type','==','percentage')]}"/>
+                    <field name="percentage" string="Percentage" attrs="{'invisible': [('type','==','amount')]}"/>
                 </tree>
             </field>
         </record>
