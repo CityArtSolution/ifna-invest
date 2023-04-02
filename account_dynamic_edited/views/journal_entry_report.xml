@@ -188,8 +188,8 @@
 
                         </div>
 
-                        <div class="content" style="margin-left:-5px;margin-right:-5px">
-                            <div style="float: left; width: 50%; padding: 5px;">
+                        <div width="1000%"  class="content" style="margin-left:-5px;margin-right:-5px">
+                            <div style="float: left; width: 1000%; padding: 5px;">
                                 <table style="width:100%" dir="ltr" class="table table-condensed">
                                     <thead>
                                         <t t-set="items" t-value="doc.calculate_total_account()"/>
