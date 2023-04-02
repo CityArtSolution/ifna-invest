@@ -42,7 +42,7 @@ class RentProductProduct(models.Model):
 
     rent_config_unit_overlook_id = fields.Many2one('rent.config.unit.overlooks', string='Unit Overlooking',
                                                    copy=True)  # Related field to menu item "Unit Views"
-    rent_config_unit_type_id = fields.Many2one('rent.config.unit.types', string='Unit type',
+    rent_config_unit_type_id = fields.Many2one('rent.config.unit.types', string='Unit type - Style',
                                                copy=True)  # Related field to menu item "Unit Types"
     rent_config_unit_purpose_id = fields.Many2one('rent.config.unit.purposes', string='Unit Purpose',
                                                   copy=True)  # Related field to menu item "Unit Purpose"
@@ -97,6 +97,8 @@ class RentProductProduct(models.Model):
 class RentProduct(models.Model):
     _inherit = 'product.template'
 
+    separate = fields.Boolean(string="Separate Invoice")
+
     unit_number = fields.Char(string='رقم الوحدة', copy=True)
     unit_area = fields.Char(string='مساحة الوحدة', copy=True)
     unit_floor_number = fields.Char(string='رقم الطابق', copy=True)
@@ -132,7 +134,7 @@ class RentProduct(models.Model):
 
     rent_config_unit_overlook_id = fields.Many2one('rent.config.unit.overlooks', string='Unit Overlooking',
                                                    copy=True)  # Related field to menu item "Unit Views"
-    rent_config_unit_type_id = fields.Many2one('rent.config.unit.types', string='Unit type',
+    rent_config_unit_type_id = fields.Many2one('rent.config.unit.types', string='Unit type - Style',
                                                copy=True)  # Related field to menu item "Unit Types"
     rent_config_unit_purpose_id = fields.Many2one('rent.config.unit.purposes', string='Unit Purpose',
                                                   copy=True)  # Related field to menu item "Unit Purpose"
@@ -291,6 +293,22 @@ class RentalAdditionalService(models.Model):
     fixed = fields.Float()
     percentage = fields.Float()
     product_id = fields.Many2one(comodel_name="product.template")
+    separate = fields.Boolean(string="Separate Invoice")
+
+    @api.onchange('separate')
+    def change_separate(self):
+        for rec in self:
+            if rec.separate:
+                rec.service_id.separate = True
+            else:
+                rec.service_id.separate = False
+
+    @api.model
+    def create(self, vals):
+        result = super(RentalAdditionalService, self).create(vals)
+        if result.separate:
+            result.service_id.separate = True
+        return result
 
     def get_concatenation_name(self):
         for rec in self:
