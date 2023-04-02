@@ -16,10 +16,6 @@ class RentSaleOrder(models.Model):
     todate = fields.Datetime(string='To Date', default=datetime.today(), copy=False, required=True)
     # Fields in Contract Info Tab
     order_contract = fields.Binary(string='العقد')
-    # invoice_terms = fields.Selection(
-    #     [('monthly', 'شهري'), ('qua-year', '3 شهور'), ('half-year', '6 أشهر'), ('year', 'سنوي')],
-    #     string='Invoice Terms',
-    #     default='monthly')
     invoice_terms = fields.Selection(
         [('monthly', 'monthly'), ('quarterly', 'quarterly'), ('semi', 'Semi'), ('yearly', 'yearly')],
         string='Invoice Terms',
@@ -136,7 +132,7 @@ class RentSaleOrder(models.Model):
             for i in range(0, rec.invoice_number + 1):
 
                 total_other_amount = sum((
-                                                     i.insurance_value + i.contract_admin_fees + i.contract_service_fees + i.contract_admin_sub_fees + i.contract_service_sub_fees)
+                                                 i.insurance_value + i.contract_admin_fees + i.contract_service_fees + i.contract_admin_sub_fees + i.contract_service_sub_fees)
                                          for i in rec.order_line)
                 taxed_total_other_amount = sum(
                     (i.contract_admin_sub_fees + i.contract_service_sub_fees) for i in rec.order_line)
@@ -170,6 +166,7 @@ class RentSaleOrder(models.Model):
                         'name': "فاتورة رقم " + str(i),
                         'sequence': i,
                         'fromdate': fromdate,
+                        'invoice_date': fromdate.date(),
                         'todate': rec.todate if rec.invoice_number == i else todate,
                         'amount': amount,
                         'sale_order_id': rec.id,
@@ -184,24 +181,18 @@ class RentSaleOrder(models.Model):
         for rec in self:
             todate = rec.todate + relativedelta(days=1)
             diff = relativedelta(todate, rec.fromdate)
-            print("///////////////////diff", diff)
             m = month = 0
             if diff.years != 0:
                 m = diff.years * 12
             if diff.months != 0:
                 month = diff.months
-            print("///////////////,", month + m)
             months = m + month
-
             if rec.invoice_terms == "monthly":
                 rec.invoice_number = month + m
-
             if rec.invoice_terms == "quarterly":
                 rec.invoice_number = months / 3
-
             if rec.invoice_terms == "semi":
                 rec.invoice_number = months / 6
-
             if rec.invoice_terms == "yearly":
                 rec.invoice_number = diff.years
 
@@ -343,12 +334,43 @@ class RentSaleOrder(models.Model):
     #
     #     return res
 
-    @api.model
-    def create_invoices_cron(self):
-        for i in self.env['sale.order'].search([]):
+    # @api.model
+    # def create_invoices_cron(self):
+    #     for i in self.env['sale.order'].search([]):
+    #         if i.order_contract_invoice:
+    #             for rec in i.order_contract_invoice:
+    #                 if rec.fromdate.date() == fields.Date.today() and rec.status == "uninvoiced":
+    #                     invoice_lines = []
+    #                     invoiceable_lines = i.order_line
+    #                     if rec.sequence == 1:
+    #                         seq = 0
+    #                         for type in INSURANCE_ADMIN_FEES_FIELDS:
+    #                             seq += 1
+    #                             fees_sum = rec._prepare_invoice_line_insurance_admin_fees_sum(type, seq)
+    #                             if fees_sum.get('name', False):
+    #                                 invoice_lines.append([0, 0, fees_sum])
+    #                     for line in invoiceable_lines:
+    #                         invoice_lines.append([0, 0, rec._prepare_invoice_line(line)])
+    #                         if rec.sequence == 1:
+    #                             seq = 0
+    #                             for type in INSURANCE_ADMIN_FEES_FIELDS:
+    #                                 seq += 1
+    #                                 if line.mapped(type)[0] > 0:
+    #                                     invoice_lines.append(
+    #                                         [0, 0, rec._prepare_invoice_line_insurance_admin_fees(type, line, seq)])
+    #
+    #                     vals = rec._prepare_invoice(invoice_lines)
+    #                     print(vals)
+    #                     invoice = self.env['account.move'].create(vals)
+    #                     rec.invoice_date = fields.Date.today()
+    #                     rec.status = 'invoiced'
+    #                     return invoice
+
+    def create_invoices_button(self):
+        for i in self:
             if i.order_contract_invoice:
                 for rec in i.order_contract_invoice:
-                    if rec.fromdate.date() == fields.Date.today() and rec.status == "uninvoiced":
+                    if rec.status == "uninvoiced":
                         invoice_lines = []
                         invoiceable_lines = i.order_line
                         if rec.sequence == 1:
@@ -370,10 +392,8 @@ class RentSaleOrder(models.Model):
 
                         vals = rec._prepare_invoice(invoice_lines)
                         print(vals)
-                        invoice = self.env['account.move'].create(vals)
-                        rec.invoice_date = fields.Date.today()
+                        self.env['account.move'].create(vals)
                         rec.status = 'invoiced'
-                        return invoice
 
 
 class RentSaleOrderLine(models.Model):
@@ -402,6 +422,11 @@ class RentSaleOrderLine(models.Model):
             if order_line.rent_product_id.id == self.product_id.id:
                 order_line.unlink()
         for rec in self.rental_pricing_id.service_ids:
+            if rec.type == 'amount':
+                price = rec.percentage
+            if rec.type == 'percentage':
+                price = self.price_unit * (rec.percentage / 100)
+
             self.env['sale.order.line'].sudo().create(
                 {
                     'product_uom_qty': 1,
@@ -409,7 +434,7 @@ class RentSaleOrderLine(models.Model):
                     'name': rec.service_id.product_variant_id.name,
                     'order_id': self.order_id.id,
                     'analytic_account': self.analytic_account.id,
-                    'price_unit': self.price_unit * (rec.percentage / 100),
+                    'price_unit': price,
                     'rent_product_id': self.product_id.id,
                 })
 

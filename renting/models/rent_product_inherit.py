@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, models, fields,_
+from odoo import api, models, fields, _
+from lxml import etree
 
 
 class RentProductProduct(models.Model):
@@ -263,6 +264,7 @@ class RentProduct(models.Model):
             'context': {'default_is_rental_order': True, 'default_property_name': self.property_id.id,
                         'default_unit_number': self.id, 'default_analytic_account_id': self.analytic_account.id},
         }
+
     def display_product_form(self):
         """Display details of product."""
         self.ensure_one()
@@ -275,14 +277,24 @@ class RentProduct(models.Model):
             'res_id': self.id
         }
 
+
 class RentalAdditionalService(models.Model):
     _name = 'rental.additional.service'
     _rec_name = 'name'
+
     name = fields.Char(string="Name", compute='get_concatenation_name')
     service_id = fields.Many2one(comodel_name="product.template", string="Service", required=True, )
-    percentage = fields.Float(string="Percentage", required=True, )
+    type = fields.Selection(
+        [('amount', 'Amount'), ('percentage', 'Percentage')],
+        string='Type',
+        default='amount')
+    fixed = fields.Float()
+    percentage = fields.Float()
     product_id = fields.Many2one(comodel_name="product.template")
 
     def get_concatenation_name(self):
         for rec in self:
-            rec.name = rec.service_id.name + "-" + str(rec.percentage) + "%"
+            if rec.type == 'amount':
+                rec.name = rec.service_id.name + "-" + str(rec.percentage)
+            if rec.type == 'percentage':
+                rec.name = rec.service_id.name + "-" + str(rec.percentage) + "%"
