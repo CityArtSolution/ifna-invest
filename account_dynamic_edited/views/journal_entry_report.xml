@@ -201,6 +201,13 @@
                                             <th class="text-left">
                                                 Analytic Account
                                             </th>
+                                             <th class="text-left">
+                                                Debit
+                                            </th>
+                                            <th class="text-left">
+                                                Credit
+                                            </th>
+
 
                                         </tr>
                                     </thead>
@@ -209,38 +216,14 @@
                                             <td class="text-left">
                                                 <span t-esc="item.get('account_id')[1]"/>
                                             </td>
-                                            <t t-if="item.get('analytic_account_id')">
+                                            <td class="text-left">
+                                                <t t-if="item.get('analytic_account_id')">
 
-                                                <td class="text-left">
+
                                                     <span t-esc="item.get('analytic_account_id')[1]"/>
-                                                </td>
-                                            </t>
-                                            >
+                                                </t>
+                                            </td>
 
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-
-                            </div>
-                            <div style="float: left; width: 50%; padding: 5px;">
-                                <table style="width:100%" dir="ltr" class="table table-condensed">
-                                    <thead>
-                                        <t t-set="items" t-value="doc.calculate_total_account()"/>
-                                        <tr>
-
-
-                                            <th class="text-left">
-                                                Debit
-                                            </th>
-                                            <th class="text-left">
-                                                Credit
-                                            </th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr t-foreach="items" t-as="item">
 
                                             <td class="text-left">
 
