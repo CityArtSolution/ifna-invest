@@ -209,10 +209,12 @@
                                             <td class="text-left">
                                                 <span t-esc="item.get('account_id')[1]"/>
                                             </td>
+                                                <t t-if="item.get('analytic_account_id')">
 
                                             <td class="text-left">
                                                 <span t-esc="item.get('analytic_account_id')[1]"/>
                                             </td>
+                                                </t>>
 
 
                                         </tr>

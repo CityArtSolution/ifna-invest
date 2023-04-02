@@ -53,5 +53,6 @@ class Journal(models.Model):
                                                                              'credit', 'debit'],
                                                                      groupby=['account_id','analytic_account_id'],lazy=False,)
 
+            # if lines_dict:
             return lines_dict
 
