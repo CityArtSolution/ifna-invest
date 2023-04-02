@@ -11,6 +11,7 @@
                     <field name="type"/>
                     <field name="percentage" string="Amount" attrs="{'invisible': [('type','==','percentage')]}"/>
                     <field name="percentage" string="Percentage" attrs="{'invisible': [('type','==','amount')]}"/>
+                    <field name="separate"/>
                 </tree>
             </field>
         </record>

@@ -2,7 +2,7 @@
 {
     'name': "Rent Customization",
 
-    "version" : "15.0.0.6",
+    "version": "15.0.0.6",
 
     'summary': """
        Operational Addons""",
@@ -14,8 +14,8 @@
     'author': "Ibrahim Abdullatif",
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'sale_renting','sale_operating_unit','analytic','account_asset','l10n_gcc_invoice','account_operating_unit'],
-
+    'depends': ['base', 'sale_renting', 'sale_operating_unit', 'analytic', 'account_asset', 'l10n_gcc_invoice',
+                'account_operating_unit'],
 
     # always loaded
     'data': [

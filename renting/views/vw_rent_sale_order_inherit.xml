@@ -3,16 +3,16 @@
 <odoo>
     <data>
 
-<!--        <record forcecreate="True" id="cron_create_invoices" model="ir.cron">-->
-<!--            <field name="name">Create Invoices</field>-->
-<!--            <field eval="True" name="active"/>-->
-<!--            <field name="interval_number">1</field>-->
-<!--            <field name="interval_type">days</field>-->
-<!--            <field name="numbercall">-1</field>-->
-<!--            <field name="model_id" ref="renting.model_sale_order"/>-->
-<!--            <field name="state">code</field>-->
-<!--            <field name="code">model.create_invoices_cron()</field>-->
-<!--        </record>-->
+        <!--        <record forcecreate="True" id="cron_create_invoices" model="ir.cron">-->
+        <!--            <field name="name">Create Invoices</field>-->
+        <!--            <field eval="True" name="active"/>-->
+        <!--            <field name="interval_number">1</field>-->
+        <!--            <field name="interval_type">days</field>-->
+        <!--            <field name="numbercall">-1</field>-->
+        <!--            <field name="model_id" ref="renting.model_sale_order"/>-->
+        <!--            <field name="state">code</field>-->
+        <!--            <field name="code">model.create_invoices_cron()</field>-->
+        <!--        </record>-->
 
         <record model="ir.ui.view" id="rent_sale_order_inherit_form">
             <field name="name">sale_order</field>
@@ -43,8 +43,11 @@
                 </xpath>
                 <xpath expr="// field [@ name = 'order_line'] / tree / field [@ name = 'name']" position="after">
                     <field name="is_rental"/>
-<!--                    <field name="rent_ok"/>-->
-                    <field name="rental_pricing_id" attrs="{'invisible':[('is_rental','=', False)],'required':[('is_rental','=', True)]}" options="{'no_create_edit': True}"/>                </xpath>
+                    <!--                    <field name="rent_ok"/>-->
+                    <field name="rental_pricing_id"
+                           attrs="{'invisible':[('is_rental','=', False)],'required':[('is_rental','=', True)]}"
+                           options="{'no_create_edit': True}"/>
+                </xpath>
                 <xpath expr="// field [@ name = 'order_line'] / tree / field [@ name = 'tax_id']"
                        position="after">
                     <field name="insurance_value" optional="hide"/>
@@ -105,6 +108,10 @@
                                 <!--                                <field name="insurance_value"/>-->
                                 <!--                                <field name="contract_admin_fees"/>-->
                                 <field name="brand_nameplate_allowed"/>
+                                <field name="ejar"/>
+                                <field name="remarks_c"/>
+                                <field name="file"/>
+                                <field name="updated_invoice"/>
                             </group>
 
                             <group>
@@ -126,7 +133,7 @@
                                 <field name="todate"/>
                                 <field name="invoice_date"/>
                                 <field name="status"/>
-                                <!--                                widget="toggle_button"-->
+                                <field name="services" widget="many2many_tags" optional="hide"/>
                                 <button name="create_invoices" type="object" string="Create Invoice" class="btn-success"
                                         attrs="{'invisible':[('status','=', 'invoiced')]}"/>
                             </tree>
