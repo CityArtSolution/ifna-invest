@@ -182,7 +182,7 @@
 
 
                         </div>
-                          <div>
+                        <div>
                             <span class="text-left">Totals For Journal Number :</span>
                             <span class="text-left" t-field="doc.name"/>
 
@@ -209,12 +209,13 @@
                                             <td class="text-left">
                                                 <span t-esc="item.get('account_id')[1]"/>
                                             </td>
-                                                <t t-if="item.get('analytic_account_id')">
+                                            <t t-if="item.get('analytic_account_id')">
 
-                                            <td class="text-left">
-                                                <span t-esc="item.get('analytic_account_id')[1]"/>
-                                            </td>
-                                                </t>>
+                                                <td class="text-left">
+                                                    <span t-esc="item.get('analytic_account_id')[1]"/>
+                                                </td>
+                                            </t>
+                                            >
 
 
                                         </tr>
@@ -230,7 +231,10 @@
 
 
                                             <th class="text-left">
-                                                Total
+                                                Debit
+                                            </th>
+                                            <th class="text-left">
+                                                Credit
                                             </th>
 
                                         </tr>
@@ -241,15 +245,21 @@
                                             <td class="text-left">
 
                                                 <t t-if="item.get('debit')">
-
                                                     <span t-esc="item.get('debit')"/>
                                                 </t>
-                                                <t t-if="item.get('credit')">
-
-                                                    <span t-esc="item.get('credit')"/>
-                                                    -
+                                                <t t-else="">
+                                                    <span>0.00</span>
                                                 </t>
+                                            </td>
 
+                                            <td class="text-left">
+
+                                                <t t-if="item.get('credit')">
+                                                    <span t-esc="item.get('credit')"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <span>0.00</span>
+                                                </t>
                                             </td>
 
 
