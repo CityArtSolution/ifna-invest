@@ -195,16 +195,16 @@
                                         <t t-set="items" t-value="doc.calculate_total_account()"/>
                                         <tr style="border: 1px solid">
 
-                                            <th class="text-left">
+                                            <th style="border: 1px solid" class="text-left">
                                                 Account
                                             </th>
-                                            <th class="text-left">
+                                            <th style="border: 1px solid" class="text-left">
                                                 Analytic Account
                                             </th>
-                                             <th class="text-left">
+                                             <th style="border: 1px solid" class="text-left">
                                                 Debit
                                             </th>
-                                            <th class="text-left">
+                                            <th style="border: 1px solid" class="text-left">
                                                 Credit
                                             </th>
 
@@ -213,10 +213,10 @@
                                     </thead>
                                     <tbody>
                                         <tr style="border: 1px solid" t-foreach="items" t-as="item">
-                                            <td class="text-left">
+                                            <td style="border: 1px solid" class="text-left">
                                                 <span t-esc="item.get('account_id')[1]"/>
                                             </td>
-                                            <td class="text-left">
+                                            <td style="border: 1px solid" class="text-left">
                                                 <t t-if="item.get('analytic_account_id')">
 
 
@@ -225,7 +225,7 @@
                                             </td>
 
 
-                                            <td class="text-left">
+                                            <td style="border: 1px solid" class="text-left">
 
                                                 <t t-if="item.get('debit')">
                                                     <span t-esc="item.get('debit')"/>
@@ -235,7 +235,7 @@
                                                 </t>
                                             </td>
 
-                                            <td class="text-left">
+                                            <td style="border: 1px solid" class="text-left">
 
                                                 <t t-if="item.get('credit')">
                                                     <span t-esc="item.get('credit')"/>
