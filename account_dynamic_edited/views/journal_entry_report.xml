@@ -190,7 +190,7 @@
 
                         <div width="100%"  class="content" style="margin-left:-5px;margin-right:-5px">
                             <div style="float: left; width: 100%; padding: 5px;">
-                                <table style="width:100%;border: 1px solid" dir="ltr" class="table table-condensed">
+                                <table style="width:100%;border: 1px solid" dir="ltr" class="table table-sm">
                                     <thead>
                                         <t t-set="items" t-value="doc.calculate_total_account()"/>
                                         <tr style="border: 1px solid">
