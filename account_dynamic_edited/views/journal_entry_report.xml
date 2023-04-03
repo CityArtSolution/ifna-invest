@@ -193,7 +193,7 @@
                                 <table style="width:100%;border: 1px solid" dir="ltr" class="table table-condensed">
                                     <thead>
                                         <t t-set="items" t-value="doc.calculate_total_account()"/>
-                                        <tr>
+                                        <tr style="border: 1px solid">
 
                                             <th class="text-left">
                                                 Account
@@ -212,7 +212,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr t-foreach="items" t-as="item">
+                                        <tr style="border: 1px solid" t-foreach="items" t-as="item">
                                             <td class="text-left">
                                                 <span t-esc="item.get('account_id')[1]"/>
                                             </td>
