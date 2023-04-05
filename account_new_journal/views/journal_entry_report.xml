@@ -66,7 +66,18 @@
 
                                     <!--                            <div><span>تاريخ التوريد: </span> <span t-if="doc.invoice_date" t-esc="doc.invoice_date"/></div>-->
                                 </div>
-                                ->
+                                <!--                        <div class="col-3" style="text-align: right;">-->
+                                <!--                            <h4>فاتورة ضريبية</h4>-->
+                                <!--                            <t t-if="doc.move_type == 'out_invoice'"><p>فاتورة مبيعات</p></t>-->
+                                <!--                            <t t-if="doc.move_type == 'out_refund'"><p>مرتجع مبيعات</p></t>-->
+                                <!--                            <t t-if="doc.move_type == 'in_invoice'"><p>فاتورة مشتريات</p></t>-->
+                                <!--                            <t t-if="doc.move_type == 'in_refund'"><p>مرتج مبيعات</p></t>-->
+                                <!--                        </div>-->
+                                <!--                        <div class="col-4" style="text-align: right;">-->
+                                <!--                            <div><span>رقم الفاتورة: </span> <span t-field="doc.name"/></div>-->
+                                <!--                            <div><span>الرقم الضريبي: </span> <span t-field="doc.company_id.vat"/></div>-->
+                                <!--                            <div><span>دفتر اليومية: </span> <span t-field="doc.journal_id"/></div>-->
+                                <!--                        </div>-->
                             </div>
                             <table class="table table-sm"
                                    style="padding: 15px; border: 1px solid; position: relative; margin-top:25px;">
@@ -169,6 +180,7 @@
                                 </thead>
                             </table>
 
+
                         </div>
                         <div>
                             <span class="text-left">Totals For Journal Number :</span>
@@ -176,9 +188,9 @@
 
                         </div>
 
-                        <div class="content" style="margin-left:-5px;margin-right:-5px">
-                            <div style="float: left; width: 50%; padding: 5px;">
-                                <table style="width:100%" dir="ltr" class="table table-condensed">
+                        <div width="100%"  class="content" style="margin-left:-5px;margin-right:-5px">
+                            <div style="float: left; width: 100%; padding: 5px;">
+                                <table style="width:100%;border: 1px solid" dir="ltr" class="table table-condensed">
                                     <thead>
                                         <t t-set="items" t-value="doc.calculate_total_account()"/>
                                         <tr>
@@ -189,6 +201,13 @@
                                             <th class="text-left">
                                                 Analytic Account
                                             </th>
+                                             <th class="text-left">
+                                                Debit
+                                            </th>
+                                            <th class="text-left">
+                                                Credit
+                                            </th>
+
 
                                         </tr>
                                     </thead>
@@ -197,45 +216,33 @@
                                             <td class="text-left">
                                                 <span t-esc="item.get('account_id')[1]"/>
                                             </td>
-
                                             <td class="text-left">
-                                                <span t-esc="item.get('analytic_account_id')[1]"/>
+                                                <t t-if="item.get('analytic_account_id')">
+
+
+                                                    <span t-esc="item.get('analytic_account_id')[1]"/>
+                                                </t>
                                             </td>
 
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-
-                            </div>
-                            <div style="float: left; width: 50%; padding: 5px;">
-                                <table style="width:100%" dir="ltr" class="table table-condensed">
-                                    <thead>
-                                        <t t-set="items" t-value="doc.calculate_total_account()"/>
-                                        <tr>
-
-
-                                            <th class="text-left">
-                                                Total
-                                            </th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr t-foreach="items" t-as="item">
 
                                             <td class="text-left">
 
                                                 <t t-if="item.get('debit')">
-
                                                     <span t-esc="item.get('debit')"/>
                                                 </t>
-                                                <t t-if="item.get('credit')">
-
-                                                    <span t-esc="item.get('credit')"/>
-                                                    -
+                                                <t t-else="">
+                                                    <span>0.00</span>
                                                 </t>
+                                            </td>
 
+                                            <td class="text-left">
+
+                                                <t t-if="item.get('credit')">
+                                                    <span t-esc="item.get('credit')"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <span>0.00</span>
+                                                </t>
                                             </td>
 
 
@@ -244,7 +251,6 @@
                                 </table>
 
                             </div>
-
 
 
                         </div>
