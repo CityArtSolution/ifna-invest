@@ -15,7 +15,7 @@
 
     # any module necessary for this one to work correctly
     'depends': ['base', 'sale_renting', 'sale_operating_unit', 'analytic', 'account_asset', 'l10n_gcc_invoice',
-                'account_operating_unit'],
+                'account_operating_unit','sale'],
 
     # always loaded
     'data': [

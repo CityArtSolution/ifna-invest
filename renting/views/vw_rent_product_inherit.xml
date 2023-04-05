@@ -2,6 +2,29 @@
 
 <odoo>
     <data>
+        <record id="updated_invoice_tree_view" model="ir.ui.view">
+            <field name="name">Updated Invoice Tree</field>
+            <field name="model">updated.invoice</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="updated_invoice_action_view" model="ir.actions.act_window">
+            <field name="name">Updated Invoice</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">updated.invoice</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Updated Invoice" id="updated_invoice_menu"
+                  parent="sale_renting.menu_rental_config"
+                  action="updated_invoice_action_view"
+                  sequence="11"/>
+
+
         <record id="rental_additional_service_tree_view" model="ir.ui.view">
             <field name="name">rental_additional_service_tree_view</field>
             <field name="model">rental.additional.service</field>
@@ -12,6 +35,7 @@
                     <field name="percentage" string="Amount" attrs="{'invisible': [('type','==','percentage')]}"/>
                     <field name="percentage" string="Percentage" attrs="{'invisible': [('type','==','amount')]}"/>
                     <field name="separate"/>
+                    <field name="fees_type"/>
                 </tree>
             </field>
         </record>

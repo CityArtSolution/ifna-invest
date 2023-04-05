@@ -14,6 +14,12 @@ class ConfigurationSettings(models.TransientModel):
     separate = fields.Boolean(string="Separate Invoice for Additional Services")
 
 
+class UpdatedInvoice(models.Model):
+    _name = 'updated.invoice'
+
+    name = fields.Char(string='name')
+
+
 class RentSaleOrder(models.Model):
     _inherit = 'sale.order'
 
@@ -26,22 +32,11 @@ class RentSaleOrder(models.Model):
         [('monthly', 'monthly'), ('quarterly', 'quarterly'), ('semi', 'Semi'), ('yearly', 'yearly')],
         string='Invoice Terms',
         default='monthly')
-    ejar = fields.Selection(
-        [('null', 'null'), ('ejar', 'EJAR')],
-        string='EJAR',
-        default='null')
-    remarks_c = fields.Selection(
-        [('null', 'null'), ('updated', 'Updated')],
-        string='Remarks (Contract)',
-        default='null')
-    file = fields.Selection(
-        [('yes', 'yes'), ('no', 'No')],
-        string='File Completed',
-        default='no')
-    updated_invoice = fields.Selection(
-        [('null', 'null'), ('updated', 'Updated'), ('invoiced', 'Invoiced')],
-        string='Updated Invoiced',
-        default='null')
+    ejar = fields.Selection([('ejar', 'EJAR')], string='EJAR')
+    remarks_c = fields.Char(string='Remarks (Contract)')
+    file = fields.Selection([('yes', 'yes'), ('no', 'No')], string='File Completed', default='no')
+    updated_invoice = fields.Selection([('updated', 'Updated'), ('invoiced', 'Invoiced')], string='Updated Invoiced')
+    updated_invoices = fields.Many2one("updated.invoice", string='Updated Invoiced')
     order_contract_invoice = fields.One2many('rent.sale.invoices', 'sale_order_id', string='العقد')
     contract_total_payment = fields.Float(string='Total Contract')
     contract_total_fees = fields.Float(string='Total Fees')

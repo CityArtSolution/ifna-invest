@@ -98,6 +98,8 @@ class RentProduct(models.Model):
     _inherit = 'product.template'
 
     separate = fields.Boolean(string="Separate Invoice")
+    fees_type = fields.Selection([('admin', 'Admin Fee'), ('security', 'Security Deposit'), ('other', 'Other')],
+                                 string='Fees Type')
 
     unit_number = fields.Char(string='رقم الوحدة', copy=True)
     unit_area = fields.Char(string='مساحة الوحدة', copy=True)
@@ -294,6 +296,8 @@ class RentalAdditionalService(models.Model):
     percentage = fields.Float()
     product_id = fields.Many2one(comodel_name="product.template")
     separate = fields.Boolean(string="Separate Invoice")
+    fees_type = fields.Selection([('admin', 'Admin Fee'), ('security', 'Security Deposit'), ('other', 'Other')],
+                                 string='Fees Type')
 
     @api.onchange('separate')
     def change_separate(self):
@@ -308,7 +312,15 @@ class RentalAdditionalService(models.Model):
         result = super(RentalAdditionalService, self).create(vals)
         if result.separate:
             result.service_id.separate = True
+        if result.rec.fees_type:
+            result.service_id.rec.fees_type = result.rec.fees_type
         return result
+
+    @api.onchange('fees_type')
+    def change_fees_type(self):
+        for rec in self:
+            if rec.fees_type:
+                rec.service_id.fees_type = rec.fees_type
 
     def get_concatenation_name(self):
         for rec in self:

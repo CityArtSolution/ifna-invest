@@ -67,7 +67,7 @@
 <!--            </div>-->
 <!--        </template>-->
 
-        <template id="external_layout_standard" inherit_id="l10n_gcc_invoice.external_layout_standard">
+        <template id="external_layout_standard" inherit_id="web.external_layout_standard">
             <xpath expr="//div[@t-attf-class='footer o_standard_footer o_company_#{company.id}_layout']" position="replace">
                 <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
                     <div class="text-center" style="font-size: small;border-top: 1px solid black;">

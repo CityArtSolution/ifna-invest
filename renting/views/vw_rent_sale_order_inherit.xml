@@ -111,7 +111,7 @@
                                 <field name="ejar"/>
                                 <field name="remarks_c"/>
                                 <field name="file"/>
-                                <field name="updated_invoice"/>
+                                <field name="updated_invoices"/>
                             </group>
 
                             <group>

@@ -144,6 +144,7 @@ class RentSaleInvoices(models.Model):
             'company_id': self.sale_order_id.company_id.id,
             'operating_unit_id': self.operating_unit.id,
             'invoice_date': self.invoice_date,
+            'obj_sale_order': self.sale_order_id.id,
             'fromdate': self.fromdate,
             'todate': self.todate,
         }
