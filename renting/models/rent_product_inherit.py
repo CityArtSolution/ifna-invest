@@ -316,6 +316,7 @@ class RentalAdditionalService(models.Model):
             result.service_id.fees_type = result.fees_type
         return result
 
+
     @api.onchange('fees_type')
     def change_fees_type(self):
         for rec in self:
