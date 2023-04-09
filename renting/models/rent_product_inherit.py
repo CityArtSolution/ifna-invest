@@ -312,8 +312,8 @@ class RentalAdditionalService(models.Model):
         result = super(RentalAdditionalService, self).create(vals)
         if result.separate:
             result.service_id.separate = True
-        if result.rec.fees_type:
-            result.service_id.rec.fees_type = result.rec.fees_type
+        if result.fees_type:
+            result.service_id.fees_type = result.fees_type
         return result
 
     @api.onchange('fees_type')
