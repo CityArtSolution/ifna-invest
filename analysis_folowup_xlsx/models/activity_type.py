@@ -75,43 +75,43 @@ class UpdateTenantsReport(models.AbstractModel):
         domain = []
         worksheet.set_row(0, 40)
         worksheet.set_row(2, 25)
-        worksheet.set_row(4, 20)
-        worksheet.set_row(8, 50)
+        worksheet.set_row(4, 50)
+        # worksheet.set_row(6, 50)
 
         # Table Header:
-        worksheet.write(8, 0, 'Comp', cell_text_format)
-        worksheet.write(8, 1, 'Villa/  Apt.', cell_text_format)
-        worksheet.write(8, 2, '*Style/No. of Bed Rooms', cell_text_format)
-        worksheet.write(8, 3, 'FF /UF/SF', cell_text_format)
-        worksheet.write(8, 4, 'Tenant Name', cell_text_format)
-        worksheet.write(8, 5, 'Nationality', cell_text_format)
-        worksheet.write(8, 6, 'Work/Company', cell_text_format)
-        worksheet.write(8, 7, 'Mobile', cell_text_format)
-        worksheet.write(8, 8, 'Email', cell_text_format)
-        worksheet.write(8, 9, 'Lease Commencement Date', cell_text_format)
-        worksheet.write(8, 10, 'Contract Year', cell_text_format)
-        worksheet.write(8, 11, 'Contract Month', cell_text_format)
-        worksheet.write(8, 12, 'Rent Value', cell_text_format)
-        worksheet.write(8, 13, 'Admin Fee', cell_text_format)
-        worksheet.write(8, 14, 'Security deposit', cell_text_format)
-        worksheet.write(8, 15, 'Terms', cell_text_format)
-        worksheet.write(8, 16, 'JAN ', cell_text_format)
-        worksheet.write(8, 17, 'FEB ', cell_text_format)
-        worksheet.write(8, 18, 'MAR', cell_text_format)
-        worksheet.write(8, 19, 'APR ', cell_text_format)
-        worksheet.write(8, 20, 'MAY ', cell_text_format)
-        worksheet.write(8, 21, 'JUN ', cell_text_format)
-        worksheet.write(8, 22, 'JUL ', cell_text_format)
-        worksheet.write(8, 23, 'AUG ', cell_text_format)
-        worksheet.write(8, 24, 'SEP ', cell_text_format)
-        worksheet.write(8, 25, 'OCT ', cell_text_format)
-        worksheet.write(8, 26, 'NOV ', cell_text_format)
-        worksheet.write(8, 27, 'DEC ', cell_text_format)
-        worksheet.write(8, 28, 'Expected Income', cell_text_format)
-        worksheet.write(8, 29, 'EJAR', cell_text_format)
-        worksheet.write(8, 30, 'Remarks', cell_text_format)
-        worksheet.write(8, 31, 'File Completed', cell_text_format)
-        worksheet.write(8, 32, 'updated/ invoiced', cell_text_format)
+        worksheet.write(4, 0, 'Comp', cell_text_format)
+        worksheet.write(4, 1, 'Villa/  Apt.', cell_text_format)
+        worksheet.write(4, 2, '*Style/No. of Bed Rooms', cell_text_format)
+        worksheet.write(4, 3, 'FF /UF/SF', cell_text_format)
+        worksheet.write(4, 4, 'Tenant Name', cell_text_format)
+        worksheet.write(4, 5, 'Nationality', cell_text_format)
+        worksheet.write(4, 6, 'Work/Company', cell_text_format)
+        worksheet.write(4, 7, 'Mobile', cell_text_format)
+        worksheet.write(4, 8, 'Email', cell_text_format)
+        worksheet.write(4, 9, 'Lease Commencement Date', cell_text_format)
+        worksheet.write(4, 10, 'Contract Year', cell_text_format)
+        worksheet.write(4, 11, 'Contract Month', cell_text_format)
+        worksheet.write(4, 12, 'Rent Value', cell_text_format)
+        worksheet.write(4, 13, 'Admin Fee', cell_text_format)
+        worksheet.write(4, 14, 'Security deposit', cell_text_format)
+        worksheet.write(4, 15, 'Terms', cell_text_format)
+        worksheet.write(4, 16, 'JAN ', cell_text_format)
+        worksheet.write(4, 17, 'FEB ', cell_text_format)
+        worksheet.write(4, 18, 'MAR', cell_text_format)
+        worksheet.write(4, 19, 'APR ', cell_text_format)
+        worksheet.write(4, 20, 'MAY ', cell_text_format)
+        worksheet.write(4, 21, 'JUN ', cell_text_format)
+        worksheet.write(4, 22, 'JUL ', cell_text_format)
+        worksheet.write(4, 23, 'AUG ', cell_text_format)
+        worksheet.write(4, 24, 'SEP ', cell_text_format)
+        worksheet.write(4, 25, 'OCT ', cell_text_format)
+        worksheet.write(4, 26, 'NOV ', cell_text_format)
+        worksheet.write(4, 27, 'DEC ', cell_text_format)
+        worksheet.write(4, 28, 'Expected Income', cell_text_format)
+        worksheet.write(4, 29, 'EJAR', cell_text_format)
+        worksheet.write(4, 30, 'Remarks', cell_text_format)
+        worksheet.write(4, 31, 'File Completed', cell_text_format)
+        worksheet.write(4, 32, 'updated/ invoiced', cell_text_format)
 
         domain = [
             ('state', 'not in', ('draft', 'sent')),
@@ -119,13 +119,14 @@ class UpdateTenantsReport(models.AbstractModel):
         ]
 
         items = self.env['sale.order'].search(domain)
-
         # Products: Table Body:
-        row = 9
+        row = 5
         for i in items:
-            for line in i.order_line.filtered(lambda s: s.product_id.detailed_type != "service"):
 
-                services = i.order_line.filtered(lambda s: s.product_id.detailed_type == "service")
+            # for line in i.order_line.filtered(lambda s: s.product_id.detailed_type != "service"):
+            for line in i.order_line.filtered(lambda s: s.product_id.rent_ok == True):
+
+                services = i.order_line.filtered(lambda s: s.product_id.rent_ok == False)
                 admin = sum(
                     services.filtered(lambda s: s.product_id.product_tmpl_id.fees_type == "admin").mapped('price_unit'))
                 security = sum(services.filtered(lambda s: s.product_id.product_tmpl_id.fees_type == "security").mapped(
