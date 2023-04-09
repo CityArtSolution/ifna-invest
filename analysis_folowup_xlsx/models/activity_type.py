@@ -34,7 +34,8 @@ class UpdateTenantsReport(models.AbstractModel):
             'valign': 'vcenter',
             'border_color': 'black',
             'fg_color': '#C0C0C0'})
-        cell_text_format = workbook.add_format({'align': 'center','valign': 'vcenter', 'bold': True, 'size': 12, 'fg_color': '#C0C0C0'})
+        cell_text_format = workbook.add_format(
+            {'align': 'center', 'valign': 'vcenter', 'bold': True, 'size': 12, 'fg_color': '#C0C0C0'})
         cell_body_table = workbook.add_format({'align': 'center', 'size': 12})
 
         worksheet.merge_range('C1:E1', 'Update Tenants Report', header_format2)
@@ -123,7 +124,6 @@ class UpdateTenantsReport(models.AbstractModel):
         row = 5
         for i in items:
 
-            # for line in i.order_line.filtered(lambda s: s.product_id.detailed_type != "service"):
             for line in i.order_line.filtered(lambda s: s.product_id.rent_ok == True):
 
                 services = i.order_line.filtered(lambda s: s.product_id.rent_ok == False)
