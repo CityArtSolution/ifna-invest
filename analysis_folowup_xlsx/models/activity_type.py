@@ -8,6 +8,12 @@ except ImportError:
     import xlsxwriter
 
 
+class ResPartner(models.Model):
+    _inherit = "res.partner"
+
+    nationality = fields.Char("Nationality")
+
+
 class UpdateTenants(models.TransientModel):
     _name = 'tenants.report.wizard'
 
@@ -155,10 +161,10 @@ class UpdateTenantsReport(models.AbstractModel):
                 worksheet.write(row, column + 1, line.product_id.name, cell_body_table)
                 worksheet.write(row, column + 2, line.product_id.rent_config_unit_type_id.unit_type_name,
                                 cell_body_table)
-                worksheet.write(row, column + 3, line.product_id.rent_config_unit_purpose_id.unit_purpose_name,
+                worksheet.write(row, column + 3, line.product_id.rent_config_unit_finish_id.unit_finish_name,
                                 cell_body_table)
                 worksheet.write(row, column + 4, i.partner_id.name, cell_body_table)
-                worksheet.write(row, column + 5, i.partner_id.country_id.name or " ", cell_body_table)
+                worksheet.write(row, column + 5, i.partner_id.nationality or " ", cell_body_table)
                 worksheet.write(row, column + 6, i.partner_id.parent_id.name or " ", cell_body_table)
                 worksheet.write(row, column + 7, i.partner_id.mobile or " ", cell_body_table)
                 worksheet.write(row, column + 8, i.partner_id.email or " ", cell_body_table)
@@ -197,6 +203,7 @@ class UpdateTenantsReport(models.AbstractModel):
                         worksheet.write(row, column + 26, j.amount or " ", cell_body_table)
                     if j.fromdate.month == 12:
                         worksheet.write(row, column + 27, j.amount or " ", cell_body_table)
+                total_invoice = total_invoice - admin - security
                 worksheet.write(row, column + 28, total_invoice or " ", cell_body_table)
                 worksheet.write(row, column + 29, i.ejar or " ", cell_body_table)
                 worksheet.write(row, column + 30, i.remarks_c or " ", cell_body_table)
