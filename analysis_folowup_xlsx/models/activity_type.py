@@ -11,6 +11,9 @@ except ImportError:
 class UpdateTenants(models.TransientModel):
     _name = 'tenants.report.wizard'
 
+    date_from = fields.Datetime("Date From")
+    date_to = fields.Datetime("Date to")
+
     def print_xlsx_report(self):
         rec = self.env.ref('analysis_folowup_xlsx.report_update_tenants_xlsx').report_action(self)
         return rec
@@ -34,7 +37,8 @@ class UpdateTenantsReport(models.AbstractModel):
             'valign': 'vcenter',
             'border_color': 'black',
             'fg_color': '#C0C0C0'})
-        cell_text_format = workbook.add_format({'align': 'center','valign': 'vcenter', 'bold': True, 'size': 12, 'fg_color': '#C0C0C0'})
+        cell_text_format = workbook.add_format(
+            {'align': 'center', 'valign': 'vcenter', 'bold': True, 'size': 12, 'fg_color': '#C0C0C0'})
         cell_body_table = workbook.add_format({'align': 'center', 'size': 12})
 
         worksheet.merge_range('C1:E1', 'Update Tenants Report', header_format2)
@@ -76,7 +80,13 @@ class UpdateTenantsReport(models.AbstractModel):
         worksheet.set_row(0, 40)
         worksheet.set_row(2, 25)
         worksheet.set_row(4, 50)
-        # worksheet.set_row(6, 50)
+
+        if partners.date_from:
+            worksheet.write('B3', 'From Date', cell_text_format)
+            worksheet.write('C3', str(partners.date_from), cell_text_format)
+        if partners.date_to:
+            worksheet.write('D3', 'To Date', cell_text_format)
+            worksheet.write('E3', str(partners.date_to), cell_text_format)
 
         # Table Header:
         worksheet.write(4, 0, 'Comp', cell_text_format)
@@ -113,10 +123,18 @@ class UpdateTenantsReport(models.AbstractModel):
         worksheet.write(4, 31, 'File Completed', cell_text_format)
         worksheet.write(4, 32, 'updated/ invoiced', cell_text_format)
 
-        domain = [
-            ('state', 'not in', ('draft', 'sent')),
-            ('is_rental_order', '=', True)
-        ]
+        if partners.date_from and not partners.date_to:
+            domain = [('state', 'not in', ('draft', 'sent')), ('is_rental_order', '=', True),
+                      ('date_order', '>=', partners.date_from)]
+        if partners.date_to and not partners.date_from:
+            domain = [('state', 'not in', ('draft', 'sent')), ('is_rental_order', '=', True),
+                      ('date_order', '<=', partners.date_to)]
+
+        if partners.date_to and partners.date_from:
+            domain = [('state', 'not in', ('draft', 'sent')), ('is_rental_order', '=', True),
+                      ('date_order', '>=', partners.date_from), ('date_order', '<=', partners.date_to)]
+        if not partners.date_to and not partners.date_from:
+            domain = [('state', 'not in', ('draft', 'sent')), ('is_rental_order', '=', True)]
 
         items = self.env['sale.order'].search(domain)
         # Products: Table Body:

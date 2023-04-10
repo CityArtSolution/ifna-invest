@@ -5,6 +5,12 @@
             <field name="model">tenants.report.wizard</field>
             <field name="arch" type="xml">
                 <form string="Commissions Report">
+                    <sheet>
+                        <group col="4" colspan="4">
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                    </sheet>
                     <footer>
                         <button string="Print Report" name="print_xlsx_report" type="object" class="oe_highlight"/>
                         <button string="Cancel" class="btn btn-secondary" special="cancel"/>
