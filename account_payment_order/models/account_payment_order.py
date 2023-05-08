@@ -19,6 +19,7 @@ class AccountPaymentOrder(models.Model):
     _check_company_auto = True
 
     name = fields.Char(string="Number", readonly=True, copy=False)
+    request_date = fields.Date(string="Request Date", required=True,default= fields.Date.context_today)
     payment_mode_id = fields.Many2one(
         comodel_name="account.payment.mode",
         required=True,
@@ -239,7 +240,7 @@ class AccountPaymentOrder(models.Model):
     @api.model
     def create(self, vals):
         if vals.get("name", "New") == "New":
-            vals["name"] = (
+            vals["name"] ="%s/%s-"% (vals.get("request_date").year, vals.get("request_date").month)+ (
                 self.env["ir.sequence"].next_by_code("account.payment.order") or "New"
             )
         if vals.get("payment_mode_id"):

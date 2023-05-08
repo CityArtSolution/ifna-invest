@@ -107,6 +107,7 @@
                             />
                         </group>
                         <group name="head-right">
+                            <field name="request_date"/>
                             <field name="date_prefered" />
                             <field
                                 name="date_scheduled"
