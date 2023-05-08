@@ -240,9 +240,8 @@ class AccountPaymentOrder(models.Model):
     @api.model
     def create(self, vals):
         if vals.get("name", "New") == "New":
-            lang = self.env.user.lang
-            language_id = self.env['res.lang'].search([('code', '=', lang)])[0]
-            date=datetime.datetime.strptime(vals.get("request_date"), language_id.date_format).date()
+
+            date=datetime.datetime.strptime(vals.get("request_date"), '%Y/%m/%d').date()
             vals["name"] ="%s/%s-"% (date.year, date.month)+ (
                 self.env["ir.sequence"].next_by_code("account.payment.order") or "New"
             )
