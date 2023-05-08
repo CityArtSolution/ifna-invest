@@ -240,11 +240,21 @@ class AccountPaymentOrder(models.Model):
     @api.model
     def create(self, vals):
         if vals.get("name", "New") == "New":
+            date = datetime.datetime.strptime(vals.get("request_date"), '%Y-%m-%d').date()
+            all_payments = self.env['account.payment.order'].search([])
+            same_month_payments_ids = []
+            for payment in all_payments:
+                if payment.request_date.year == date.year and payment.request_date.month == date.month:
+                    same_month_payments_ids.append(payment.id)
+            last_payment = self.env['account.payment.order'].search([('id', 'in', same_month_payments_ids)], limit=1)
+            if last_payment:
+                last_sequence = last_payment.name.split('-')
+                digits_no = len(str(int(last_sequence[1]) + 1))
+                vals["name"] = "PR %s/%s-" % (date.year, date.month) + ((4 - digits_no) * "0") + str(
+                    int(last_sequence[1]) + 1)
+            else:
+                vals["name"] = "PR %s/%s-" % (date.year, date.month) + "0001"
 
-            date=datetime.datetime.strptime(vals.get("request_date"), '%Y-%m-%d').date()
-            vals["name"] ="%s/%s-"% (date.year, date.month)+ (
-                self.env["ir.sequence"].next_by_code("account.payment.order") or "New"
-            )
         if vals.get("payment_mode_id"):
             payment_mode = self.env["account.payment.mode"].browse(
                 vals["payment_mode_id"]
