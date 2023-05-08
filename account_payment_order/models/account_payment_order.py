@@ -9,7 +9,7 @@ import base64
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 from .num_to_text_ar import amount_to_text_arabic
-
+import datetime
 
 class AccountPaymentOrder(models.Model):
     _name = "account.payment.order"
@@ -240,7 +240,10 @@ class AccountPaymentOrder(models.Model):
     @api.model
     def create(self, vals):
         if vals.get("name", "New") == "New":
-            vals["name"] ="%s/%s-"% (vals.get("request_date").year, vals.get("request_date").month)+ (
+            lang = self.env.user.lang
+            language_id = self.env['res.lang'].search([('code', '=', lang)])[0]
+            date=datetime.datetime.strptime(vals.get("request_date"), language_id.date_format).date()
+            vals["name"] ="%s/%s-"% (date.year, date.month)+ (
                 self.env["ir.sequence"].next_by_code("account.payment.order") or "New"
             )
         if vals.get("payment_mode_id"):
