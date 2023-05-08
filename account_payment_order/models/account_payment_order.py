@@ -241,7 +241,7 @@ class AccountPaymentOrder(models.Model):
     def create(self, vals):
         if vals.get("name", "New") == "New":
 
-            date=datetime.datetime.strptime(vals.get("request_date"), '%Y/%m/%d').date()
+            date=datetime.datetime.strptime(vals.get("request_date"), '%Y-%m-%d').date()
             vals["name"] ="%s/%s-"% (date.year, date.month)+ (
                 self.env["ir.sequence"].next_by_code("account.payment.order") or "New"
             )
