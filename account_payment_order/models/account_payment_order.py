@@ -20,6 +20,15 @@ class AccountPaymentOrder(models.Model):
 
     name = fields.Char(string="Number", readonly=True, copy=False)
     request_date = fields.Date(string="Request Date", required=True,default= fields.Date.context_today)
+    payment_request_type = fields.Selection(string="Payment Request Type", selection=[('null', 'Null'),('account', 'Account')],default='null' )
+    amount = fields.Float(string="Amount")
+    bank_name = fields.Char(string="", required=False, )
+    bank_id = fields.Many2one(comodel_name="res.bank", string="Bank Name")
+    bank_account_no = fields.Char(string="Bank Account No")
+    beneficiary_name = fields.Char(string="Beneficiary Name")
+    communication = fields.Char(string='Details',
+        required=False, help="Label of the payment that will be seen by the destinee"
+    )
     payment_mode_id = fields.Many2one(
         comodel_name="account.payment.mode",
         required=True,
@@ -154,7 +163,8 @@ class AccountPaymentOrder(models.Model):
     move_count = fields.Integer(
         compute="_compute_move_count", string="Number of Journal Entries"
     )
-    description = fields.Char()
+    bank_statements_count = fields.Integer(compute="_compute_bank_statements_count")
+    description = fields.Char(string='Purpose')
     payment_method = fields.Selection(string='Payment Method', selection=[('cash', 'Cash'), ('check', 'Check'),('sadad', 'SADAD'),('transfer', 'Transfer')], default='cash')
     total_amount = fields.Float(string='Total Amount', compute="_compute_total_amount", store=True)
     department_id = fields.Many2one(comodel_name='account.analytic.account', string='Department')
@@ -236,6 +246,9 @@ class AccountPaymentOrder(models.Model):
         }
         for order in self:
             order.move_count = mapped_data.get(order.id, 0)
+    def _compute_bank_statements_count(self):
+        self.bank_statements_count = self.env['account.bank.statement'].search_count(
+            [('payment_request_id', '=', self.id)])
 
     @api.model
     def create(self, vals):
@@ -322,9 +335,13 @@ class AccountPaymentOrder(models.Model):
                     _("Missing bank account on bank journal '%s'.")
                     % order.journal_id.display_name
                 )
-            if not order.payment_line_ids:
+            if not order.payment_line_ids and order.payment_request_type != 'account':
                 raise UserError(
                     _("There are no transactions on payment order %s.") % order.name
+                )
+            if not order.journal_id and order.payment_request_type == 'account':
+                raise UserError(
+                    _("There are no Bank Journal on payment order %s.") % order.name
                 )
             # Delete existing bank payment lines
             order.bank_line_ids.unlink()
@@ -451,6 +468,24 @@ class AccountPaymentOrder(models.Model):
         for order in self:
             if order.payment_mode_id.generate_move:
                 order.generate_move()
+        self.write(
+            {"state": "uploaded", "date_uploaded": fields.Date.context_today(self)}
+        )
+        return True
+
+    def generate_bank_statement(self):
+        self.env["account.bank.statement"].create(
+            {
+                "journal_id": self.journal_id.id,
+                "date": self.request_date,
+                "line_ids": [(0, 0, {
+                    'date': self.request_date,
+                    'payment_ref': self.communication,
+                    'amount': self.amount * -1,
+                })],
+                "payment_request_id" : self.id
+            }
+        )
         self.write(
             {"state": "uploaded", "date_uploaded": fields.Date.context_today(self)}
         )
@@ -638,6 +673,19 @@ class AccountPaymentOrder(models.Model):
         ctx.update({"search_default_misc_filter": 0})
         action["context"] = ctx
         return action
+    def action_bank_statements(self):
+        self.ensure_one()
+        tree_view = self.env.ref(
+            "account.view_bank_statement_tree")
+        return {
+            "type": "ir.actions.act_window",
+            "res_model": "account.bank.statement",
+            "views": [[tree_view.id, "tree"], [False, "form"]],
+            "context": {"create": False},
+            'view_mode': 'tree,form',
+            "domain": [["payment_request_id", "=", self.id]],
+            "name": "Bank Statement",
+        }
     
     @api.depends('payment_line_ids.amount_currency')
     def _compute_total_amount(self):
@@ -646,3 +694,6 @@ class AccountPaymentOrder(models.Model):
 
     def _convert_num_to_text(self, amount):
         return amount_to_text_arabic(abs(amount), 'SAR')
+class AccountBankStatementInherit(models.Model):
+    _inherit = 'account.bank.statement'
+    payment_request_id = fields.Many2one(comodel_name="account.payment.order")
