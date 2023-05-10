@@ -187,6 +187,7 @@
                     optional="hide"
                     string="Bank Transactions"
                 />
+                <field name="payment_request_type"/>
                 <field name="total_company_currency" sum="Total Company Currency" />
                 <field name="company_currency_id" invisible="1" />
                 <field

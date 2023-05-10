@@ -9,7 +9,6 @@
                     <br/>
                     <br/>
                     <div class="col-4">
-                        <!-- <img src="/account_payment_order/static/description/header.png" width="50%" alt=""/> -->
                         <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)" style="margin-left: auto;display: block;margin-right: auto;height:140pt;width:140pt"/>
                     </div>
                     <div class="col-8" style="text-align:right;">
@@ -37,7 +36,12 @@
                             <span style="padding-right: 10px;padding-left:10px" t-esc="doc.company_currency_id.symbol"></span>
                             <br/>
 Amount:
-                            <span style="background-color:#808080;padding-right: 3px;padding-left:3px" t-esc="doc.total_amount"></span>
+                            <t t-if="doc.payment_request_type != 'account'">
+                                <span style="background-color:#808080;padding-right: 3px;padding-left:3px" t-esc="doc.total_amount"></span>
+                            </t>
+                            <t t-if="doc.payment_request_type == 'account'">
+                                <span style="background-color:#808080;padding-right: 3px;padding-left:3px" t-esc="doc.amount"></span>
+                            </t>
                         </strong>
                     </div>
                 </div>
@@ -55,7 +59,12 @@ Amount:
                     <tr>
                         <div class="row">
                             <div class="col-8" style="text-align:left;">
-                                <t t-set="amo1" t-value="doc._convert_num_to_text(doc.total_amount)"/>
+                                <t t-if="doc.payment_request_type != 'account'">
+                                    <t t-set="amo1" t-value="doc._convert_num_to_text(doc.total_amount)"/>
+                                </t>
+                                <t t-if="doc.payment_request_type == 'account'">
+                                    <t t-set="amo1" t-value="doc._convert_num_to_text(doc.amount)"/>
+                                </t>
                                 <strong>Amount: </strong>
                                 <span style="text-align:left !important;" t-esc="amo1"/>
                             </div>
@@ -220,7 +229,12 @@ Amount:
                                         <strong>Net Amount Paid</strong>
                                     </div>
                                     <div class="col-6" style="text-align:left;">
-                                        <span t-esc="doc.total_amount"></span>
+                                        <t t-if="doc.payment_request_type != 'account'">
+                                            <span t-esc="doc.total_amount"></span>
+                                        </t>
+                                        <t t-if="doc.payment_request_type == 'account'">
+                                            <span t-esc="doc.amount"></span>
+                                        </t>
                                     </div>
                                 </div>
                                 <div class="row" style="border: 1px solid #808080;">
@@ -242,7 +256,7 @@ Amount:
                                         </t>
                                     </t>
                                     <t else="">
-                                        <span style="text-align:left" t-esc="doc.bank_name"></span>
+                                        <span style="text-align:left" t-esc="doc.bank_id.name"></span>
                                     </t>
                                     </div>
                                 </div>
