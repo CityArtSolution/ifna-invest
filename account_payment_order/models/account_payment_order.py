@@ -18,7 +18,7 @@ class AccountPaymentOrder(models.Model):
     _order = "id desc"
     _check_company_auto = True
 
-    name = fields.Char(string="Number", readonly=True, copy=False)
+    name = fields.Char(string="Number", readonly=False, copy=False)
     request_date = fields.Date(string="Request Date", required=True,default= fields.Date.context_today)
     payment_request_type = fields.Selection(string="Payment Request Type", selection=[('account', 'Account')])
     amount = fields.Float(string="Amount")
@@ -259,10 +259,14 @@ class AccountPaymentOrder(models.Model):
                 if payment.request_date.year == date.year and payment.request_date.month == date.month:
                     same_month_payments_ids.append(payment.id)
             last_payment = self.env['account.payment.order'].search([('id', 'in', same_month_payments_ids)], limit=1)
+            month_zeros=""
+            month_digits_no = len(str(date.month))
+            if month_digits_no == 1:
+                month_zeros ="0"
             if last_payment:
                 last_sequence = last_payment.name.split('-')
                 digits_no = len(str(int(last_sequence[1]) + 1))
-                vals["name"] = "PR %s/%s-" % (date.year, date.month) + ((4 - digits_no) * "0") + str(
+                vals["name"] = "PR %s/%s%s-" % (date.year,month_zeros, date.month) + ((4 - digits_no) * "0") + str(
                     int(last_sequence[1]) + 1)
             else:
                 vals["name"] = "PR %s/%s-" % (date.year, date.month) + "0001"

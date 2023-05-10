@@ -15,7 +15,7 @@
                     <div class="col-8" style="text-align:right;">
                         <br/>
                         <br/>
-                        <strong>Date: <t t-esc="time.strftime('%d/%m/%Y')"/>
+                        <strong>Date: <t t-esc="doc.request_date.strftime('%d/%m/%Y')"/>
                         <br/>
                         <br/>
                         <br/>
@@ -59,7 +59,7 @@ Amount:
                     </tr>
                     <tr>
                         <div class="row">
-                            <div class="col-8" style="text-align:left;">
+                            <div class="col-12" style="text-align:left;">
                                 <t t-if="doc.payment_request_type != 'account'">
                                     <t t-set="amo1" t-value="doc._convert_num_to_text(doc.total_amount)"/>
                                 </t>
@@ -70,7 +70,7 @@ Amount:
                                 <span style="text-align:left !important;" t-esc="amo1"/>
                             </div>
 
-                            <div class="col-4"></div>
+<!--                            <div class="col-4"></div>-->
 
                         </div>
                     </tr>
@@ -104,22 +104,22 @@ Amount:
                         </tr>
                         <tr>
                             <div class="row">
-                                <div class="col-8" style="text-align:left;">
+                                <div class="col-12" style="text-align:left;">
                                     <strong>Purpose:</strong>
                                     <span style="text-align:left" t-esc="doc.description"></span>
                                 </div>
 
-                                <div class="col-4"></div>
+<!--                                <div class="col-4"></div>-->
 
                             </div>
                         </tr>
                         <tr>
                             <div class="row">
-                                <div class="col-8" style="text-align:left;">
+                                <div class="col-12" style="text-align:left;">
                                     <strong>Details:</strong>
                                     <span style="text-align:left" t-esc="doc.payment_line_ids[0].communication"></span>
                                 </div>
-                                <div class="col-4"></div>
+<!--                                <div class="col-4"></div>-->
                             </div>
                         </tr>
                     </t>
@@ -153,12 +153,12 @@ Amount:
                         </tr>
                         <tr>
                             <div class="row">
-                                <div class="col-8" style="text-align:left;">
+                                <div class="col-12" style="text-align:left;">
                                     <strong>Purpose:</strong>
                                     <span style="text-align:left" t-esc="doc.description"></span>
                                 </div>
 
-                                <div class="col-4"></div>
+<!--                                <div class="col-4"></div>-->
 
                             </div>
                         </tr>
@@ -216,15 +216,15 @@ Amount:
                 <div class="row">
                     <div class="col-12">
                         <div class="row" style="border: 1px solid black;">
-                            <div class="col-7" style="text-align:left;background-color:#808080">
+                            <div class="col-9" style="text-align:left;background-color:#808080">
                                 <span>For Finance Department Use Only</span>
                             </div>
-                            <div class="col-5" style="border-left: 1px solid black;text-align:center;background-color:#808080">
+                            <div class="col-3" style="border-left: 1px solid black;text-align:center;background-color:#808080">
                                 <strong>CEO Approval</strong>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-7">
+                            <div class="col-9">
                                 <div class="row" style="border: 1px solid #808080;">
                                     <div class="col-6" style="text-align:left;">
                                         <strong>Net Amount Paid</strong>
