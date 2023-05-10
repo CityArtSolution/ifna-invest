@@ -44,8 +44,9 @@
                         <header>
                             <div>
                                 <div class="text-right" width="100%" style="float:right; font-size:13px;">
-                                    <img style="margin-left: auto;display: block;margin-right: auto;height:140pt;width:140pt"
-                                         src="ifna_invoice_report/static/img/header.jpeg"/>
+                                    <!-- <img style="margin-left: auto;display: block;margin-right: auto;height:140pt;width:140pt"
+                                         src="ifna_invoice_report/static/img/header.jpeg"/> -->
+                                    <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="margin-left: auto;display: block;margin-right: auto;height:140pt;width:140pt"/>
 
                                 </div>
                                 <div class="text-left" width="100%" style="font-family: sans-serif;float:left;">
