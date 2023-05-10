@@ -230,7 +230,12 @@ Amount:
                                         <strong>Net Amount Paid</strong>
                                     </div>
                                     <div class="col-6" style="text-align:left;">
-                                        <span t-esc="doc.total_amount"></span>
+                                        <t t-if="doc.payment_request_type != 'account'">
+                                            <span t-esc="doc.total_amount"></span>
+                                        </t>
+                                        <t t-if="doc.payment_request_type == 'account'">
+                                            <span t-esc="doc.amount"></span>
+                                        </t>
                                     </div>
                                 </div>
                                 <div class="row" style="border: 1px solid #808080;">
