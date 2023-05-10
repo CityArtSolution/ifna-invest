@@ -9,8 +9,8 @@
                     <br/>
                     <br/>
                     <div class="col-4">
-                        <!-- <img src="/account_payment_order/static/description/header.png" width="50%" alt=""/> -->
-                        <img t-if="doc.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="margin-left: auto;display: block;margin-right: auto;height:140pt;width:140pt"/>
+                         <img src="/account_payment_order/static/description/header.png" width="50%" alt=""/>
+<!--                        <img t-if="doc.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="margin-left: auto;display: block;margin-right: auto;height:140pt;width:140pt"/>-->
                     </div>
                     <div class="col-8" style="text-align:right;">
                         <br/>
