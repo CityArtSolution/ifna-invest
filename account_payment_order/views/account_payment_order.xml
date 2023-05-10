@@ -32,8 +32,15 @@
                     <button
                         name="generated2uploaded"
                         type="object"
-                        states="generated"
+                        attrs="{'invisible': ['|',('payment_request_type', '=', 'account'),('state', '!=', 'generated')]}"
                         string="Create journal entry"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="generate_bank_statement"
+                        type="object"
+                        attrs="{'invisible': ['|',('payment_request_type', '!=', 'account'),('state', '!=', 'generated')]}"
+                        string="Create Bank Statement"
                         class="oe_highlight"
                     />
                     <button
@@ -64,17 +71,30 @@
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button
-                            class="oe_stat_button"
-                            name="action_move_journal_line"
-                            type="object"
-                            icon="fa-bars"
+                                class="oe_stat_button"
+                                name="action_move_journal_line"
+                                type="object"
+                                icon="fa-bars"
                         >
-                                <field
-                                string="Journal Entries"
-                                name="move_count"
-                                widget="statinfo"
+                            <field
+                                    string="Journal Entries"
+                                    name="move_count"
+                                    widget="statinfo"
                             />
-                </button>
+                        </button>
+                        <button
+                                class="oe_stat_button"
+                                name="action_bank_statements"
+                                type="object"
+                                icon="fa-list-ol"
+                                attrs="{'invisible': [('bank_statements_count', '=', 0)]}"
+                        >
+                            <field
+                                    string="Bank Statements"
+                                    name="bank_statements_count"
+                                    widget="statinfo"
+                            />
+                        </button>
                     </div>
                     <div class="oe_title">
                         <label for="name" class="oe_edit_only" />
@@ -108,6 +128,7 @@
                         </group>
                         <group name="head-right">
                             <field name="request_date"/>
+                            <field name="payment_request_type" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="date_prefered" />
                             <field
                                 name="date_scheduled"
@@ -117,23 +138,29 @@
                             <field name="generated_user_id" />
                             <field name="date_uploaded" />
                             <field name="description" />
+                            <field name="communication" attrs="{'invisible': [('payment_request_type', '!=', 'account')],'required': [('payment_request_type', '=', 'account')]}"/>
                             <field name="department_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="amount" attrs="{'invisible': [('payment_request_type', '!=', 'account')],'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="bank_id" attrs="{'invisible': [('payment_request_type', '!=', 'account')],'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="bank_account_no" attrs="{'invisible': [('payment_request_type', '!=', 'account')],'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="beneficiary_name" attrs="{'invisible': [('payment_request_type', '!=', 'account')],'readonly': [('state', '!=', 'draft')]}"/>
+
                         </group>
                     </group>
                     <notebook>
-                        <page name="payment-lines" string="Transactions">
+                        <page name="payment-lines" string="Transactions" attrs="{'invisible': [('payment_request_type', '=', 'account')]}">
                             <field
                                 name="payment_line_ids"
                                 context="{'default_payment_type': payment_type}"
                             />
                         </page>
-                        <page
-                            name="bank-lines"
-                            string="Bank Transactions"
-                            attrs="{'invisible': [('state', 'in', ('draft', 'cancel'))]}"
-                        >
-                            <field name="bank_line_ids" edit="0" create="0" />
-                        </page>
+<!--                        <page-->
+<!--                            name="bank-lines"-->
+<!--                            string="Bank Transactions"-->
+<!--                            attrs="{'invisible': [('state', 'in', ('draft', 'cancel'))]}"-->
+<!--                        >-->
+<!--                            <field name="bank_line_ids" edit="0" create="0" />-->
+<!--                        </page>-->
                     </notebook>
                 </sheet>
                 <div class="oe_chatter">
@@ -160,6 +187,7 @@
                     optional="hide"
                     string="Bank Transactions"
                 />
+                <field name="payment_request_type"/>
                 <field name="total_company_currency" sum="Total Company Currency" />
                 <field name="company_currency_id" invisible="1" />
                 <field
