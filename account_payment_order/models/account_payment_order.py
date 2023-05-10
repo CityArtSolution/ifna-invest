@@ -22,7 +22,6 @@ class AccountPaymentOrder(models.Model):
     request_date = fields.Date(string="Request Date", required=True,default= fields.Date.context_today)
     payment_request_type = fields.Selection(string="Payment Request Type", selection=[('account', 'Account')])
     amount = fields.Float(string="Amount")
-    bank_name = fields.Char(string="", required=False, )
     bank_id = fields.Many2one(comodel_name="res.bank", string="Bank Name")
     bank_account_no = fields.Char(string="Bank Account No")
     beneficiary_name = fields.Char(string="Beneficiary Name")
@@ -407,19 +406,19 @@ class AccountPaymentOrder(models.Model):
             #         'amount_currency': self.amount,
             #     })
             # Create bank payment lines
-            # for paydict in list(group_paylines.values()):
-            #     # Block if a bank payment line is <= 0
-            #     if paydict["total"] <= 0:
-            #         raise UserError(
-            #             _(
-            #                 "The amount for Partner '%(partner)s' is negative "
-            #                 "or null (%(amount).2f) !",
-            #                 partner=paydict["paylines"][0].partner_id.name,
-            #                 amount=paydict["total"],
-            #             )
-            #         )
-            #     vals = self._prepare_bank_payment_line(paydict["paylines"])
-                # bplo.create(vals)
+            for paydict in list(group_paylines.values()):
+                # Block if a bank payment line is <= 0
+                if paydict["total"] <= 0:
+                    raise UserError(
+                        _(
+                            "The amount for Partner '%(partner)s' is negative "
+                            "or null (%(amount).2f) !",
+                            partner=paydict["paylines"][0].partner_id.name,
+                            amount=paydict["total"],
+                        )
+                    )
+                vals = self._prepare_bank_payment_line(paydict["paylines"])
+                bplo.create(vals)
         self.write({"state": "open"})
         return True
 
