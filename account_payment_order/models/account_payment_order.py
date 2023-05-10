@@ -20,7 +20,7 @@ class AccountPaymentOrder(models.Model):
 
     name = fields.Char(string="Number", readonly=True, copy=False)
     request_date = fields.Date(string="Request Date", required=True,default= fields.Date.context_today)
-    payment_request_type = fields.Selection(string="Payment Request Type", selection=[('null', 'Null'),('account', 'Account')],default='null' )
+    payment_request_type = fields.Selection(string="Payment Request Type", selection=[('account', 'Account')])
     amount = fields.Float(string="Amount")
     bank_name = fields.Char(string="", required=False, )
     bank_id = fields.Many2one(comodel_name="res.bank", string="Bank Name")
@@ -400,20 +400,26 @@ class AccountPaymentOrder(models.Model):
                         "total": payline.amount_currency,
                     }
             order.recompute()
+            # if self.payment_type == 'account':
+            #     bplo.create({
+            #         'date' : self.request_date,
+            #         'amount_currency' : self.amount,
+            #         'amount_currency': self.amount,
+            #     })
             # Create bank payment lines
-            for paydict in list(group_paylines.values()):
-                # Block if a bank payment line is <= 0
-                if paydict["total"] <= 0:
-                    raise UserError(
-                        _(
-                            "The amount for Partner '%(partner)s' is negative "
-                            "or null (%(amount).2f) !",
-                            partner=paydict["paylines"][0].partner_id.name,
-                            amount=paydict["total"],
-                        )
-                    )
-                vals = self._prepare_bank_payment_line(paydict["paylines"])
-                bplo.create(vals)
+            # for paydict in list(group_paylines.values()):
+            #     # Block if a bank payment line is <= 0
+            #     if paydict["total"] <= 0:
+            #         raise UserError(
+            #             _(
+            #                 "The amount for Partner '%(partner)s' is negative "
+            #                 "or null (%(amount).2f) !",
+            #                 partner=paydict["paylines"][0].partner_id.name,
+            #                 amount=paydict["total"],
+            #             )
+            #         )
+            #     vals = self._prepare_bank_payment_line(paydict["paylines"])
+                # bplo.create(vals)
         self.write({"state": "open"})
         return True
 
