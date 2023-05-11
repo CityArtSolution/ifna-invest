@@ -248,29 +248,48 @@ class AccountPaymentOrder(models.Model):
     def _compute_bank_statements_count(self):
         self.bank_statements_count = self.env['account.bank.statement'].search_count(
             [('payment_request_id', '=', self.id)])
-
-    @api.model
-    def create(self, vals):
-        # if vals.get("name", "New") == "New":
-        date = datetime.datetime.strptime(vals.get("request_date"), '%Y-%m-%d').date()
+    def get_pr_sequence(self):
+        # date = datetime.datetime.strptime(vals.get("request_date"), '%Y-%m-%d').date()
+        date = self.request_date
         all_payments = self.env['account.payment.order'].search([])
         same_month_payments_ids = []
         for payment in all_payments:
             if payment.request_date.year == date.year and payment.request_date.month == date.month:
                 same_month_payments_ids.append(payment.id)
         last_payment = self.env['account.payment.order'].search([('id', 'in', same_month_payments_ids)], limit=1)
-        month_zeros=""
+        month_zeros = ""
         month_digits_no = len(str(date.month))
         if month_digits_no == 1:
-            month_zeros ="0"
+            month_zeros = "0"
         if last_payment:
             last_sequence = last_payment.name.split('-')
             digits_no = len(str(int(last_sequence[1]) + 1))
-            vals["name"] = "PR %s/%s%s-" % (date.year,month_zeros, date.month) + ((4 - digits_no) * "0") + str(
+            self.name = "PR %s/%s%s-" % (date.year, month_zeros, date.month) + ((4 - digits_no) * "0") + str(
                 int(last_sequence[1]) + 1)
         else:
-            vals["name"] = "PR %s/%s-" % (date.year, date.month) + "0001"
+            self.name = "PR %s/%s-" % (date.year, date.month) + "0001"
 
+    @api.model
+    def create(self, vals):
+        # # if vals.get("name", "New") == "New":
+        # date = datetime.datetime.strptime(vals.get("request_date"), '%Y-%m-%d').date()
+        # all_payments = self.env['account.payment.order'].search([])
+        # same_month_payments_ids = []
+        # for payment in all_payments:
+        #     if payment.request_date.year == date.year and payment.request_date.month == date.month:
+        #         same_month_payments_ids.append(payment.id)
+        # last_payment = self.env['account.payment.order'].search([('id', 'in', same_month_payments_ids)], limit=1)
+        # month_zeros=""
+        # month_digits_no = len(str(date.month))
+        # if month_digits_no == 1:
+        #     month_zeros ="0"
+        # if last_payment:
+        #     last_sequence = last_payment.name.split('-')
+        #     digits_no = len(str(int(last_sequence[1]) + 1))
+        #     vals["name"] = "PR %s/%s%s-" % (date.year,month_zeros, date.month) + ((4 - digits_no) * "0") + str(
+        #         int(last_sequence[1]) + 1)
+        # else:
+        vals["name"] = "/"
         if vals.get("payment_mode_id"):
             payment_mode = self.env["account.payment.mode"].browse(
                 vals["payment_mode_id"]
@@ -315,6 +334,8 @@ class AccountPaymentOrder(models.Model):
             "payment_line_ids": [(6, 0, paylines.ids)],
             "communication": "-".join([line.communication for line in paylines]),
         }
+    def reset2draft(self):
+        self.write({"state": "draft"})
 
     def draft2open(self):
         """
@@ -326,6 +347,7 @@ class AccountPaymentOrder(models.Model):
         bplo = self.env["bank.payment.line"]
         today = fields.Date.context_today(self)
         for order in self:
+            order.get_pr_sequence()
             if not order.journal_id:
                 raise UserError(
                     _("Missing Bank Journal on payment order %s.") % order.name
