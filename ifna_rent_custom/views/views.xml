@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <!-- Inherit Form View to Modify it -->
+        <record id="rent_property_new_form_view" model="ir.ui.view">
+            <field name="name">rent.property.new</field>
+            <field name="model">rent.property</field>
+            <field name="inherit_id" ref="renting.rent_property_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='property_extra_number']" position="after">
+                    <!-- Add your fields or attributes here -->
+                    <field name="rent_config_property_type_id" required="1"/>
+                    <field name="rent_config_property_purpose_id" required="1"/>
+                </xpath>
+
+                <xpath expr="//page[@name='general_information']" position="replace">
+                    <!-- Add your fields or attributes here -->
+                    <page name="general_information" string="General Information">
+                                <group>
+                                    <group>
+                                        <field name="property_construction_date"/>
+                                    </group>
+                                    <group>
+                                        <field name="property_land_contract"/>
+                                        <field name="property_land_contract_date"/>
+                                        <field name="property_land_contract_image"/>
+                                        <field name="property_land_contract_electronic"/>
+                                    </group>
+                                </group>
+                            </page>
+                </xpath>
+
+                <xpath expr="//field[@name='national_permit_number']" position="before">
+                    <!-- Add your fields or attributes here -->
+                    <field name="municipal_side_id"/>
+                </xpath>
+
+                <xpath expr="//field[@name='defense_permit_number']" position="before">
+                    <!-- Add your fields or attributes here -->
+                    <field name="civil_defense_authority_id"/>
+                </xpath>
+
+                <xpath expr="//field[@name='tour_permit_number']" position="before">
+                    <!-- Add your fields or attributes here -->
+                    <field name="side_tourism_id"/>
+                </xpath>
+
+                <xpath expr="//field[@name='pepole_permit_number']" position="before">
+                    <!-- Add your fields or attributes here -->
+                    <field name="side_housing_id"/>
+                </xpath>
+                <xpath expr="//field[@name='trade_permit_number']" position="before">
+                    <!-- Add your fields or attributes here -->
+                    <field name="side_housing_id"/>
+                </xpath>
+
+            </field>
+        </record>
+
+
+    </data>
+</odoo>
