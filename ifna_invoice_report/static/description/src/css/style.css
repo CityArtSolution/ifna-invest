@@ -1,0 +1,16 @@
+/* english font */
+
+
+@font-face {
+    font-family: 'Almarai';
+    src: local('Almarai-Bold'),
+    url(/ifna_invoice_report/static/description/src/fonts/Almarai-Bold.ttf) format('truetype');
+}
+
+.page{
+  /*  margin-top:-50px !important; */
+font-family: Almarai-Bold !important;
+}
+body .header .footer {
+font-family: Almarai-Bold !important;
+}
