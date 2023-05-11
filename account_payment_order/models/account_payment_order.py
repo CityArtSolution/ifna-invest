@@ -399,6 +399,12 @@ class AccountPaymentOrder(models.Model):
                         "total": payline.amount_currency,
                     }
             order.recompute()
+            # if self.payment_type == 'account':
+            #     bplo.create({
+            #         'date' : self.request_date,
+            #         'amount_currency' : self.amount,
+            #         'amount_currency': self.amount,
+            #     })
             # Create bank payment lines
             for paydict in list(group_paylines.values()):
                 # Block if a bank payment line is <= 0
@@ -685,7 +691,7 @@ class AccountPaymentOrder(models.Model):
             "domain": [["payment_request_id", "=", self.id]],
             "name": "Bank Statement",
         }
-
+    
     @api.depends('payment_line_ids.amount_currency')
     def _compute_total_amount(self):
         for rec in self:
