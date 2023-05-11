@@ -267,7 +267,7 @@ class AccountPaymentOrder(models.Model):
             self.name = "PR %s/%s%s-" % (date.year, month_zeros, date.month) + ((4 - digits_no) * "0") + str(
                 int(last_sequence[1]) + 1)
         else:
-            self.name = "PR %s/%s-" % (date.year, date.month) + "0001"
+            self.name = "PR %s/%s%s-" % (date.year,month_zeros, date.month) + "0001"
 
     @api.model
     def create(self, vals):
