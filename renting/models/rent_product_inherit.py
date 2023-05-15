@@ -7,58 +7,58 @@ from lxml import etree
 class RentProductProduct(models.Model):
     _inherit = 'product.product'
 
-    unit_number = fields.Char(string='رقم الوحدة', copy=True)
-    unit_area = fields.Char(string='مساحة الوحدة', copy=True)
-    unit_floor_number = fields.Char(string='رقم الطابق', copy=True)
-    unit_rooms_number = fields.Char(string='عدد الغرف', copy=True)
-    unit_state = fields.Char(compute='_get_state', string='الحالة', default='شاغرة', copy=True)
+    # unit_number = fields.Char(string='رقم الوحدة', copy=True)
+    # unit_area = fields.Char(string='مساحة الوحدة', copy=True)
+    # unit_floor_number = fields.Char(string='رقم الطابق', copy=True)
+    # unit_rooms_number = fields.Char(string='عدد الغرف', copy=True)
+    # unit_state = fields.Char(compute='_get_state', string='الحالة', default='شاغرة', copy=True)
 
-    rent_unit_area = fields.Float(string='المساحة', copy=True)
+    # rent_unit_area = fields.Float(string='المساحة', copy=True)
 
     # unit_contain_two_scales = fields.Boolean(string='Contain Two Scales')
     # unit_furniture = fields.Boolean(string='Furniture?')
-    furniture_bedroom = fields.Boolean(string='غرفة نوم', copy=True)
-    furniture_bedroom_no = fields.Integer(string=' عدد غرف النوم', copy=True)
-    furniture_bathroom = fields.Boolean(string='حمام', copy=True)
-    furniture_bathroom_no = fields.Integer(string=' عدد الحمام', copy=True)
-    furniture_reception = fields.Boolean(string='ريسيبشن', copy=True)
-    furniture_reception_no = fields.Integer(string=' عدد الريسيبشن', copy=True)
-    furniture_kitchen = fields.Boolean(string='مطبخ', copy=True)
-    furniture_service_room = fields.Boolean(string='غرفة خدم', copy=True)
-    furniture_inventory = fields.Boolean(string='مخزن', copy=True)
-    furniture_inventory_no = fields.Integer(string=' عدد المخازن', copy=True)
-    furniture_setting_room = fields.Boolean(string='غرفة المعيشة', copy=True)
-    furniture_setting_room_no = fields.Integer(string=' عدد غرف المعيشة', copy=True)
-    furniture_central_air_conditioner = fields.Boolean(string='تكييف مركزي', copy=True)
-    furniture_split_air_conditioner = fields.Boolean(string='تكييف سبليت', copy=True)
-    furniture_split_air_conditioner_no = fields.Integer(string=' عدد تكييف سبليت', copy=True)
-    furniture_evaporator_cooler = fields.Boolean(string='مدخنة', copy=True)
-    furniture_evaporator_cooler_no = fields.Integer(string=' عدد المداخن', copy=True)
-    furniture_kitchen_installed = fields.Boolean(string='مطبخ مجهز', copy=True)
-    furniture_locker_installed = fields.Boolean(string='غرفة ملابس', copy=True)
-    furniture_locker_installed_no = fields.Integer(string=' عدد غرف الملابس', copy=True)
+    # furniture_bedroom = fields.Boolean(string='غرفة نوم', copy=True)
+    # furniture_bedroom_no = fields.Integer(string=' عدد غرف النوم', copy=True)
+    # furniture_bathroom = fields.Boolean(string='حمام', copy=True)
+    # furniture_bathroom_no = fields.Integer(string=' عدد الحمام', copy=True)
+    # furniture_reception = fields.Boolean(string='ريسيبشن', copy=True)
+    # furniture_reception_no = fields.Integer(string=' عدد الريسيبشن', copy=True)
+    # furniture_kitchen = fields.Boolean(string='مطبخ', copy=True)
+    # furniture_service_room = fields.Boolean(string='غرفة خدم', copy=True)
+    # furniture_inventory = fields.Boolean(string='مخزن', copy=True)
+    # furniture_inventory_no = fields.Integer(string=' عدد المخازن', copy=True)
+    # furniture_setting_room = fields.Boolean(string='غرفة المعيشة', copy=True)
+    # furniture_setting_room_no = fields.Integer(string=' عدد غرف المعيشة', copy=True)
+    # furniture_central_air_conditioner = fields.Boolean(string='تكييف مركزي', copy=True)
+    # furniture_split_air_conditioner = fields.Boolean(string='تكييف سبليت', copy=True)
+    # furniture_split_air_conditioner_no = fields.Integer(string=' عدد تكييف سبليت', copy=True)
+    # furniture_evaporator_cooler = fields.Boolean(string='مدخنة', copy=True)
+    # furniture_evaporator_cooler_no = fields.Integer(string=' عدد المداخن', copy=True)
+    # furniture_kitchen_installed = fields.Boolean(string='مطبخ مجهز', copy=True)
+    # furniture_locker_installed = fields.Boolean(string='غرفة ملابس', copy=True)
+    # furniture_locker_installed_no = fields.Integer(string=' عدد غرف الملابس', copy=True)
 
-    unit_construction_date = fields.Date(string='تاريخ الانشاء', copy=True)
+    # unit_construction_date = fields.Date(string='تاريخ الانشاء', copy=True)
 
-    rent_config_unit_overlook_id = fields.Many2one('rent.config.unit.overlooks', string='Unit Overlooking',
-                                                   copy=True)  # Related field to menu item "Unit Views"
-    rent_config_unit_type_id = fields.Many2one('rent.config.unit.types', string='Unit type - Style',
-                                               copy=True)  # Related field to menu item "Unit Types"
-    rent_config_unit_purpose_id = fields.Many2one('rent.config.unit.purposes', string='Unit Purpose',
-                                                  copy=True)  # Related field to menu item "Unit Purpose"
-    rent_config_unit_finish_id = fields.Many2one('rent.config.unit.finishes', string='Unit Finish',
-                                                 copy=True)  # Related field to menu item "Unit Finishes"
+    # rent_config_unit_overlook_id = fields.Many2one('rent.config.unit.overlooks', string='Unit Overlooking',
+    #                                                copy=True)  # Related field to menu item "Unit Views"
+    # rent_config_unit_type_id = fields.Many2one('rent.config.unit.types', string='Unit type - Style',
+    #                                            copy=True)  # Related field to menu item "Unit Types"
+    # rent_config_unit_purpose_id = fields.Many2one('rent.config.unit.purposes', string='Unit Purpose',
+    #                                               copy=True)  # Related field to menu item "Unit Purpose"
+    # rent_config_unit_finish_id = fields.Many2one('rent.config.unit.finishes', string='Unit Finish',
+    #                                              copy=True)  # Related field to menu item "Unit Finishes"
 
-    property_id = fields.Many2one('rent.property', string='عمارة', copy=True)  # Related field to Properties
+    # property_id = fields.Many2one('rent.property', string='عمارة', copy=True)  # Related field to Properties
 
-    operating_unit = fields.Many2many('operating.unit', string='الفرع ', copy=True)
+    # operating_unit = fields.Many2many('operating.unit', string='الفرع ', copy=True)
 
-    entry_number = fields.Char('عدد المداخل', copy=True)
-    entry_overlook = fields.Char('المداخل تطل علي', copy=True)
+    # entry_number = fields.Char('عدد المداخل', copy=True)
+    # entry_overlook = fields.Char('المداخل تطل علي', copy=True)
 
-    unit_gas = fields.Char(string='رقم عداد الغاز', copy=True)
-    unit_electricity = fields.Char(string='رقم عداد الكهرباء', copy=True)
-    unit_water = fields.Char(string='رقم عداد المياه', copy=True)
+    # unit_gas = fields.Char(string='رقم عداد الغاز', copy=True)
+    # unit_electricity = fields.Char(string='رقم عداد الكهرباء', copy=True)
+    # unit_water = fields.Char(string='رقم عداد المياه', copy=True)
 
     # unit_maintenance_count = fields.Integer(string='Total Maintenance', compute='_get_count', readonly=True)
     unit_expenses_count = fields.Integer(string='Total Expenses', compute='_unit_expenses_count', readonly=True)
@@ -66,9 +66,9 @@ class RentProductProduct(models.Model):
     state_id = fields.Char()
     analytic_account = fields.Many2one('account.analytic.account', copy=True, string='الحساب التحليلي', readonly=True)
     ref_analytic_account = fields.Char(string='رقم اشارة الحساب التحليلي', readonly=True)
-    property_analytic_account = fields.Many2one('account.analytic.account', string='الحساب التحليلي للعقار',
-                                                related='property_id.analytic_account')
-    property_id = fields.Many2one('rent.property', string='عمارة', copy=True)  # Related field to Properties
+    # property_analytic_account = fields.Many2one('account.analytic.account', string='الحساب التحليلي للعقار',
+    #                                             related='property_id.analytic_account')
+    # property_id = fields.Many2one('rent.property', string='عمارة', copy=True)  # Related field to Properties
 
     def _get_state(self):
         for rec in self:
