@@ -14,6 +14,14 @@
                         invisible="1"
                     />
                     <button
+                            name="reset2draft"
+                            type="object"
+                            attrs="{'invisible': [('state', '=', 'draft')]}"
+                            string="Reset To Draft"
+                            class="oe_highlight"
+                            groups="account_payment_order.group_first_approve"
+                    />
+                    <button
                         name="draft2open"
                         type="object"
                         states="draft"
@@ -99,7 +107,7 @@
                     <div class="oe_title">
                         <label for="name" class="oe_edit_only" />
                         <h1>
-                            <field name="name" />
+                            <field name="name"/>
                         </h1>
                     </div>
                     <group name="head" col="2">
@@ -127,7 +135,7 @@
                             />
                         </group>
                         <group name="head-right">
-                            <field name="request_date"/>
+                            <field name="request_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="payment_request_type" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="date_prefered" />
                             <field
