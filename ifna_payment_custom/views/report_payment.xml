@@ -339,21 +339,21 @@
                     <!--                </table>       -->
                     <br/>
                     <div class="row" style="border: 1px solid black;">
-                        <div class="col-3" style="border: 1px solid black;text-align:left;background-color:#808080">
+                        <div class="col-3" style="border: 0px solid black;text-align:left;background-color:#808080">
                             <span></span>
                         </div>
-                        <div class="col-3" style="border: 1px solid black;text-align:center;background-color:#808080">
+                        <div class="col-3" style="border: 0px solid black;text-align:center;background-color:#808080">
                             <span>Requested By</span>
                         </div>
-                        <div class="col-3" style="border: 1px solid black;text-align:center;background-color:#808080">
+                        <div class="col-3" style="border: 0px solid black;text-align:center;background-color:#808080">
                             <span>Department</span>
                         </div>
-                        <div class="col-3" style="border: 1px solid black;text-align:center;background-color:#808080">
+                        <div class="col-3" style="border: 0px solid black;text-align:center;background-color:#808080">
                             <span>Financial Controller</span>
                         </div>
                     </div>
                     <div class="row" style="border: 1px solid #808080;">
-                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
+                        <div class="col-3" style="border:0px solid #808080;text-align:center;">
                             <span>Name</span>
                         </div>
                         <div class="col-3" style="border:1px solid #808080;text-align:center;">
@@ -362,12 +362,12 @@
                         <div class="col-3" style="border:1px solid #808080;text-align:center;">
                             <span t-esc="doc.department_id.name"></span>
                         </div>
-                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
+                        <div class="col-3" style="border:0px solid #808080;text-align:center;">
                             <span style="text-align:left" t-esc="doc.current_user_id.name"></span>
                         </div>
                     </div>
                     <div class="row" style="border: 1px solid #808080;">
-                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
+                        <div class="col-3" style="border:0px solid #808080;text-align:center;">
                             <span>Signature</span>
                             <br/>
                             <br/>
@@ -380,7 +380,7 @@
                             <br/>
                             <br/>
                         </div>
-                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
+                        <div class="col-3" style="border:0px solid #808080;text-align:center;">
                             <br/>
                             <br/>
                         </div>
