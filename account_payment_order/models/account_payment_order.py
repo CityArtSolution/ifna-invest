@@ -10,7 +10,7 @@ from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 from .num_to_text_ar import amount_to_text_arabic
 import datetime
-
+from num2words import num2words
 class AccountPaymentOrder(models.Model):
     _name = "account.payment.order"
     _description = "Payment Order"
@@ -22,6 +22,8 @@ class AccountPaymentOrder(models.Model):
     request_date = fields.Date(string="Request Date", required=True,default= fields.Date.context_today)
     payment_request_type = fields.Selection(string="Payment Request Type", selection=[('account', 'Account')])
     amount = fields.Float(string="Amount")
+    currency_id = fields.Many2one('res.currency', string='Currency', default=lambda self: self.env.company.currency_id.id)
+    transaction_currency_id = fields.Many2one('res.currency', string='Currency', compute='get_transaction_currency_id')
     bank_id = fields.Many2one(comodel_name="res.bank", string="Bank Name")
     bank_account_no = fields.Char(string="Bank Account No")
     beneficiary_name = fields.Char(string="Beneficiary Name")
@@ -178,7 +180,12 @@ class AccountPaymentOrder(models.Model):
                 record.allowed_journal_ids = record.payment_mode_id.variable_journal_ids
             else:
                 record.allowed_journal_ids = False
-
+    @api.depends("payment_line_ids")
+    def get_transaction_currency_id(self):
+        for rec in self:
+            rec.transaction_currency_id = self.env.company.currency_id.id
+            for line in rec.payment_line_ids:
+                rec.transaction_currency_id = line.currency_id
     def unlink(self):
         for order in self:
             if order.state == "uploaded":
@@ -264,10 +271,10 @@ class AccountPaymentOrder(models.Model):
         if last_payment:
             last_sequence = last_payment.name.split('-')
             digits_no = len(str(int(last_sequence[1]) + 1))
-            self.name = "PR %s/%s%s-" % (date.year, month_zeros, date.month) + ((4 - digits_no) * "0") + str(
+            self.name = "%s/%s%s-" % (date.year, month_zeros, date.month) + ((4 - digits_no) * "0") + str(
                 int(last_sequence[1]) + 1)
         else:
-            self.name = "PR %s/%s%s-" % (date.year,month_zeros, date.month) + "0001"
+            self.name = "%s/%s%s-" % (date.year,month_zeros, date.month) + "0001"
 
     @api.model
     def create(self, vals):
@@ -718,7 +725,19 @@ class AccountPaymentOrder(models.Model):
             rec.total_amount = sum(rec.payment_line_ids.mapped('amount_currency'))
 
     def _convert_num_to_text(self, amount):
-        return amount_to_text_arabic(abs(amount), 'SAR')
+        if self.payment_request_type == 'account':
+            return amount_to_text_arabic(abs(amount), self.currency_id.name)
+        else:
+            return amount_to_text_arabic(abs(amount), self.transaction_currency_id.name)
+
+    def _convert_num_to_text_en(self, amount):
+        if self.payment_request_type == 'account':
+            x = num2words(abs(amount), to = 'ordinal')
+            return str(x)+" "+str(self.currency_id.name)
+        else:
+            x = num2words(abs(amount), to = 'ordinal')
+            return str(x)+" "+str(self.transaction_currency_id.name)
+
 class AccountBankStatementInherit(models.Model):
     _inherit = 'account.bank.statement'
     payment_request_id = fields.Many2one(comodel_name="account.payment.order")

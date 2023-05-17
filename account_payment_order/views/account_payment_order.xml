@@ -149,6 +149,7 @@
                             <field name="communication" attrs="{'invisible': [('payment_request_type', '!=', 'account')],'required': [('payment_request_type', '=', 'account')]}"/>
                             <field name="department_id" options="{'no_create': True, 'no_create_edit': True}"/>
                             <field name="amount" attrs="{'invisible': [('payment_request_type', '!=', 'account')],'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="currency_id" attrs="{'invisible': [('payment_request_type', '!=', 'account')],'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="bank_id" attrs="{'invisible': [('payment_request_type', '!=', 'account')],'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="bank_account_no" attrs="{'invisible': [('payment_request_type', '!=', 'account')],'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="beneficiary_name" attrs="{'invisible': [('payment_request_type', '!=', 'account')],'readonly': [('state', '!=', 'draft')]}"/>
