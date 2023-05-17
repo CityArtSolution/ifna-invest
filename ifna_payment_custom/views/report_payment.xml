@@ -4,8 +4,7 @@
         <t t-set="doc"
            t-value="doc.with_context({'lang': doc.generated_user_id and doc.generated_user_id.lang or user.lang})"/>
         <t t-call="web.basic_layout">
-
-            <div class="page">
+            <div class="page" style="font-size:14px;">
                 <div class="row" style="margin-top:0px">
                     <br/>
                     <br/>
@@ -58,7 +57,6 @@
                             </t>
                         </div>
                     </div>
-                    <br/>
                     <table class="table table-condensed"
                            style="border:0px solid black;width:60%;margin-right: auto;margin-right: auto;text-align: right;font-weight:bold;">
                         <tbody>
@@ -373,20 +371,16 @@
                             <span>Signature</span>
                             <br/>
                             <br/>
+                        </div>
+                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
+                            <br/>
                             <br/>
                         </div>
                         <div class="col-3" style="border:1px solid #808080;text-align:center;">
                             <br/>
                             <br/>
-                            <br/>
                         </div>
                         <div class="col-3" style="border:1px solid #808080;text-align:center;">
-                            <br/>
-                            <br/>
-                            <br/>
-                        </div>
-                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
-                            <br/>
                             <br/>
                             <br/>
                         </div>
@@ -529,7 +523,6 @@
                                             </div>
                                             <br/>
                                         <br/>
-
                                         </div>
                                     </t>
                                     <div class="row" style="border: 1px solid #808080;">
@@ -551,7 +544,6 @@
                             </div>
                         </div>
                     </div>
-                    <br/>
                     <br/>
                     <br/>
                 </div>
