@@ -57,7 +57,7 @@
                             </t>
                         </div>
                     </div>
-                    <table
+                    <table class="table"
                            style="border:0px solid white;width:60%;margin-right: auto;margin-right: auto;text-align: right;font-weight:bold;">
                         <tbody>
                             <tr style="white-space: nowrap; ">
