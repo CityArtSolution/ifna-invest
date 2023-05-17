@@ -731,13 +731,25 @@ class AccountPaymentOrder(models.Model):
             return amount_to_text_arabic(abs(amount), self.transaction_currency_id.name)
 
     def _convert_num_to_text_en(self, amount):
-        if self.payment_request_type == 'account':
-            x = num2words(abs(amount), to = 'ordinal')
-            return str(x)+" "+str(self.currency_id.name)
-        else:
-            x = num2words(abs(amount), to = 'ordinal')
-            return str(x)+" "+str(self.transaction_currency_id.name)
 
+        if self.payment_request_type == 'account':
+            if self.currency_id.name == 'SAR':
+                x = num2words(abs(amount), to='currency')
+                x_riyal = x.replace("euro", "Riyal")
+                real_x = x_riyal.replace("cents", "Halala")
+                return str(real_x)
+            else:
+                x = num2words(abs(amount), to='currency', currency=self.currency_id.name)
+                return str(x)
+        else:
+            if self.transaction_currency_id.name == 'SAR':
+                x = num2words(abs(amount), to = 'currency')
+                x_riyal=  x.replace("euro", "Riyal" )
+                real_x=  x_riyal.replace("cents", "Halala" )
+                return str(real_x)
+            else:
+                x = num2words(abs(amount), to = 'currency' , currency=self.transaction_currency_id.name)
+                return str(x)
 class AccountBankStatementInherit(models.Model):
     _inherit = 'account.bank.statement'
     payment_request_id = fields.Many2one(comodel_name="account.payment.order")

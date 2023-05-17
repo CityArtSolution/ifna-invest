@@ -73,25 +73,25 @@
                                     <span style="text-align:left" t-field="doc.payment_method"></span>
                                 </td>
                             </tr>
-                            <tr style="white-space: nowrap; ">
-                                <td align="left">Amount :</td>
-                                <td style="text-align: left;">
-                                    <strong></strong>
-                                </td>
-                                <td style="text-align: left;">
-                                    <strong></strong>
-                                </td>
-                                <td align="left"></td>
-                                <td style="text-align: left;">
-                                    <t t-if="doc.payment_request_type != 'account'">
-                                        <t t-set="amo1" t-value="doc._convert_num_to_text_en(doc.total_amount)"/>
-                                    </t>
-                                    <t t-if="doc.payment_request_type == 'account'">
-                                        <t t-set="amo1" t-value="doc._convert_num_to_text_en(doc.amount)"/>
-                                    </t>
-                                    <span style="text-align:left" t-esc="amo1"></span>
-                                </td>
-                            </tr>
+<!--                            <tr style="white-space: nowrap; ">-->
+<!--                                <td align="left">Amount :</td>-->
+<!--                                <td style="text-align: left;">-->
+<!--                                    <strong></strong>-->
+<!--                                </td>-->
+<!--                                <td style="text-align: left;">-->
+<!--                                    <strong></strong>-->
+<!--                                </td>-->
+<!--                                <td align="left"></td>-->
+<!--                                <td style="text-align: left;">-->
+<!--                                    <t t-if="doc.payment_request_type != 'account'">-->
+<!--                                        <t t-set="amo1" t-value="doc._convert_num_to_text_en(doc.total_amount)"/>-->
+<!--                                    </t>-->
+<!--                                    <t t-if="doc.payment_request_type == 'account'">-->
+<!--                                        <t t-set="amo1" t-value="doc._convert_num_to_text_en(doc.amount)"/>-->
+<!--                                    </t>-->
+<!--                                    <span style="text-align:left" t-esc="amo1"></span>-->
+<!--                                </td>-->
+<!--                            </tr>-->
                             <t t-if="doc.payment_request_type != 'account'">
                                 <tr style="white-space: nowrap; ">
                                     <td align="left">Amount :</td>
