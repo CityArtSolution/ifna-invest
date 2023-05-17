@@ -57,8 +57,8 @@
                             </t>
                         </div>
                     </div>
-                    <table class="table table-condensed"
-                           style="border:0px solid black;width:60%;margin-right: auto;margin-right: auto;text-align: right;font-weight:bold;">
+                    <table
+                           style="border:0px solid white;width:60%;margin-right: auto;margin-right: auto;text-align: right;font-weight:bold;">
                         <tbody>
                             <tr style="white-space: nowrap; ">
                                 <td align="left">Payment Method :</td>
