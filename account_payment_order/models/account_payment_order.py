@@ -228,12 +228,15 @@ class AccountPaymentOrder(models.Model):
                         )
                     )
 
-    @api.depends("payment_line_ids", "payment_line_ids.amount_company_currency")
+    @api.depends("payment_line_ids", "payment_line_ids.amount_company_currency","payment_request_type","amount")
     def _compute_total(self):
         for rec in self:
-            rec.total_company_currency = sum(
-                rec.mapped("payment_line_ids.amount_company_currency") or [0.0]
-            )
+            if rec.payment_request_type == 'account':
+                rec.total_company_currency = rec.amount
+            else:
+                rec.total_company_currency = sum(
+                    rec.mapped("payment_line_ids.amount_company_currency") or [0.0]
+                )
 
     @api.depends("bank_line_ids")
     def _compute_bank_line_count(self):

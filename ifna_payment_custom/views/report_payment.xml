@@ -10,7 +10,7 @@
                     <br/>
                     <div class="col-4">
                         <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)"
-                             style="margin-left: auto;display: block;margin-right: auto;height:200pt;width:140pt"/>
+                             style="margin-left: auto;display: block;margin-right: auto;height:220pt;width:140pt"/>
                     </div>
                     <div class="col-8" style="text-align:right;">
                         <br/>
@@ -37,38 +37,29 @@
                             <br/>
                             <t t-if="doc.payment_request_type != 'account'">
                                 <strong>
-                                    <span style="padding-right: 10px;padding-left:10px"
-                                          t-esc="doc.transaction_currency_id.symbol"></span>
-                                    <br/>
                                     Amount:
                                     <span style="background-color:#808080;padding-right: 3px;padding-left:3px"
-                                          t-esc="doc.total_amount"></span>
+                                          t-esc="doc.total_amount" t-options='{"widget": "float", "precision": 2}'></span>
+                                    <span style="padding-right: 10px;padding-left:10px"
+                                          t-esc="doc.transaction_currency_id.symbol"></span>
                                 </strong>
                             </t>
                             <t t-if="doc.payment_request_type == 'account'">
                                 <strong>
-                                    <span style="padding-right: 10px;padding-left:10px"
-                                          t-esc="doc.currency_id.symbol"></span>
-                                    <br/>
                                     Amount:
                                     <span style="background-color:#808080;padding-right: 3px;padding-left:3px"
-                                          t-esc="doc.amount"></span>
+                                          t-esc="doc.amount" t-options='{"widget": "float", "precision": 2}'></span>
+                                    <span style="padding-right: 10px;padding-left:10px"
+                                          t-esc="doc.currency_id.symbol"></span>
+
                                 </strong>
                             </t>
                         </div>
                     </div>
-                    <table class="table"
-                           style="border:0px solid white;width:60%;margin-right: auto;margin-right: auto;text-align: right;font-weight:bold;">
+                    <table style="border:0px solid white;width:60%; margin-right: auto;margin-right: auto;text-align: right;">
                         <tbody>
                             <tr style="white-space: nowrap; ">
-                                <td align="left">Payment Method :</td>
-                                <td style="text-align: left;">
-                                    <strong></strong>
-                                </td>
-                                <td style="text-align: left;">
-                                    <strong></strong>
-                                </td>
-                                <td align="left"></td>
+                                <td style="font-weight:bold;" align="left">Payment Method :</td>
                                 <td style="text-align: left;">
                                     <span style="text-align:left" t-field="doc.payment_method"></span>
                                 </td>
@@ -94,114 +85,58 @@
 <!--                            </tr>-->
                             <t t-if="doc.payment_request_type != 'account'">
                                 <tr style="white-space: nowrap; ">
-                                    <td align="left">Amount :</td>
-                                    <td style="text-align: left;">
-                                        <strong></strong>
-                                    </td>
-                                    <td style="text-align: left;">
-                                        <strong></strong>
-                                    </td>
-                                    <td align="left"></td>
+                                    <td  style="font-weight:bold;" align="left">Amount :</td>
                                     <t t-set="amo1" t-value="doc._convert_num_to_text_en(doc.total_amount)"/>
                                     <td style="text-align: left;">
-                                        <span style="text-align:left" t-esc="amo1"></span>
+                                      <span style="text-align:left" t-esc="amo1"></span>
                                     </td>
                                 </tr>
                                 <tr style="white-space: nowrap; ">
-                                    <td align="left">Beneficiary :</td>
-                                    <td style="text-align: left;">
-                                        <strong></strong>
-                                    </td>
-                                    <td style="text-align: left;">
-                                        <strong></strong>
-                                    </td>
-                                    <td align="left"></td>
+                                    <td  style="font-weight:bold;" align="left">Beneficiary :</td>
                                     <td style="text-align: left;">
                                         <span style="text-align:left"
                                               t-esc="doc.payment_line_ids[0].partner_id.name"></span>
                                     </td>
                                 </tr>
-                                <tr style="white-space: nowrap; ">
-                                    <td align="left">Purpose :</td>
-                                    <td style="text-align: left;">
-                                        <strong></strong>
-                                    </td>
-                                    <td style="text-align: left;">
-                                        <strong></strong>
-                                    </td>
-                                    <td align="left"></td>
-                                    <td style="text-align: left;">
-                                        <span style="text-align:left" t-esc="doc.description"></span>
+                                <tr style="word-wrap: break-word;">
+                                    <td  style="font-weight:bold;" align="left">Purpose :</td>
+                                    <td  style="text-align: left; word-break: break-word;">
+                                        <span  t-field="doc.description"></span>
                                     </td>
                                 </tr>
-                                <tr style="white-space: nowrap; ">
-                                    <td align="left">Details :</td>
-                                    <td style="text-align: left;">
-                                        <strong></strong>
-                                    </td>
-                                    <td style="text-align: left;">
-                                        <strong></strong>
-                                    </td>
-                                    <td align="left"></td>
-                                    <td style="text-align: left;">
-                                        <span style="text-align:left"
+                                <tr style="word-wrap: break-word;">
+                                    <td  style="font-weight:bold;" align="left">Details :</td>
+                                    <td  style="text-align: left;word-break: break-word;">
+                                         <span style="text-align:left"
                                               t-esc="doc.payment_line_ids[0].communication"></span>
                                     </td>
                                 </tr>
                             </t>
                             <t t-if="doc.payment_request_type == 'account'">
                                 <tr style="white-space: nowrap; ">
-                                    <td align="left">Amount :</td>
-                                    <td style="text-align: left;">
-                                        <strong></strong>
-                                    </td>
-                                    <td style="text-align: left;">
-                                        <strong></strong>
-                                    </td>
-                                    <td align="left"></td>
+                                    <td  style="font-weight:bold;" align="left">Amount :</td>
                                     <t t-set="amo1" t-value="doc._convert_num_to_text_en(doc.amount)"/>
                                     <td style="text-align: left;">
                                         <span style="text-align:left" t-esc="amo1"></span>
                                     </td>
                                 </tr>
                                 <tr style="white-space: nowrap; ">
-                                    <td align="left">Beneficiary :</td>
+                                    <td style="font-weight:bold;" align="left">Beneficiary :</td>
                                     <td style="text-align: left;">
-                                        <strong></strong>
-                                    </td>
-                                    <td style="text-align: left;">
-                                        <strong></strong>
-                                    </td>
-                                    <td align="left"></td>
-                                    <td style="text-align: left;">
-                                        <span style="text-align:left"
+                                       <span style="text-align:left"
                                               t-esc="doc.beneficiary_name"></span>
                                     </td>
                                 </tr>
-                                <tr style="white-space: nowrap; ">
-                                    <td align="left">Purpose :</td>
-                                    <td style="text-align: left;">
-                                        <strong></strong>
-                                    </td>
-                                    <td style="text-align: left;">
-                                        <strong></strong>
-                                    </td>
-                                    <td align="left"></td>
-                                    <td style="text-align: left;">
+                                <tr style="word-wrap: break-word;">
+                                    <td style="font-weight:bold;" align="left">Purpose :</td>
+                                    <td  style="text-align: left;word-break: break-word;">
                                         <span style="text-align:left" t-esc="doc.description"></span>
                                     </td>
                                 </tr>
-                                <tr style="white-space: nowrap; ">
-                                    <td align="left">Details :</td>
-                                    <td style="text-align: left;">
-                                        <strong></strong>
-                                    </td>
-                                    <td style="text-align: left;">
-                                        <strong></strong>
-                                    </td>
-                                    <td align="left"></td>
-                                    <td style="text-align: left;">
-                                        <span style="text-align:left" t-esc="doc.communication"></span>
+                                <tr style="word-wrap: break-word;">
+                                    <td style="font-weight:bold;" align="left">Details :</td>
+                                    <td  style="text-align: left;word-break: break-word;">
+                                         <span style="text-align:left" t-esc="doc.communication"></span>
                                     </td>
                                 </tr>
                             </t>
@@ -342,24 +277,24 @@
                         <div class="col-3" style="border: 0px solid black;text-align:left;background-color:#808080">
                             <span></span>
                         </div>
-                        <div class="col-3" style="border: 0px solid black;text-align:center;background-color:#808080">
+                        <div class="col-3" style="border: 0px solid black;text-align:center;font-weight:bold;background-color:#808080" >
                             <span>Requested By</span>
                         </div>
-                        <div class="col-3" style="border: 0px solid black;text-align:center;background-color:#808080">
+                        <div class="col-3" style="border: 0px solid black;text-align:center;font-weight:bold;background-color:#808080">
                             <span>Department</span>
                         </div>
-                        <div class="col-3" style="border: 0px solid black;text-align:center;background-color:#808080">
+                        <div class="col-3" style="border: 0px solid black;text-align:center;font-weight:bold;background-color:#808080">
                             <span>Financial Controller</span>
                         </div>
                     </div>
                     <div class="row" style="border: 1px solid #808080;">
-                        <div class="col-3" style="border:0px solid #808080;text-align:center;">
+                        <div class="col-3" style="border:0px solid #808080;text-align:center;font-weight:bold;">
                             <span>Name</span>
                         </div>
-                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
+                        <div class="col-3" style="border-left:1px solid #808080;text-align:center;">
                             <span t-esc="doc.employee_id.name"></span>
                         </div>
-                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
+                        <div class="col-3" style="border-left:1px solid #808080;border-right:1px solid #808080;text-align:center;">
                             <span t-esc="doc.department_id.name"></span>
                         </div>
                         <div class="col-3" style="border:0px solid #808080;text-align:center;">
@@ -367,20 +302,24 @@
                         </div>
                     </div>
                     <div class="row" style="border: 1px solid #808080;">
-                        <div class="col-3" style="border:0px solid #808080;text-align:center;">
+                        <div class="col-3" style="border:0px solid #808080;text-align:center;font-weight:bold;">
                             <span>Signature</span>
                             <br/>
                             <br/>
-                        </div>
-                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
-                            <br/>
                             <br/>
                         </div>
-                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
+                        <div class="col-3" style="border-left:1px solid #808080;text-align:center;">
+                            <br/>
+                            <br/>
+                            <br/>
+                        </div>
+                        <div class="col-3" style="border-left:1px solid #808080; border-right:1px solid #808080;text-align:center;">
+                            <br/>
                             <br/>
                             <br/>
                         </div>
                         <div class="col-3" style="border:0px solid #808080;text-align:center;">
+                            <br/>
                             <br/>
                             <br/>
                         </div>
@@ -389,7 +328,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="row" style="border: 1px solid black;">
-                                <div class="col-8" style="text-align:left;background-color:#808080">
+                                <div class="col-8" style="text-align:left;font-weight:bold;background-color:#808080">
                                     <span>For Finance Department Use Only</span>
                                 </div>
                                 <div class="col-4"
@@ -408,7 +347,7 @@
                                         </div>
                                         <div class="col-6" style="text-align:left;">
                                             <t t-if="doc.payment_request_type != 'account'">
-                                                <span t-esc="doc.total_amount"></span>
+                                                <span t-esc="doc.total_amount" t-options='{"widget": "float", "precision": 2}'></span>
                                             </t>
                                             <t t-if="doc.payment_request_type == 'account'">
                                                 <span t-esc="doc.amount"></span>
@@ -548,12 +487,14 @@
                     <br/>
                 </div>
                 <div class="oe_structure"/>
-            </div>
-            <div class="footer">
-                <div class="text-center" style="border-top: 1px solid black;">
-                    <ul class="list-inline">
-                        <li>Afnaa Investment Company - CR: 1010835577 - Address: Building 7813, Takhassousi St, Nakheel Dist 4334 Riyadh 12383</li>
-                    </ul>
+                <div class="footer">
+                    <div class="text-center" style="border-top: 1px solid black;">
+                        <ul class="list-inline">
+                            <li>Afnaa Investment Company - CR: 1010835577 - Address: Building 7813, Takhassousi St,
+                                Nakheel Dist 4334 Riyadh 12383
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </t>

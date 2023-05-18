@@ -15,3 +15,8 @@ class CRMLeadInherit(models.Model):
     def get_unit_name_into_lead_name(self):
         if self.product_id:
             self.name = self.product_id.name
+class UtmMixinInherit(models.AbstractModel):
+    _inherit = 'utm.mixin'
+
+    source_id = fields.Many2one('utm.source', 'Customer Classification',
+                                help="This is the source of the link, e.g. Search Engine, another domain, or name of email list")
