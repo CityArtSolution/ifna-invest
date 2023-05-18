@@ -59,12 +59,13 @@
                     <table style="border:0px solid white;width:60%; margin-right: auto;margin-right: auto;text-align: right;">
                         <tbody>
                             <tr style="white-space: nowrap; ">
-                                <td style="font-weight:bold;" align="left">Payment Method :</td>
+                                <td style="font-weight:bold;" align="left">Payment Method : <br/><br/></td>
                                 <td style="text-align: left;">
                                     <span style="text-align:left" t-field="doc.payment_method"></span>
+                                    <br/><br/>
                                 </td>
                             </tr>
-<!--                            <tr style="white-space: nowrap; ">-->
+                            <!--                            <tr style="white-space: nowrap; ">-->
 <!--                                <td align="left">Amount :</td>-->
 <!--                                <td style="text-align: left;">-->
 <!--                                    <strong></strong>-->
@@ -85,58 +86,66 @@
 <!--                            </tr>-->
                             <t t-if="doc.payment_request_type != 'account'">
                                 <tr style="white-space: nowrap; ">
-                                    <td  style="font-weight:bold;" align="left">Amount :</td>
+                                    <td  style="font-weight:bold;" align="left">Amount :<br/><br/></td>
                                     <t t-set="amo1" t-value="doc._convert_num_to_text_en(doc.total_amount)"/>
                                     <td style="text-align: left;">
                                       <span style="text-align:left" t-esc="amo1"></span>
+                                        <br/><br/>
                                     </td>
                                 </tr>
                                 <tr style="white-space: nowrap; ">
-                                    <td  style="font-weight:bold;" align="left">Beneficiary :</td>
+                                    <td  style="font-weight:bold;" align="left">Beneficiary :<br/><br/></td>
                                     <td style="text-align: left;">
                                         <span style="text-align:left"
                                               t-esc="doc.payment_line_ids[0].partner_id.name"></span>
+                                        <br/><br/>
                                     </td>
                                 </tr>
                                 <tr style="word-wrap: break-word;">
-                                    <td  style="font-weight:bold;" align="left">Purpose :</td>
+                                    <td  style="font-weight:bold;" align="left">Purpose :<br/><br/></td>
                                     <td  style="text-align: left; word-break: break-word;">
                                         <span  t-field="doc.description"></span>
+                                        <br/><br/>
                                     </td>
                                 </tr>
                                 <tr style="word-wrap: break-word;">
-                                    <td  style="font-weight:bold;" align="left">Details :</td>
+                                    <td  style="font-weight:bold;" align="left">Details :<br/><br/></td>
                                     <td  style="text-align: left;word-break: break-word;">
                                          <span style="text-align:left"
                                               t-esc="doc.payment_line_ids[0].communication"></span>
+                                        <br/><br/>
                                     </td>
                                 </tr>
                             </t>
                             <t t-if="doc.payment_request_type == 'account'">
                                 <tr style="white-space: nowrap; ">
-                                    <td  style="font-weight:bold;" align="left">Amount :</td>
+                                    <td  style="font-weight:bold;" align="left">Amount :<br/><br/></td>
                                     <t t-set="amo1" t-value="doc._convert_num_to_text_en(doc.amount)"/>
                                     <td style="text-align: left;">
                                         <span style="text-align:left" t-esc="amo1"></span>
+                                        <br/><br/>
                                     </td>
                                 </tr>
                                 <tr style="white-space: nowrap; ">
-                                    <td style="font-weight:bold;" align="left">Beneficiary :</td>
+                                    <td style="font-weight:bold;" align="left">Beneficiary :<br/><br/></td>
                                     <td style="text-align: left;">
                                        <span style="text-align:left"
                                               t-esc="doc.beneficiary_name"></span>
+                                        <br/><br/>
                                     </td>
                                 </tr>
                                 <tr style="word-wrap: break-word;">
-                                    <td style="font-weight:bold;" align="left">Purpose :</td>
+                                    <td style="font-weight:bold;" align="left">Purpose :<br/><br/></td>
                                     <td  style="text-align: left;word-break: break-word;">
                                         <span style="text-align:left" t-esc="doc.description"></span>
+                                        <br/><br/>
                                     </td>
                                 </tr>
                                 <tr style="word-wrap: break-word;">
-                                    <td style="font-weight:bold;" align="left">Details :</td>
+                                    <td style="font-weight:bold;" align="left">Details :<br/><br/></td>
                                     <td  style="text-align: left;word-break: break-word;">
                                          <span style="text-align:left" t-esc="doc.communication"></span>
+                                        <br/><br/>
                                     </td>
                                 </tr>
                             </t>
@@ -350,7 +359,7 @@
                                                 <span t-esc="doc.total_amount" t-options='{"widget": "float", "precision": 2}'></span>
                                             </t>
                                             <t t-if="doc.payment_request_type == 'account'">
-                                                <span t-esc="doc.amount"></span>
+                                                <span t-esc="doc.amount" t-options='{"widget": "float", "precision": 2}'></span>
                                             </t>
                                             <br/>
                                         </div>
