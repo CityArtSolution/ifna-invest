@@ -30,14 +30,28 @@
             </xpath>
         </field>
     </record>
-<!--    <record id="crm_case_kanban_view_leads_inherit_kanban_view" model="ir.ui.view">-->
-<!--     <field name="name">crm_case_kanban_view_leads_inherit_kanban_view</field>-->
-<!--     <field name="model">crm.lead</field>-->
-<!--     <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>-->
-<!--     <field name="arch" type="xml">-->
-<!--         <field name="name_of_field" position="after">-->
-<!--             &lt;!&ndash;make changes&ndash;&gt;-->
-<!--         </field>-->
-<!--     </field>-->
-<!--</record>-->
+    <record id="crm_case_kanban_view_leads_inherit_kanban_view" model="ir.ui.view">
+        <field name="name">crm_case_kanban_view_leads_inherit_kanban_view</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[3]" position="after">
+                <div class="o_kanban_record_subtitle">
+                    <strong>
+                        <field name="property"/>
+                    </strong>
+                </div>
+                <div class="o_kanban_record_subtitle">
+                    <strong>
+                        <field name="product_id"/>
+                    </strong>
+                </div>
+                <div class="o_kanban_record_subtitle">
+                    <strong>
+                        <field name="property_date"/>
+                    </strong>
+                </div>
+            </xpath>
+        </field>
+    </record>
 </odoo>
