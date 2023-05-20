@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <report id="rent_order_report"
+                model="sale.order"
+                string="summary tenants update"
+                report_type="xlsx"
+                name="rental_orders_reports.rent_order_report_xlsx"
+                file="rental_orders_reports.rent_order_report_xlsx"
+                attachment_use="False"
+
+
+        />
+
+
+<!--        <record id="stock_cost_report_report_wizard_form_view" model="ir.ui.view">-->
+<!--            <field name="name">stock_cost_report_report_wizard_form_view</field>-->
+<!--            <field name="model">cost.wiz</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <form>-->
+<!--                    <sheet>-->
+<!--                        <group>-->
+<!--                            <group>-->
+<!--                                <field name="picking_id"/>-->
+<!--                            </group>-->
+<!--                            <group>-->
+<!--                                <field name="po_id"/>-->
+<!--                            </group>-->
+<!--                        </group>-->
+<!--                        <field name="report_data" widget="one2many_list" readonly="1" invisible="1">-->
+<!--                            <tree>-->
+<!--                                <field name="picking_id"/>-->
+<!--                                <field name="po_id"/>-->
+<!--                                <field name="code_item"/>-->
+<!--                                <field name="item"/>-->
+<!--                                <field name="ordered_qty"/>-->
+<!--                                <field name="delivered_qty"/>-->
+<!--                                <field name="unit_cost"/>-->
+<!--                            </tree>-->
+<!--                        </field>-->
+
+
+<!--                    </sheet>-->
+<!--                    <footer>-->
+<!--                        <button name="download_excel" type="object" string="Download Excel" class="oe_highlight"/>-->
+<!--                        <button name="download_pdf" type="object" string="Download PDF" class="oe_highlight"/>-->
+<!--                        <button string="Cancel" class="btn-secondary" special="cancel"/>-->
+<!--                    </footer>-->
+
+
+<!--                </form>-->
+<!--            </field>-->
+<!--        </record>-->
+
+<!--        <record id="stock_cost_report" model="ir.actions.act_window">-->
+<!--            <field name="name">Cost Report</field>-->
+<!--            <field name="res_model">cost.wiz</field>-->
+<!--            <field name="target">new</field>-->
+<!--            <field name="view_mode">form</field>-->
+<!--        </record>-->
+
+<!--        <menuitem id="insurance_report_root"-->
+<!--                  name="Cost Report"-->
+<!--                  action="stock_cost_report"-->
+<!--                  parent="stock.menu_stock_root"-->
+<!--                  sequence="12"-->
+<!--        />-->
+
+
+    </data>
+</odoo>

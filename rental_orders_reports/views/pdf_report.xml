@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+                id="cost_pdf_stock_report"
+                model="cost.wiz"
+                string="Purchase Stock"
+                report_type="qweb-pdf"
+                name="value_added_cost_report.value_pdf_added_cost_report"
+                file="value_added_cost_report.value_pdf_added_cost_report"/>
+
+        <template id="value_pdf_added_cost_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <style type="text/css">
+                                table.supplier {
+                                <!--                                font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;-->
+                                font-family: "Times New Roman", Times, serif;
+                                border-collapse: collapse;
+                                width: 100%;
+                                text-align : center;
+                                margin :auto;
+                                }
+
+                                table.supplier td, table.supplier th {
+                                border: 1px solid #080005;
+                                padding: 8px;
+                                }
+
+                                table.supplier tr:nth-child(even){background-color: #e9ecef;}
+
+                                table.supplier tr:hover {background-color: #ddd;}
+
+                                table.supplier th {
+                                padding-top: 12px;
+                                padding-bottom: 12px;
+                                text-align: left;
+                                background-color: white ;
+                                color: black;
+                                text-align : center;
+                                }
+
+                                table.asd td, table.asd th {
+                                border: 1px solid #080005;
+                                padding: 8px;
+                                }
+                                table.asd th {
+                                background-color: #C6EDF9 ;
+                                }
+
+
+                            </style>
+
+                            <div margin="0 auto" padding-top="0">
+                                <span width="30%" align="center">
+                                    <h4>
+                                        <u>Purchase Stock Report</u>
+                                    </h4>
+                                </span>
+                            </div>
+
+                            <br/>
+                            <div class="text-center">
+                                <table width="100%" class="supplier">
+                                    <thead>
+                                        <tr>
+                                            <th>PO NUMBER</th>
+                                            <th>ORDER NUMBER</th>
+                                            <th>CODE ITEM</th>
+                                            <th>NAME ITEM</th>
+                                            <th>ORDER QTY</th>
+                                            <th>DEL QTY</th>
+                                            <th>UNIT COST WITHOUT LANDED COST</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+<!--                                        <t t-set="counter" t-value="0"/>-->
+                                        <tr t-foreach='o.report_data' t-as='line'>
+<!--                                            <t t-set="counter" t-value="counter+1"/>-->
+<!--                                            <td>-->
+<!--                                                <span t-esc="counter"/>-->
+<!--                                            </td>-->
+                                            <td width="10%">
+                                                <h6>
+                                                    <field t-field="line.po_id"/>
+                                                </h6>
+                                            </td>
+                                            <td>
+                                                <h6>
+                                                    <field t-field="line.picking_id.name"/>
+                                                </h6>
+                                            </td>
+                                            <td>
+                                                <h6>
+                                                    <field t-field="line.item.barcode"/>
+                                                </h6>
+                                            </td>
+                                            <td width="30%">
+                                                <h6>
+                                                    <field t-field="line.item.name"/>
+                                                </h6>
+                                            </td>
+                                            <td>
+                                                <h6>
+                                                    <field t-field="line.ordered_qty"/>
+                                                </h6>
+                                            </td>
+                                            <td>
+                                                <h6>
+                                                    <field t-field="line.delivered_qty"/>
+                                                </h6>
+                                            </td>
+                                            <td>
+                                                <h6>
+                                                    <field t-field="line.unit_cost"/>
+                                                </h6>
+                                            </td>
+
+
+                                        </tr>
+<!--                                        <tr>-->
+
+<!--                                            <td>-->
+<!--                                                <b>-->
+<!--                                                    <field t-field="o.num_word_amount"/>-->
+<!--                                                </b>-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                <span style="margin-right: 15px;">-->
+<!--                                                    <b>Total</b>-->
+<!--                                                </span>-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                <b>-->
+<!--                                                    <t t-esc="sum(o.mapped('invoice_line_ids.quantity'))"/>-->
+<!--                                                </b>-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                <b>-->
+<!--                                                    <t t-esc="sum(o.mapped('invoice_line_ids.price_unit'))"/>-->
+<!--                                                </b>-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                <b>-->
+<!--                                                    <t t-esc="sum(o.mapped('invoice_line_ids.price_total'))"/>-->
+<!--                                                </b>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+
+    </data>
+</odoo>
+
+
+

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+cost_wiz_group,cost_wiz_group,model_cost_wiz,base.group_user,1,1,1,1
+cost_stock_report_group,cost_stock_report_group,model_cost_stock_report,base.group_user,1,1,1,1
+
