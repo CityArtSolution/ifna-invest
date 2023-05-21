@@ -308,6 +308,7 @@
                     <div class="row" style="border: 1px solid #808080;">
                         <div class="col-3" style="border:0px solid #808080;text-align:center;font-weight:bold;font-size:15px;">
                             <br/>
+                            <br/>
                             <span>Signature</span>
                             <br/>
                             <br/>
@@ -435,7 +436,7 @@
                                         <br/>
 
                                         <div class="col-3" style="text-align:left;font-size:15px;">
-                                            <strong>Beneficiary Account Name :</strong>
+                                            <strong>Beneficiary Account Name:</strong>
                                             <br/>
                                         </div>
                                         <div class="col-9" style="text-align:left;">
