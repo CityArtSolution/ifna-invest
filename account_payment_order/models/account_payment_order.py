@@ -266,7 +266,7 @@ class AccountPaymentOrder(models.Model):
         for payment in all_payments:
             if payment.request_date.year == date.year and payment.request_date.month == date.month:
                 same_month_payments_ids.append(payment.id)
-        last_payment = self.env['account.payment.order'].sudo().search([('id', 'in', same_month_payments_ids)], limit=1)
+        last_payment = self.env['account.payment.order'].sudo().search([('id', 'in', same_month_payments_ids)], limit=1,order='request_date desc')
         month_zeros = ""
         month_digits_no = len(str(date.month))
         if month_digits_no == 1:
