@@ -9,7 +9,7 @@
                     <br/>
                     <br/>
                     <div class="col-4">
-                        <img src="/account_payment_order/static/description/header.png" width="50%" alt=""/>
+                        <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)" style="margin-left: auto;display: block;margin-right: auto;height:140pt;width:140pt"/>
                     </div>
                     <div class="col-8" style="text-align:right;">
                         <br/>
@@ -51,52 +51,104 @@ Amount:
                             <div class="col-4"></div>
                         </div>
                     </tr>
-                    <tr>
-                        <div class="row">
-                            <div class="col-8" style="text-align:left;">
-                                <t t-set="amo1" t-value="doc._convert_num_to_text(doc.total_amount)"/>
-                                <strong>Amount: </strong>
-                                <span style="text-align:left !important;" t-esc="amo1"/>
-                            </div>
+                    <t t-if="doc.payment_request_type != 'account'">
+                        <tr>
+                            <div class="row">
+                                <div class="col-8" style="text-align:left;">
+                                    <t t-set="amo1" t-value="doc._convert_num_to_text(doc.total_amount)"/>
+                                    <strong>Amount:</strong>
+                                    <span style="text-align:left !important;" t-esc="amo1"/>
+                                </div>
 
-                            <div class="col-4"></div>
+                                <div class="col-4"></div>
 
-                        </div>
-                    </tr>
-                    <tr>
-                        <div class="row">
-                            <div class="col-8" style="text-align:left;">
-                                <strong>Beneficiary: </strong>
-                                <t t-if="doc.payment_line_ids[0].partner_id">
-                                    <span style="text-align:left" t-esc="doc.payment_line_ids[0].partner_id.name"></span>
-                                </t>
-                                <t t-else="">
-                                    <span>N/A</span>
-                                </t>
                             </div>
-                            <div class="col-4"></div>
-                        </div>
-                    </tr>
-                    <tr>
-                        <div class="row">
-                            <div class="col-8" style="text-align:left;">
-                                <strong>Purpose: </strong>
-                                <span style="text-align:left" t-esc="doc.description"></span>
+                        </tr>
+                        <tr>
+                            <div class="row">
+                                <div class="col-8" style="text-align:left;">
+                                    <strong>Beneficiary:</strong>
+                                    <t t-if="doc.payment_line_ids[0].partner_id">
+                                        <span style="text-align:left"
+                                              t-esc="doc.payment_line_ids[0].partner_id.name"></span>
+                                    </t>
+                                    <t t-else="">
+                                        <span>N/A</span>
+                                    </t>
+                                </div>
+                                <div class="col-4"></div>
                             </div>
+                        </tr>
+                        <tr>
+                            <div class="row">
+                                <div class="col-8" style="text-align:left;">
+                                    <strong>Purpose:</strong>
+                                    <span style="text-align:left" t-esc="doc.description"></span>
+                                </div>
 
-                            <div class="col-4"></div>
+                                <div class="col-4"></div>
 
-                        </div>
-                    </tr>
-                    <tr>
-                        <div class="row">
-                            <div class="col-8" style="text-align:left;">
-                                <strong>Details: </strong>
-                                <span style="text-align:left" t-esc="doc.payment_line_ids[0].communication"></span>
                             </div>
-                            <div class="col-4"></div>
-                        </div>
-                    </tr>
+                        </tr>
+                        <tr>
+                            <div class="row">
+                                <div class="col-8" style="text-align:left;">
+                                    <strong>Details:</strong>
+                                    <span style="text-align:left" t-esc="doc.payment_line_ids[0].communication"></span>
+                                </div>
+                                <div class="col-4"></div>
+                            </div>
+                        </tr>
+                    </t>
+                    <t t-if="doc.payment_request_type == 'account'">
+                        <tr>
+                            <div class="row">
+                                <div class="col-8" style="text-align:left;">
+                                    <t t-set="amo1" t-value="doc.amount"/>
+                                    <strong>Amount:</strong>
+                                    <span style="text-align:left !important;" t-esc="amo1"/>
+                                </div>
+
+                                <div class="col-4"></div>
+
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="row">
+                                <div class="col-8" style="text-align:left;">
+                                    <strong>Beneficiary:</strong>
+                                    <t t-if="doc.beneficiary_name">
+                                        <span style="text-align:left"
+                                              t-esc="doc.beneficiary_name"></span>
+                                    </t>
+                                    <t t-else="">
+                                        <span>N/A</span>
+                                    </t>
+                                </div>
+                                <div class="col-4"></div>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="row">
+                                <div class="col-8" style="text-align:left;">
+                                    <strong>Purpose:</strong>
+                                    <span style="text-align:left" t-esc="doc.description"></span>
+                                </div>
+
+                                <div class="col-4"></div>
+
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="row">
+                                <div class="col-8" style="text-align:left;">
+                                    <strong>Details:</strong>
+                                    <span style="text-align:left" t-esc="doc.communication"></span>
+                                </div>
+                                <div class="col-4"></div>
+                            </div>
+                        </tr>
+                    </t>
                 </table>
                 <br/>
                 <div class="row" style="border: 1px solid black;">

@@ -132,7 +132,8 @@ class RentSaleOrder(models.Model):
             if rec.invoice_number <= 0:
                 raise UserError(_('من فضلك اكتب عدد الفواتير'))
             rec.order_contract_invoice = False
-            fromdate = rec.fromdate.replace(day=1)
+            fromdate = rec.fromdate
+            print(rec.fromdate,'ahmed')
             d1 = fields.Datetime.from_string(rec.fromdate)
             d2 = fields.Datetime.from_string(rec.todate)
             total_contract_period = d2 - d1

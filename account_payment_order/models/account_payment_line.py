@@ -71,7 +71,7 @@ class AccountPaymentLine(models.Model):
     # the creation of lines from move/invoices when communication is empty
     # This field is required in the form view and there is an error message
     # when going from draft to confirm if the field is empty
-    communication = fields.Char(
+    communication = fields.Char(string='Details',
         required=False, help="Label of the payment that will be seen by the destinee"
     )
     communication_type = fields.Selection(

@@ -9,8 +9,8 @@ import base64
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 from .num_to_text_ar import amount_to_text_arabic
-
-
+import datetime
+from num2words import num2words
 class AccountPaymentOrder(models.Model):
     _name = "account.payment.order"
     _description = "Payment Order"
@@ -19,6 +19,17 @@ class AccountPaymentOrder(models.Model):
     _check_company_auto = True
 
     name = fields.Char(string="Number", readonly=True, copy=False)
+    request_date = fields.Date(string="Request Date", required=True,default= fields.Date.context_today)
+    payment_request_type = fields.Selection(string="Payment Request Type", selection=[('account', 'Account')])
+    amount = fields.Float(string="Amount")
+    currency_id = fields.Many2one('res.currency', string='Currency', default=lambda self: self.env.company.currency_id.id)
+    transaction_currency_id = fields.Many2one('res.currency', string='Currency', compute='get_transaction_currency_id')
+    bank_id = fields.Many2one(comodel_name="res.bank", string="Bank Name")
+    bank_account_no = fields.Char(string="Bank Account No")
+    beneficiary_name = fields.Char(string="Beneficiary Name")
+    communication = fields.Char(string='Details',
+        required=False, help="Label of the payment that will be seen by the destinee"
+    )
     payment_mode_id = fields.Many2one(
         comodel_name="account.payment.mode",
         required=True,
@@ -153,7 +164,8 @@ class AccountPaymentOrder(models.Model):
     move_count = fields.Integer(
         compute="_compute_move_count", string="Number of Journal Entries"
     )
-    description = fields.Char()
+    bank_statements_count = fields.Integer(compute="_compute_bank_statements_count")
+    description = fields.Char(string='Purpose')
     payment_method = fields.Selection(string='Payment Method', selection=[('cash', 'Cash'), ('check', 'Check'),('sadad', 'SADAD'),('transfer', 'Transfer')], default='cash')
     total_amount = fields.Float(string='Total Amount', compute="_compute_total_amount", store=True)
     department_id = fields.Many2one(comodel_name='account.analytic.account', string='Department')
@@ -168,7 +180,12 @@ class AccountPaymentOrder(models.Model):
                 record.allowed_journal_ids = record.payment_mode_id.variable_journal_ids
             else:
                 record.allowed_journal_ids = False
-
+    @api.depends("payment_line_ids")
+    def get_transaction_currency_id(self):
+        for rec in self:
+            rec.transaction_currency_id = self.env.company.currency_id.id
+            for line in rec.payment_line_ids:
+                rec.transaction_currency_id = line.currency_id
     def unlink(self):
         for order in self:
             if order.state == "uploaded":
@@ -211,12 +228,15 @@ class AccountPaymentOrder(models.Model):
                         )
                     )
 
-    @api.depends("payment_line_ids", "payment_line_ids.amount_company_currency")
+    @api.depends("payment_line_ids", "payment_line_ids.amount_company_currency","payment_request_type","amount")
     def _compute_total(self):
         for rec in self:
-            rec.total_company_currency = sum(
-                rec.mapped("payment_line_ids.amount_company_currency") or [0.0]
-            )
+            if rec.payment_request_type == 'account':
+                rec.total_company_currency = rec.amount
+            else:
+                rec.total_company_currency = sum(
+                    rec.mapped("payment_line_ids.amount_company_currency") or [0.0]
+                )
 
     @api.depends("bank_line_ids")
     def _compute_bank_line_count(self):
@@ -235,13 +255,51 @@ class AccountPaymentOrder(models.Model):
         }
         for order in self:
             order.move_count = mapped_data.get(order.id, 0)
+    def _compute_bank_statements_count(self):
+        self.bank_statements_count = self.env['account.bank.statement'].search_count(
+            [('payment_request_id', '=', self.id)])
+    def get_pr_sequence(self):
+        # date = datetime.datetime.strptime(vals.get("request_date"), '%Y-%m-%d').date()
+        date = self.request_date
+        all_payments = self.env['account.payment.order'].search([('state','!=','draft')])
+        same_month_payments_ids = []
+        for payment in all_payments:
+            if payment.request_date.year == date.year and payment.request_date.month == date.month:
+                same_month_payments_ids.append(payment.id)
+        last_payment = self.env['account.payment.order'].sudo().search([('id', 'in', same_month_payments_ids)], limit=1)
+        month_zeros = ""
+        month_digits_no = len(str(date.month))
+        if month_digits_no == 1:
+            month_zeros = "0"
+        if last_payment:
+            last_sequence = last_payment.name.split('-')
+            digits_no = len(str(int(last_sequence[1]) + 1))
+            self.name = "%s/%s%s-" % (date.year, month_zeros, date.month) + ((4 - digits_no) * "0") + str(
+                int(last_sequence[1]) + 1)
+        else:
+            self.name = "%s/%s%s-" % (date.year,month_zeros, date.month) + "0001"
 
     @api.model
     def create(self, vals):
-        if vals.get("name", "New") == "New":
-            vals["name"] = (
-                self.env["ir.sequence"].next_by_code("account.payment.order") or "New"
-            )
+        # # if vals.get("name", "New") == "New":
+        # date = datetime.datetime.strptime(vals.get("request_date"), '%Y-%m-%d').date()
+        # all_payments = self.env['account.payment.order'].search([])
+        # same_month_payments_ids = []
+        # for payment in all_payments:
+        #     if payment.request_date.year == date.year and payment.request_date.month == date.month:
+        #         same_month_payments_ids.append(payment.id)
+        # last_payment = self.env['account.payment.order'].search([('id', 'in', same_month_payments_ids)], limit=1)
+        # month_zeros=""
+        # month_digits_no = len(str(date.month))
+        # if month_digits_no == 1:
+        #     month_zeros ="0"
+        # if last_payment:
+        #     last_sequence = last_payment.name.split('-')
+        #     digits_no = len(str(int(last_sequence[1]) + 1))
+        #     vals["name"] = "PR %s/%s%s-" % (date.year,month_zeros, date.month) + ((4 - digits_no) * "0") + str(
+        #         int(last_sequence[1]) + 1)
+        # else:
+        vals["name"] = "/"
         if vals.get("payment_mode_id"):
             payment_mode = self.env["account.payment.mode"].browse(
                 vals["payment_mode_id"]
@@ -286,6 +344,8 @@ class AccountPaymentOrder(models.Model):
             "payment_line_ids": [(6, 0, paylines.ids)],
             "communication": "-".join([line.communication for line in paylines]),
         }
+    def reset2draft(self):
+        self.write({"state": "draft"})
 
     def draft2open(self):
         """
@@ -297,6 +357,7 @@ class AccountPaymentOrder(models.Model):
         bplo = self.env["bank.payment.line"]
         today = fields.Date.context_today(self)
         for order in self:
+            order.get_pr_sequence()
             if not order.journal_id:
                 raise UserError(
                     _("Missing Bank Journal on payment order %s.") % order.name
@@ -309,9 +370,13 @@ class AccountPaymentOrder(models.Model):
                     _("Missing bank account on bank journal '%s'.")
                     % order.journal_id.display_name
                 )
-            if not order.payment_line_ids:
+            if not order.payment_line_ids and order.payment_request_type != 'account':
                 raise UserError(
                     _("There are no transactions on payment order %s.") % order.name
+                )
+            if not order.journal_id and order.payment_request_type == 'account':
+                raise UserError(
+                    _("There are no Bank Journal on payment order %s.") % order.name
                 )
             # Delete existing bank payment lines
             order.bank_line_ids.unlink()
@@ -438,6 +503,24 @@ class AccountPaymentOrder(models.Model):
         for order in self:
             if order.payment_mode_id.generate_move:
                 order.generate_move()
+        self.write(
+            {"state": "uploaded", "date_uploaded": fields.Date.context_today(self)}
+        )
+        return True
+
+    def generate_bank_statement(self):
+        self.env["account.bank.statement"].create(
+            {
+                "journal_id": self.journal_id.id,
+                "date": self.request_date,
+                "line_ids": [(0, 0, {
+                    'date': self.request_date,
+                    'payment_ref': self.communication,
+                    'amount': self.amount * -1,
+                })],
+                "payment_request_id" : self.id
+            }
+        )
         self.write(
             {"state": "uploaded", "date_uploaded": fields.Date.context_today(self)}
         )
@@ -625,11 +708,51 @@ class AccountPaymentOrder(models.Model):
         ctx.update({"search_default_misc_filter": 0})
         action["context"] = ctx
         return action
-    
+    def action_bank_statements(self):
+        self.ensure_one()
+        tree_view = self.env.ref(
+            "account.view_bank_statement_tree")
+        return {
+            "type": "ir.actions.act_window",
+            "res_model": "account.bank.statement",
+            "views": [[tree_view.id, "tree"], [False, "form"]],
+            "context": {"create": False},
+            'view_mode': 'tree,form',
+            "domain": [["payment_request_id", "=", self.id]],
+            "name": "Bank Statement",
+        }
+
     @api.depends('payment_line_ids.amount_currency')
     def _compute_total_amount(self):
         for rec in self:
             rec.total_amount = sum(rec.payment_line_ids.mapped('amount_currency'))
 
     def _convert_num_to_text(self, amount):
-        return amount_to_text_arabic(abs(amount), 'SAR')
+        if self.payment_request_type == 'account':
+            return amount_to_text_arabic(abs(amount), self.currency_id.name)
+        else:
+            return amount_to_text_arabic(abs(amount), self.transaction_currency_id.name)
+
+    def _convert_num_to_text_en(self, amount):
+
+        if self.payment_request_type == 'account':
+            if self.currency_id.name == 'SAR':
+                x = num2words(abs(amount), to='currency')
+                x_riyal = x.replace("euro", "Riyal")
+                real_x = x_riyal.replace("cents", "Halala")
+                return str(real_x)
+            else:
+                x = num2words(abs(amount), to='currency', currency=self.currency_id.name)
+                return str(x)
+        else:
+            if self.transaction_currency_id.name == 'SAR':
+                x = num2words(abs(amount), to = 'currency')
+                x_riyal=  x.replace("euro", "Riyal" )
+                real_x=  x_riyal.replace("cents", "Halala" )
+                return str(real_x)
+            else:
+                x = num2words(abs(amount), to = 'currency' , currency=self.transaction_currency_id.name)
+                return str(x)
+class AccountBankStatementInherit(models.Model):
+    _inherit = 'account.bank.statement'
+    payment_request_id = fields.Many2one(comodel_name="account.payment.order")
