@@ -36,7 +36,7 @@
                         <div class="col-6" style="text-align:right;">
                             <br/>
                             <t t-if="doc.payment_request_type != 'account'">
-                                <strong>
+                                <strong style="font-size:16px; color: #3d466e;">
                                     Amount:
                                     <span style="background-color:#808080;padding-right: 3px;padding-left:3px"
                                           t-esc="doc.total_amount" t-options='{"widget": "float", "precision": 2}'></span>
@@ -45,7 +45,7 @@
                                 </strong>
                             </t>
                             <t t-if="doc.payment_request_type == 'account'">
-                                <strong>
+                                <strong style="font-size:16px; color: #3d466e;">
                                     Amount:
                                     <span style="background-color:#808080;padding-right: 3px;padding-left:3px"
                                           t-esc="doc.amount" t-options='{"widget": "float", "precision": 2}'></span>
@@ -56,7 +56,7 @@
                             </t>
                         </div>
                     </div>
-                    <table style="border:0px solid white;width:60%; margin-right: auto;margin-right: auto;text-align: right;">
+                    <table style="border:0px solid white;width:100%; margin-right: auto;margin-right: auto;text-align: right;">
                         <tbody>
                             <tr style="white-space: nowrap; ">
                                 <td style="font-weight:bold;" align="left">Payment Method : <br/><br/></td>
@@ -65,25 +65,6 @@
                                     <br/><br/>
                                 </td>
                             </tr>
-                            <!--                            <tr style="white-space: nowrap; ">-->
-<!--                                <td align="left">Amount :</td>-->
-<!--                                <td style="text-align: left;">-->
-<!--                                    <strong></strong>-->
-<!--                                </td>-->
-<!--                                <td style="text-align: left;">-->
-<!--                                    <strong></strong>-->
-<!--                                </td>-->
-<!--                                <td align="left"></td>-->
-<!--                                <td style="text-align: left;">-->
-<!--                                    <t t-if="doc.payment_request_type != 'account'">-->
-<!--                                        <t t-set="amo1" t-value="doc._convert_num_to_text_en(doc.total_amount)"/>-->
-<!--                                    </t>-->
-<!--                                    <t t-if="doc.payment_request_type == 'account'">-->
-<!--                                        <t t-set="amo1" t-value="doc._convert_num_to_text_en(doc.amount)"/>-->
-<!--                                    </t>-->
-<!--                                    <span style="text-align:left" t-esc="amo1"></span>-->
-<!--                                </td>-->
-<!--                            </tr>-->
                             <t t-if="doc.payment_request_type != 'account'">
                                 <tr style="white-space: nowrap; ">
                                     <td  style="font-weight:bold;" align="left">Amount :<br/><br/></td>
@@ -316,8 +297,10 @@
                             <br/>
                             <br/>
                             <br/>
+                            <br/>
                         </div>
                         <div class="col-3" style="border-left:1px solid #808080;text-align:center;">
+                            <br/>
                             <br/>
                             <br/>
                             <br/>
@@ -326,8 +309,10 @@
                             <br/>
                             <br/>
                             <br/>
+                            <br/>
                         </div>
                         <div class="col-3" style="border:0px solid #808080;text-align:center;">
+                            <br/>
                             <br/>
                             <br/>
                             <br/>
@@ -350,11 +335,11 @@
                                     <div class="row" style="border: 1px solid #808080;">
                                         <br/>
                                         <br/>
-                                        <div class="col-6" style="text-align:left;">
+                                        <div class="col-3" style="text-align:left;">
                                             <strong>Net Amount Paid</strong>
                                             <br/>
                                         </div>
-                                        <div class="col-6" style="text-align:left;">
+                                        <div class="col-8" style="text-align:left;">
                                             <t t-if="doc.payment_request_type != 'account'">
                                                 <span t-esc="doc.total_amount" t-options='{"widget": "float", "precision": 2}'></span>
                                             </t>
@@ -369,11 +354,11 @@
                                     <div class="row" style="border: 1px solid #808080;">
                                         <br/>
                                         <br/>
-                                        <div class="col-6" style="text-align:left;">
+                                        <div class="col-3" style="text-align:left;">
                                             <strong>Paid Method</strong>
                                             <br/>
                                         </div>
-                                        <div class="col-6" style="text-align:left;">
+                                        <div class="col-9" style="text-align:left;">
                                             <span style="text-align:left" t-esc="doc.journal_id.name"></span>
                                             <br/>
                                         </div>
@@ -383,11 +368,11 @@
                                     <div class="row" style="border: 1px solid #808080;">
                                         <br/>
                                         <br/>
-                                        <div class="col-6" style="text-align:left;">
+                                        <div class="col-3" style="text-align:left;">
                                             <strong>Bank Name</strong>
                                             <br/>
                                         </div>
-                                        <div class="col-6" style="text-align:left;">
+                                        <div class="col-9" style="text-align:left;">
                                             <t t-if="doc.payment_request_type != 'account'">
                                                 <t t-if="doc.payment_line_ids[0].partner_bank_id">
                                                     <span style="text-align:left"
@@ -407,11 +392,11 @@
                                         <br/>
                                         <br/>
 
-                                        <div class="col-6" style="text-align:left;">
+                                        <div class="col-3" style="text-align:left;">
                                             <strong>Bank Account Number</strong>
                                             <br/>
                                         </div>
-                                        <div class="col-6" style="text-align:left;">
+                                        <div class="col-9" style="text-align:left;">
                                             <t t-if="doc.payment_request_type != 'account'">
                                                 <t t-if="doc.payment_line_ids[0].partner_bank_id">
                                                     <span style="text-align:left"
@@ -431,11 +416,11 @@
                                         <br/>
                                         <br/>
 
-                                        <div class="col-6" style="text-align:left;">
+                                        <div class="col-3" style="text-align:left;">
                                             <strong>Beneficiary Account Name</strong>
                                             <br/>
                                         </div>
-                                        <div class="col-6" style="text-align:left;">
+                                        <div class="col-9" style="text-align:left;">
                                             <t t-if="doc.payment_request_type != 'account'">
                                                 <t t-if="doc.payment_line_ids[0].partner_bank_id">
                                                     <span style="text-align:left"
@@ -455,11 +440,11 @@
                                             <br/>
                                         <br/>
 
-                                            <div class="col-6" style="text-align:left;">
+                                            <div class="col-3" style="text-align:left;">
                                                 <strong>Swift Code</strong>
                                                 <br/>
                                             </div>
-                                            <div class="col-6" style="text-align:left;">
+                                            <div class="col-9" style="text-align:left;">
                                                 <t t-if="doc.payment_line_ids[0].partner_bank_id.swift">
                                                     <span style="text-align:left"
                                                           t-esc="doc.payment_line_ids[0].partner_bank_id.swift"></span>
@@ -476,11 +461,11 @@
                                     <div class="row" style="border: 1px solid #808080;">
                                         <br/>
                                         <br/>
-                                        <div class="col-6" style="text-align:left;">
+                                        <div class="col-3" style="text-align:left;">
                                             <strong>Reviewed By</strong>
                                             <br/>
                                         </div>
-                                        <div class="col-6" style="text-align:left;">
+                                        <div class="col-9" style="text-align:left;">
                                             <span style="text-align:left" t-esc="doc.current_user_id.name"></span>
                                             <br/>
                                         </div>
@@ -497,7 +482,7 @@
                 </div>
                 <div class="oe_structure"/>
                 <div class="footer">
-                    <div class="text-center" style="border-top: 1px solid black;">
+                    <div class="text-center" style="border-top: 1px solid black;font-size:13px;">
                         <ul class="list-inline">
                             <li>Afnaa Investment Company - CR: 1010835577 - Address: Building 7813, Takhassousi St,
                                 Nakheel Dist 4334 Riyadh 12383
