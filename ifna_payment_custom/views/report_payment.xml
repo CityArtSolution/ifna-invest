@@ -6,8 +6,7 @@
         <t t-call="web.basic_layout">
             <div class="page" style="font-size:14px;">
                 <div class="row" style="margin-top:0px">
-                    <br/>
-                    <br/>
+
                     <div class="col-4">
                         <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)"
                              style="margin-left: auto;display: block;margin-right: auto;height:220pt;width:140pt"/>
@@ -353,7 +352,7 @@
                                     <div class="row" style="border: 1px solid #808080;">
                                         <br/>
                                         <br/>
-                                        <div class="col-4" style="text-align:left;font-size:15px;">
+                                        <div class="col-3" style="text-align:left;font-size:15px;">
                                             <strong>Net Amount Paid :</strong>
                                             <br/>
                                         </div>
@@ -372,11 +371,11 @@
                                     <div class="row" style="border: 1px solid #808080;">
                                         <br/>
                                         <br/>
-                                        <div class="col-4" style="text-align:left;font-size:15px;">
+                                        <div class="col-3" style="text-align:left;font-size:15px;">
                                             <strong>Paid Method :</strong>
                                             <br/>
                                         </div>
-                                        <div class="col-8" style="text-align:left;">
+                                        <div class="col-9" style="text-align:left;">
                                             <span style="text-align:left" t-esc="doc.journal_id.name"></span>
                                             <br/>
                                         </div>
@@ -386,11 +385,11 @@
                                     <div class="row" style="border: 1px solid #808080;">
                                         <br/>
                                         <br/>
-                                        <div class="col-4" style="text-align:left;font-size:15px;">
+                                        <div class="col-3" style="text-align:left;font-size:15px;">
                                             <strong>Bank Name :</strong>
                                             <br/>
                                         </div>
-                                        <div class="col-8" style="text-align:left;">
+                                        <div class="col-9" style="text-align:left;">
                                             <t t-if="doc.payment_request_type != 'account'">
                                                 <t t-if="doc.payment_line_ids[0].partner_bank_id">
                                                     <span style="text-align:left"
@@ -410,11 +409,11 @@
                                         <br/>
                                         <br/>
 
-                                        <div class="col-4" style="text-align:left;font-size:15px;">
+                                        <div class="col-3" style="text-align:left;font-size:15px;">
                                             <strong>Bank Account Number :</strong>
                                             <br/>
                                         </div>
-                                        <div class="col-8" style="text-align:left;">
+                                        <div class="col-9" style="text-align:left;">
                                             <t t-if="doc.payment_request_type != 'account'">
                                                 <t t-if="doc.payment_line_ids[0].partner_bank_id">
                                                     <span style="text-align:left"
@@ -434,11 +433,11 @@
                                         <br/>
                                         <br/>
 
-                                        <div class="col-4" style="text-align:left;font-size:15px;">
+                                        <div class="col-3" style="text-align:left;font-size:15px;">
                                             <strong>Beneficiary Account Name:</strong>
                                             <br/>
                                         </div>
-                                        <div class="col-8" style="text-align:left;">
+                                        <div class="col-9" style="text-align:left;">
                                             <t t-if="doc.payment_request_type != 'account'">
                                                 <t t-if="doc.payment_line_ids[0].partner_bank_id">
                                                     <span style="text-align:left"
@@ -458,11 +457,11 @@
                                             <br/>
                                         <br/>
 
-                                            <div class="col-4" style="text-align:left;font-size:15px;">
+                                            <div class="col-3" style="text-align:left;font-size:15px;">
                                                 <strong>Swift Code :</strong>
                                                 <br/>
                                             </div>
-                                            <div class="col-8" style="text-align:left;">
+                                            <div class="col-9" style="text-align:left;">
                                                 <t t-if="doc.payment_line_ids[0].partner_bank_id.swift">
                                                     <span style="text-align:left"
                                                           t-esc="doc.payment_line_ids[0].partner_bank_id.swift"></span>
@@ -479,11 +478,11 @@
                                     <div class="row" style="border: 1px solid #808080;">
                                         <br/>
                                         <br/>
-                                        <div class="col-4" style="text-align:left;font-size:15px;">
+                                        <div class="col-3" style="text-align:left;font-size:15px;">
                                             <strong>Reviewed By :</strong>
                                             <br/>
                                         </div>
-                                        <div class="col-8" style="text-align:left;">
+                                        <div class="col-9" style="text-align:left;">
                                             <span style="text-align:left" t-esc="doc.current_user_id.name"></span>
                                             <br/>
                                         </div>
