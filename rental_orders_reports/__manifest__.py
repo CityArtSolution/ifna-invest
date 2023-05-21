@@ -12,7 +12,7 @@
     'data': [
 
         # 'security/contact.xml',
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         # 'views/social_insurance.xml',
         # 'views/employee_contract.xml',
         'views/excel_report.xml',
