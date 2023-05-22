@@ -16,7 +16,7 @@
         # 'views/social_insurance.xml',
         # 'views/employee_contract.xml',
         'views/excel_report.xml',
-        # 'views/pdf_report.xml',
+        'views/pdf_report.xml',
 
     ],
     'demo': [],

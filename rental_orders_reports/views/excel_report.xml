@@ -57,7 +57,7 @@
                     </sheet>
                     <footer>
                         <button name="download_excel" type="object" string="Download Excel" class="oe_highlight"/>
-                        <!--                        <button name="download_pdf" type="object" string="Download PDF" class="oe_highlight"/>-->
+                        <button name="download_pdf" type="object" string="Download PDF" class="oe_highlight"/>
                         <button string="Cancel" class="btn-secondary" special="cancel"/>
                     </footer>
 

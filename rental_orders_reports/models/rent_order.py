@@ -74,9 +74,9 @@ class WizRentAddedValue(models.Model):
     def download_excel(self):
         self.fill_temp()
         return self.env.ref('rental_orders_reports.rent_order_report').report_action(self)
-    # def download_pdf(self):
-    #     self.fill_temp()
-    #     return self.env.ref('value_added_cost_report.cost_pdf_stock_report').report_action(self)
+    def download_pdf(self):
+        self.fill_temp()
+        return self.env.ref('rental_orders_reports.rent_orders_report').report_action(self)
 
 
 class RentOrderReportInv(models.Model):
