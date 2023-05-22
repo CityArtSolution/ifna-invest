@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <report id="rent_order_report"
+                model="rent.wiz"
+                string="summary tenants update"
+                report_type="xlsx"
+                name="rental_orders_reports.rent_order_report_xlsx"
+                file="rental_orders_reports.rent_order_report_xlsx"
+                attachment_use="False"
+
+
+        />
+
+
+        <record id="rent_report_wizard_view" model="ir.ui.view">
+            <field name="name">rent_report_wizard_view</field>
+            <field name="model">rent.wiz</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="compound_ids" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                        <field name="report_data" widget="one2many_list" readonly="1" invisible="1">
+                            <tree>
+                                <field name="contract_no"/>
+                                <field name="compound_id"/>
+                                <field name="villa"/>
+                                <field name="partner_id"/>
+                                <field name="untaxed_amount"/>
+                                <field name="rent_value"/>
+                                <field name="contract_start_date"/>
+                                <field name="return_date"/>
+                                <field name="return_reason"/>
+                            </tree>
+                        </field>
+                        <field name="compound_data" widget="one2many_list" readonly="1" invisible="1">
+                            <tree>
+                                <field name="compound_id"/>
+                                <field name="total"/>
+                                <field name="occupied"/>
+                                <field name="empty"/>
+                            </tree>
+                        </field>
+
+                        <group>
+                            <field name="total_total" invisible="1"/>
+                            <field name="total_occupied" invisible="1"/>
+                            <field name="total_empty" invisible="1"/>
+                        </group>
+
+
+                    </sheet>
+                    <footer>
+                        <button name="download_excel" type="object" string="Download Excel" class="oe_highlight"/>
+                        <button name="download_pdf" type="object" string="Download PDF" class="oe_highlight"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+
+
+                </form>
+            </field>
+        </record>
+
+        <record id="tenants_report" model="ir.actions.act_window">
+            <field name="name">Tenants Report</field>
+            <field name="res_model">rent.wiz</field>
+            <field name="target">new</field>
+            <field name="view_mode">form</field>
+        </record>
+
+        <menuitem id="tenants_report_root"
+                  name="Tenants Report"
+                  action="tenants_report"
+                  parent="sale_renting.rental_menu_root"
+                  sequence="12"
+        />
+
+        <record id="view_order_rental_inherit" model="ir.ui.view">
+            <field name="name">view_order_rental_inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_renting.rental_order_primary_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="return_reason"/>
+                     <field name="return_date"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="rental_order_wizard_inherit" model="ir.ui.view">
+            <field name="name">rental_order_wizard_inherit</field>
+            <field name="model">rental.order.wizard</field>
+            <field name="inherit_id" ref="sale_renting.rental_order_wizard_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_id']" position="after">
+                    <group>
+                        <field name="return_reason"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>
