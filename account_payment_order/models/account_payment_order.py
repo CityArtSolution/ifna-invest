@@ -258,10 +258,11 @@ class AccountPaymentOrder(models.Model):
     def _compute_bank_statements_count(self):
         self.bank_statements_count = self.env['account.bank.statement'].search_count(
             [('payment_request_id', '=', self.id)])
+
     def get_pr_sequence(self):
         # date = datetime.datetime.strptime(vals.get("request_date"), '%Y-%m-%d').date()
         date = self.request_date
-        all_payments = self.env['account.payment.order'].search([('state','!=','draft')])
+        all_payments = self.env['account.payment.order'].search([('state', '!=', 'draft'), ('id', '!=', self.id)])
         same_month_payments_ids = []
         for payment in all_payments:
             if payment.request_date.year == date.year and payment.request_date.month == date.month:
@@ -271,13 +272,27 @@ class AccountPaymentOrder(models.Model):
         month_digits_no = len(str(date.month))
         if month_digits_no == 1:
             month_zeros = "0"
-        if last_payment:
-            last_sequence = last_payment.name.split('-')
-            digits_no = len(str(int(last_sequence[1]) + 1))
-            self.name = "%s/%s%s-" % (date.year, month_zeros, date.month) + ((4 - digits_no) * "0") + str(
-                int(last_sequence[1]) + 1)
+        last_date = False
+        if self.name != "/":
+            last_sequence = self.name.split('-')
+            last_date = last_sequence[0].split('/')
+        if last_date != False:
+            if int(last_date[0]) != int(date.year) or int(last_date[1]) != int(date.month):
+                if last_payment:
+                    last_sequence = last_payment.name.split('-')
+                    digits_no = len(str(int(last_sequence[1]) + 1))
+                    self.name = "%s/%s%s-" % (date.year, month_zeros, date.month) + ((4 - digits_no) * "0") + str(
+                        int(last_sequence[1]) + 1)
+                else:
+                    self.name = "%s/%s%s-" % (date.year, month_zeros, date.month) + "0001"
         else:
-            self.name = "%s/%s%s-" % (date.year,month_zeros, date.month) + "0001"
+            if last_payment:
+                last_sequence = last_payment.name.split('-')
+                digits_no = len(str(int(last_sequence[1]) + 1))
+                self.name = "%s/%s%s-" % (date.year, month_zeros, date.month) + ((4 - digits_no) * "0") + str(
+                    int(last_sequence[1]) + 1)
+            else:
+                self.name = "%s/%s%s-" % (date.year, month_zeros, date.month) + "0001"
 
     @api.model
     def create(self, vals):
