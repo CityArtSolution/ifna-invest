@@ -44,7 +44,7 @@
         'views/vw_product_configuration.xml',
         # 'report/base_layout.xml',
         'report/rent_report.xml',
-        'report/reports.xml',
+        # 'report/reports.xml',
         'data/demo_products.xml',
         'security/renting_security.xml',
         'security/ir.model.access.csv',

@@ -109,6 +109,8 @@
                                 <!--                                <field name="contract_admin_fees"/>-->
                                 <field name="brand_nameplate_allowed"/>
                                 <field name="ejar"/>
+                                <field name="ejar_number"/>
+                                <field name="ejar_date"/>
                                 <field name="remarks_c"/>
                                 <field name="file"/>
                                 <field name="updated_invoices"/>
@@ -139,8 +141,7 @@
                             </tree>
                         </field>
                     </page>
-                    <page name="property_stats" string="حالة الوحدات"
-                          attrs="{'invisible':[('rental_status','not in', ['pickup','return'])]}">
+                    <page name="property_stats" string="حالة الوحدات">
                         <field name="order_property_state" widget="section_and_note_one2many" mode="tree,form"
                                context="{'default_sale_order': active_id}">
                             <form>

@@ -77,7 +77,6 @@
                                 <field name="unit_state"/>
                                 <field name="unit_number" attrs="{'required':[('rent_ok','!=',False)]}"/>
                                 <field name="unit_floor_number"/>
-                                <field name="rent_unit_area"/>
                                 <field name="entry_number"/>
                                 <field name="entry_overlook"/>
                                 <field name="unit_rooms_number"/>
@@ -177,6 +176,7 @@
                     <field name="service_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
                     <field name="product_template_id" invisible="1"/>
                 </xpath>
+
                 <xpath expr="//page[@name='rental']" position="after">
                     <!--                    <page name="additional_service" string="Additional Service"-->
                     <!--                          attrs="{'invisible':[('rent_ok','==',False)]}">-->
@@ -194,7 +194,6 @@
                                 <field name="unit_state"/>
                                 <field name="unit_number" attrs="{'required':[('rent_ok','!=',False)]}"/>
                                 <field name="unit_floor_number"/>
-                                <field name="rent_unit_area"/>
                                 <field name="entry_number"/>
                                 <field name="entry_overlook"/>
                                 <field name="unit_rooms_number"/>

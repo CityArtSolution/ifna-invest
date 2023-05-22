@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="rental_pricing_categ" model="ir.module.category">
+            <field name="name">Change Rental Price</field>
+            <field name="sequence" eval="1"/>
+        </record>
+
+        <record id="rental_pricing_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="rental_pricing_categ"/>
+        </record>
+
+        <record id="rental_pricing_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="category_id" ref="rental_pricing_categ"/>
+        </record>
+
+</odoo>

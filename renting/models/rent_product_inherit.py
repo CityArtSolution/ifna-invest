@@ -107,8 +107,6 @@ class RentProduct(models.Model):
     unit_rooms_number = fields.Char(string='عدد الغرف', copy=True)
     unit_state = fields.Char(compute='_get_state', string='الحالة', default='شاغرة', copy=True)
 
-    rent_unit_area = fields.Float(string='المساحة', copy=True)
-
     # unit_contain_two_scales = fields.Boolean(string='Contain Two Scales')
     # unit_furniture = fields.Boolean(string='Furniture?')
     furniture_bedroom = fields.Boolean(string='غرفة نوم', copy=True)

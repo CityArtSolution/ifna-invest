@@ -3,6 +3,7 @@ from dateutil.relativedelta import relativedelta
 from odoo import models, fields, api, _
 from datetime import datetime
 from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 INSURANCE_ADMIN_FEES_FIELDS = ['insurance_value', 'contract_admin_fees', 'contract_service_fees',
                                'contract_admin_sub_fees', 'contract_service_sub_fees']
@@ -33,6 +34,8 @@ class RentSaleOrder(models.Model):
         string='Invoice Terms',
         default='monthly')
     ejar = fields.Selection([('ejar', 'EJAR')], string='EJAR')
+    ejar_number = fields.Char(string='EJAR Contract Number')
+    ejar_date = fields.Datetime(string='EJAR Contract Date')
     remarks_c = fields.Char(string='Remarks (Contract)')
     file = fields.Selection([('yes', 'yes'), ('no', 'No')], string='File Completed', default='no')
     updated_invoice = fields.Selection([('updated', 'Updated'), ('invoiced', 'Invoiced')], string='Updated Invoiced')
@@ -133,7 +136,7 @@ class RentSaleOrder(models.Model):
                 raise UserError(_('من فضلك اكتب عدد الفواتير'))
             rec.order_contract_invoice = False
             fromdate = rec.fromdate
-            print(rec.fromdate,'ahmed')
+            print(rec.fromdate, 'ahmed')
             d1 = fields.Datetime.from_string(rec.fromdate)
             d2 = fields.Datetime.from_string(rec.todate)
             total_contract_period = d2 - d1
@@ -499,9 +502,9 @@ class RentSaleOrderLine(models.Model):
                                         domain="[('product_template_id','=',product_template_id)]")
 
     def action_get_service(self):
-        for order_line in self.order_id.order_line:
-            if order_line.rent_product_id.id == self.product_id.id:
-                order_line.unlink()
+        # for order_line in self.order_id.order_line:
+        #     if order_line.rent_product_id.id == self.product_id.id:
+        #         order_line.unlink()
         for rec in self.rental_pricing_id.service_ids:
             if rec.type == 'amount':
                 price = rec.percentage
