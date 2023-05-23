@@ -11,6 +11,8 @@ from odoo.exceptions import UserError, ValidationError
 from .num_to_text_ar import amount_to_text_arabic
 import datetime
 from num2words import num2words
+
+
 class AccountPaymentOrder(models.Model):
     _name = "account.payment.order"
     _description = "Payment Order"
@@ -19,17 +21,18 @@ class AccountPaymentOrder(models.Model):
     _check_company_auto = True
 
     name = fields.Char(string="Number", readonly=True, copy=False)
-    request_date = fields.Date(string="Request Date", required=True,default= fields.Date.context_today)
+    request_date = fields.Date(string="Request Date", required=True, default=fields.Date.context_today)
     payment_request_type = fields.Selection(string="Payment Request Type", selection=[('account', 'Account')])
     amount = fields.Float(string="Amount")
-    currency_id = fields.Many2one('res.currency', string='Currency', default=lambda self: self.env.company.currency_id.id)
+    currency_id = fields.Many2one('res.currency', string='Currency',
+                                  default=lambda self: self.env.company.currency_id.id)
     transaction_currency_id = fields.Many2one('res.currency', string='Currency', compute='get_transaction_currency_id')
     bank_id = fields.Many2one(comodel_name="res.bank", string="Bank Name")
     bank_account_no = fields.Char(string="Bank Account No")
     beneficiary_name = fields.Char(string="Beneficiary Name")
     communication = fields.Char(string='Details',
-        required=False, help="Label of the payment that will be seen by the destinee"
-    )
+                                required=False, help="Label of the payment that will be seen by the destinee"
+                                )
     payment_mode_id = fields.Many2one(
         comodel_name="account.payment.mode",
         required=True,
@@ -113,7 +116,7 @@ class AccountPaymentOrder(models.Model):
         states={"draft": [("readonly", False)]},
         tracking=True,
         help="Select a requested date of execution if you selected 'Due Date' "
-        "as the Payment Execution Date Type.",
+             "as the Payment Execution Date Type.",
     )
     date_generated = fields.Date(string="File Generation Date", readonly=True)
     date_uploaded = fields.Date(string="File Upload Date", readonly=True)
@@ -128,7 +131,7 @@ class AccountPaymentOrder(models.Model):
     current_user_id = fields.Many2one(
         comodel_name="res.users",
         string="Current user",
-        default=lambda self:self.env.user
+        default=lambda self: self.env.user
     )
     payment_line_ids = fields.One2many(
         comodel_name="account.payment.line",
@@ -143,11 +146,11 @@ class AccountPaymentOrder(models.Model):
         string="Bank Transactions",
         readonly=True,
         help="The bank payment lines are used to generate the payment file. "
-        "They are automatically created from transaction lines upon "
-        "confirmation of the payment order: one bank payment line can "
-        "group several transaction lines if the option "
-        "'Group Transactions in Payment Orders' is active on the payment "
-        "mode.",
+             "They are automatically created from transaction lines upon "
+             "confirmation of the payment order: one bank payment line can "
+             "group several transaction lines if the option "
+             "'Group Transactions in Payment Orders' is active on the payment "
+             "mode.",
     )
     total_company_currency = fields.Monetary(
         compute="_compute_total", store=True, currency_field="company_currency_id"
@@ -166,10 +169,11 @@ class AccountPaymentOrder(models.Model):
     )
     bank_statements_count = fields.Integer(compute="_compute_bank_statements_count")
     description = fields.Char(string='Purpose')
-    payment_method = fields.Selection(string='Payment Method', selection=[('cash', 'Cash'), ('check', 'Check'),('sadad', 'SADAD'),('transfer', 'Transfer')], default='cash')
+    payment_method = fields.Selection(string='Payment Method',
+                                      selection=[('cash', 'Cash'), ('check', 'Check'), ('sadad', 'SADAD'),
+                                                 ('transfer', 'Transfer')], default='cash')
     total_amount = fields.Float(string='Total Amount', compute="_compute_total_amount", store=True)
     department_id = fields.Many2one(comodel_name='account.analytic.account', string='Department')
-    
 
     @api.depends("payment_mode_id")
     def _compute_allowed_journal_ids(self):
@@ -180,12 +184,14 @@ class AccountPaymentOrder(models.Model):
                 record.allowed_journal_ids = record.payment_mode_id.variable_journal_ids
             else:
                 record.allowed_journal_ids = False
+
     @api.depends("payment_line_ids")
     def get_transaction_currency_id(self):
         for rec in self:
             rec.transaction_currency_id = self.env.company.currency_id.id
             for line in rec.payment_line_ids:
                 rec.transaction_currency_id = line.currency_id
+
     def unlink(self):
         for order in self:
             if order.state == "uploaded":
@@ -201,8 +207,8 @@ class AccountPaymentOrder(models.Model):
     def payment_order_constraints(self):
         for order in self:
             if (
-                order.payment_mode_id.payment_type
-                and order.payment_mode_id.payment_type != order.payment_type
+                    order.payment_mode_id.payment_type
+                    and order.payment_mode_id.payment_type != order.payment_type
             ):
                 raise ValidationError(
                     _(
@@ -228,7 +234,7 @@ class AccountPaymentOrder(models.Model):
                         )
                     )
 
-    @api.depends("payment_line_ids", "payment_line_ids.amount_company_currency","payment_request_type","amount")
+    @api.depends("payment_line_ids", "payment_line_ids.amount_company_currency", "payment_request_type", "amount")
     def _compute_total(self):
         for rec in self:
             if rec.payment_request_type == 'account':
@@ -255,9 +261,11 @@ class AccountPaymentOrder(models.Model):
         }
         for order in self:
             order.move_count = mapped_data.get(order.id, 0)
+
     def _compute_bank_statements_count(self):
         self.bank_statements_count = self.env['account.bank.statement'].search_count(
             [('payment_request_id', '=', self.id)])
+
     def get_pr_sequence(self):
         # date = datetime.datetime.strptime(vals.get("request_date"), '%Y-%m-%d').date()
         date = self.request_date
@@ -358,6 +366,7 @@ class AccountPaymentOrder(models.Model):
             "payment_line_ids": [(6, 0, paylines.ids)],
             "communication": "-".join([line.communication for line in paylines]),
         }
+
     def reset2draft(self):
         self.write({"state": "draft"})
 
@@ -377,8 +386,8 @@ class AccountPaymentOrder(models.Model):
                     _("Missing Bank Journal on payment order %s.") % order.name
                 )
             if (
-                order.payment_method_id.bank_account_required
-                and not order.journal_id.bank_account_id
+                    order.payment_method_id.bank_account_required
+                    and not order.journal_id.bank_account_id
             ):
                 raise UserError(
                     _("Missing bank account on bank journal '%s'.")
@@ -410,10 +419,10 @@ class AccountPaymentOrder(models.Model):
                     requested_date = today
                 # inbound: check option no_debit_before_maturity
                 if (
-                    order.payment_type == "inbound"
-                    and order.payment_mode_id.no_debit_before_maturity
-                    and payline.ml_maturity_date
-                    and requested_date < payline.ml_maturity_date
+                        order.payment_type == "inbound"
+                        and order.payment_mode_id.no_debit_before_maturity
+                        and payline.ml_maturity_date
+                        and requested_date < payline.ml_maturity_date
                 ):
                     raise UserError(
                         _(
@@ -432,8 +441,8 @@ class AccountPaymentOrder(models.Model):
                 # payment_line_ids.date
                 # > payment_line_ids.amount_company_currency
                 # > total_company_currency
-                with self.env.norecompute():
-                    payline.date = requested_date
+                # with self.env.norecompute():
+                #     payline.date = requested_date
                 # Group options
                 if order.payment_mode_id.group_lines:
                     hashcode = payline.payment_line_hashcode()
@@ -532,7 +541,7 @@ class AccountPaymentOrder(models.Model):
                     'payment_ref': self.communication,
                     'amount': self.amount * -1,
                 })],
-                "payment_request_id" : self.id
+                "payment_request_id": self.id
             }
         )
         self.write(
@@ -546,7 +555,7 @@ class AccountPaymentOrder(models.Model):
         else:
             ref = _("Debit order %s") % self.name
         if bank_lines and len(bank_lines) == 1:
-            ref += " - " + bank_lines.name 
+            ref += " - " + bank_lines.name
         details = f"- {self.description} - {self.payment_line_ids[0].communication}"
         vals = {
             "date": bank_lines[0].date,
@@ -568,7 +577,7 @@ class AccountPaymentOrder(models.Model):
         return vals
 
     def _prepare_move_line_offsetting_account(
-        self, amount_company_currency, amount_payment_currency, bank_lines
+            self, amount_company_currency, amount_payment_currency, bank_lines
     ):
         vals = {}
         payment_method = self.payment_mode_id.payment_method_id
@@ -576,18 +585,18 @@ class AccountPaymentOrder(models.Model):
         if self.payment_type == "inbound":
             name = _("Debit order %s") % self.name
             account_id = (
-                self.journal_id.inbound_payment_method_line_ids.filtered(
-                    lambda x: x.payment_method_id == payment_method
-                ).payment_account_id.id
-                or self.journal_id.company_id.account_journal_payment_debit_account_id.id
+                    self.journal_id.inbound_payment_method_line_ids.filtered(
+                        lambda x: x.payment_method_id == payment_method
+                    ).payment_account_id.id
+                    or self.journal_id.company_id.account_journal_payment_debit_account_id.id
             )
         elif self.payment_type == "outbound":
             name = _("Payment order %s") % self.name
             account_id = (
-                self.journal_id.outbound_payment_method_line_ids.filtered(
-                    lambda x: x.payment_method_id == payment_method
-                ).payment_account_id.id
-                or self.journal_id.company_id.account_journal_payment_credit_account_id.id
+                    self.journal_id.outbound_payment_method_line_ids.filtered(
+                        lambda x: x.payment_method_id == payment_method
+                    ).payment_account_id.id
+                    or self.journal_id.company_id.account_journal_payment_credit_account_id.id
             )
 
         partner_id = False
@@ -604,10 +613,10 @@ class AccountPaymentOrder(models.Model):
                 "partner_id": partner_id,
                 "account_id": account_id,
                 "credit": (
-                    self.payment_type == "outbound" and amount_company_currency or 0.0
+                        self.payment_type == "outbound" and amount_company_currency or 0.0
                 ),
                 "debit": (
-                    self.payment_type == "inbound" and amount_company_currency or 0.0
+                        self.payment_type == "inbound" and amount_company_currency or 0.0
                 ),
             }
         )
@@ -639,14 +648,14 @@ class AccountPaymentOrder(models.Model):
             "partner_id": bank_line.partner_id.id,
             "account_id": account_id,
             "credit": (
-                self.payment_type == "inbound"
-                and bank_line.amount_company_currency
-                or 0.0
+                    self.payment_type == "inbound"
+                    and bank_line.amount_company_currency
+                    or 0.0
             ),
             "debit": (
-                self.payment_type == "outbound"
-                and bank_line.amount_company_currency
-                or 0.0
+                    self.payment_type == "outbound"
+                    and bank_line.amount_company_currency
+                    or 0.0
             ),
         }
 
@@ -722,6 +731,7 @@ class AccountPaymentOrder(models.Model):
         ctx.update({"search_default_misc_filter": 0})
         action["context"] = ctx
         return action
+
     def action_bank_statements(self):
         self.ensure_one()
         tree_view = self.env.ref(
@@ -760,13 +770,15 @@ class AccountPaymentOrder(models.Model):
                 return str(x)
         else:
             if self.transaction_currency_id.name == 'SAR':
-                x = num2words(abs(amount), to = 'currency')
-                x_riyal=  x.replace("euro", "Riyal" )
-                real_x=  x_riyal.replace("cents", "Halala" )
+                x = num2words(abs(amount), to='currency')
+                x_riyal = x.replace("euro", "Riyal")
+                real_x = x_riyal.replace("cents", "Halala")
                 return str(real_x)
             else:
-                x = num2words(abs(amount), to = 'currency' , currency=self.transaction_currency_id.name)
+                x = num2words(abs(amount), to='currency', currency=self.transaction_currency_id.name)
                 return str(x)
+
+
 class AccountBankStatementInherit(models.Model):
     _inherit = 'account.bank.statement'
     payment_request_id = fields.Many2one(comodel_name="account.payment.order")

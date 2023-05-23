@@ -66,7 +66,7 @@ class AccountPaymentLine(models.Model):
         ondelete="restrict",
         check_company=True,
     )
-    date = fields.Date(string="Payment Date")
+    date = fields.Date(string="Payment Date", related="order_id.request_date", readonly=False)
     # communication field is required=False because we don't want to block
     # the creation of lines from move/invoices when communication is empty
     # This field is required in the form view and there is an error message
