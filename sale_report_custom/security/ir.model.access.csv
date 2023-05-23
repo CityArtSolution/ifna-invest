@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_sale_report_custom_sale_report_custom,sale_report_custom.sale_report_custom,model_sale_report_custom_sale_report_custom,base.group_user,1,1,1,1
+access_restoration_deadline,restoration_deadline,model_restoration_deadline,base.group_user,1,1,1,1
+access_offer_validity,offer_validity,model_offer_validity,base.group_user,1,1,1,1

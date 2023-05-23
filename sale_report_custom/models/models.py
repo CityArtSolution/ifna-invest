@@ -1,18 +1,22 @@
 # -*- coding: utf-8 -*-
 
-# from odoo import models, fields, api
+from odoo import models, fields, api
 
 
-# class sale_report_custom(models.Model):
-#     _name = 'sale_report_custom.sale_report_custom'
-#     _description = 'sale_report_custom.sale_report_custom'
+class RestorationDeadline(models.Model):
+    _name = 'restoration.deadline'
 
-#     name = fields.Char()
-#     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         for record in self:
-#             record.value2 = float(record.value) / 100
+    name = fields.Char("المهلة")
+
+
+class OfferValidity(models.Model):
+    _name = 'offer.validity'
+
+    name = fields.Char("الصلاحية")
+
+
+class RentSaleOrder(models.Model):
+    _inherit = 'sale.order'
+
+    restoration_deadline = fields.Many2one("restoration.deadline", string='مهلة الترميم')
+    offer_validity = fields.Many2one("offer.validity", string='صلاحية العرض')

@@ -5,9 +5,9 @@
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">sale_report_custom.sale_report_custom</field>
         <field name="report_file">sale_report_custom.sale_report_custom</field>
-<!--        <field name="print_report_name">'Quotation/Order - %s' % (object.name)</field>-->
+        <field name="print_report_name">'Quotation/Order - %s' % (object.name)</field>
         <field name="binding_model_id" ref="sale.model_sale_order"/>
-                    <field name="binding_type">report</field>
+        <field name="binding_type">report</field>
 
     </record>
 
@@ -28,30 +28,104 @@
                 <!--                <t t-foreach="o.order_property_state" t-as="line">-->
                 <!--                    <t t-if="line.sale_order_line_id">-->
                 <div class="page">
-                    <b><u><h1 class="text-center">عرض سعر</h1></u></b>
+                    <b>
+                        <u>
+                            <h1 class="text-center">عرض سعر</h1>
+                        </u>
+                    </b>
                     <br/>
                     <br/>
                     <br/>
-                    <h3 style="text-align: right" class="text-right">السادة / )<span t-field="o.partner_id.name"/> )</h3>
+                    <h3 style="text-align: right" class="text-right">السادة /
+                        <span t-field="o.partner_id.name"/>
+                    </h3>
                     <br/>
-                    <h3 style="text-align: right" class="text-right">السلام عليكم ورحمة
-                        الله وبركاته وبعد:
+                    <h3 style="text-align: right" class="text-right">:السلام عليكم ورحمة
+                        الله وبركاته وبعد
                     </h3>
                     <br/>
                     <p class="text-right">
-                        أولا: نود اشعاركم بأننا نحن شركة أفناء للاستثمار، شركة متخصصة بإدارة أملاك ومرافق اوقاف
-                        الشيخ محمد عبدالله الماجد-رحمه الله-، عليه في حال وجود أي استفسار نأمل منكم التواصل معنا على
-                        البريد الالكتروني لإدارة الممتلكات لدينا، عناية الأستاذ/ عبدالله الطويل aaltaweel@afnaa.sa
+                        أولا: نود اشعاركم بأننا نحن شركة أفناء للاستثمار، شركة متخصصة بإدارة أملاك ومرافق اوقاف الشيخ
+                        محمد عبدالله الماجد-رحمه الله-، عليه في حال وجود أي استفسار نأمل منكم التواصل معنا على البريد
+                        الالكتروني لإدارة الممتلكات لدينا، عناية الأستاذ/ عبدالله الطويل
+                        aaltaweel@afnaa.sa
                     </p>
                     <br/>
                     <p class="text-right">
-                        ثانياً: بناءً على رغبتكم باستئجار <span t-field="o.order_line[0].product_id.name"/> في
-                        <span t-field="o.order_line[0].property_number.property_name"/> ،
+                        .ثانياً: بناءً على رغبتكم باستئجار
+                        <span t-field="o.order_line[0].product_id.name"/>
+                        في
+                        <span t-field="o.order_line[0].property_number.property_name"/>
                         نشكر لكم ثقتكم بشركة أفناء للاستثمار، وتجدون بالجدول ادناه أسعار إيجار المكاتب السنوية غير
-                        شاملة ضريبة القيمة المضافة وغير شاملة قيمة الخدمات.
+                        شاملة ضريبة القيمة المضافة وغير شاملة قيمة الخدمات
                     </p>
                     <br/>
+                    <p class="text-right">
+                        علماً بأن قيمة
+                        <span t-field="o.order_line[0].product_id.rental_pricing_ids[0].service_ids[0].name"/>
+                        من %
+                        الإيجار السنوي ، تدفع مع كل دفعة إيجارية ومهلة الترميم
+                        <span t-field="o.restoration_deadline.name"/>
+                        من تاريخ توقيع العقد
+                    </p>
 
+                    <table width="100%" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <td align="center">
+                                    <b>الإيجار السنوي</b>
+                                </td>
+                                <td align="center">
+                                    <b>المدة</b>
+                                </td>
+                                <td align="center">
+                                    <b>البيــــــــــــــــــــــــــــــــــــــــــــــان</b>
+                                </td>
+                                <td align="center">
+                                    <b>رقم</b>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="num" t-value="0"/>
+                            <t t-foreach="o.order_line" t-as="line">
+                                <t t-if="line.product_id.rent_ok == True">
+                                    <t t-set="num" t-value="num + 1"/>
+                                    <tr>
+                                        <td align="center">
+                                            <span t-field="line.price_unit"></span>
+                                        </td>
+                                        <td align="center">
+                                            <span t-field="line.year_number"></span>
+                                        </td>
+                                        <td align="center">
+                                            الإيجار مكتب
+                                            <span t-field="line.product_id.name"></span>
+                                            بمساحة
+                                            <span t-field="line.rent_unit_area"></span>
+
+                                            م²
+                                        </td>
+                                        <td align="center">
+                                            <span t-esc="num"/>
+                                        </td>
+                                    </tr>
+                                </t>
+
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <br/>
+                    <p class="text-right">هذا العرض صالح لمدة
+                        <span t-field="o.offer_validity.name"/>
+                        من تاريخه.
+                    </p>
+
+                    <br/>
+                    <b>
+                        <p class="text-center">،،، والله يحفظكم و يرعاكم</p>
+                    </b>
                 </div>
             </t>
         </t>
