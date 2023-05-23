@@ -34,21 +34,28 @@ class RentSaleOrderLine(models.Model):
                     rec.todate = fromdate + relativedelta(years=1)
 
                 if rec.year_number == 2:
-                    fromdate = rec.fromdate = self.env['sale.order.line'].search([('year_number', '=', 1)],limit=1).mapped('todate')[0]
-                    rec.todate = fromdate + relativedelta(years=1)
+                    date = self.env['sale.order.line'].search([('year_number', '=', 1)], limit=1).mapped('todate')
+                    if date:
+                        fromdate = rec.fromdate = date[0]
+                        rec.todate = fromdate + relativedelta(years=1)
 
                 if rec.year_number == 3:
-                    fromdate = rec.fromdate = self.env['sale.order.line'].search([('year_number', '=', 2)],limit=1).mapped('todate')[0]
-                    rec.todate = fromdate + relativedelta(years=1)
+                    date = self.env['sale.order.line'].search([('year_number', '=', 2)], limit=1).mapped('todate')
+                    if date:
+                        fromdate = rec.fromdate = date[0]
+                        rec.todate = fromdate + relativedelta(years=1)
 
                 if rec.year_number == 4:
-                    fromdate = rec.fromdate = self.env['sale.order.line'].search([('year_number', '=', 3)],limit=1).mapped('todate')[0]
-                    rec.todate = fromdate + relativedelta(years=1)
+                    date = self.env['sale.order.line'].search([('year_number', '=', 3)], limit=1).mapped('todate')
+                    if date:
+                        fromdate = rec.fromdate = date[0]
+                        rec.todate = fromdate + relativedelta(years=1)
 
                 if rec.year_number == 5:
-                    fromdate = rec.fromdate = self.env['sale.order.line'].search([('year_number', '=', 4)],limit=1).mapped('todate')[0]
-                    rec.todate = fromdate + relativedelta(years=1)
-
+                    date = self.env['sale.order.line'].search([('year_number', '=', 4)], limit=1).mapped('todate')
+                    if date:
+                        fromdate = rec.fromdate = date[0]
+                        rec.todate = fromdate + relativedelta(years=1)
 
     # @api.constrains('year_number')
     # def _check_year_number(self):
