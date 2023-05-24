@@ -20,7 +20,7 @@ class RentRentalPricing(models.Model):
     price = fields.Monetary(string="Price", required=True, default=1.0, readonly=False)
 
     @api.onchange('rent_unit_area','rent_unit_area_price')
-    def _compute_price(self):
+    def _compute_price_rent(self):
         """Compute the price for a specified duration of the current pricing rule.
 
         :param float duration: duration in hours

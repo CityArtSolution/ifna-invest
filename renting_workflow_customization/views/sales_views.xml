@@ -8,7 +8,44 @@
             <field name="inherit_id" ref="sale_renting.rental_order_primary_form_view"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='state']" position="replace">
-                    <field name="state" widget="statusbar" statusbar_visible="draft_q,ff_review,ceo,draft,sent,initial_contract,ffl_review,draft_contract,upload_doc,view_all_ceo_approve,ejar_upload,finance_review,sale"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,ff_review,ceo,draft_qu,sent,initial_contract,ffl_review,draft_contract,upload_doc,view_all_ceo_approve,ejar_upload,finance_review,sale"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_order_form_sale_customize" model="ir.ui.view">
+            <field name="name">view.sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_quotation_send'][1]" position="after">
+                    <button name="finance_facility" string="Send to Finance and Facility Review" type="object" states="draft" class="btn-primary" data-hotkey="g"/>
+                </xpath>
+                <xpath expr="//button[@name='action_quotation_send'][1]" position="replace">
+                    <button name="action_quotation_send" string="Send by Email" type="object" states="draft" class="btn-primary" data-hotkey="g" invisible="1"/>
+                </xpath>
+                <xpath expr="//button[@name='action_quotation_send'][2]" position="replace">
+                    <button name="action_quotation_send" string="Send by Email" type="object" states="draft" class="btn-primary" data-hotkey="g" invisible="1"/>
+                </xpath>
+                <xpath expr="//button[@name='action_cancel']" position="replace">
+                    <button name="action_cancel" type="object" string="Cancel" attrs="{'invisible': ['|', ('state', 'not in', ['draft', 'sent','sale']), ('id', '=', False)]}" data-hotkey="z"/>
+                    <button name="action_cancel" type="object" string="Cancel" invisible="1" data-hotkey="z"/>
+                </xpath>
+                <xpath expr="//button[@name='action_confirm'][1]" position="replace">
+                    <button name="action_confirm" id="action_confirm" data-hotkey="v"
+                        string="Confirm" class="btn-primary" type="object" invisible="1"/>
+<!--                    <button name="action_confirm" id="action_confirm" data-hotkey="v"-->
+<!--                        string="Confirm" class="btn-primary" type="object"-->
+<!--                        attrs="{'invisible': [('state', 'not in', ['sent'])]}"/>-->
+                </xpath>
+                <xpath expr="//button[@name='action_confirm'][2]" position="replace">
+                    <button name="action_confirm" data-hotkey="v"
+                        string="Confirm" type="object"
+                        invisible="1"/>
+<!--                    <button name="action_confirm" data-hotkey="v"-->
+<!--                        string="Confirm" type="object"-->
+<!--                        attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>-->
                 </xpath>
             </field>
         </record>

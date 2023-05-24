@@ -6,11 +6,12 @@ from odoo.exceptions import ValidationError
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
+
     state = fields.Selection([
-        ('draft_q', 'Draft Quotation'),
+        ('draft', 'Draft Quotation'),
         ('ff_review', 'Facility & Finance Review'),
         ('ceo', 'CEO Approve'),
-        ('draft', 'Issued Quotation'),
+        ('draft_qu', 'Issued Quotation'),
         ('sent', 'Quotation Sent'),
         ('initial_contract', 'Initial Contract'),
         ('ffl_review', 'Facility & Finance & Legal Review'),
@@ -22,4 +23,8 @@ class SaleOrder(models.Model):
         ('sale', 'CEO Approval'),
         ('done', 'Locked'),
         ('cancel', 'Cancelled'),
-        ], string='Status', readonly=True, copy=False, index=True, tracking=3, default='draft_q')
+    ], string='Status', readonly=True, copy=False, index=True, tracking=3, default='draft')
+
+    def finance_facility(self):
+        for rec in self:
+            rec.state = "ff_review"
