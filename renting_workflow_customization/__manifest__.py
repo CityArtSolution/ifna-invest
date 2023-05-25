@@ -4,9 +4,10 @@
     'summary': """Sale Renting Workflow""",
     'category': 'Sales Management',
     'version': '0.1',
-    'depends': ['sale_renting','renting'],
+    'depends': ['sale_renting', 'renting', 'sale', 'base', 'product'],
     'data': [
-        # 'security/security.xml',
+        'security/security.xml',
         'views/sales_views.xml',
+        'security/ir.model.access.csv',
     ]
 }

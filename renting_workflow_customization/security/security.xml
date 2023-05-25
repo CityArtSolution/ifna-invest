@@ -9,5 +9,17 @@
         </record>
 
 
+        <record id="finance_facility_group" model="res.groups">
+            <field name="name">Finance and Facility</field>
+        </record>
+
+        <record id="finance_group" model="res.groups">
+            <field name="name">Finance</field>
+        </record>
+
+        <record id="facility_group" model="res.groups">
+            <field name="name">Facility</field>
+        </record>
+
     </data>
 </odoo>

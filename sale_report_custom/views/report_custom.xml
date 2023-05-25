@@ -24,9 +24,6 @@
         <t t-call="web.external_layout">
             <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
             <t t-foreach="docs" t-as="o">
-                <!--                <t t-set="line" t-value="o.order_line"/>-->
-                <!--                <t t-foreach="o.order_property_state" t-as="line">-->
-                <!--                    <t t-if="line.sale_order_line_id">-->
                 <div class="page">
                     <b>
                         <u>
@@ -68,53 +65,55 @@
                         <span t-field="o.restoration_deadline.name"/>
                         من تاريخ توقيع العقد
                     </p>
+                    <t t-if="o.order_line">
 
-                    <table width="100%" class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <td align="center">
-                                    <b>الإيجار السنوي</b>
-                                </td>
-                                <td align="center">
-                                    <b>المدة</b>
-                                </td>
-                                <td align="center">
-                                    <b>البيــــــــــــــــــــــــــــــــــــــــــــــان</b>
-                                </td>
-                                <td align="center">
-                                    <b>رقم</b>
-                                </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <t t-set="num" t-value="0"/>
-                            <t t-foreach="o.order_line" t-as="line">
-                                <t t-if="line.product_id.rent_ok == True">
-                                    <t t-set="num" t-value="num + 1"/>
-                                    <tr>
-                                        <td align="center">
-                                            <span t-field="line.price_unit"></span>
-                                        </td>
-                                        <td align="center">
-                                            <span t-field="line.year_number"></span>
-                                        </td>
-                                        <td align="center">
-                                            الإيجار مكتب
-                                            <span t-field="line.product_id.name"></span>
-                                            بمساحة
-                                            <span t-field="line.rent_unit_area"></span>
+                        <table width="100%" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <td align="center">
+                                        <b>الإيجار السنوي</b>
+                                    </td>
+                                    <td align="center">
+                                        <b>المدة</b>
+                                    </td>
+                                    <td align="center">
+                                        <b>البيــــــــــــــــــــــــــــــــــــــــــــــان</b>
+                                    </td>
+                                    <td align="center">
+                                        <b>رقم</b>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="num" t-value="0"/>
+                                <t t-foreach="o.order_line" t-as="line">
+                                    <t t-if="line.product_id.rent_ok == True">
+                                        <t t-set="num" t-value="num + 1"/>
+                                        <tr>
+                                            <td align="center">
+                                                <span t-field="line.price_unit"></span>
+                                            </td>
+                                            <td align="center">
+                                                <span t-field="line.year_number"></span>
+                                            </td>
+                                            <td align="center">
+                                                الإيجار مكتب
+                                                <span t-field="line.product_id.name"></span>
+                                                بمساحة
+                                                <span t-field="line.rent_unit_area"></span>
 
-                                            م²
-                                        </td>
-                                        <td align="center">
-                                            <span t-esc="num"/>
-                                        </td>
-                                    </tr>
+                                                م²
+                                            </td>
+                                            <td align="center">
+                                                <span t-esc="num"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+
                                 </t>
-
-                            </t>
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </t>
 
                     <br/>
                     <p class="text-right">هذا العرض صالح لمدة

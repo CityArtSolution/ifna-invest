@@ -47,7 +47,35 @@
                 </xpath>
             </field>
         </record>
-        Z
+
+        <record id="pricing_price" model="ir.ui.view">
+            <field name="name">rental pricing</field>
+            <field name="model">rental.pricing</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group col="4" colspan="4">
+                            <field name="duration"/>
+                            <field name="unit"/>
+                            <field name="currency_id"/>
+                            <field name="product_template_id"/>
+                            <field name="price" groups="area_meter.rental_pricing_manager"/>
+                        </group>
+                        <field name="product_variant_ids"/>
+                        <group col="4" colspan="4">
+                            <field name="company_id"/>
+                            <field name="pricelist_id"/>
+                        </group>
+                        <field name="service_ids"/>
+                        <group col="4" colspan="4">
+                            <field name="rent_unit_area"/>
+                            <field name="rent_unit_area_price"/>
+                        </group>
+                    </group>
+
+                </form>
+            </field>
+        </record>
 
     </data>
 </odoo>
