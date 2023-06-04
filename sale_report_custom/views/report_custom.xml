@@ -124,11 +124,14 @@
                                 </td>
                                 <td>
                                     <t t-if="o.state in ['ff_review','ceo','draft','sent','initial_contract','ffl_review','draft_contract','upload_doc','view_all_ceo_approve','ejar_upload','finance_review','sale','done','cancel']">
-                                        <img src="/sale_report_custom/static/src/images/pm.png" alt=""
-                                             width="100"/>
+<!--                                        <img src="/sale_report_custom/static/src/images/pm.png" alt=""-->
+<!--                                             width="100"/>-->
+                                        <img t-if="o.pm_user.pm" t-att-src="image_data_uri(o.company_id.pm)" width="100"/>
+
                                         <br/>
-                                        <img src="/sale_report_custom/static/src/images/finance.png" alt=""
-                                             width="100"/>
+<!--                                        <img src="/sale_report_custom/static/src/images/finance.png" alt=""-->
+<!--                                             width="100"/>-->
+                                        <img t-if="o.finance_user.finance" t-att-src="image_data_uri(o.company_id.finance)" width="100"/>
                                     </t>
                                 </td>
                             </tr>

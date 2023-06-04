@@ -7,6 +7,7 @@
     'depends': ['sale_renting', 'renting', 'sale', 'base', 'product','account'],
     'data': [
         'security/security.xml',
+        'views/user.xml',
         'views/sales_views.xml',
         'security/ir.model.access.csv',
     ]

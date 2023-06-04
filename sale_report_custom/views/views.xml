@@ -812,9 +812,9 @@
                                             <!--                                            <div class="square rounded p-5">-->
                                             <p>:ممثل الادارة المالية</p>
                                             <p>......................................الاسم /</p>
-                                            <p t-if="doc.finance_second"><img
-                                                    src="/sale_report_custom/static/src/images/finance.png" alt=""
-                                                    width="100"/>التوقيع /
+                                            <p t-if="doc.finance_second">
+<!--                                                <img src="/sale_report_custom/static/src/images/finance.png" alt="" width="100"/>التوقيع /-->
+                                                <img t-if="o.finance_user.finance" t-att-src="image_data_uri(o.finance_user.finance)" width="100"/>التوقيع /
                                             </p>
                                             <!--                                            </div>-->
                                         </div>
@@ -822,18 +822,23 @@
                                             <!--                                            <div class="square rounded p-5">-->
                                             <p>:ممثل الادارة القانونية</p>
                                             <p>......................................الاسم /</p>
-                                            <p t-if="doc.facility_second"><img
-                                                    src="/sale_report_custom/static/src/images/legal.png" alt=""
-                                                    width="100"/>التوقيع /
+                                            <p t-if="doc.legal">
+                                                <img t-if="o.legal_user.legal" t-att-src="image_data_uri(o.legal_user.legal)" width="100"/>التوقيع /
+
+<!--                                                <img-->
+<!--                                                    src="/sale_report_custom/static/src/images/legal.png" alt=""-->
+<!--                                                    width="100"/>التوقيع /-->
                                             </p>                                            <!--                                            </div>-->
                                         </div>
                                         <div class="col-auto col-3 mw-100 mb-2">
                                             <!--                                            <div class="square rounded p-5">-->
                                             <p>:ممثل الادارة الهندسية</p>
                                             <p>......................................الاسم /</p>
-                                            <p t-if="doc.legal"><img
-                                                    src="/sale_report_custom/static/src/images/facility.png" alt=""
-                                                    width="100"/>التوقيع /
+                                            <p t-if="doc.facility_second">
+                                                <img t-if="o.facility_user.facility" t-att-src="image_data_uri(o.facility_user.facility)" width="100"/>التوقيع /
+<!--                                                <img-->
+<!--                                                    src="/sale_report_custom/static/src/images/facility.png" alt=""-->
+<!--                                                    width="100"/>التوقيع /-->
                                             </p>                                            <!--                                            </div>-->
                                         </div>
                                     </div>
@@ -842,8 +847,9 @@
                                     <div class="col-auto col-3 mw-100 mb-2 text-right"
                                          t-if="o.state not in ['ff_review','ceo','draft_qu','draft','sent']">
                                         <p>:توقيع مسئول العقارات</p>
-                                        <img src="/sale_report_custom/static/src/images/pm.png" alt=""
-                                             width="100"/>
+                                        <img t-if="o.pm_user.pm" t-att-src="image_data_uri(o.pm_user.pm)" width="100"/>التوقيع /
+<!--                                        <img src="/sale_report_custom/static/src/images/pm.png" alt=""-->
+<!--                                             width="100"/>-->
                                     </div>
 
                                 </page>
@@ -1663,9 +1669,12 @@
                                             <!--                                            <div class="square rounded p-5">-->
                                             <p>:ممثل الادارة المالية</p>
                                             <p>......................................الاسم /</p>
-                                            <p t-if="doc.finance_second"><img
-                                                    src="/sale_report_custom/static/src/images/finance.png" alt=""
-                                                    width="100"/>التوقيع /
+                                            <p t-if="doc.finance_second">
+                                                <img t-if="o.finance_user.finance" t-att-src="image_data_uri(o.finance_user.finance)" width="100"/>التوقيع /
+
+<!--                                                <img-->
+<!--                                                    src="/sale_report_custom/static/src/images/finance.png" alt=""-->
+<!--                                                    width="100"/>التوقيع /-->
                                             </p>
                                             <!--                                            </div>-->
                                         </div>
@@ -1673,18 +1682,23 @@
                                             <!--                                            <div class="square rounded p-5">-->
                                             <p>:ممثل الادارة القانونية</p>
                                             <p>......................................الاسم /</p>
-                                            <p t-if="doc.facility_second"><img
-                                                    src="/sale_report_custom/static/src/images/legal.png" alt=""
-                                                    width="100"/>التوقيع /
+                                            <p t-if="doc.legal">
+                                                <img t-if="o.legal_user.legal" t-att-src="image_data_uri(o.legal_user.legal)" width="100"/>التوقيع /
+<!--                                                <img-->
+<!--                                                    src="/sale_report_custom/static/src/images/legal.png" alt=""-->
+<!--                                                    width="100"/>التوقيع /-->
                                             </p>                                            <!--                                            </div>-->
                                         </div>
                                         <div class="col-auto col-3 mw-100 mb-2">
                                             <!--                                            <div class="square rounded p-5">-->
                                             <p>:ممثل الادارة الهندسية</p>
                                             <p>......................................الاسم /</p>
-                                            <p t-if="doc.legal"><img
-                                                    src="/sale_report_custom/static/src/images/facility.png" alt=""
-                                                    width="100"/>التوقيع /
+                                            <p t-if="doc.facility_second">
+                                                <img t-if="o.facility_user.facility" t-att-src="image_data_uri(o.facility_user.facility)" width="100"/>التوقيع /
+
+<!--                                                <img-->
+<!--                                                    src="/sale_report_custom/static/src/images/facility.png" alt=""-->
+<!--                                                    width="100"/>التوقيع /-->
                                             </p>                                            <!--                                            </div>-->
                                         </div>
                                     </div>
@@ -1692,8 +1706,10 @@
                                     <div class="col-auto col-3 mw-100 mb-2 text-right"
                                          t-if="o.state not in ['ff_review','ceo','draft_qu','draft','sent']">
                                         <p>:توقيع مسئول العقارات</p>
-                                        <img src="/sale_report_custom/static/src/images/pm.png" alt=""
-                                             width="100"/>
+                                        <img t-if="o.pm_user.pm" t-att-src="image_data_uri(o.pm_user.pm)" width="100"/>التوقيع /
+
+<!--                                        <img src="/sale_report_custom/static/src/images/pm.png" alt=""-->
+<!--                                             width="100"/>-->
                                     </div>
                                 </page>
                             </t>

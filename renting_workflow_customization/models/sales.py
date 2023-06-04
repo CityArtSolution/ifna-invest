@@ -4,6 +4,16 @@ from odoo import models, fields, api, _
 from odoo.exceptions import UserError, ValidationError
 
 
+class ResUsers(models.Model):
+    _inherit = 'res.users'
+
+    finance = fields.Many2many("ir.attachment", 'finance_sig_id', 'finance_id', 'sig_id', string="Finance Signature")
+    facility = fields.Many2many("ir.attachment", 'facility_sig_id', 'facility_id', 'sig_id',
+                                string="Facility Signature")
+    legal = fields.Many2many("ir.attachment", 'legal_sig_id', 'legal_id', 'sig_id', string="Legal Signature")
+    pm = fields.Many2many("ir.attachment", 'pm_sig_id', 'pm_id', 'sig_id', string="PM Signature")
+
+
 class CommentWizard(models.TransientModel):
     _name = 'email.wizard'
 
@@ -56,6 +66,11 @@ class CommentWizard(models.TransientModel):
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
+
+    finance_user = fields.Many2one("res.users", string="Finance")
+    facility_user = fields.Many2one("res.users", string="Facility")
+    legal_user = fields.Many2one("res.users", string="Legal")
+    pm_user = fields.Many2one("res.users", string="PM")
 
     state = fields.Selection([
         ('draft_qu', 'Draft Quotation'),
@@ -133,6 +148,8 @@ class SaleOrder(models.Model):
 
     def finance_facility(self):
         for rec in self:
+            rec.pm_user = self.env.user.id
+
             finance_group = self.env.ref('renting_workflow_customization.finance_group')
             notification_finance_group = self.env['res.users'].search([]).filtered(
                 lambda i: finance_group in i.groups_id)
@@ -216,6 +233,7 @@ class SaleOrder(models.Model):
     def finance_approve(self):
         for rec in self:
             rec.finance = True
+            rec.finance_user = self.env.user.id
             if rec.finance and rec.facility:
 
                 facility_group = self.env.ref('renting_workflow_customization.ceo_group')
@@ -245,6 +263,8 @@ class SaleOrder(models.Model):
     def facility_approve(self):
         for rec in self:
             rec.facility = True
+            rec.facility_user = self.env.user.id
+
             if rec.finance and rec.facility:
                 facility_group = self.env.ref('renting_workflow_customization.ceo_group')
                 notification_facility_group = self.env['res.users'].search([]).filtered(
@@ -344,6 +364,7 @@ class SaleOrder(models.Model):
     def sent_ff_legal(self):
         for rec in self:
             rec.state = "ffl_review"
+            rec.legal_user = self.env.user.id
 
             finance_group = self.env.ref('renting_workflow_customization.finance_group')
             notification_finance_group = self.env['res.users'].search([]).filtered(
