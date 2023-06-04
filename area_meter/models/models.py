@@ -11,6 +11,13 @@ class RentProduct(models.Model):
     rent_unit_area_price = fields.Float(string='سعر المتر', copy=True)
 
 
+class RentProductProduct(models.Model):
+    _inherit = 'product.product'
+
+    rent_unit_area = fields.Float(string='المساحة m2', copy=True)
+    rent_unit_area_price = fields.Float(string='سعر المتر', copy=True)
+
+
 class RentRentalPricing(models.Model):
     _inherit = 'rental.pricing'
 
