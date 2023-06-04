@@ -38,6 +38,7 @@ class RentSaleOrderLine(models.Model):
     def _check_price_unit_rental_pricing(self):
         for rec in self:
             if rec.price_unit:
-                if rec.price_unit < rec.rental_pricing_id.price:
-                    raise ValidationError(
-                        "Price of %s can not be less than rental pricing price !" % rec.product_id.name)
+                if self.user_has_groups('area_meter.rental_pricing_user'):
+                    if rec.price_unit < rec.rental_pricing_id.price:
+                        raise ValidationError(
+                            "Price of %s can not be less than rental pricing price !" % rec.product_id.name)

@@ -36,11 +36,11 @@
                             type="action" context="{'default_advance_payment_method': 'percentage'}"
                             attrs="{'invisible': ['|','|',('invoice_status', '!=', 'no'), ('state', '!=', 'sale'),('is_rental_order', '=', True)]}"/>
                 </xpath>
-                <xpath expr="//button[@name='action_cancel']" position="replace">
-                    <button name="action_cancel" type="object" string="Cancel"
-                            attrs="{'invisible': ['|','|', ('state', 'not in', ['draft', 'sent','sale']), ('id', '=', False), ('no_of_invoiced', '>', 0)]}"/>
-                    <field name="no_of_invoiced" invisible="1"/>
-                </xpath>
+<!--                <xpath expr="//button[@name='action_cancel']" position="replace">-->
+<!--                    <button name="action_cancel" type="object" string="Cancel"-->
+<!--                            attrs="{'invisible': ['|','|', ('state', 'not in', ['draft', 'sent','sale']), ('id', '=', False), ('no_of_invoiced', '>', 0)]}"/>-->
+<!--                    <field name="no_of_invoiced" invisible="1"/>-->
+<!--                </xpath>-->
                 <xpath expr="// field [@ name = 'order_line'] / tree / field [@ name = 'name']" position="after">
                     <field name="is_rental"/>
                     <!--                    <field name="rent_ok"/>-->
@@ -151,33 +151,96 @@
                                     <!--                                    <field name="product_id"/>-->
                                 </group>
                                 <notebook>
-                                    <page name="pickup_contract" string="التسليم"
-                                    >
+                                    <page name="pickup_contract" string="التسليم">
                                         <group>
+                                            <group string="التواريح">
+                                                <field name="h_return_date"/>
+                                                <field name="return_date"/>
+                                            </group>
+
+                                            <group string="دهان السقف والجدران">
+                                                <field name="wall_good"/>
+                                                <field name="wall_bad"/>
+                                                <field name="wall_none"/>
+                                                <field name="wall_comment"/>
+                                            </group>
+                                            <group string="الأرضيات">
+                                                <field name="floor_good"/>
+                                                <field name="floor_bad"/>
+                                                <field name="floor_none"/>
+                                                <field name="floor_comment"/>
+                                            </group>
+                                            <group string="الحمامات والأطقم الصحية">
+                                                <field name="rbath_good"/>
+                                                <field name="rbath_bad"/>
+                                                <field name="rbath_none"/>
+                                                <field name="rbath_comment"/>
+                                            </group>
+                                            <group string="الكهرباء والإضاءة">
+                                                <field name="elec_good"/>
+                                                <field name="elec_bad"/>
+                                                <field name="elec_none"/>
+                                                <field name="elec_comment"/>
+                                            </group>
+                                            <group string="السباكة والتمديدات">
+                                                <field name="water_good"/>
+                                                <field name="water_bad"/>
+                                                <field name="water_none"/>
+                                                <field name="water_comment"/>
+                                            </group>
+                                            <group string="خزان المياه">
+                                                <field name="wate_good"/>
+                                                <field name="wate_bad"/>
+                                                <field name="wate_none"/>
+                                                <field name="wate_comment"/>
+                                            </group>
                                             <group string="حالة الأبواب">
                                                 <field name="door_good"/>
                                                 <field name="door_bad"/>
+                                                <field name="door_none"/>
                                                 <field name="door_comment"/>
-                                            </group>
-                                            <group string="الحائط">
-                                                <field name="wall_good"/>
-                                                <field name="wall_bad"/>
-                                                <field name="wall_comment"/>
                                             </group>
                                             <group string="النوافذ">
                                                 <field name="window_good"/>
                                                 <field name="window_bad"/>
+                                                <field name="window_none"/>
                                                 <field name="window_comment"/>
                                             </group>
-                                            <group string="السباكة">
-                                                <field name="water_good"/>
-                                                <field name="water_bad"/>
-                                                <field name="water_comment"/>
+                                            <group string="أجهزة التكييف">
+                                                <field name="ac_good"/>
+                                                <field name="ac_bad"/>
+                                                <field name="ac_none"/>
+                                                <field name="ac_comment"/>
                                             </group>
-                                            <group string="الكهرباء">
-                                                <field name="elec_good"/>
-                                                <field name="elec_bad"/>
-                                                <field name="elec_comment"/>
+                                            <group string="الإنتر كوم ( النداء الخارجي )">
+                                                <field name="ii_good"/>
+                                                <field name="ii_bad"/>
+                                                <field name="ii_none"/>
+                                                <field name="ii_comment"/>
+                                            </group>
+                                            <group string="أعمال الجبس">
+                                                <field name="geps_good"/>
+                                                <field name="geps_bad"/>
+                                                <field name="geps_none"/>
+                                                <field name="geps_comment"/>
+                                            </group>
+                                            <group string="المفاتيح">
+                                                <field name="keys_good"/>
+                                                <field name="keys_bad"/>
+                                                <field name="keys_none"/>
+                                                <field name="keys_comment"/>
+                                            </group>
+                                            <group string="أخرى">
+                                                <field name="other_good"/>
+                                                <field name="other_bad"/>
+                                                <field name="other_none"/>
+                                                <field name="other_comment"/>
+                                            </group>
+                                            <group string="الغاء رخصة البلدية">
+                                                <field name="il_good"/>
+                                                <field name="il_bad"/>
+                                                <field name="il_none"/>
+                                                <field name="il_comment"/>
                                             </group>
                                             <group string="الملاجظات">
                                                 <field name="notes"/>
@@ -190,38 +253,105 @@
                                                 <field name="mangement_accept"/>
                                                 <field name="mangement_refused"/>
                                             </group>
+                                            <group string="القراءات الحالية">
+                                                <field name="recent_electricity"/>
+                                                <field name="recent_water"/>
+                                            </group>
                                             <group string="ملاحظة">
                                                 <field name="manage_note"/>
                                             </group>
                                         </group>
                                     </page>
-                                    <page name="return_contract" string="الأستلام"
-                                    >
+                                    <page name="return_contract" string="الإستلام">
                                         <group>
+                                            <group string="التواريح">
+                                                <field name="h_pickup_date"/>
+                                                <field name="pickup_date"/>
+                                            </group>
+                                            <group string="دهان السقف والجدران">
+                                                <field name="rwall_good"/>
+                                                <field name="rwall_bad"/>
+                                                <field name="rwall_none"/>
+                                                <field name="rwall_comment"/>
+                                            </group>
+                                            <group string="الأرضيات">
+                                                <field name="rfloor_good"/>
+                                                <field name="rfloor_bad"/>
+                                                <field name="rfloor_none"/>
+                                                <field name="rfloor_comment"/>
+                                            </group>
+                                            <group string="الحمامات والأطقم الصحية">
+                                                <field name="rbath_good"/>
+                                                <field name="rbath_bad"/>
+                                                <field name="rbath_none"/>
+                                                <field name="rbath_comment"/>
+                                            </group>
+                                            <group string="الكهرباء والإضاءة">
+                                                <field name="relec_good"/>
+                                                <field name="relec_bad"/>
+                                                <field name="relec_none"/>
+                                                <field name="relec_comment"/>
+                                            </group>
+                                            <group string="السباكة والتمديدات">
+                                                <field name="rwater_good"/>
+                                                <field name="rwater_bad"/>
+                                                <field name="rwater_none"/>
+                                                <field name="rwater_comment"/>
+                                            </group>
+                                            <group string="خزان المياه">
+                                                <field name="rwate_good"/>
+                                                <field name="rwate_bad"/>
+                                                <field name="rwate_none"/>
+                                                <field name="rwate_comment"/>
+                                            </group>
+
                                             <group string="حالة الأبواب">
                                                 <field name="rdoor_good"/>
                                                 <field name="rdoor_bad"/>
+                                                <field name="rdoor_none"/>
                                                 <field name="rdoor_comment"/>
-                                            </group>
-                                            <group string="الحائط">
-                                                <field name="rwall_good"/>
-                                                <field name="rwall_bad"/>
-                                                <field name="rwall_comment"/>
                                             </group>
                                             <group string="النوافذ">
                                                 <field name="rwindow_good"/>
                                                 <field name="rwindow_bad"/>
+                                                <field name="rwindow_none"/>
                                                 <field name="rwindow_comment"/>
                                             </group>
-                                            <group string="السباكة">
-                                                <field name="rwater_good"/>
-                                                <field name="rwater_bad"/>
-                                                <field name="rwater_comment"/>
+                                            <group string="أجهزة التكييف">
+                                                <field name="rac_good"/>
+                                                <field name="rac_bad"/>
+                                                <field name="rac_none"/>
+                                                <field name="rac_comment"/>
                                             </group>
-                                            <group string="الكهرباء">
-                                                <field name="relec_good"/>
-                                                <field name="relec_bad"/>
-                                                <field name="relec_comment"/>
+                                            <group string="الإنتر كوم ( النداء الخارجي )">
+                                                <field name="rii_good"/>
+                                                <field name="rii_bad"/>
+                                                <field name="rii_none"/>
+                                                <field name="rii_comment"/>
+                                            </group>
+                                            <group string="أعمال الجبس">
+                                                <field name="rgeps_good"/>
+                                                <field name="rgeps_bad"/>
+                                                <field name="rgeps_none"/>
+                                                <field name="rgeps_comment"/>
+                                            </group>
+                                            <group string="المفاتيح">
+                                                <field name="rkeys_good"/>
+                                                <field name="rkeys_bad"/>
+                                                <field name="rkeys_none"/>
+                                                <field name="rkeys_comment"/>
+                                            </group>
+                                            <group string="أخرى">
+                                                <field name="rother_good"/>
+                                                <field name="rother_bad"/>
+                                                <field name="rother_none"/>
+                                                <field name="rother_comment"/>
+                                            </group>
+                                            <group string="الغاء رخصة البلدية">
+                                                <field name="ril_good"/>
+                                                <field name="ril_bad"/>
+                                                <field name="ril_none"/>
+                                                <field name="ril_comment"/>
                                             </group>
                                             <group string="الملاجظات">
                                                 <field name="rnotes"/>
@@ -239,6 +369,11 @@
                                                 <field name="iselec_remain"/>
                                                 <field name="isnotelec_remain"/>
                                             </group>
+                                            <group string="القراءات الحالية">
+                                                <field name="rrecent_electricity"/>
+                                                <field name="rrecent_water"/>
+                                            </group>
+
                                             <group string="ملاحظة">
                                                 <field name="rmanage_note"/>
                                             </group>

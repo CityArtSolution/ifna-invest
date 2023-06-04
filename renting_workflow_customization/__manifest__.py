@@ -4,7 +4,7 @@
     'summary': """Sale Renting Workflow""",
     'category': 'Sales Management',
     'version': '0.1',
-    'depends': ['sale_renting', 'renting', 'sale', 'base', 'product'],
+    'depends': ['sale_renting', 'renting', 'sale', 'base', 'product','account'],
     'data': [
         'security/security.xml',
         'views/sales_views.xml',

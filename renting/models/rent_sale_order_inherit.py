@@ -505,14 +505,20 @@ class RentSaleOrderLine(models.Model):
         # for order_line in self.order_id.order_line:
         #     if order_line.rent_product_id.id == self.product_id.id:
         #         order_line.unlink()
+        sequence = self.sequence
+        print("/////////////////sequencesequence==111111===",sequence)
         for rec in self.rental_pricing_id.service_ids:
             if rec.type == 'amount':
                 price = rec.percentage
             if rec.type == 'percentage':
                 price = self.price_unit * (rec.percentage / 100)
 
+            sequence = sequence + 1
+            print("/////////////////sequencesequence==222222===", sequence)
+
             self.env['sale.order.line'].sudo().create(
                 {
+                    'sequence': sequence,
                     'product_uom_qty': 1,
                     'product_id': rec.service_id.product_variant_id.id,
                     'name': rec.service_id.product_variant_id.name,

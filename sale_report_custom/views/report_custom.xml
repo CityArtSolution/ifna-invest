@@ -59,67 +59,89 @@
                     <br/>
                     <p class="text-right">
                         علماً بأن قيمة
-                        <span t-field="o.order_line[0].product_id.rental_pricing_ids[0].service_ids[0].name"/>
+                        <span t-if="o.order_line[0].product_id.rental_pricing_ids and o.order_line[0].product_id.rental_pricing_ids[0].service_ids"
+                              t-field="o.order_line[0].product_id.rental_pricing_ids[0].service_ids[0].name"/>
                         من %
                         الإيجار السنوي ، تدفع مع كل دفعة إيجارية ومهلة الترميم
                         <span t-field="o.restoration_deadline.name"/>
                         من تاريخ توقيع العقد
                     </p>
-                    <t t-if="o.order_line">
 
-                        <table width="100%" class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <td align="center">
-                                        <b>الإيجار السنوي</b>
-                                    </td>
-                                    <td align="center">
-                                        <b>المدة</b>
-                                    </td>
-                                    <td align="center">
-                                        <b>البيــــــــــــــــــــــــــــــــــــــــــــــان</b>
-                                    </td>
-                                    <td align="center">
-                                        <b>رقم</b>
-                                    </td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <t t-set="num" t-value="0"/>
-                                <t t-foreach="o.order_line" t-as="line">
-                                    <t t-if="line.product_id.rent_ok == True">
-                                        <t t-set="num" t-value="num + 1"/>
-                                        <tr>
-                                            <td align="center">
-                                                <span t-field="line.price_unit"></span>
-                                            </td>
-                                            <td align="center">
-                                                <span t-field="line.year_number"></span>
-                                            </td>
-                                            <td align="center">
-                                                الإيجار مكتب
-                                                <span t-field="line.product_id.name"></span>
-                                                بمساحة
-                                                <span t-field="line.rent_unit_area"></span>
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div t-if="o.order_line">
+                                        <table width="100%" class="table table-condensed table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <td align="center">
+                                                        <b>الإيجار السنوي</b>
+                                                    </td>
+                                                    <td align="center">
+                                                        <b>المدة</b>
+                                                    </td>
+                                                    <td align="center">
+                                                        <b>البيــــــــــــــــــــــــــــــــــــــــــــــان</b>
+                                                    </td>
+                                                    <td align="center">
+                                                        <b>رقم</b>
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-set="num" t-value="0"/>
+                                                <t t-foreach="o.order_line" t-as="line">
+                                                    <t t-if="line.product_id.rent_ok == True">
+                                                        <t t-set="num" t-value="num + 1"/>
+                                                        <tr>
+                                                            <td align="center">
+                                                                <span t-field="line.price_unit"></span>
+                                                            </td>
+                                                            <td align="center">
+                                                                <span t-field="line.year_number"></span>
+                                                            </td>
+                                                            <td align="center">
+                                                                الإيجار مكتب
+                                                                <span t-field="line.product_id.name"></span>
+                                                                بمساحة
+                                                                <span t-field="line.rent_unit_area"></span>
 
-                                                م²
-                                            </td>
-                                            <td align="center">
-                                                <span t-esc="num"/>
-                                            </td>
-                                        </tr>
+                                                                م²
+                                                            </td>
+                                                            <td align="center">
+                                                                <span t-esc="num"/>
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+
+                                                </t>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+
+                                </td>
+                                <td>
+                                    <t t-if="o.state in ['ff_review','ceo','draft','sent','initial_contract','ffl_review','draft_contract','upload_doc','view_all_ceo_approve','ejar_upload','finance_review','sale','done','cancel']">
+                                        <img src="/sale_report_custom/static/src/images/pm.png" alt=""
+                                             width="100"/>
+                                        <br/>
+                                        <img src="/sale_report_custom/static/src/images/finance.png" alt=""
+                                             width="100"/>
                                     </t>
-
-                                </t>
-                            </tbody>
-                        </table>
-                    </t>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
 
                     <br/>
-                    <p class="text-right">هذا العرض صالح لمدة
-                        <span t-field="o.offer_validity.name"/>
-                        من تاريخه.
-                    </p>
+                    <t t-if="o.offer_validity.name">
+                        <p class="text-right">هذا العرض صالح لمدة
+                            <span t-field="o.offer_validity.name"/>
+                            من تاريخه.
+                        </p>
+                    </t>
 
                     <br/>
                     <b>

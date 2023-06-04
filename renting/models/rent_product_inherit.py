@@ -155,6 +155,7 @@ class RentProduct(models.Model):
 
     unit_gas = fields.Char(string='رقم عداد الغاز', copy=True)
     unit_electricity = fields.Char(string='رقم عداد الكهرباء', copy=True)
+    # unit_electricity_cut = fields.Char(string='رقم عداد الكهرباء', copy=True)
     unit_water = fields.Char(string='رقم عداد المياه', copy=True)
 
     # unit_maintenance_count = fields.Integer(string='Total Maintenance', compute='_get_count', readonly=True)
