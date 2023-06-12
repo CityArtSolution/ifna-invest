@@ -4,6 +4,48 @@ from odoo import api, models, fields, _
 from lxml import etree
 
 
+class RentalProcessingLine(models.TransientModel):
+    _inherit = 'rental.order.wizard.line'
+    _description = 'RentalOrderLine transient representation'
+
+    def _apply(self):
+        """Apply the wizard modifications to the SaleOrderLine.
+
+        :return: message to log on the Sales Order.
+        :rtype: str
+        """
+        msg = self._generate_log_message()
+        for wizard_line in self:
+            order_line = wizard_line.order_line_id
+            if wizard_line.status == 'pickup' and wizard_line.qty_delivered > 0:
+                order_line.product_id.state_id = 'مؤجرة'
+                order_line.product_id.unit_state = 'مؤجرة'
+                order_line.product_id.product_tmpl_id.state_id = 'مؤجرة'
+                order_line.product_id.product_tmpl_id.unit_state = 'مؤجرة'
+
+                order_line.update({
+                    'product_uom_qty': max(order_line.product_uom_qty,
+                                           order_line.qty_delivered + wizard_line.qty_delivered),
+                    'qty_delivered': order_line.qty_delivered + wizard_line.qty_delivered
+                })
+                if order_line.pickup_date > fields.Datetime.now():
+                    order_line.pickup_date = fields.Datetime.now()
+
+            elif wizard_line.status == 'return' and wizard_line.qty_returned > 0:
+                order_line.product_id.state_id = 'شاغرة'
+                order_line.product_id.unit_state = 'شاغرة'
+                order_line.product_id.product_tmpl_id.state_id = 'شاغرة'
+                order_line.product_id.product_tmpl_id.unit_state = 'شاغرة'
+                if wizard_line.is_late:
+                    # Delays facturation
+                    order_line._generate_delay_line(wizard_line.qty_returned)
+
+                order_line.update({
+                    'qty_returned': order_line.qty_returned + wizard_line.qty_returned
+                })
+        return msg
+
+
 class RentProductProduct(models.Model):
     _inherit = 'product.product'
 
@@ -11,7 +53,7 @@ class RentProductProduct(models.Model):
     # unit_area = fields.Char(string='مساحة الوحدة', copy=True)
     # unit_floor_number = fields.Char(string='رقم الطابق', copy=True)
     # unit_rooms_number = fields.Char(string='عدد الغرف', copy=True)
-    # unit_state = fields.Char(compute='_get_state', string='الحالة', default='شاغرة', copy=True)
+    unit_state = fields.Char(string='الحالة', default='شاغرة', copy=True)
 
     # rent_unit_area = fields.Float(string='المساحة', copy=True)
 
@@ -66,6 +108,7 @@ class RentProductProduct(models.Model):
     state_id = fields.Char()
     analytic_account = fields.Many2one('account.analytic.account', copy=True, string='الحساب التحليلي', readonly=True)
     ref_analytic_account = fields.Char(string='رقم اشارة الحساب التحليلي', readonly=True)
+
     # property_analytic_account = fields.Many2one('account.analytic.account', string='الحساب التحليلي للعقار',
     #                                             related='property_id.analytic_account')
     # property_id = fields.Many2one('rent.property', string='عمارة', copy=True)  # Related field to Properties
@@ -105,7 +148,7 @@ class RentProduct(models.Model):
     unit_area = fields.Char(string='مساحة الوحدة', copy=True)
     unit_floor_number = fields.Char(string='رقم الطابق', copy=True)
     unit_rooms_number = fields.Char(string='عدد الغرف', copy=True)
-    unit_state = fields.Char(compute='_get_state', string='الحالة', default='شاغرة', copy=True)
+    unit_state = fields.Char(string='الحالة', default='شاغرة', copy=True)
 
     # unit_contain_two_scales = fields.Boolean(string='Contain Two Scales')
     # unit_furniture = fields.Boolean(string='Furniture?')
@@ -213,6 +256,7 @@ class RentProduct(models.Model):
 
     def _get_state(self):
         for rec in self:
+            print("stateeeeeeeeeeeeeeeeeeeeee")
             rec.unit_state = 'شاغرة'
             rec.state_id = 'شاغرة'
             order = rec.env['sale.order.line'].sudo().search(
@@ -314,7 +358,6 @@ class RentalAdditionalService(models.Model):
         if result.fees_type:
             result.service_id.fees_type = result.fees_type
         return result
-
 
     @api.onchange('fees_type')
     def change_fees_type(self):
