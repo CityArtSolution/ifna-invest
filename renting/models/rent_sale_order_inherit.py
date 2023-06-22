@@ -136,7 +136,6 @@ class RentSaleOrder(models.Model):
                 raise UserError(_('من فضلك اكتب عدد الفواتير'))
             rec.order_contract_invoice = False
             fromdate = rec.fromdate
-            print(rec.fromdate, 'ahmed')
             d1 = fields.Datetime.from_string(rec.fromdate)
             d2 = fields.Datetime.from_string(rec.todate)
             total_contract_period = d2 - d1
@@ -506,7 +505,6 @@ class RentSaleOrderLine(models.Model):
         #     if order_line.rent_product_id.id == self.product_id.id:
         #         order_line.unlink()
         sequence = self.sequence
-        print("/////////////////sequencesequence==111111===",sequence)
         for rec in self.rental_pricing_id.service_ids:
             if rec.type == 'amount':
                 price = rec.percentage
@@ -514,7 +512,6 @@ class RentSaleOrderLine(models.Model):
                 price = self.price_unit * (rec.percentage / 100)
 
             sequence = sequence + 1
-            print("/////////////////sequencesequence==222222===", sequence)
 
             self.env['sale.order.line'].sudo().create(
                 {

@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="/odoo15/custom/addons/ifna-invest/.list">
+      <field name="name">/odoo15/custom/addons/ifna-invest/ list</field>
+      <field name="model">/odoo15/custom/addons/ifna-invest/./odoo15/custom/addons/ifna-invest/</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="/odoo15/custom/addons/ifna-invest/.action_window">
+      <field name="name">/odoo15/custom/addons/ifna-invest/ window</field>
+      <field name="res_model">/odoo15/custom/addons/ifna-invest/./odoo15/custom/addons/ifna-invest/</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="/odoo15/custom/addons/ifna-invest/.action_server">
+      <field name="name">/odoo15/custom/addons/ifna-invest/ server</field>
+      <field name="model_id" ref="model_/odoo15/custom/addons/ifna-invest/_/odoo15/custom/addons/ifna-invest/"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="/odoo15/custom/addons/ifna-invest/" id="/odoo15/custom/addons/ifna-invest/.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="/odoo15/custom/addons/ifna-invest/.menu_1" parent="/odoo15/custom/addons/ifna-invest/.menu_root"/>
+    <menuitem name="Menu 2" id="/odoo15/custom/addons/ifna-invest/.menu_2" parent="/odoo15/custom/addons/ifna-invest/.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="/odoo15/custom/addons/ifna-invest/.menu_1_list" parent="/odoo15/custom/addons/ifna-invest/.menu_1"
+              action="/odoo15/custom/addons/ifna-invest/.action_window"/>
+    <menuitem name="Server to list" id="/odoo15/custom/addons/ifna-invest/" parent="/odoo15/custom/addons/ifna-invest/.menu_2"
+              action="/odoo15/custom/addons/ifna-invest/.action_server"/>
+-->
+  </data>
+</odoo>

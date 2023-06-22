@@ -25,16 +25,13 @@ class RentSaleOrderLine(models.Model):
     todate = fields.Datetime(string='To Date', copy=True)
 
 
-    @api.onchange('years_number')
+    # @api.onchange('years_number')
     def test(self):
         print('fromdate',self.fromdate)
         nums = []
-        print("///////////////////",self.fromdate)
-        print("///////////////////",self.years_number)
         for x in range(1, (self.years_number)+1):
             nums.append(x)
         selection = [(num, num) for num in nums]
-        print("////////////////////////////////////",selection)
         return selection
 
     # # @api.depends("years_number")
@@ -48,9 +45,9 @@ class RentSaleOrderLine(models.Model):
     #     return selection
 
     # year_number = fields.Integer(string="رقم السنة")
-    year_number = fields.Selection(string="رقم السنة", selection=test)
+    year_number = fields.Selection(string="رقم السنة", selection=[])
 
-    @api.onchange('year_number')
+    # @api.onchange('year_number')
     def _compute_dates(self):
         for rec in self:
 
