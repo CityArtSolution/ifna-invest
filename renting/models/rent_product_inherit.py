@@ -256,7 +256,6 @@ class RentProduct(models.Model):
 
     def _get_state(self):
         for rec in self:
-            print("stateeeeeeeeeeeeeeeeeeeeee")
             rec.unit_state = 'شاغرة'
             rec.state_id = 'شاغرة'
             order = rec.env['sale.order.line'].sudo().search(
