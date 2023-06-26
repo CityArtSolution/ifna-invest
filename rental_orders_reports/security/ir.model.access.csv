@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-rent_wiz_group,rent_wiz_group,model_rent_wiz,base.group_user,1,1,1,1
-rent_order_report_group,rent_order_report_group,model_rent_order_report,base.group_user,1,1,1,1
-
-compound_report_group,compound_report_group,model_compound_report,base.group_user,1,1,1,1
