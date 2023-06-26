@@ -1,0 +1,77 @@
+<odoo>
+    <data>
+
+        <record id="increase_policy_form" model="ir.ui.view">
+            <field name="name">increase.policy.form</field>
+            <field name="model">increase.policy</field>
+            <field name="arch" type="xml">
+                <form string="Increase Policy">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="rental_order" type="object" class="oe_stat_button" icon="fa-globe icon">
+                                <field string="Rental Orders" name="orders_count" widget="statinfo"/>
+                            </button>
+                        </div>
+
+                        <group col="2" colspan="2">
+                            <field name="name"/>
+                        </group>
+                        <group col="4" colspan="4">
+                            <label for="date_from" string="مدة العقد"/>
+                            <div class="d-flex">
+                                <field name="date_from"/>
+                                <span class="o_form_label mx-3 oe_edit_only">الي</span>
+                                <field name="date_to"/>
+                            </div>
+                            <field name="invoice_number" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="desc"/>
+                        </group>
+                        <field name="line_ids">
+                            <tree editable="bottom">
+                                <field name="year"/>
+                                <field name="seq"/>
+                                <field name="type"/>
+                                <field name="percent" attrs="{'invisible': [('type', '=', 'value')]}"/>
+                                <field name="value" attrs="{'invisible': [('type', '=', 'percent')]}"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="increase_policy_tree" model="ir.ui.view">
+            <field name="name">increase.policy.tree</field>
+            <field name="model">increase.policy</field>
+            <field name="arch" type="xml">
+                <tree string="Increase Policy">
+                    <field name="name"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="desc"/>
+                </tree>
+            </field>
+        </record>
+        <record id="increase_policy_action" model="ir.actions.act_window">
+            <field name="name">Increase Policy</field>
+            <field name="res_model">increase.policy</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="increase_policy_menu"
+                  name="Increase Policy"
+                  action="increase_policy_action"
+                  parent="sale_renting.menu_rental_config"/>
+
+<!--        <record id="make_invisible" model="res.groups">-->
+<!--            <field name="name">Invisible</field>-->
+<!--        </record>-->
+<!--        <record model="ir.ui.menu" id="increase_policy.increase_policy_menu">-->
+<!--            <field name="groups_id" eval="[(6,0,[ref('make_invisible')])]"/>-->
+<!--        </record>-->
+
+    </data>
+</odoo>

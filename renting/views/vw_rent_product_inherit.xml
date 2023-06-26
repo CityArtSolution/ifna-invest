@@ -2,6 +2,56 @@
 
 <odoo>
     <data>
+        <record id="updated_invoice_tree_view" model="ir.ui.view">
+            <field name="name">Updated Invoice Tree</field>
+            <field name="model">updated.invoice</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="updated_invoice_action_view" model="ir.actions.act_window">
+            <field name="name">Updated Invoice</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">updated.invoice</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Updated Invoice" id="updated_invoice_menu"
+                  parent="sale_renting.menu_rental_config"
+                  action="updated_invoice_action_view"
+                  sequence="11"/>
+
+
+        <record id="rental_additional_service_tree_view" model="ir.ui.view">
+            <field name="name">rental_additional_service_tree_view</field>
+            <field name="model">rental.additional.service</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="service_id"/>
+                    <field name="type"/>
+                    <field name="percentage" string="Amount" attrs="{'invisible': [('type','==','percentage')]}"/>
+                    <field name="percentage" string="Percentage" attrs="{'invisible': [('type','==','amount')]}"/>
+                    <field name="separate"/>
+                    <field name="fees_type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="rental_additional_service_action_view" model="ir.actions.act_window">
+            <field name="name">Additional Services</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">rental.additional.service</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Additional Services" id="rent_config_additional_service_menu"
+                  parent="sale_renting.menu_rental_config"
+                  action="rental_additional_service_action_view"
+                  sequence="10"/>
+
         <record model="ir.ui.view" id="product_template_search_inherit">
             <field name="name">product.template.search</field>
             <field name="model">product.template</field>
@@ -13,6 +63,83 @@
                 </search>
             </field>
         </record>
+
+        <record model="ir.ui.view" id="rent_product_product_inherit">
+            <field name="name">product_product</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='rental']" position="after">
+                    <page name="unit_information" string="معلومات الوحدة"
+                          attrs="{'invisible':[('rent_ok','==',False)]}">
+                        <group>
+                            <group string="معلومات">
+                                <field name="unit_state"/>
+                                <field name="unit_number" attrs="{'required':[('rent_ok','!=',False)]}"/>
+                                <field name="unit_floor_number"/>
+                                <field name="entry_number"/>
+                                <field name="entry_overlook"/>
+                                <field name="unit_rooms_number"/>
+                                <field name="rent_config_unit_overlook_id"/>
+                                <field name="operating_unit" widget="many2many_tags"/>
+                                <field name="property_id"/>
+                                <field name="property_analytic_account"/>
+                            </group>
+                            <group>
+                                <field name="rent_config_unit_type_id"/>
+                                <field name="rent_config_unit_purpose_id"/>
+                                <field name="unit_construction_date"/>
+                                <!--                                <field name="unit_contain_two_scales"/>-->
+                                <!--                                <field name="unit_furniture"/>-->
+                            </group>
+                        </group>
+                        <group>
+                            <group string="الاثاث">
+                                <field name="furniture_bedroom"/>
+                                <field name="furniture_bedroom_no"
+                                       attrs="{'invisible': [('furniture_bedroom','==',False)]}"/>
+                                <field name="furniture_bathroom"/>
+                                <field name="furniture_bathroom_no"
+                                       attrs="{'invisible': [('furniture_bathroom','==',False)]}"/>
+                                <field name="furniture_reception"/>
+                                <field name="furniture_reception_no"
+                                       attrs="{'invisible': [('furniture_reception','==',False)]}"/>
+                                <field name="furniture_kitchen"/>
+                                <field name="furniture_kitchen_installed"
+                                       attrs="{'invisible': [('furniture_kitchen','==',False)]}"/>
+                                <field name="furniture_service_room"/>
+                                <field name="furniture_inventory"/>
+                                <field name="furniture_inventory_no"
+                                       attrs="{'invisible': [('furniture_inventory','==',False)]}"/>
+                                <field name="furniture_setting_room"/>
+                                <field name="furniture_setting_room_no"
+                                       attrs="{'invisible': [('furniture_setting_room','==',False)]}"/>
+                                <field name="furniture_central_air_conditioner"/>
+                                <field name="furniture_split_air_conditioner"/>
+                                <field name="furniture_split_air_conditioner_no"
+                                       attrs="{'invisible': [('furniture_split_air_conditioner','==',False)]}"/>
+                                <field name="furniture_evaporator_cooler"/>
+                                <field name="furniture_evaporator_cooler_no"
+                                       attrs="{'invisible': [('furniture_evaporator_cooler','==',False)]}"/>
+                                <field name="furniture_locker_installed"/>
+                                <field name="furniture_locker_installed_no"
+                                       attrs="{'invisible': [('furniture_locker_installed','==',False)]}"/>
+                            </group>
+                            <group string="تجهيزات الوحدة">
+                                <field name="rent_config_unit_finish_id"/>
+                                <field name="unit_area"/>
+                                <br/>
+                                <br/>
+                                <field name="unit_gas"/>
+                                <field name="unit_electricity"/>
+                                <field name="unit_water"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
         <record model="ir.ui.view" id="rent_product_inherit">
             <field name="name">product_template</field>
             <field name="model">product.template</field>
@@ -21,7 +148,7 @@
                 <div name="button_box" position="inside">
                     <button type="object" name="get_unit_maintenance"
                             icon="fa-building">
-<!--                        <field name="unit_maintenance_count" string="الصيانات" widget="statinfo"/>-->
+                        <!--                        <field name="unit_maintenance_count" string="الصيانات" widget="statinfo"/>-->
                     </button>
                     <!--                    <button type="object" name="unit_expenses"-->
                     <!--                            icon="fa-money">-->
@@ -38,22 +165,35 @@
                         <div>
                             <field name="analytic_account" style="width: 33%"/>
                         </div>
-<!--                        <label for="ref_analytic_account" string="رقم اشارة الحساب التحليلي "/>-->
-<!--                        <div>-->
-<!--                            <field name="ref_analytic_account" style="width: 15%"/>-->
-<!--                        </div>-->
+                        <!--                        <label for="ref_analytic_account" string="رقم اشارة الحساب التحليلي "/>-->
+                        <!--                        <div>-->
+                        <!--                            <field name="ref_analytic_account" style="width: 15%"/>-->
+                        <!--                        </div>-->
 
                     </group>
                 </xpath>
+                <xpath expr="//field[@name='pricelist_id']" position="after">
+                    <field name="service_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
+                    <field name="product_template_id" invisible="1"/>
+                </xpath>
 
                 <xpath expr="//page[@name='rental']" position="after">
-                    <page name="unit_information" string="معلومات الوحدة" attrs="{'invisible':[('rent_ok','==',False)]}">
+                    <!--                    <page name="additional_service" string="Additional Service"-->
+                    <!--                          attrs="{'invisible':[('rent_ok','==',False)]}">-->
+                    <!--                        <field name="additional_service_ids">-->
+                    <!--                            <tree editable="bottom">-->
+                    <!--                                <field name="service_id"/>-->
+                    <!--                                <field name="percentage"/>-->
+                    <!--                            </tree>-->
+                    <!--                        </field>-->
+                    <!--                    </page>-->
+                    <page name="unit_information" string="معلومات الوحدة"
+                          attrs="{'invisible':[('rent_ok','==',False)]}">
                         <group>
                             <group string="معلومات">
                                 <field name="unit_state"/>
                                 <field name="unit_number" attrs="{'required':[('rent_ok','!=',False)]}"/>
                                 <field name="unit_floor_number"/>
-                                <field name="rent_unit_area"/>
                                 <field name="entry_number"/>
                                 <field name="entry_overlook"/>
                                 <field name="unit_rooms_number"/>

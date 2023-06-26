@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ins_partner_ledger_edited,access_ins_partner_ledger_edited,model_ins_partner_ledger_edited,account.group_account_user,1,1,1,1
+access_ins_partner_ledger_new,access_ins_partner_ledger_new,model_account_partner_ledger_new,account.group_account_user,1,1,1,1

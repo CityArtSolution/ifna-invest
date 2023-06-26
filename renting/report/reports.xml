@@ -1,13 +1,13 @@
 <odoo>
-    <record id="action_pickup_form" model="ir.actions.report">
-        <field name="name">نموذج الاستلام</field>
-        <field name="model">sale.order</field>
-        <field name="report_type">qweb-pdf</field>
-        <field name="report_name">renting.report_pickup_form</field>
-        <field name="report_file">renting.report_pickup_form</field>
-        <field name="print_report_name">'نموذج استلام - %s' % (object.name)</field>
-        <field name="binding_model_id" ref="model_sale_order"/>
-    </record>
+<!--    <record id="action_pickup_form" model="ir.actions.report">-->
+<!--        <field name="name">نموذج الاستلام</field>-->
+<!--        <field name="model">sale.order</field>-->
+<!--        <field name="report_type">qweb-pdf</field>-->
+<!--        <field name="report_name">renting.report_pickup_form</field>-->
+<!--        <field name="report_file">renting.report_pickup_form</field>-->
+<!--        <field name="print_report_name">'نموذج استلام - %s' % (object.name)</field>-->
+<!--        <field name="binding_model_id" ref="model_sale_order"/>-->
+<!--    </record>-->
 
     <template id="report_pickup_form">
     <t t-call="web.html_container">
@@ -249,15 +249,15 @@
     </template>
 
 
-    <record id="action_return_form" model="ir.actions.report">
-        <field name="name">نموذج التسليم</field>
-        <field name="model">sale.order</field>
-        <field name="report_type">qweb-pdf</field>
-        <field name="report_name">renting.report_return_form</field>
-        <field name="report_file">renting.report_return_form</field>
-        <field name="print_report_name">'نموذج نسليم - %s' % (object.name)</field>
-        <field name="binding_model_id" ref="model_sale_order"/>
-    </record>
+<!--    <record id="action_return_form" model="ir.actions.report">-->
+<!--        <field name="name">نموذج التسليم</field>-->
+<!--        <field name="model">sale.order</field>-->
+<!--        <field name="report_type">qweb-pdf</field>-->
+<!--        <field name="report_name">renting.report_return_form</field>-->
+<!--        <field name="report_file">renting.report_return_form</field>-->
+<!--        <field name="print_report_name">'نموذج نسليم - %s' % (object.name)</field>-->
+<!--        <field name="binding_model_id" ref="model_sale_order"/>-->
+<!--    </record>-->
 
     <template id="report_return_form">
         <t t-call="web.html_container">

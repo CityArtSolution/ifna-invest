@@ -122,7 +122,7 @@
                                         <t t-set="credit_total" t-value="credit_total+line.credit"/>
                                         <tr t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
                                             <td class="text-center"
-                                                style="border: 1px solid; width:20% ;vertical-align: middle;">
+                                                style="font-size:12px;font-weight:bold;border: 1px solid; width:20% ;vertical-align: middle;">
                                                 <span t-field="line.account_id.display_name"
                                                       t-options="{'widget': 'text'}"/>
                                             </td>
@@ -179,6 +179,95 @@
                                     </th>
                                 </thead>
                             </table>
+
+
+                        </div>
+                        <div>
+                            <span class="text-left">Totals For Journal Number :</span>
+                            <span class="text-left" t-field="doc.name"/>
+
+                        </div>
+
+                        <div width="100%"  class="content" style="margin-left:-5px;margin-right:-5px">
+                            <div style="float: left; width: 100%; padding: 5px;">
+                                <table style="width:100%;border: 1px solid" dir="ltr" class="table table-condensed">
+                                    <thead>
+                                        <t t-set="items" t-value="doc.calculate_total_account()"/>
+                                        <tr style="border: 1px solid">
+
+                                            <th style="border: 1px solid" class="text-left">
+                                                Account
+                                            </th>
+                                            <th style="border: 1px solid" class="text-left">
+                                                Analytic Account
+                                            </th>
+                                             <th style="border: 1px solid" class="text-left">
+                                                Debit
+                                            </th>
+                                            <th style="border: 1px solid" class="text-left">
+                                                Credit
+                                            </th>
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="border: 1px solid" t-foreach="items" t-as="item">
+                                            <td style="border: 1px solid" class="text-left">
+                                                <span t-esc="item.get('account_id')[1]"/>
+                                            </td>
+                                            <td style="border: 1px solid" class="text-left">
+                                                <t t-if="item.get('analytic_account_id')">
+
+
+                                                    <span t-esc="item.get('analytic_account_id')[1]"/>
+                                                </t>
+                                            </td>
+
+
+                                            <td style="border: 1px solid" class="text-left">
+
+                                                <t t-if="item.get('debit')">
+                                                    <span t-esc="item.get('debit')"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <span>0.00</span>
+                                                </t>
+                                            </td>
+
+                                            <td style="border: 1px solid" class="text-left">
+
+                                                <t t-if="item.get('credit')">
+                                                    <span t-esc="item.get('credit')"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <span>0.00</span>
+                                                </t>
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+
+                        </div>
+
+                        <div width="100%">
+                            <span dir="ltr"
+                                  style="float:right; font-size:13px;display:inline;">
+                                Approved By:
+                            </span>
+                            <span dir="ltr"
+                                  style="float:left; font-size:13px;display:inline;">
+                                Prepared By:
+                            </span>
+                            <span dir="ltr"
+                                  style="text-align:center; font-size:13px;display:block;">
+                                Audited By:
+                            </span>
                         </div>
                         <div class="footer">
                             <div class="text-right">
@@ -205,7 +294,7 @@
             <field name="format">A4</field>
             <field name="page_height">0</field>
             <field name="page_width">0</field>
-            <field name="orientation">Portrait</field>
+            <field name="orientation">Landscape</field>
             <field name="margin_top">45</field>
             <field name="margin_bottom">15</field>
             <field name="margin_left">5</field>
@@ -222,6 +311,7 @@
             <field name="report_name">account_dynamic_edited.journal_entry_report</field>
             <field name="report_file">account_dynamic_edited.journal_entry_report</field>
             <field name="print_report_name">(object._get_report_base_filename())</field>
+            <field name="paperformat_id" ref="account_dynamic_edited.paperformat_journal_entry_report"/>
             <field name="attachment">(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')
             </field>
             <field name="binding_model_id" ref="account.model_account_move"/>

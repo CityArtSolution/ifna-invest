@@ -7,7 +7,7 @@
             <field name="type">ir.actions.act_window</field>
             <field name="view_mode">tree,form</field>
         </record>
-        <menuitem name="Renting" id="renting.menu_root"
+        <menuitem name="Property" id="renting.menu_root"
                   parent="sale_renting.rental_menu_root"
                   action="rent_property"
                   sequence="3"/>
@@ -88,12 +88,12 @@
 
         <!-- Unit Types menu item -->
         <record model="ir.actions.act_window" id="rent_config_unit_types">
-            <field name="name">Unit Types</field>
+            <field name="name">Unit Types - Style </field>
             <field name="res_model">rent.config.unit.types</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_mode">tree,form</field>
         </record>
-        <menuitem name="Unit Types" id="config_unit_types_menu"
+        <menuitem name="Unit Types - Style" id="config_unit_types_menu"
                   parent="sale_renting.menu_rental_config"
                   action="rent_config_unit_types"
                   sequence="7"/>

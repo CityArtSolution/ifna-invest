@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record id="group_pickup_rental_order" model="res.groups">
+            <field name="name">Pickup Rental Order</field>
+            <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+        </record>
+
+        <record id="finance_group" model="res.groups">
+            <field name="name">Finance</field>
+        </record>
+
+        <record id="facility_group" model="res.groups">
+            <field name="name">Facility</field>
+        </record>
+
+        <record id="ceo_group" model="res.groups">
+            <field name="name">CEO</field>
+        </record>
+
+        <record id="pm_group" model="res.groups">
+            <field name="name">PM</field>
+<!--            <field name="implied_ids" eval="[(4,0, [ref('sales_team.group_sale_salesman_all_leads')])]"/>-->
+        </record>
+
+        <record id="legal_group" model="res.groups">
+            <field name="name">Legal</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, _
+from odoo import models, fields, api, _
 from odoo.exceptions import RedirectWarning, UserError, ValidationError, AccessError
 
 INSURANCE_ADMIN_FEES_PRODUCTS = ['insurance_value', 'contract_admin_fees', 'contract_service_fees',
@@ -22,9 +22,15 @@ class RentSaleInvoices(models.Model):
     fromdate = fields.Datetime(string='From Date', default=fields.Date.context_today, copy=False, required=True)
     todate = fields.Datetime(string='To Date', default=fields.Date.context_today, copy=False, required=True)
     operating_unit = fields.Many2one('operating.unit', string='Operating Unit')
+    services = fields.Many2many('product.product', string='Services')
+    separate = fields.Boolean(string="Separate Invoice")
 
     def _prepare_invoice_line(self, line):
         self.ensure_one()
+        if self.separate:
+            price = line.price_unit
+        else:
+            price = line.price_unit / self.sale_order_id.invoice_number
         res = {
             'display_type': line.display_type,
             'sequence': line.sequence,
@@ -33,9 +39,9 @@ class RentSaleInvoices(models.Model):
             'product_uom_id': line.product_uom.id,
             'quantity': 1,
             'discount': line.discount,
-            'price_unit': line.price_unit / self.sale_order_id.invoice_number,
+            'price_unit': price,
             'tax_ids': [(6, 0, line.tax_id.ids)],
-            'analytic_account_id': line.product_id.analytic_account.id,
+            'analytic_account_id': line.product_id.product_tmpl_id.analytic_account.id,
             'sale_line_ids': [(4, line.id)],
             'exclude_from_invoice_tab': False,
         }
@@ -137,6 +143,8 @@ class RentSaleInvoices(models.Model):
             "invoice_line_ids": invoice_lines,
             'company_id': self.sale_order_id.company_id.id,
             'operating_unit_id': self.operating_unit.id,
+            'invoice_date': self.invoice_date,
+            'obj_sale_order': self.sale_order_id.id,
             'fromdate': self.fromdate,
             'todate': self.todate,
         }
@@ -144,7 +152,21 @@ class RentSaleInvoices(models.Model):
 
     def create_invoices(self):
         invoice_lines = []
-        invoiceable_lines = self.sale_order_id.order_line
+        separate = False
+        for s in self.sale_order_id.order_line:
+            if s.product_id.product_tmpl_id.separate:
+                separate = True
+                break
+        if separate:
+            if self.separate:
+                invoiceable_lines = self.sale_order_id.order_line.filtered(
+                    lambda s: s.product_id.product_tmpl_id.separate == True)
+            else:
+                invoiceable_lines = self.sale_order_id.order_line.filtered(
+                    lambda s: s.product_id.product_tmpl_id.separate == False)
+        else:
+            invoiceable_lines = self.sale_order_id.order_line
+
         if self.sequence == 1:
             seq = 0
             for type in INSURANCE_ADMIN_FEES_FIELDS:
@@ -160,11 +182,9 @@ class RentSaleInvoices(models.Model):
                     seq += 1
                     if line.mapped(type)[0] > 0:
                         invoice_lines.append([0, 0, self._prepare_invoice_line_insurance_admin_fees(type, line, seq)])
-
         vals = self._prepare_invoice(invoice_lines)
         print(vals)
         invoice = self.env['account.move'].create(vals)
-        self.invoice_date = fields.Date.today()
         self.status = 'invoiced'
         return invoice
 
@@ -191,37 +211,138 @@ class RentSalestats(models.Model):
     sale_order_line_id = fields.Many2one('sale.order.line', string='الوحدة', domain="[('order_id', '=', sale_order)]")
     # product_id = fields.Many2one('product.template', string='الوحدة')
     sequence = fields.Integer(string='Sequence')
+    h_pickup_date = fields.Char(string='تاريخ محضر الإستلام الهجري')
+    pickup_date = fields.Date(string='تاريخ محضر الإستلام')
+
+    h_return_date = fields.Char(string='تاريخ محضر التسليم الهجري')
+    return_date = fields.Date(string='تاريخ محضر التسليم')
+
+    wall_good = fields.Boolean('جيد')
+    wall_bad = fields.Boolean('سئ')
+    wall_none = fields.Boolean('لا يوجد')
+    wall_comment = fields.Char('الملاحظات')
+    rwall_good = fields.Boolean('جيد')
+    rwall_bad = fields.Boolean('سئ')
+    rwall_none = fields.Boolean('لا يوجد')
+    rwall_comment = fields.Char('الملاحظات')
+
+    floor_good = fields.Boolean('جيد')
+    floor_bad = fields.Boolean('سئ')
+    floor_none = fields.Boolean('لا يوجد')
+    floor_comment = fields.Char('الملاحظات')
+    rfloor_good = fields.Boolean('جيد')
+    rfloor_bad = fields.Boolean('سئ')
+    rfloor_none = fields.Boolean('لا يوجد')
+    rfloor_comment = fields.Char('الملاحظات')
+
+    bath_good = fields.Boolean('جيد')
+    bath_bad = fields.Boolean('سئ')
+    bath_none = fields.Boolean('لا يوجد')
+    bath_comment = fields.Char('الملاحظات')
+    rbath_good = fields.Boolean('جيد')
+    rbath_bad = fields.Boolean('سئ')
+    rbath_none = fields.Boolean('لا يوجد')
+    rbath_comment = fields.Char('الملاحظات')
+
+    elec_good = fields.Boolean('جيد')
+    elec_bad = fields.Boolean('سئ')
+    elec_none = fields.Boolean('لا يوجد')
+    elec_comment = fields.Char('الملاحظات')
+    relec_good = fields.Boolean('جيد')
+    relec_bad = fields.Boolean('سئ')
+    relec_none = fields.Boolean('لا يوجد')
+    relec_comment = fields.Char('الملاحظات')
+
+    water_good = fields.Boolean('جيد')
+    water_bad = fields.Boolean('سئ')
+    water_none = fields.Boolean('لا يوجد')
+    water_comment = fields.Char('الملاحظات')
+    rwater_good = fields.Boolean('جيد')
+    rwater_bad = fields.Boolean('سئ')
+    rwater_none = fields.Boolean('لا يوجد')
+    rwater_comment = fields.Char('الملاحظات')
+
+    wate_good = fields.Boolean('جيد')
+    wate_bad = fields.Boolean('سئ')
+    wate_none = fields.Boolean('لا يوجد')
+    wate_comment = fields.Char('الملاحظات')
+    rwate_good = fields.Boolean('جيد')
+    rwate_bad = fields.Boolean('سئ')
+    rwate_none = fields.Boolean('لا يوجد')
+    rwate_comment = fields.Char('الملاحظات')
 
     door_good = fields.Boolean('جيد')
     door_bad = fields.Boolean('سئ')
-    door_comment = fields.Char('حدد')
-    wall_good = fields.Boolean('جيد')
-    wall_bad = fields.Boolean('سئ')
-    wall_comment = fields.Char('حدد')
-    window_good = fields.Boolean('جيد')
-    window_bad = fields.Boolean('سئ')
-    window_comment = fields.Char('حدد')
-    water_good = fields.Boolean('جيد')
-    water_bad = fields.Boolean('سئ')
-    water_comment = fields.Char('حدد')
-    elec_good = fields.Boolean('جيد')
-    elec_bad = fields.Boolean('سئ')
-    elec_comment = fields.Char('حدد')
+    door_none = fields.Boolean('لا يوجد')
+    door_comment = fields.Char('الملاحظات')
     rdoor_good = fields.Boolean('جيد')
     rdoor_bad = fields.Boolean('سئ')
-    rdoor_comment = fields.Char('حدد')
-    rwall_good = fields.Boolean('جيد')
-    rwall_bad = fields.Boolean('سئ')
-    rwall_comment = fields.Char('حدد')
+    rdoor_none = fields.Boolean('لا يوجد')
+    rdoor_comment = fields.Char('الملاحظات')
+
+    window_good = fields.Boolean('جيد')
+    window_bad = fields.Boolean('سئ')
+    window_none = fields.Boolean('لا يوجد')
+    window_comment = fields.Char('الملاحظات')
     rwindow_good = fields.Boolean('جيد')
     rwindow_bad = fields.Boolean('سئ')
-    rwindow_comment = fields.Char('حدد')
-    rwater_good = fields.Boolean('جيد')
-    rwater_bad = fields.Boolean('سئ')
-    rwater_comment = fields.Char('حدد')
-    relec_good = fields.Boolean('جيد')
-    relec_bad = fields.Boolean('سئ')
-    relec_comment = fields.Char('حدد')
+    rwindow_none = fields.Boolean('لا يوجد')
+    rwindow_comment = fields.Char('الملاحظات')
+
+    ac_good = fields.Boolean('جيد')
+    ac_bad = fields.Boolean('سئ')
+    ac_none = fields.Boolean('لا يوجد')
+    ac_comment = fields.Char('الملاحظات')
+    rac_good = fields.Boolean('جيد')
+    rac_bad = fields.Boolean('سئ')
+    rac_none = fields.Boolean('لا يوجد')
+    rac_comment = fields.Char('الملاحظات')
+
+    ii_good = fields.Boolean('جيد')
+    ii_bad = fields.Boolean('سئ')
+    ii_none = fields.Boolean('لا يوجد')
+    ii_comment = fields.Char('الملاحظات')
+    rii_good = fields.Boolean('جيد')
+    rii_bad = fields.Boolean('سئ')
+    rii_none = fields.Boolean('لا يوجد')
+    rii_comment = fields.Char('الملاحظات')
+
+    geps_good = fields.Boolean('جيد')
+    geps_bad = fields.Boolean('سئ')
+    geps_none = fields.Boolean('لا يوجد')
+    geps_comment = fields.Char('الملاحظات')
+    rgeps_good = fields.Boolean('جيد')
+    rgeps_bad = fields.Boolean('سئ')
+    rgeps_none = fields.Boolean('لا يوجد')
+    rgeps_comment = fields.Char('الملاحظات')
+
+    keys_good = fields.Boolean('جيد')
+    keys_bad = fields.Boolean('سئ')
+    keys_none = fields.Boolean('لا يوجد')
+    keys_comment = fields.Char('الملاحظات')
+    rkeys_good = fields.Boolean('جيد')
+    rkeys_bad = fields.Boolean('سئ')
+    rkeys_none = fields.Boolean('لا يوجد')
+    rkeys_comment = fields.Char('الملاحظات')
+
+    other_good = fields.Boolean('جيد')
+    other_bad = fields.Boolean('سئ')
+    other_none = fields.Boolean('لا يوجد')
+    other_comment = fields.Char('الملاحظات')
+    rother_good = fields.Boolean('جيد')
+    rother_bad = fields.Boolean('سئ')
+    rother_none = fields.Boolean('لا يوجد')
+    rother_comment = fields.Char('الملاحظات')
+
+    il_good = fields.Boolean('تم')
+    il_bad = fields.Boolean('لم يتم')
+    il_none = fields.Boolean('لا يوجد')
+    il_comment = fields.Char('الملاحظات')
+    ril_good = fields.Boolean('تم')
+    ril_bad = fields.Boolean('لم يتم')
+    ril_none = fields.Boolean('لا يوجد')
+    ril_comment = fields.Char('الملاحظات')
+
     customer_accept = fields.Boolean('نعم')
     customer_refused = fields.Boolean('لا')
     notes = fields.Text('الملاحظات')
@@ -237,3 +358,7 @@ class RentSalestats(models.Model):
     amount_rem = fields.Float('المبلغ المتبقي')
     iselec_remain = fields.Boolean('نعم')
     isnotelec_remain = fields.Boolean('لا')
+    recent_electricity = fields.Char('قراءة عداد الكهرباء الحالية')
+    recent_water = fields.Char('قراءة عداد المياه الحالية')
+    rrecent_electricity = fields.Char('قراءة عداد الكهرباء الحالية')
+    rrecent_water = fields.Char('قراءة عداد المياه الحالية')

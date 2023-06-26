@@ -12,6 +12,7 @@
                 </xpath>
 
                 <xpath expr="// field [@ name = 'order_line'] / tree / field [@ name = 'name']" position="after">
+                    <field name="line_sequence" attrs="{'invisible': [('parent.plus_year', '=', False)]}"/>
                     <field name="year_number" attrs="{'invisible': [('parent.plus_year', '=', False)]}"/>
                     <field name="fromdate" attrs="{'invisible': [('parent.plus_year', '=', False)]}"/>
                     <field name="todate" attrs="{'invisible': [('parent.plus_year', '=', False)]}"/>
@@ -20,6 +21,10 @@
 <!--                           options="{'no_create_edit': True}"/>-->
                 </xpath>
 
+                 <xpath expr="// field [@ name = 'order_line']/tree" position="attributes">
+                   <attribute name="default_order">line_sequence</attribute>
+
+                 </xpath>
             </field>
         </record>
 

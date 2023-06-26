@@ -3,6 +3,22 @@ from dateutil.relativedelta import relativedelta
 from odoo import models, fields, api, _
 from datetime import datetime
 from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
+
+INSURANCE_ADMIN_FEES_FIELDS = ['insurance_value', 'contract_admin_fees', 'contract_service_fees',
+                               'contract_admin_sub_fees', 'contract_service_sub_fees']
+
+
+class ConfigurationSettings(models.TransientModel):
+    _inherit = "res.config.settings"
+
+    separate = fields.Boolean(string="Separate Invoice for Additional Services")
+
+
+class UpdatedInvoice(models.Model):
+    _name = 'updated.invoice'
+
+    name = fields.Char(string='name')
 
 
 class RentSaleOrder(models.Model):
@@ -10,13 +26,20 @@ class RentSaleOrder(models.Model):
 
     contract_number = fields.Char(string='رقم العقد')
     fromdate = fields.Datetime(string='From Date', default=datetime.today(), copy=False, required=True)
-    todate = fields.Datetime(string='To Date', default=datetime.today(), copy=False, required=True)
+    todate = fields.Datetime(string='To Date', default=datetime.today(), copy=True, required=True)
     # Fields in Contract Info Tab
     order_contract = fields.Binary(string='العقد')
     invoice_terms = fields.Selection(
-        [('monthly', 'شهري'), ('qua-year', '3 شهور'), ('half-year', '6 أشهر'), ('year', 'سنوي')],
+        [('monthly', 'monthly'), ('quarterly', 'quarterly'), ('semi', 'Semi'), ('yearly', 'yearly')],
         string='Invoice Terms',
         default='monthly')
+    ejar = fields.Selection([('ejar', 'EJAR')], string='EJAR')
+    ejar_number = fields.Char(string='EJAR Contract Number')
+    ejar_date = fields.Datetime(string='EJAR Contract Date')
+    remarks_c = fields.Char(string='Remarks (Contract)')
+    file = fields.Selection([('yes', 'yes'), ('no', 'No')], string='File Completed', default='no')
+    updated_invoice = fields.Selection([('updated', 'Updated'), ('invoiced', 'Invoiced')], string='Updated Invoiced')
+    updated_invoices = fields.Many2one("updated.invoice", string='Updated Invoiced')
     order_contract_invoice = fields.One2many('rent.sale.invoices', 'sale_order_id', string='العقد')
     contract_total_payment = fields.Float(string='Total Contract')
     contract_total_fees = fields.Float(string='Total Fees')
@@ -127,20 +150,74 @@ class RentSaleOrder(models.Model):
             #     raise UserError(_('يجب كتابة عدد فواتير مناسب لمدة العقد'))
             #
 
-            for i in range(1, rec.invoice_number + 1):
+            separate = False
+            for s in rec.order_line:
+                if s.product_id.product_tmpl_id.separate:
+                    separate = True
+                    break
+            if separate:
+                lines = rec.order_line.filtered(lambda s: s.product_id.product_tmpl_id.separate == True)
+                amount = sum(lines.mapped('price_subtotal'))
+                services = lines.mapped('product_id')
 
-                total_other_amount = sum((i.insurance_value + i.contract_admin_fees + i.contract_service_fees + i.contract_admin_sub_fees + i.contract_service_sub_fees)
-                                         for i in rec.order_line)
-                taxed_total_other_amount = sum((i.contract_admin_sub_fees + i.contract_service_sub_fees) for i in rec.order_line)
+                sale_invoices = self.env['rent.sale.invoices'].create({
+                    'name': "فاتورة رقم " + "0",
+                    'sequence': 0,
+                    'separate': True,
+                    'fromdate': fromdate,
+                    'invoice_date': fromdate.date(),
+                    'todate': rec.todate,
+                    'amount': amount,
+                    'sale_order_id': rec.id,
+                    'services': services,
+                })
+            for i in range(0, rec.invoice_number + 1):
+                if separate:
+                    products = rec.order_line.filtered(
+                        lambda s: s.product_id.product_tmpl_id.separate == False).mapped('product_id')
+                    total_other_amount = sum((
+                                                     i.insurance_value + i.contract_admin_fees + i.contract_service_fees + i.contract_admin_sub_fees + i.contract_service_sub_fees)
+                                             for i in rec.order_line.filtered(
+                        lambda s: s.product_id.product_tmpl_id.separate == False))
+                    taxed_total_other_amount = sum(
+                        (i.contract_admin_sub_fees + i.contract_service_sub_fees) for i in
+                        rec.order_line.filtered(lambda s: s.product_id.product_tmpl_id.separate == False))
 
-                total_property_amount_without_tax = sum((i.product_uom_qty * i.price_unit) for i in rec.order_line)
+                    total_property_amount_without_tax = sum((i.product_uom_qty * i.price_unit) for i in
+                                                            rec.order_line.filtered(lambda
+                                                                                        s: s.product_id.product_tmpl_id.separate == False))
 
-                property_amount_per_inv = total_property_amount_without_tax / rec.invoice_number
+                    property_amount_per_inv = total_property_amount_without_tax / rec.invoice_number
 
-                total_tax_first_inv = sum((property_amount_per_inv + taxed_total_other_amount) * (tax.amount / 100) for tax in rec.order_line.tax_id )
-                total_tax = sum((property_amount_per_inv) * (tax.amount / 100) for tax in rec.order_line.tax_id )
+                    total_tax_first_inv = sum(
+                        (property_amount_per_inv + taxed_total_other_amount) * (tax.amount / 100) for tax in
+                        rec.order_line.filtered(lambda s: s.product_id.product_tmpl_id.separate == False).tax_id)
+                    total_tax = sum((property_amount_per_inv) * (tax.amount / 100) for tax in rec.order_line.tax_id)
+                else:
+                    products = rec.order_line.mapped('product_id')
+                    total_other_amount = sum((
+                                                     i.insurance_value + i.contract_admin_fees + i.contract_service_fees + i.contract_admin_sub_fees + i.contract_service_sub_fees)
+                                             for i in rec.order_line)
+                    taxed_total_other_amount = sum(
+                        (i.contract_admin_sub_fees + i.contract_service_sub_fees) for i in rec.order_line)
 
-                todate = fromdate + relativedelta(days=diff)
+                    total_property_amount_without_tax = sum((i.product_uom_qty * i.price_unit) for i in rec.order_line)
+
+                    property_amount_per_inv = total_property_amount_without_tax / rec.invoice_number
+
+                    total_tax_first_inv = sum(
+                        (property_amount_per_inv + taxed_total_other_amount) * (tax.amount / 100) for tax in
+                        rec.order_line.tax_id)
+                    total_tax = sum((property_amount_per_inv) * (tax.amount / 100) for tax in rec.order_line.tax_id)
+
+                if rec.invoice_terms == "monthly":
+                    todate = fromdate + relativedelta(months=1) - relativedelta(days=1)
+                if rec.invoice_terms == "quarterly":
+                    todate = fromdate + relativedelta(months=3) - relativedelta(days=1)
+                if rec.invoice_terms == "semi":
+                    todate = fromdate + relativedelta(months=6) - relativedelta(days=1)
+                if rec.invoice_terms == "yearly":
+                    todate = fromdate + relativedelta(years=1) - relativedelta(days=1)
 
                 if i == 1:
                     amount = property_amount_per_inv + total_other_amount + total_tax_first_inv
@@ -150,27 +227,39 @@ class RentSaleOrder(models.Model):
                     amount = property_amount_per_inv + total_tax
                 if amount > 0:
                     sale_invoices = self.env['rent.sale.invoices'].create({
-                        'name': "فاتورة رقم " + str(i),
+                        'name': "فاتورة رقم " + str(i + 1),
                         'sequence': i,
                         'fromdate': fromdate,
+                        'invoice_date': fromdate.date(),
                         'todate': rec.todate if rec.invoice_number == i else todate,
                         'amount': amount,
                         'sale_order_id': rec.id,
+                        'services': products,
                     })
                 fromdate = todate + relativedelta(days=1)
 
-    @api.onchange("fromdate", "todate")
+    @api.onchange("fromdate", "todate", "invoice_terms")
     def onchang_contract_dates(self):
         self.get_invoice_number()
 
     def get_invoice_number(self):
-        diff = relativedelta(self.todate, self.fromdate)
-        m = month = 0
-        if diff.years != 0:
-            m = diff.years * 12
-        if diff.months != 0:
-            month = diff.months
-        self.invoice_number = month + m
+        for rec in self:
+            todate = rec.todate + relativedelta(days=1)
+            diff = relativedelta(todate, rec.fromdate)
+            m = month = 0
+            if diff.years != 0:
+                m = diff.years * 12
+            if diff.months != 0:
+                month = diff.months
+            months = m + month
+            if rec.invoice_terms == "monthly":
+                rec.invoice_number = month + m
+            if rec.invoice_terms == "quarterly":
+                rec.invoice_number = months / 3
+            if rec.invoice_terms == "semi":
+                rec.invoice_number = months / 6
+            if rec.invoice_terms == "yearly":
+                rec.invoice_number = diff.years
 
     def action_confirm(self):
         if self.invoice_number == 0:
@@ -187,7 +276,7 @@ class RentSaleOrder(models.Model):
     no_of_invoiced_amount = fields.Float(string="المبالغ المفوترة", compute="compute_no_invoiced", store=True)
     no_of_not_invoiced_amount = fields.Float(string="المبالغ الغير مفوترة", compute="compute_no_invoiced", store=True)
 
-    @api.depends('order_contract_invoice.status','order_contract_invoice.amount')
+    @api.depends('order_contract_invoice.status', 'order_contract_invoice.amount')
     def compute_no_invoiced(self):
         for order in self:
             order.no_of_invoiced = 0
@@ -195,9 +284,11 @@ class RentSaleOrder(models.Model):
             order.no_of_invoiced_amount = 0
             order.no_of_not_invoiced_amount = 0
             order.no_of_invoiced = len(order.order_contract_invoice.filtered(lambda s: s.status == 'invoiced'))
-            order.no_of_invoiced_amount = sum(order.order_contract_invoice.filtered(lambda s: s.status == 'invoiced').mapped('amount'))
+            order.no_of_invoiced_amount = sum(
+                order.order_contract_invoice.filtered(lambda s: s.status == 'invoiced').mapped('amount'))
             order.no_of_not_invoiced = len(order.order_contract_invoice.filtered(lambda s: s.status == 'uninvoiced'))
-            order.no_of_not_invoiced_amount = sum(order.order_contract_invoice.filtered(lambda s: s.status == 'uninvoiced').mapped('amount'))
+            order.no_of_not_invoiced_amount = sum(
+                order.order_contract_invoice.filtered(lambda s: s.status == 'uninvoiced').mapped('amount'))
 
     @api.depends('order_contract_invoice.status')
     def _compute_full_invoiced(self):
@@ -308,11 +399,94 @@ class RentSaleOrder(models.Model):
     #
     #     return res
 
+    # @api.model
+    # def create_invoices_cron(self):
+    #     for i in self.env['sale.order'].search([]):
+    #         if i.order_contract_invoice:
+    #             for rec in i.order_contract_invoice:
+    #                 if rec.fromdate.date() == fields.Date.today() and rec.status == "uninvoiced":
+    #                     invoice_lines = []
+    #                     invoiceable_lines = i.order_line
+    #                     if rec.sequence == 1:
+    #                         seq = 0
+    #                         for type in INSURANCE_ADMIN_FEES_FIELDS:
+    #                             seq += 1
+    #                             fees_sum = rec._prepare_invoice_line_insurance_admin_fees_sum(type, seq)
+    #                             if fees_sum.get('name', False):
+    #                                 invoice_lines.append([0, 0, fees_sum])
+    #                     for line in invoiceable_lines:
+    #                         invoice_lines.append([0, 0, rec._prepare_invoice_line(line)])
+    #                         if rec.sequence == 1:
+    #                             seq = 0
+    #                             for type in INSURANCE_ADMIN_FEES_FIELDS:
+    #                                 seq += 1
+    #                                 if line.mapped(type)[0] > 0:
+    #                                     invoice_lines.append(
+    #                                         [0, 0, rec._prepare_invoice_line_insurance_admin_fees(type, line, seq)])
+    #
+    #                     vals = rec._prepare_invoice(invoice_lines)
+    #                     print(vals)
+    #                     invoice = self.env['account.move'].create(vals)
+    #                     rec.invoice_date = fields.Date.today()
+    #                     rec.status = 'invoiced'
+    #                     return invoice
+
+    def create_invoices_button(self):
+        for i in self:
+            if i.order_contract_invoice:
+
+                separate = False
+                for s in i.order_contract_invoice:
+                    if s.separate:
+                        separate = True
+                        break
+
+                for rec in i.order_contract_invoice:
+                    if rec.status == "uninvoiced":
+                        invoice_lines = []
+                        if separate:
+                            if rec.separate:
+                                invoiceable_lines = i.order_line.filtered(
+                                    lambda s: s.product_id.product_tmpl_id.separate == True)
+                            else:
+                                invoiceable_lines = i.order_line.filtered(
+                                    lambda s: s.product_id.product_tmpl_id.separate == False)
+                        else:
+                            invoiceable_lines = i.order_line
+
+                        # invoice_lines = []
+                        # invoiceable_lines = i.order_line
+                        if rec.sequence == 1:
+                            seq = 0
+                            for type in INSURANCE_ADMIN_FEES_FIELDS:
+                                seq += 1
+                                fees_sum = rec._prepare_invoice_line_insurance_admin_fees_sum(type, seq)
+                                if fees_sum.get('name', False):
+                                    invoice_lines.append([0, 0, fees_sum])
+                        for line in invoiceable_lines:
+                            invoice_lines.append([0, 0, rec._prepare_invoice_line(line)])
+                            if rec.sequence == 1:
+                                seq = 0
+                                for type in INSURANCE_ADMIN_FEES_FIELDS:
+                                    seq += 1
+                                    if line.mapped(type)[0] > 0:
+                                        invoice_lines.append(
+                                            [0, 0, rec._prepare_invoice_line_insurance_admin_fees(type, line, seq)])
+
+                        vals = rec._prepare_invoice(invoice_lines)
+                        print(vals)
+                        self.env['account.move'].create(vals)
+                        rec.status = 'invoiced'
+
 
 class RentSaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     property_number = fields.Many2one('rent.property', string='العقار')
+    property_analytic_account = fields.Many2one('account.analytic.account', string='الحساب التحليلي',
+                                                related='property_number.analytic_account')
+    analytic_account = fields.Many2one('account.analytic.account', string='الحساب التحليلي',
+                                       related='product_id.product_tmpl_id.analytic_account')
     pickup_date = fields.Datetime(string="Pickup", related='order_id.fromdate', store=True)
     return_date = fields.Datetime(string="Return", related='order_id.todate', store=True)
     insurance_value = fields.Float(string='قيمة التأمين')
@@ -320,6 +494,39 @@ class RentSaleOrderLine(models.Model):
     contract_service_fees = fields.Float(string='رسوم الخدمات')
     contract_admin_sub_fees = fields.Float(string='رسوم ادارية خاضعة')
     contract_service_sub_fees = fields.Float(string='رسوم الخدمات خاضعة')
+    # Rental Additional Service
+    rent_ok = fields.Boolean(related='product_id.product_tmpl_id.rent_ok')
+    rent_product_id = fields.Many2one(comodel_name="product.product")
+    rental_pricing_id = fields.Many2one(comodel_name="rental.pricing", string="Rental Pricing",
+                                        domain="[('product_template_id','=',product_template_id)]")
+
+    def action_get_service(self):
+        # for order_line in self.order_id.order_line:
+        #     if order_line.rent_product_id.id == self.product_id.id:
+        #         order_line.unlink()
+
+        sequence = self.line_sequence
+        print("/////////////////sequencesequence==111111===",sequence)
+        for rec in self.rental_pricing_id.service_ids:
+            if rec.type == 'amount':
+                price = rec.percentage
+            if rec.type == 'percentage':
+                price = self.price_unit * (rec.percentage / 100)
+
+            sequence = sequence + 1
+
+            self.env['sale.order.line'].sudo().create(
+                {
+                    'sequence': sequence,
+                    'line_sequence': sequence,
+                    'product_uom_qty': 1,
+                    'product_id': rec.service_id.product_variant_id.id,
+                    'name': rec.service_id.product_variant_id.name,
+                    'order_id': self.order_id.id,
+                    'analytic_account': self.analytic_account.id,
+                    'price_unit': price,
+                    'rent_product_id': self.product_id.id,
+                })
 
     @api.depends('product_uom_qty', 'discount', 'price_unit', 'tax_id')
     def _compute_amount(self):
@@ -343,3 +550,10 @@ class RentSaleOrderLine(models.Model):
                     'account.group_account_manager'):
                 line.tax_id.invalidate_cache(['invoice_repartition_line_ids'], [line.tax_id.id])
 
+    @api.onchange('product_id')
+    def check_rental_details(self):
+        if self.product_id.product_tmpl_id.rent_ok:
+            self.is_rental = True
+            for pricing_unit in self.product_id.product_tmpl_id.rental_pricing_ids:
+                self.rental_pricing_id = pricing_unit
+                break
