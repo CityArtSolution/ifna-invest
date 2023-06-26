@@ -1,0 +1,57 @@
+<odoo>
+    <record id="crm_lead_view_form_inherit_form_view" model="ir.ui.view">
+        <field name="name">crm_lead_view_form_inherit_form_view</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="property"/>
+                <field name="product_id"
+                       domain="[('product_tmpl_id.property_id','=',property),('product_tmpl_id.state_id','=','شاغرة')]"/>
+                <field name="property_date"/>
+            </xpath>
+            <xpath expr="//field[@name='source_id']" position="attributes">
+                <attribute name="string">تصنيف العميل</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="crm_case_tree_view_oppor_inherit_tree_view" model="ir.ui.view">
+        <field name="name">crm_case_tree_view_oppor_inherit_tree_view</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='contact_name']" position="after">
+                <field name="property"/>
+                <field name="product_id"/>
+                <field name="property_date"/>
+            </xpath>
+            <xpath expr="//field[@name='source_id']" position="attributes">
+                <attribute name="string">تصنيف العميل</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="crm_case_kanban_view_leads_inherit_kanban_view" model="ir.ui.view">
+        <field name="name">crm_case_kanban_view_leads_inherit_kanban_view</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[3]" position="after">
+                <div class="o_kanban_record_subtitle">
+                    <strong>
+                        <field name="property"/>
+                    </strong>
+                </div>
+                <div class="o_kanban_record_subtitle">
+                    <strong>
+                        <field name="product_id"/>
+                    </strong>
+                </div>
+                <div class="o_kanban_record_subtitle">
+                    <strong>
+                        <field name="property_date"/>
+                    </strong>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

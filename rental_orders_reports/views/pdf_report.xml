@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+                id="rent_orders_report"
+                model="rent.wiz"
+                string="Tenants Report"
+                report_type="qweb-pdf"
+                name="rental_orders_reports.rent_orders_report_template"
+                file="rental_orders_reports.rent_orders_report_template"
+        />
+        <template id="rent_orders_report_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <style type="text/css">
+                                table.supplier {
+                                <!--                                font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;-->
+                                font-family: "Times New Roman", Times, serif;
+                                border-collapse: collapse;
+                                width: 100%;
+                                text-align : center;
+                                margin :auto;
+                                }
+
+                                table.supplier td, table.supplier th {
+                                border: 1px solid #080005;
+                                padding: 8px;
+                                }
+
+                                table.supplier tr:nth-child(even){background-color: #e9ecef;}
+
+                                table.supplier tr:hover {background-color: #ddd;}
+
+                                table.supplier th {
+                                padding-top: 12px;
+                                padding-bottom: 12px;
+                                text-align: left;
+                                background-color: #CFE390 ;
+                                color: black;
+                                text-align : center;
+                                }
+
+                                table.asd td, table.asd th {
+                                border: 1px solid #080005;
+                                padding: 8px;
+                                }
+                                table.asd th {
+                                background-color: #C6EDF9 ;
+                                }
+
+
+                            </style>
+
+                            <div margin="0 auto" padding-top="0">
+                                <span width="30%" align="center">
+                                    <h4>
+                                        <u>Tenants Report</u>
+                                    </h4>
+                                </span>
+                            </div>
+                            <br/>
+                            <div class="text-center">
+                                <table width="100%" class="supplier">
+                                    <thead>
+                                        <tr align="center">
+                                            <td colspan="8" style="background-color: #F7CD86;"><strong>New Tenants</strong></td>
+
+                                        </tr>
+                                        <tr>
+                                            <th>Serial</th>
+                                            <th>Contract Number</th>
+                                            <th>Compound</th>
+                                            <th>Villa</th>
+                                            <th>Customer</th>
+                                            <th>Untaxed Amount</th>
+                                            <th>Rent Value</th>
+                                            <th>Contract Start Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-set="counter" t-value="0"/>
+                                        <tr t-foreach='o.report_data' t-as='line'>
+                                            <t t-set="counter" t-value="counter+1"/>
+                                            <td>
+                                                <span t-esc="counter"/>
+                                            </td>
+                                            <td width="10%">
+                                                <h6>
+                                                    <field t-field="line.contract_no"/>
+                                                </h6>
+                                            </td>
+                                            <td>
+                                                <h6>
+                                                    <field t-field="line.compound_id.property_name"/>
+                                                </h6>
+                                            </td>
+                                            <td>
+                                                <h6>
+                                                    <field t-field="line.villa.name"/>
+                                                </h6>
+                                            </td>
+                                            <td width="30%">
+                                                <h6>
+                                                    <field t-field="line.partner_id.name"/>
+                                                </h6>
+                                            </td>
+                                            <td>
+                                                <h6>
+                                                    <field t-field="line.untaxed_amount"/>
+                                                </h6>
+                                            </td>
+                                            <td>
+                                                <h6>
+                                                    <field t-field="line.rent_value"/>
+                                                </h6>
+                                            </td>
+                                            <td>
+                                                <h6>
+                                                    <field t-field="line.contract_start_date"/>
+                                                </h6>
+                                            </td>
+
+
+                                        </tr>
+                                        <!--                                        <tr>-->
+
+                                        <!--                                            <td>-->
+                                        <!--                                                <b>-->
+                                        <!--                                                    <field t-field="o.num_word_amount"/>-->
+                                        <!--                                                </b>-->
+                                        <!--                                            </td>-->
+                                        <!--                                            <td>-->
+                                        <!--                                                <span style="margin-right: 15px;">-->
+                                        <!--                                                    <b>Total</b>-->
+                                        <!--                                                </span>-->
+                                        <!--                                            </td>-->
+                                        <!--                                            <td>-->
+                                        <!--                                                <b>-->
+                                        <!--                                                    <t t-esc="sum(o.mapped('invoice_line_ids.quantity'))"/>-->
+                                        <!--                                                </b>-->
+                                        <!--                                            </td>-->
+                                        <!--                                            <td>-->
+
+                                        <!--                                            </td>-->
+                                        <!--                                            <td>-->
+                                        <!--                                                <b>-->
+                                        <!--                                                    <t t-esc="sum(o.mapped('invoice_line_ids.price_unit'))"/>-->
+                                        <!--                                                </b>-->
+                                        <!--                                            </td>-->
+                                        <!--                                            <td>-->
+                                        <!--                                                <b>-->
+                                        <!--                                                    <t t-esc="sum(o.mapped('invoice_line_ids.price_total'))"/>-->
+                                        <!--                                                </b>-->
+                                        <!--                                            </td>-->
+                                        <!--                                        </tr>-->
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <p style="page-break-after:always;"></p>
+                            <div class="text-center">
+                                <table width="100%" class="supplier">
+                                    <thead>
+                                        <tr align="center">
+                                            <td colspan="8" style="background-color: #F7CD86;"><strong>Tenants Left</strong></td>
+
+                                        </tr>
+                                        <tr>
+                                            <th>Serial</th>
+                                            <th>Contract Number</th>
+                                            <th>Compound</th>
+                                            <th>Villa</th>
+                                            <th>Customer</th>
+                                            <th>Return Date</th>
+                                            <th>Return Reason</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-set="counter" t-value="0"/>
+                                        <tr t-foreach='o.report_data' t-as='line'>
+                                            <t t-set="counter" t-value="counter+1"/>
+                                            <td>
+                                                <span t-esc="counter"/>
+                                            </td>
+                                            <td width="10%">
+                                                <h6>
+                                                    <field t-field="line.contract_no"/>
+                                                </h6>
+                                            </td>
+                                            <td>
+                                                <h6>
+                                                    <field t-field="line.compound_id.property_name"/>
+                                                </h6>
+                                            </td>
+                                            <td>
+                                                <h6>
+                                                    <field t-field="line.villa.name"/>
+                                                </h6>
+                                            </td>
+                                            <td width="30%">
+                                                <h6>
+                                                    <field t-field="line.partner_id.name"/>
+                                                </h6>
+                                            </td>
+                                            <td>
+                                                <h6>
+                                                    <field t-field="line.return_date"/>
+                                                </h6>
+                                            </td>
+                                            <td>
+                                                <h6>
+                                                    <field t-field="line.return_reason"/>
+                                                </h6>
+                                            </td>
+
+
+                                        </tr>
+                                        <!--                                        <tr>-->
+
+                                        <!--                                            <td>-->
+                                        <!--                                                <b>-->
+                                        <!--                                                    <field t-field="o.num_word_amount"/>-->
+                                        <!--                                                </b>-->
+                                        <!--                                            </td>-->
+                                        <!--                                            <td>-->
+                                        <!--                                                <span style="margin-right: 15px;">-->
+                                        <!--                                                    <b>Total</b>-->
+                                        <!--                                                </span>-->
+                                        <!--                                            </td>-->
+                                        <!--                                            <td>-->
+                                        <!--                                                <b>-->
+                                        <!--                                                    <t t-esc="sum(o.mapped('invoice_line_ids.quantity'))"/>-->
+                                        <!--                                                </b>-->
+                                        <!--                                            </td>-->
+                                        <!--                                            <td>-->
+
+                                        <!--                                            </td>-->
+                                        <!--                                            <td>-->
+                                        <!--                                                <b>-->
+                                        <!--                                                    <t t-esc="sum(o.mapped('invoice_line_ids.price_unit'))"/>-->
+                                        <!--                                                </b>-->
+                                        <!--                                            </td>-->
+                                        <!--                                            <td>-->
+                                        <!--                                                <b>-->
+                                        <!--                                                    <t t-esc="sum(o.mapped('invoice_line_ids.price_total'))"/>-->
+                                        <!--                                                </b>-->
+                                        <!--                                            </td>-->
+                                        <!--                                        </tr>-->
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <p style="page-break-after:always;"></p>
+                             <div class="text-center">
+                                <table width="100%" class="supplier">
+                                    <thead>
+                                        <tr align="center">
+                                            <td colspan="8" style="background-color: #F7CD86;"><strong>Units</strong></td>
+
+                                        </tr>
+                                        <tr>
+                                            <th>Compound</th>
+                                            <th>Total</th>
+                                            <th>occupied</th>
+                                            <th>empty</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+<!--                                        <t t-set="counter" t-value="0"/>-->
+                                        <tr t-foreach='o.compound_data' t-as='line'>
+<!--                                            <t t-set="counter" t-value="counter+1"/>-->
+<!--                                            <td>-->
+<!--                                                <span t-esc="counter"/>-->
+<!--                                            </td>-->
+                                            <td >
+                                                <h6>
+                                                    <field t-field="line.compound_id.property_name"/>
+                                                </h6>
+                                            </td>
+                                            <td>
+                                                <h6>
+                                                    <field t-field="line.total"/>
+                                                </h6>
+                                            </td>
+                                            <td>
+                                                <h6>
+                                                    <field t-field="line.occupied"/>
+                                                </h6>
+                                            </td>
+                                            <td >
+                                                <h6>
+                                                    <field t-field="line.empty"/>
+                                                </h6>
+                                            </td>
+
+
+
+                                        </tr>
+                                        <tr>
+                                            <td style="background-color: #F7CD86;color: red;">Total Number Of Units</td>
+                                            <td style="background-color: #F6E406;color: red;">
+                                                <h6>
+                                                    <field t-field="o.total_total"/>
+                                                </h6>
+                                            </td>
+                                            <td style="background-color: #F6E406;color: red;">
+                                                <h6>
+                                                    <field t-field="o.total_occupied"/>
+                                                </h6>
+                                            </td>
+                                            <td style="background-color: #F6E406;color: red;">
+                                                <h6>
+                                                    <field t-field="o.total_empty"/>
+                                                </h6>
+                                            </td>
+                                        </tr>
+                                        <!--                                        <tr>-->
+
+                                        <!--                                            <td>-->
+                                        <!--                                                <b>-->
+                                        <!--                                                    <field t-field="o.num_word_amount"/>-->
+                                        <!--                                                </b>-->
+                                        <!--                                            </td>-->
+                                        <!--                                            <td>-->
+                                        <!--                                                <span style="margin-right: 15px;">-->
+                                        <!--                                                    <b>Total</b>-->
+                                        <!--                                                </span>-->
+                                        <!--                                            </td>-->
+                                        <!--                                            <td>-->
+                                        <!--                                                <b>-->
+                                        <!--                                                    <t t-esc="sum(o.mapped('invoice_line_ids.quantity'))"/>-->
+                                        <!--                                                </b>-->
+                                        <!--                                            </td>-->
+                                        <!--                                            <td>-->
+
+                                        <!--                                            </td>-->
+                                        <!--                                            <td>-->
+                                        <!--                                                <b>-->
+                                        <!--                                                    <t t-esc="sum(o.mapped('invoice_line_ids.price_unit'))"/>-->
+                                        <!--                                                </b>-->
+                                        <!--                                            </td>-->
+                                        <!--                                            <td>-->
+                                        <!--                                                <b>-->
+                                        <!--                                                    <t t-esc="sum(o.mapped('invoice_line_ids.price_total'))"/>-->
+                                        <!--                                                </b>-->
+                                        <!--                                            </td>-->
+                                        <!--                                        </tr>-->
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+
+    </data>
+</odoo>
+
+
+

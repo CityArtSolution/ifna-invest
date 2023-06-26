@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="report_invoices_without_table">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="lang" t-value="o.partner_id.lang"/>
+                    <t t-call="invoice_report_edit.odoo_report_invoice_document_abnaa" t-lang="lang"/>
+                </t>
+            </t>
+        </template>
+
+        <template id="odoo_report_invoice_document_abnaa">
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"></t>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+
+            <!--            <div id="external_layout_header" class="header">-->
+            <!--                <div class="container-fluid" style="font-family: Almarai;">-->
+            <!--                    <div class="row" style="direction: rtl;">-->
+            <!--                        <div class="col-4" style="text-align: center;">-->
+            <!--                            <h4 t-field="company.name"/>-->
+            <!--                            <span>الرقم الضريبي: <span t-field="company.vat"/></span>-->
+            <!--                            <br/>-->
+            <!--                            <span> س.ت: <span t-field="company.company_registry"/></span>-->
+            <!--                        </div>-->
+            <!--                        <div class="col-4" style="text-align: center;">-->
+            <!--                            <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)" style="height: 100px;" />-->
+            <!--                        </div>-->
+            <!--                        <div class="col-4" style="text-align: center;">-->
+            <!--                            <h4 t-field="company.other_name"/>-->
+            <!--                            <span>VAT No.<span t-field="company.vat"/></span>-->
+            <!--                            <br/>-->
+            <!--                            <span> C.R: <span t-field="company.company_registry"/></span>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
+
+            <!--            <div class="footer o_standard_footer">-->
+            <!--                <div class="text-center" style="border-top: 1px solid black;direction: rtl;">-->
+            <!--                    <div class="row" style="font-family: Almarai;">-->
+            <!--                        <div class="col-12" style="width: 100%;text-align: center;">-->
+            <!--                            <ul class="" style="margin-right: -50px; ">-->
+            <!--                                <li class="list-inline-item d-inline">المملكة العربية السعودية</li>-->
+            <!--                                <li class="list-inline-item d-inline"> - </li>-->
+            <!--                                <li class="list-inline-item d-inline">الرياض</li>-->
+            <!--                                <li class="list-inline-item d-inline"> - </li>-->
+            <!--                                <li class="list-inline-item d-inline"><span t-field="company.street"/></li>-->
+            <!--                                <li class="list-inline-item d-inline"> - </li>-->
+            <!--                                <li class="list-inline-item d-inline"><span t-field="company.street2"/> </li>-->
+            <!--                                <br/>-->
+            <!--                                <li class="list-inline-item d-inline">الرمز البريدي:</li>-->
+            <!--                                <li class="list-inline-item d-inline"><span t-field="company.zip"/></li>-->
+            <!--                                <li class="list-inline-item d-inline"> - </li>-->
+            <!--                                <li class="list-inline-item d-inline">جوال:</li>-->
+            <!--                                <li class="list-inline-item d-inline"><span t-field="company.phone"/></li>-->
+            <!--                                <li class="list-inline-item d-inline"> - </li>-->
+            <!--                                <li class="list-inline-item d-inline">البريد الالكتروني:</li>-->
+            <!--                                <li class="list-inline-item d-inline"><span t-field="company.email"/></li>-->
+            <!--                            </ul>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
+
+
+            <t t-call="web.basic_layout">
+                <div class="page" style="font-family:Cambria!important;">
+
+                    <div class="row" style="align:right;float:right;">
+                        <div class="col-10">
+                            <div class="col-6">
+                                <table class="table table-sm table-borderless">
+                                    <colgroup>
+                                        <col width='50%'/>
+                                        <col width='50%'/>
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: left;padding:0px">
+                                                <span>Ref:</span>
+                                            </td>
+                                            <td style="text-align: left;vertical-align: middle;padding:0px">
+                                                <strong t-field="o.name"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left;padding:0px">
+                                                <span>Date:</span>
+                                            </td>
+                                            <td style="text-align: left;vertical-align: middle;padding:0px">
+                                                <strong t-field="o.invoice_date"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <!-- customer info -->
+                    <div class="row">
+                        <div class="col-6">
+                            <table class="table table-sm table-borderless">
+                                <colgroup>
+                                    <col width='30%'/>
+                                    <col width='40%'/>
+                                    <col width='30%'/>
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <td style="text-align:left;padding:0px;">
+                                            <b>
+                                                <i>
+                                                    <span t-field="o.partner_id.name"/>
+                                                </i>
+                                            </b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left;padding:0px;">
+                                            <span t-field="o.partner_id.city"/>,
+                                            <span t-field="o.partner_id.country_id.name"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <h3>
+                        <div>
+                            <div style="text-align:center; align:center">
+                                <span style="color:red;border-bottom: 3px double; text-align: center;">
+                                    Invoice
+                                </span>
+                            </div>
+                        </div>
+                    </h3>
+
+                    <br/>
+                    <table class="table table-sm table-borderless">
+                        <colgroup>
+                            <col width='70%'/> <!--Description-->
+                            <col width='30%'/> <!--Unit Price-->
+                        </colgroup>
+                        <tbody class="invoice_tbody">
+                            <t t-set="total_amount" t-value="0"/>
+                            <tr t-foreach="o.invoice_line_ids" t-as="l">
+                                <td class="text-left">
+                                    <span t-field="l.product_id.property_id.property_address_area.name"/>,<span
+                                        t-field="l.product_id.property_id.property_name"/>(<span
+                                        t-field="l.product_id.rent_config_unit_finish_id.unit_finish_name"/>)
+                                    <br/>
+                                    <span t-field="l.product_id.name"/>
+                                    <br/>
+                                    <span t-field="l.product_id.description_sale"/>,
+                                </td>
+                                <td class="text-left">
+                                    <span t-field="l.price_unit" t-field-options='{"widget": "monetary"}'/>
+                                </td>
+                                <t t-set="total_amount" t-value="total_amount + l.price_subtotal"/>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="row">
+                        <div class="col-10">
+                            <table class="table table-borderless">
+                                <colgroup>
+                                    <col width='80%'/>
+                                    <col width='20%'/>
+                                </colgroup>
+                                <tr>
+                                    <td class="text-left"
+                                        style="direction: ltr;padding:0px;border-top: none!important">
+                                        <strong>Total</strong>
+                                    </td>
+                                    <td class="text-center"
+                                        style="padding:0px;border-top: 1px dashed; border-bottom: 3px double;">
+                                        <strong>
+                                            <span t-esc="'{0:,.2f}'.format(total_amount)"/>
+                                        </strong>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-10">
+                            <table class="table table-borderless">
+                                <tr>
+                                    <td class="text-left" colspan="3">
+                                        <t t-set="amo1" t-value="o._convert_num_to_text(total_amount)"/>
+                                        <strong>Amount Due:</strong>
+                                        <u>
+                                            <strong t-esc="amo1"/>
+                                        </u>
+                                    </td>
+                                </tr>
+                                <br/>
+                                <tr>
+                                    <td class="text-left" colspan="3">
+                                        <i>*** Security Deposit will be non-refundable if you cancel
+                                            reservation***
+                                        </i>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row" style="float:right;">
+                        <div class="col-20">
+                            <table class="table table-sm table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <td style="text-align: left;padding:0px">
+                                            <strong>Mazen Alhaffar</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;padding:0px">
+                                            <span>Compounds Manager</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;padding:0px">
+                                            <span>Property Division</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <div class="row">
+                        <div class="col-10">
+                            <table class="table table-sm table-borderless">
+                                <tr>
+                                    <td class="text-left" colspan="3">
+                                        <strong>NOTE:</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left" colspan="3">
+                                        <strong style="color:red;">***PLEASE ISSUE THE CHEQUE PAYABLE TO Hussein
+                                            Alireza
+                                            Sons CO. LTD
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left" colspan="3">
+                                        <strong style="color:blue;">***IF PAYING BY TRANSFER IT IS ESSENTIAL THAT
+                                            YOU EMAIL
+                                            A COPY OF THE BANK TRANSFER TO property@hha.com.sa
+                                        </strong>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <br/>
+                    <div class="row">
+                        <div class="col-10">
+                            <table class="table table-sm table-borderless">
+                                <tr>
+                                    <td class="text-left" colspan="3">
+                                        <span>ACCOUNT NO:</span>
+                                    </td>
+                                    <td class="text-left" colspan="3">
+                                        <span t-field="o.company_id.partner_id.bank_ids[0].acc_number"/>,
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left" colspan="3">
+                                        <span>IBAN NUMBER:</span>
+                                    </td>
+                                    <td class="text-left" colspan="3">
+                                        <span t-field="o.company_id.partner_id.bank_ids[0].bank_id.iban"/>,
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left" colspan="3">
+                                        <span>Swift:</span>
+                                    </td>
+                                    <td class="text-left" colspan="3">
+                                        <span t-field="o.company_id.partner_id.bank_ids[0].bank_id.swift"/>,
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left" colspan="3">
+                                        <span>Name:</span>
+                                    </td>
+                                    <td class="text-left" colspan="3">
+                                        <span t-field="o.company_id.partner_id.bank_ids[0].bank_id.name"/>,
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left" colspan="3">
+                                        <span>Bank:</span>
+                                    </td>
+                                    <td class="text-left" colspan="3">
+                                        <span t-field="o.company_id.partner_id.bank_ids[0].partner_id.name"/>,
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+
+        </template>
+
+
+        <record id="report_invoices_without_table_report" model="ir.actions.report">
+            <field name="name">Invoices abnaa</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">invoice_report_edit.report_invoices_without_table</field>
+            <field name="report_file">invoice_report_edit.report_invoices_without_table</field>
+            <field name="binding_model_id" ref="model_account_move"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

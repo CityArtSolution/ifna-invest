@@ -1,0 +1,64 @@
+<odoo>
+    <data>
+
+
+        <record id="restoration_deadline_tree_view" model="ir.ui.view">
+            <field name="name">Restoration Deadline</field>
+            <field name="model">restoration.deadline</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="restoration_deadline_action_view" model="ir.actions.act_window">
+            <field name="name">Restoration Deadline</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">restoration.deadline</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Restoration Deadline" id="rent_config_restoration_deadline_menu"
+                  parent="sale_renting.menu_rental_config"
+                  action="restoration_deadline_action_view"
+                  sequence="11"/>
+
+        <record id="offer_validity_tree_view" model="ir.ui.view">
+            <field name="name">Offer Validity</field>
+            <field name="model">offer.validity</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="offer_validity_action_view" model="ir.actions.act_window">
+            <field name="name">Offer Validity</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">offer.validity</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Additional Services" id="rent_config_offer_validity_menu"
+                  parent="sale_renting.menu_rental_config"
+                  action="offer_validity_action_view"
+                  sequence="12"/>
+
+        <record model="ir.ui.view" id="rent_sale_order_inherit_form_report">
+            <field name="name">sale_order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="renting.rent_sale_order_inherit_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='contract_number']" position="after">
+                    <field name="restoration_deadline" attrs="{'invisible':[('state','in',['draft_qu','ff_review','ceo','draft','sent'])]}"/>
+                </xpath>
+                <xpath expr="//field[@name='ejar_date']" position="after">
+                    <field name="offer_validity"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

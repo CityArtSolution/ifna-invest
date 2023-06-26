@@ -1,0 +1,33 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="rent_sale_order_inherit_form_plus_year">
+            <field name="name">sale_order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_renting.rental_order_primary_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_order']" position="after">
+                    <field name="plus_year"/>
+                    <field name="years_number" attrs="{'invisible': [('plus_year', '=', False)]}"/>
+                </xpath>
+
+                <xpath expr="// field [@ name = 'order_line'] / tree / field [@ name = 'name']" position="after">
+                    <field name="line_sequence" attrs="{'invisible': [('parent.plus_year', '=', False)]}"/>
+                    <field name="year_number" attrs="{'invisible': [('parent.plus_year', '=', False)]}"/>
+                    <field name="fromdate" attrs="{'invisible': [('parent.plus_year', '=', False)]}"/>
+                    <field name="todate" attrs="{'invisible': [('parent.plus_year', '=', False)]}"/>
+<!--                    <field name="rental_pricing_id"-->
+<!--                           attrs="{'invisible':[('is_rental','=', False)],'required':[('is_rental','=', True)]}"-->
+<!--                           options="{'no_create_edit': True}"/>-->
+                </xpath>
+
+                 <xpath expr="// field [@ name = 'order_line']/tree" position="attributes">
+                   <attribute name="default_order">line_sequence</attribute>
+
+                 </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

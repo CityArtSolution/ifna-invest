@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="notification_categ_id" model="ir.module.category">
+            <field name="name">Contract Notification</field>
+            <field name="sequence" eval="1"/>
+        </record>
+
+        <record id="notify_group" model="res.groups">
+            <field name="name">Notify User</field>
+            <field name="category_id" ref="notification_categ_id"/>
+        </record>
+
+    </data>
+</odoo>

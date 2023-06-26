@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="helpdesk.helpdesk_ticket_type_action" model="ir.actions.act_window">
+            <field name="name">Helpdesk Types</field>
+            <field name="res_model">helpdesk.ticket.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No types found. Let's create one!
+                </p>
+                <p>
+                    Types are perfect for categorizing your tickets.
+                </p>
+            </field>
+        </record>
+
+        <!--  Inherit Form View to Modify it  -->
+        <record id="helpdesk.helpdesk_ticket_type_menu" model="ir.ui.menu">
+            <field name="name">HelpDesk Types</field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="helpdesk_ticket_type_new_trr_view" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.type.new</field>
+            <field name="model">helpdesk.ticket.type</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_ticket_type_view_tree"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='name']" position="after">
+                    <!-- Add your fields or attributes here -->
+                    <field name="helpdesk_teams_ids" widget="many2many_tags"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="helpdesk_ticket_new_form_view_stock" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.new</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk_stock.helpdesk_ticket_view_form_inherit_helpdesk_stock"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_id']" position="after">
+                    <field name="analytic_account_id" attrs="{'invisible': [('product_id', '=', False)]}"/>
+                    <field name="property_id" attrs="{'invisible': [('product_id', '=', False)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="helpdesk_ticket_new_form_view" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.new</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='ticket_type_id']" position="replace">
+                    <field name="ticket_type_id" domain="[('helpdesk_teams_ids','in',team_id)]"/>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="replace">
+                    <field name="user_id" class="field_user_id" domain="[(1,'=',1)]" widget="many2one_avatar_user"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="helpdesk_ticket_new_form_view_repair" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.new</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk_repair.helpdesk_ticket_view_form_inherit_stock_user"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='use_product_repairs']" position="after">
+                    <field name="ticket_name" invisible="1"/>
+                </xpath>
+                <xpath expr="//button[@name='%(helpdesk_repair.action_repair_order_form)d']" position="replace">
+                    <button name="%(helpdesk_repair.action_repair_order_form)d" type="action"
+                            groups="stock.group_stock_user"
+                            string="Repair" attrs="{'invisible': [('use_product_repairs', '=', False)]}"
+                            context="{'default_product_id': product_id, 'default_description': ticket_name, 'default_lot_id': lot_id, 'default_partner_id': partner_id, 'default_ticket_id': id, 'default_company_id': company_id}"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
