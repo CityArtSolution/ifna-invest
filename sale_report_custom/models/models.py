@@ -3,8 +3,6 @@
 from odoo import models, fields, api
 
 
-
-
 class RestorationDeadline(models.Model):
     _name = 'restoration.deadline'
 

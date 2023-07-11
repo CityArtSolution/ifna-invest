@@ -20,8 +20,37 @@
         </t>
     </template>
 
+
+    <template id="report_header_custom" inherit_id="web.internal_layout">
+        <!-- Custom header -->
+        <xpath expr="//div[1]" position="replace">
+            <div class="header">
+<!--                <div class="row">-->
+<!--                    <div class="col-3">-->
+<!--                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>-->
+<!--                    </div>-->
+<!--                    <div class="col-2 offset-2 text-center">-->
+<!--                        <span t-esc="company.name"/>-->
+<!--                    </div>-->
+<!--                    <div class="col-2 offset-3 text-right">-->
+<!--                        <ul class="list-inline">-->
+<!--                            <li class="list-inline-item">-->
+<!--                                <span class="page"/>-->
+<!--                            </li>-->
+<!--                            <li class="list-inline-item">/</li>-->
+<!--                            <li class="list-inline-item">-->
+<!--                                <span class="topage"/>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </div>-->
+            </div>
+        </xpath>
+    </template>
+
+
     <template id="report_saleorder_document_custom">
-        <t t-call="web.external_layout">
+        <t t-call="sale_report_custom.report_header_custom">
             <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
             <t t-foreach="docs" t-as="o">
                 <div class="page">
@@ -67,7 +96,7 @@
                         من تاريخ توقيع العقد
                     </p>
 
-                    <table class="table table-borderless">
+                    <table class="table">
                         <tbody>
                             <tr>
                                 <td>
@@ -124,14 +153,16 @@
                                 </td>
                                 <td>
                                     <t t-if="o.state in ['ff_review','ceo','draft','sent','initial_contract','ffl_review','draft_contract','upload_doc','view_all_ceo_approve','ejar_upload','finance_review','sale','done','cancel']">
-<!--                                        <img src="/sale_report_custom/static/src/images/pm.png" alt=""-->
+                                                                                <img src="/sale_report_custom/static/src/images/pm.png" alt=""
+                                                                                     width="100"/>
+<!--                                        <img t-if="o.pm_user.pm" t-att-src="image_data_uri(o.pm_user.pm)"-->
 <!--                                             width="100"/>-->
-                                        <img t-if="o.pm_user.pm" t-att-src="image_data_uri(o.company_id.pm)" width="100"/>
 
                                         <br/>
-<!--                                        <img src="/sale_report_custom/static/src/images/finance.png" alt=""-->
-<!--                                             width="100"/>-->
-                                        <img t-if="o.finance_user.finance" t-att-src="image_data_uri(o.company_id.finance)" width="100"/>
+                                                                                <img src="/sale_report_custom/static/src/images/finance.png" alt=""
+                                                                                     width="100"/>
+<!--                                        <img t-if="o.finance_user.finance"-->
+<!--                                             t-att-src="image_data_uri(o.finance_user.finance)" width="100"/>-->
                                     </t>
                                 </td>
                             </tr>
