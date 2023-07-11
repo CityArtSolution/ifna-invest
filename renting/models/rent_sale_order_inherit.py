@@ -120,8 +120,6 @@ class RentSaleOrder(models.Model):
         for order in self:
             amount_untaxed = amount_tax = 0.0
             for line in order.order_line:
-                # fees_price = 0.0 fees_price = line.price_subtotal + line.insurance_value + line.contract_admin_fees
-                # + line.contract_service_fees + line.contract_admin_sub_fees + line.contract_service_sub_fees
                 amount_untaxed += line.price_subtotal
                 amount_tax += line.price_tax
             order.update({
@@ -146,9 +144,6 @@ class RentSaleOrder(models.Model):
             diff = 0
             diff = total_contract_period.days / rec.invoice_number
             diff = round(diff, 0)
-            # if abs(total_contract_period.days) % abs(rec.invoice_number) >0:
-            #     raise UserError(_('يجب كتابة عدد فواتير مناسب لمدة العقد'))
-            #
 
             separate = False
             for s in rec.order_line:
@@ -305,132 +300,6 @@ class RentSaleOrder(models.Model):
             raise UserError(_('من فضلك اكتب عدد الفواتير'))
         return result
 
-    # @api.model_create_multi
-    # def create(self, vals_list):
-    #     order_lines_list = []
-    #     res = super(RentSaleOrder, self).create(vals_list)
-    #
-    #     # if res.invoice_terms == 'monthly':
-    #     #
-    #     # elif res.invoice_terms == 'half-year':
-    #     # elif res.invoice_terms == 'qua-year':
-    #     # elif res.invoice_terms == 'year':
-    #     product_admin = self.env['product.template'].sudo().search([('name', '=', 'رسوم ادارية')])
-    #     product_admin.list_price = res.contract_admin_fees
-    #     product_admin.standard_price = res.contract_admin_fees
-    #     product_product_admin = self.env['product.product'].sudo().search([('product_tmpl_id', '=', product_admin.id)])
-    #     if res.contract_admin_fees > 0:
-    #         order_lines_list.append((0, 0, {
-    #             'name': 'رسوم ادارية',
-    #             'product_id': product_product_admin.id,
-    #             'price_unit': res.contract_admin_fees,
-    #             'is_rental': True,
-    #             'pickup_date': res.order_line[0].pickup_date,
-    #             'return_date': res.order_line[0].return_date,
-    #             'price_subtotal': res.contract_admin_fees
-    #         }))
-    #     product_service = self.env['product.template'].sudo().search([('name', '=', 'رسوم خدمات')])
-    #     product_service.list_price = res.contract_service_fees
-    #     product_service.standard_price = res.contract_service_fees
-    #     product_product_service = self.env['product.product'].sudo().search(
-    #         [('product_tmpl_id', '=', product_service.id)])
-    #     if res.contract_service_fees > 0:
-    #         order_lines_list.append((0, 0, {
-    #             'name': 'رسوم خدمات',
-    #             'product_id': product_product_service.id,
-    #             'price_unit': res.contract_service_fees,
-    #             'is_rental': True,
-    #             'pickup_date': res.order_line[0].pickup_date,
-    #             'return_date': res.order_line[0].return_date,
-    #             'price_subtotal': res.contract_service_fees
-    #         }))
-    #     product_sub_admin = self.env['product.template'].sudo().search([('name', '=', 'رسوم ادارية خاضعة')])
-    #     product_sub_admin.list_price = res.contract_admin_sub_fees
-    #     product_sub_admin.standard_price = res.contract_admin_sub_fees
-    #     product_product_sub_admin = self.env['product.product'].sudo().search(
-    #         [('product_tmpl_id', '=', product_sub_admin.id)])
-    #     if res.contract_admin_sub_fees > 0:
-    #         order_lines_list.append((0, 0, {
-    #             'name': 'رسوم ادارية خاضعة',
-    #             'product_id': product_product_sub_admin.id,
-    #             'price_unit': res.contract_admin_sub_fees,
-    #             'is_rental': True,
-    #             'pickup_date': res.order_line[0].pickup_date,
-    #             'return_date': res.order_line[0].return_date,
-    #             'price_subtotal': res.contract_admin_sub_fees
-    #         }))
-    #     product_sub_service = self.env['product.template'].sudo().search([('name', '=', 'رسوم خدمات خاضعة')])
-    #     product_sub_service.list_price = res.contract_service_sub_fees
-    #     product_sub_service.standard_price = res.contract_service_sub_fees
-    #     product_product_sub_service = self.env['product.product'].sudo().search(
-    #         [('product_tmpl_id', '=', product_sub_service.id)])
-    #     if res.contract_service_sub_fees > 0:
-    #         order_lines_list.append((0, 0, {
-    #             'name': 'رسوم خدمات خاضعة',
-    #             'product_id': product_product_sub_service.id,
-    #             'price_unit': res.contract_service_sub_fees,
-    #             'is_rental': True,
-    #             'pickup_date': res.order_line[0].pickup_date,
-    #             'return_date': res.order_line[0].return_date,
-    #             'price_subtotal': res.contract_service_sub_fees
-    #         }))
-    #     product_service = self.env['product.template'].sudo().search([('name', '=', 'تـأمين')])
-    #     product_service.list_price = res.insurance_value
-    #     product_service.standard_price = res.insurance_value
-    #     product_product_service = self.env['product.product'].sudo().search(
-    #         [('product_tmpl_id', '=', product_service.id)])
-    #
-    #     if res.insurance_value > 0:
-    #         order_lines_list.append((0, 0, {
-    #             'name': 'تـأمين',
-    #             'product_id': product_product_service.id,
-    #             'price_unit': res.insurance_value,
-    #             'is_rental': True,
-    #             'pickup_date': res.order_line[0].pickup_date,
-    #             'return_date': res.order_line[0].return_date,
-    #             'price_subtotal': res.insurance_value
-    #         }))
-    #     print(order_lines_list)
-    #     res.update({
-    #
-    #         'order_line': order_lines_list
-    #
-    #     })
-    #
-    #     return res
-
-    # @api.model
-    # def create_invoices_cron(self):
-    #     for i in self.env['sale.order'].search([]):
-    #         if i.order_contract_invoice:
-    #             for rec in i.order_contract_invoice:
-    #                 if rec.fromdate.date() == fields.Date.today() and rec.status == "uninvoiced":
-    #                     invoice_lines = []
-    #                     invoiceable_lines = i.order_line
-    #                     if rec.sequence == 1:
-    #                         seq = 0
-    #                         for type in INSURANCE_ADMIN_FEES_FIELDS:
-    #                             seq += 1
-    #                             fees_sum = rec._prepare_invoice_line_insurance_admin_fees_sum(type, seq)
-    #                             if fees_sum.get('name', False):
-    #                                 invoice_lines.append([0, 0, fees_sum])
-    #                     for line in invoiceable_lines:
-    #                         invoice_lines.append([0, 0, rec._prepare_invoice_line(line)])
-    #                         if rec.sequence == 1:
-    #                             seq = 0
-    #                             for type in INSURANCE_ADMIN_FEES_FIELDS:
-    #                                 seq += 1
-    #                                 if line.mapped(type)[0] > 0:
-    #                                     invoice_lines.append(
-    #                                         [0, 0, rec._prepare_invoice_line_insurance_admin_fees(type, line, seq)])
-    #
-    #                     vals = rec._prepare_invoice(invoice_lines)
-    #                     print(vals)
-    #                     invoice = self.env['account.move'].create(vals)
-    #                     rec.invoice_date = fields.Date.today()
-    #                     rec.status = 'invoiced'
-    #                     return invoice
-
     def create_invoices_button(self):
         for i in self:
             if i.order_contract_invoice:
@@ -454,8 +323,6 @@ class RentSaleOrder(models.Model):
                         else:
                             invoiceable_lines = i.order_line
 
-                        # invoice_lines = []
-                        # invoiceable_lines = i.order_line
                         if rec.sequence == 1:
                             seq = 0
                             for type in INSURANCE_ADMIN_FEES_FIELDS:
@@ -501,11 +368,8 @@ class RentSaleOrderLine(models.Model):
                                         domain="[('product_template_id','=',product_template_id)]")
 
     def action_get_service(self):
-        # for order_line in self.order_id.order_line:
-        #     if order_line.rent_product_id.id == self.product_id.id:
-        #         order_line.unlink()
         sequence = self.line_sequence
-        print("/////////////////sequencesequence==111111===",sequence)
+        line_year_number = self.line_year_number
         for rec in self.rental_pricing_id.service_ids:
             if rec.type == 'amount':
                 price = rec.percentage
@@ -513,11 +377,11 @@ class RentSaleOrderLine(models.Model):
                 price = self.price_unit * (rec.percentage / 100)
 
             sequence = sequence + 1
-
             self.env['sale.order.line'].sudo().create(
                 {
                     'sequence': sequence,
                     'line_sequence': sequence,
+                    'line_year_number': line_year_number,
                     'product_uom_qty': 1,
                     'product_id': rec.service_id.product_variant_id.id,
                     'name': rec.service_id.product_variant_id.name,
@@ -543,7 +407,6 @@ class RentSaleOrderLine(models.Model):
                 'price_tax': taxes['total_included'] - taxes['total_excluded'],
                 'price_total': taxes['total_included'],
                 'price_subtotal': price,
-                # 'price_subtotal': taxes['total_excluded'],
             })
             if self.env.context.get('import_file', False) and not self.env.user.user_has_groups(
                     'account.group_account_manager'):
