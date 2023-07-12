@@ -16,6 +16,7 @@ from . import rent_config_unit_types
 
 from . import rent_product_inherit
 from . import rent_property
+from . import maintenance_contract
 from . import rent_property_elevator
 from . import rent_property_maintenance
 from . import rent_rental_pricing_inherit
