@@ -105,7 +105,7 @@ class RentProductProduct(models.Model):
     # unit_maintenance_count = fields.Integer(string='Total Maintenance', compute='_get_count', readonly=True)
     unit_expenses_count = fields.Integer(string='Total Expenses', compute='_unit_expenses_count', readonly=True)
     unit_price_unit = fields.Char(string='مدة تأجير الوحدة', copy=True)
-    state_id = fields.Char(default="_get_state")
+    state_id = fields.Char(default="_get_state",store=True)
     analytic_account = fields.Many2one('account.analytic.account', copy=True, string='الحساب التحليلي', readonly=True)
     ref_analytic_account = fields.Char(string='رقم اشارة الحساب التحليلي', readonly=True)
 
@@ -212,7 +212,7 @@ class RentProduct(models.Model):
     unit_sales_count = fields.Integer(string='Total Sales', compute='_unit_sales_count', readonly=True)
     unit_price = fields.Float(string='قيمة الوحدة', compute='_get_unit_price')
     unit_price_unit = fields.Char(string='مدة تأجير الوحدة', copy=True)
-    state_id = fields.Char(default="_get_state")
+    state_id = fields.Char(default="_get_state",store=True)
     analytic_account = fields.Many2one('account.analytic.account', copy=True, string='الحساب التحليلي', readonly=True)
     ref_analytic_account = fields.Char(string='رقم اشارة الحساب التحليلي', readonly=True)
     property_analytic_account = fields.Many2one('account.analytic.account', string='الحساب التحليلي للعقار',
