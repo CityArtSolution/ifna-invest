@@ -25,25 +25,25 @@
         <!-- Custom header -->
         <xpath expr="//div[1]" position="replace">
             <div class="header">
-<!--                <div class="row">-->
-<!--                    <div class="col-3">-->
-<!--                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>-->
-<!--                    </div>-->
-<!--                    <div class="col-2 offset-2 text-center">-->
-<!--                        <span t-esc="company.name"/>-->
-<!--                    </div>-->
-<!--                    <div class="col-2 offset-3 text-right">-->
-<!--                        <ul class="list-inline">-->
-<!--                            <li class="list-inline-item">-->
-<!--                                <span class="page"/>-->
-<!--                            </li>-->
-<!--                            <li class="list-inline-item">/</li>-->
-<!--                            <li class="list-inline-item">-->
-<!--                                <span class="topage"/>-->
-<!--                            </li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <!--                <div class="row">-->
+                <!--                    <div class="col-3">-->
+                <!--                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>-->
+                <!--                    </div>-->
+                <!--                    <div class="col-2 offset-2 text-center">-->
+                <!--                        <span t-esc="company.name"/>-->
+                <!--                    </div>-->
+                <!--                    <div class="col-2 offset-3 text-right">-->
+                <!--                        <ul class="list-inline">-->
+                <!--                            <li class="list-inline-item">-->
+                <!--                                <span class="page"/>-->
+                <!--                            </li>-->
+                <!--                            <li class="list-inline-item">/</li>-->
+                <!--                            <li class="list-inline-item">-->
+                <!--                                <span class="topage"/>-->
+                <!--                            </li>-->
+                <!--                        </ul>-->
+                <!--                    </div>-->
+                <!--                </div>-->
             </div>
         </xpath>
     </template>
@@ -56,47 +56,70 @@
                 <div class="page">
                     <b>
                         <u>
-                            <h1 class="text-center">عرض سعر</h1>
+                            <h3 class="text-center">عرض سعر</h3>
                         </u>
                     </b>
                     <br/>
                     <br/>
                     <br/>
-                    <h3 style="text-align: right" class="text-right">السادة /
-                        <span t-field="o.partner_id.name"/>
-                    </h3>
+
+                    <h5 style="text-align: right;direction: rtl;" class="text-right" dir="rtl">
+                        <span>
+                            السادة /
+                        </span>
+                        <span t-field=" o.partner_id.name"/>
+                    </h5>
                     <br/>
-                    <h3 style="text-align: right" class="text-right">:السلام عليكم ورحمة
+                    <h5 style="text-align: right" class="text-right">:السلام عليكم ورحمة
                         الله وبركاته وبعد
-                    </h3>
+                    </h5>
                     <br/>
-                    <p class="text-right">
-                        أولا: نود اشعاركم بأننا نحن شركة أفناء للاستثمار، شركة متخصصة بإدارة أملاك ومرافق اوقاف الشيخ
-                        محمد عبدالله الماجد-رحمه الله-، عليه في حال وجود أي استفسار نأمل منكم التواصل معنا على البريد
-                        الالكتروني لإدارة الممتلكات لدينا، عناية الأستاذ/ عبدالله الطويل
-                        aaltaweel@afnaa.sa
+
+                    <p class="text-right" dir="rtl" style="direction: rtl;">
+                        <b>
+                            <span>أولا:</span>
+                        </b>
+                        <span>
+                            نود اشعاركم بأننا نحن شركة أفناء للاستثمار، شركة متخصصة بإدارة أملاك ومرافق اوقاف الشيخ
+                            محمد عبدالله الماجد-رحمه الله-، عليه في حال وجود أي استفسار نأمل منكم التواصل معنا على
+                            البريد
+                            الالكتروني لإدارة الممتلكات لدينا، عناية الأستاذ/ عبدالله الطويل
+                        </span>
+                        <span>
+                            aaltaweel@afnaa.sa
+                        </span>
                     </p>
                     <br/>
-                    <p class="text-right">
-                        .ثانياً: بناءً على رغبتكم باستئجار
+                    <p class="text-right" dir="rtl" style="direction: rtl;">
+                        <b>
+                            <span>ثانياً:</span>
+                        </b>
+                        <span>بناءً على رغبتكم باستئجار</span>
                         <span t-field="o.order_line[0].product_id.name"/>
-                        في
+                        <span>في</span>
                         <span t-field="o.order_line[0].property_number.property_name"/>
-                        نشكر لكم ثقتكم بشركة أفناء للاستثمار، وتجدون بالجدول ادناه أسعار إيجار المكاتب السنوية غير
-                        شاملة ضريبة القيمة المضافة وغير شاملة قيمة الخدمات
+                        <span>
+                            نشكر لكم ثقتكم بشركة أفناء للاستثمار، وتجدون بالجدول ادناه أسعار إيجار المكاتب السنوية غير
+                            شاملة ضريبة القيمة المضافة وغير شاملة قيمة الخدمات
+                        </span>
                     </p>
                     <br/>
-                    <p class="text-right">
-                        علماً بأن قيمة
+                    <p class="text-right" dir="rtl" style="direction: rtl;">
+                        <span>
+                            علماً بأن قيمة الخدمات -
+                        </span>
                         <span t-if="o.order_line[0].product_id.rental_pricing_ids and o.order_line[0].product_id.rental_pricing_ids[0].service_ids"
                               t-field="o.order_line[0].product_id.rental_pricing_ids[0].service_ids[0].name"/>
-                        من %
-                        الإيجار السنوي ، تدفع مع كل دفعة إيجارية ومهلة الترميم
+                        <span>
+                            من الإيجار السنوي ، تدفع مع كل دفعة إيجارية ومهلة الترميم
+                        </span>
                         <span t-field="o.restoration_deadline.name"/>
-                        من تاريخ توقيع العقد
+                        <span>
+                            من تاريخ توقيع العقد
+                        </span>
                     </p>
 
-                    <table class="table">
+                    <table class="text-right" style="float: right;">
                         <tbody>
                             <tr>
                                 <td>
@@ -123,7 +146,7 @@
                                                 <t t-foreach="o.order_line" t-as="line">
                                                     <t t-if="line.product_id.rent_ok == True">
                                                         <t t-set="num" t-value="num + 1"/>
-                                                        <tr>
+                                                        <tr dir="rtl" style="direction: rtl;">
                                                             <td align="center">
                                                                 <span t-field="line.price_unit"></span>
                                                             </td>
@@ -153,16 +176,16 @@
                                 </td>
                                 <td>
                                     <t t-if="o.state in ['ff_review','ceo','draft','sent','initial_contract','ffl_review','draft_contract','upload_doc','view_all_ceo_approve','ejar_upload','finance_review','sale','done','cancel']">
-                                                                                <img src="/sale_report_custom/static/src/images/pm.png" alt=""
-                                                                                     width="100"/>
-<!--                                        <img t-if="o.pm_user.pm" t-att-src="image_data_uri(o.pm_user.pm)"-->
-<!--                                             width="100"/>-->
+                                        <img src="/sale_report_custom/static/src/images/pm.png" alt=""
+                                             width="100"/>
+                                        <!--                                        <img t-if="o.pm_user.pm" t-att-src="image_data_uri(o.pm_user.pm)"-->
+                                        <!--                                             width="100"/>-->
 
                                         <br/>
-                                                                                <img src="/sale_report_custom/static/src/images/finance.png" alt=""
-                                                                                     width="100"/>
-<!--                                        <img t-if="o.finance_user.finance"-->
-<!--                                             t-att-src="image_data_uri(o.finance_user.finance)" width="100"/>-->
+                                        <img src="/sale_report_custom/static/src/images/finance.png" alt=""
+                                             width="100"/>
+                                        <!--                                        <img t-if="o.finance_user.finance"-->
+                                        <!--                                             t-att-src="image_data_uri(o.finance_user.finance)" width="100"/>-->
                                     </t>
                                 </td>
                             </tr>
@@ -170,12 +193,16 @@
                     </table>
 
                     <br/>
-                    <t t-if="o.offer_validity.name">
-                        <p class="text-right">هذا العرض صالح لمدة
-                            <span t-field="o.offer_validity.name"/>
-                            من تاريخه.
-                        </p>
-                    </t>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <p class="text-right" dir="rtl" style="direction: rtl;">
+                        <span>هذا العرض صالح لمدة</span>
+                        <span t-field="o.offer_validity.name"/>
+                        من تاريخه.
+                    </p>
 
                     <br/>
                     <b>

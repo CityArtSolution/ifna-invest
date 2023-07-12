@@ -52,7 +52,7 @@
             <field name="inherit_id" ref="renting.rent_sale_order_inherit_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='contract_number']" position="after">
-                    <field name="restoration_deadline" attrs="{'invisible':[('state','in',['draft_qu','ff_review','ceo','draft','sent'])]}"/>
+                    <field name="restoration_deadline" attrs="{'invisible':[('state','in',['draft_qu'])]}"/>
                 </xpath>
                 <xpath expr="//field[@name='ejar_date']" position="after">
                     <field name="offer_validity"/>

@@ -373,7 +373,7 @@ class RentalAdditionalService(models.Model):
         string='Type',
         default='amount')
     fixed = fields.Float()
-    percentage = fields.Float()
+    percentage = fields.Integer()
     product_id = fields.Many2one(comodel_name="product.template")
     separate = fields.Boolean(string="Separate Invoice")
     fees_type = fields.Selection([('admin', 'Admin Fee'), ('security', 'Security Deposit'), ('other', 'Other')],
@@ -407,4 +407,4 @@ class RentalAdditionalService(models.Model):
             if rec.type == 'amount':
                 rec.name = rec.service_id.name + "-" + str(rec.percentage)
             if rec.type == 'percentage':
-                rec.name = rec.service_id.name + "-" + str(rec.percentage) + "%"
+                rec.name = rec.service_id.name + "-" + str(int(rec.percentage)) + "%"
