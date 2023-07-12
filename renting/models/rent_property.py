@@ -101,7 +101,8 @@ class RentPropertyModel(models.Model):
     free_units = fields.Float(compute='_get_free', string='الوحدات الشاغرة')
     busy_ids = fields.Float()
     free_ids = fields.Float()
-
+    maintenance_contract_ids = fields.One2many(comodel_name='maintenance.contract', inverse_name='property_id', string='Maintenance Contract')
+    
     def get_ref_analytic_account(self):
         ref = ''
         if self.property_address_area.id:
