@@ -8,7 +8,8 @@ class MaintenanceContract(models.Model):
     _description = 'Maintenance Contract'
 
     vendor_id = fields.Many2one('res.partner', string='شركة الصيانة')
-    attachment_id = fields.Binary(string='عقد الصيانة', attachment=True)
+    attachment_id = fields.Many2many(
+        comodel_name='ir.attachment', string='عقد الصيانة')
     maintenance_type_id = fields.Many2one('rent.config.property.maintenance.types', string='نوع الصيانة')
     property_id = fields.Many2one(comodel_name='rent.property', string='Property')
     
