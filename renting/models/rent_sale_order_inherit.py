@@ -349,6 +349,14 @@ class RentSaleOrder(models.Model):
 class RentSaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
+    # product_id = fields.Many2one(
+    #     'product.product', string='Product',
+    #     domain="[('product_tmpl_id.property_id','=',property_number),('product_tmpl_id.state_id','=','شاغرة')]",
+    #     change_default=True, ondelete='restrict', check_company=True)  # Unrequired company
+    # product_template_id = fields.Many2one(
+    #     'product.template', string='Product Template',
+    #     related="product_id.product_tmpl_id", domain=[('sale_ok', '=', True)])
+
     property_number = fields.Many2one('rent.property', string='العقار')
     property_analytic_account = fields.Many2one('account.analytic.account', string='الحساب التحليلي',
                                                 related='property_number.analytic_account')

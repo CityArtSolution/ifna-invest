@@ -108,8 +108,8 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='order_line']/tree/field[@name='is_rental']"
                        position="after">
-                    <field name="rent_unit_area"/>
-                    <field name="rent_unit_area_price"/>
+                    <field name="rent_unit_area" optional="hide"/>
+                    <field name="rent_unit_area_price" optional="hide"/>
                 </xpath>
             </field>
         </record>
