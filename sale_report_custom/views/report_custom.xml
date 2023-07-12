@@ -198,6 +198,8 @@
                     <br/>
                     <br/>
                     <br/>
+                    <br/>
+                    <br/>
                     <p class="text-right" dir="rtl" style="direction: rtl;">
                         <span>هذا العرض صالح لمدة</span>
                         <span t-field="o.offer_validity.name"/>
