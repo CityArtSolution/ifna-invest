@@ -128,7 +128,7 @@
                                                                 <span t-field="line.price_unit"></span>
                                                             </td>
                                                             <td align="center">
-                                                                <span t-field="line.year_number"></span>
+                                                                <span t-field="line.line_year_number"></span>
                                                             </td>
                                                             <td align="center">
                                                                 الإيجار مكتب
