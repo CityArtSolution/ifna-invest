@@ -105,7 +105,7 @@ class RentProductProduct(models.Model):
     # unit_maintenance_count = fields.Integer(string='Total Maintenance', compute='_get_count', readonly=True)
     unit_expenses_count = fields.Integer(string='Total Expenses', compute='_unit_expenses_count', readonly=True)
     unit_price_unit = fields.Char(string='مدة تأجير الوحدة', copy=True)
-    state_id = fields.Char()
+    state_id = fields.Char(default="_get_state",store=True)
     analytic_account = fields.Many2one('account.analytic.account', copy=True, string='الحساب التحليلي', readonly=True)
     ref_analytic_account = fields.Char(string='رقم اشارة الحساب التحليلي', readonly=True)
 
@@ -113,8 +113,10 @@ class RentProductProduct(models.Model):
     #                                             related='property_id.analytic_account')
     # property_id = fields.Many2one('rent.property', string='عمارة', copy=True)  # Related field to Properties
 
+    @api.model
     def _get_state(self):
         for rec in self:
+            print("/////////", rec.state_id)
             rec.unit_state = 'شاغرة'
             rec.state_id = 'شاغرة'
             order = rec.env['sale.order.line'].sudo().search(
@@ -123,19 +125,23 @@ class RentProductProduct(models.Model):
                 if order[0].order_id.rental_status == 'pickup':
                     rec.state_id = 'مؤجرة'
                     rec.unit_state = 'مؤجرة'
+                    return 'مؤجرة'
                 elif order[0].order_id.rental_status == 'return':
                     rec.state_id = 'مؤجرة'
                     rec.unit_state = 'مؤجرة'
+                    return 'مؤجرة'
                 elif order[0].order_id.rental_status == 'returned':
                     rec.state_id = 'شاغرة'
                     rec.unit_state = 'شاغرة'
+                    return 'شاغرة'
                 elif order[0].order_id.rental_status == 'cancel':
                     rec.state_id = 'شاغرة'
                     rec.unit_state = 'شاغرة'
+                    return 'شاغرة'
             else:
                 rec.state_id = 'شاغرة'
                 rec.unit_state = 'شاغرة'
-
+                return 'شاغرة'
 
 class RentProduct(models.Model):
     _inherit = 'product.template'
@@ -206,7 +212,7 @@ class RentProduct(models.Model):
     unit_sales_count = fields.Integer(string='Total Sales', compute='_unit_sales_count', readonly=True)
     unit_price = fields.Float(string='قيمة الوحدة', compute='_get_unit_price')
     unit_price_unit = fields.Char(string='مدة تأجير الوحدة', copy=True)
-    state_id = fields.Char()
+    state_id = fields.Char(default="_get_state",store=True)
     analytic_account = fields.Many2one('account.analytic.account', copy=True, string='الحساب التحليلي', readonly=True)
     ref_analytic_account = fields.Char(string='رقم اشارة الحساب التحليلي', readonly=True)
     property_analytic_account = fields.Many2one('account.analytic.account', string='الحساب التحليلي للعقار',
@@ -215,6 +221,36 @@ class RentProduct(models.Model):
                                                        related='property_id.analytic_account.group_id')
     # Additional Service
     additional_service_ids = fields.One2many(comodel_name="rental.additional.service", inverse_name="product_id")
+
+    @api.model
+    def _get_state(self):
+        for rec in self:
+            print("/////////", rec.state_id)
+            rec.unit_state = 'شاغرة'
+            rec.state_id = 'شاغرة'
+            order = rec.env['sale.order.line'].sudo().search(
+                [('product_id', '=', rec.id), ('property_number', '=', rec.property_id.property_name)])
+            if order:
+                if order[0].order_id.rental_status == 'pickup':
+                    rec.state_id = 'مؤجرة'
+                    rec.unit_state = 'مؤجرة'
+                    return 'مؤجرة'
+                elif order[0].order_id.rental_status == 'return':
+                    rec.state_id = 'مؤجرة'
+                    rec.unit_state = 'مؤجرة'
+                    return 'مؤجرة'
+                elif order[0].order_id.rental_status == 'returned':
+                    rec.state_id = 'شاغرة'
+                    rec.unit_state = 'شاغرة'
+                    return 'شاغرة'
+                elif order[0].order_id.rental_status == 'cancel':
+                    rec.state_id = 'شاغرة'
+                    rec.unit_state = 'شاغرة'
+                    return 'شاغرة'
+            else:
+                rec.state_id = 'شاغرة'
+                rec.unit_state = 'شاغرة'
+                return 'شاغرة'
 
     def write(self, values):
         if 'name' in values:
@@ -254,28 +290,30 @@ class RentProduct(models.Model):
                 rec.unit_price = 0
                 rec.unit_price_unit = ''
 
-    def _get_state(self):
-        for rec in self:
-            rec.unit_state = 'شاغرة'
-            rec.state_id = 'شاغرة'
-            order = rec.env['sale.order.line'].sudo().search(
-                [('product_id', '=', rec.id), ('property_number', '=', rec.property_id.property_name)])
-            if order:
-                if order[0].order_id.rental_status == 'pickup':
-                    rec.state_id = 'مؤجرة'
-                    rec.unit_state = 'مؤجرة'
-                elif order[0].order_id.rental_status == 'return':
-                    rec.state_id = 'مؤجرة'
-                    rec.unit_state = 'مؤجرة'
-                elif order[0].order_id.rental_status == 'returned':
-                    rec.state_id = 'شاغرة'
-                    rec.unit_state = 'شاغرة'
-                elif order[0].order_id.rental_status == 'cancel':
-                    rec.state_id = 'شاغرة'
-                    rec.unit_state = 'شاغرة'
-            else:
-                rec.state_id = 'شاغرة'
-                rec.unit_state = 'شاغرة'
+    # @api.depends('state_id')
+    # def _get_state(self):
+    #     for rec in self:
+    #         print("/////////", rec.state_id)
+    #         rec.unit_state = 'شاغرة'
+    #         rec.state_id = 'شاغرة'
+    #         order = rec.env['sale.order.line'].sudo().search(
+    #             [('product_id', '=', rec.id), ('property_number', '=', rec.property_id.property_name)])
+    #         if order:
+    #             if order[0].order_id.rental_status == 'pickup':
+    #                 rec.state_id = 'مؤجرة'
+    #                 rec.unit_state = 'مؤجرة'
+    #             elif order[0].order_id.rental_status == 'return':
+    #                 rec.state_id = 'مؤجرة'
+    #                 rec.unit_state = 'مؤجرة'
+    #             elif order[0].order_id.rental_status == 'returned':
+    #                 rec.state_id = 'شاغرة'
+    #                 rec.unit_state = 'شاغرة'
+    #             elif order[0].order_id.rental_status == 'cancel':
+    #                 rec.state_id = 'شاغرة'
+    #                 rec.unit_state = 'شاغرة'
+    #         else:
+    #             rec.state_id = 'شاغرة'
+    #             rec.unit_state = 'شاغرة'
 
     # def _get_count(self):
     #     self.unit_maintenance_count = self.env['account.move'].search_count(
@@ -335,7 +373,7 @@ class RentalAdditionalService(models.Model):
         string='Type',
         default='amount')
     fixed = fields.Float()
-    percentage = fields.Float()
+    percentage = fields.Integer()
     product_id = fields.Many2one(comodel_name="product.template")
     separate = fields.Boolean(string="Separate Invoice")
     fees_type = fields.Selection([('admin', 'Admin Fee'), ('security', 'Security Deposit'), ('other', 'Other')],
@@ -369,4 +407,4 @@ class RentalAdditionalService(models.Model):
             if rec.type == 'amount':
                 rec.name = rec.service_id.name + "-" + str(rec.percentage)
             if rec.type == 'percentage':
-                rec.name = rec.service_id.name + "-" + str(rec.percentage) + "%"
+                rec.name = rec.service_id.name + "-" + str(int(rec.percentage)) + "%"

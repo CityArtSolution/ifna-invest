@@ -47,7 +47,7 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem name="Offer Validity" id="rent_config_additional_service_menu"
+        <menuitem name="Additional Services" id="rent_config_additional_service_menu"
                   parent="sale_renting.menu_rental_config"
                   action="rental_additional_service_action_view"
                   sequence="10"/>

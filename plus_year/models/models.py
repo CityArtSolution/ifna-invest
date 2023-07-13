@@ -48,8 +48,9 @@ class RentSaleOrderLine(models.Model):
     @api.onchange('line_year_number')
     def _compute_dates(self):
         for rec in self:
-            if not (rec.line_year_number >= 0 and rec.line_year_number <= rec.order_id.years_number):
-                raise UserError(f"رقم السنه يجب ان يكون اقل من او يساوي {rec.order_id.years_number}")
+            if rec.order_id.years_number > 0:
+                if not (rec.line_year_number >= 0 and rec.line_year_number <= rec.order_id.years_number):
+                    raise UserError(f"رقم السنه يجب ان يكون اقل من او يساوي {rec.order_id.years_number}")
 
             if rec.line_year_number and rec.order_id.fromdate:
                 if rec.line_year_number == 1:
@@ -90,5 +91,6 @@ class RentSaleOrderLine(models.Model):
 
     @api.onchange('line_year_number')
     def check_year_number(self):
-        if not (self.line_year_number >= 0 and self.line_year_number <= self.order_id.years_number):
-            raise UserError(f"رقم السنه يجب ان يكون اقل من او يساوي {self.order_id.years_number}")
+        if self.order_id.years_number > 0:
+            if not (self.line_year_number >= 0 and self.line_year_number <= self.order_id.years_number):
+                raise UserError(f"رقم السنه يجب ان يكون اقل من او يساوي {self.order_id.years_number}")

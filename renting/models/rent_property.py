@@ -165,7 +165,7 @@ class RentPropertyModel(models.Model):
         for rec in self:
             no_units = 0
             for unit in rec.unit_ids:
-                if unit.state_id == 'مؤجرة':
+                if unit.unit_state == 'مؤجرة':
                     no_units += 1
             rec.busy_units = no_units
             rec.busy_ids = no_units
@@ -174,7 +174,7 @@ class RentPropertyModel(models.Model):
         for rec in self:
             no_units = 0
             for unit in rec.unit_ids:
-                if unit.state_id == 'شاغرة':
+                if unit.unit_state == 'شاغرة':
                     no_units += 1
             rec.free_units = no_units
             rec.free_ids = no_units
