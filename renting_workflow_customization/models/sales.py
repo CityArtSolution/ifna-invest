@@ -222,13 +222,13 @@ class SaleOrder(models.Model):
                 })
                 self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
             rec.state = "draft"
-            return {
-                'name': 'Email',
-                'view_mode': 'form',
-                'res_model': 'email.wizard',
-                'target': 'new',
-                'type': 'ir.actions.act_window',
-            }
+            # return {
+            #     'name': 'Email',
+            #     'view_mode': 'form',
+            #     'res_model': 'email.wizard',
+            #     'target': 'new',
+            #     'type': 'ir.actions.act_window',
+            # }
 
     def finance_approve(self):
         for rec in self:
@@ -603,13 +603,13 @@ class SaleOrder(models.Model):
                     'note': f'Rental Order.',
                 })
                 self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
-                return {
-                    'name': 'Email',
-                    'view_mode': 'form',
-                    'res_model': 'email.wizard',
-                    'target': 'new',
-                    'type': 'ir.actions.act_window',
-                }
+                # return {
+                #     'name': 'Email',
+                #     'view_mode': 'form',
+                #     'res_model': 'email.wizard',
+                #     'target': 'new',
+                #     'type': 'ir.actions.act_window',
+                # }
 
                 # email_pm_rent_order = self.env.ref(
                 #     'renting_workflow_customization.email_pm_rent_order')
