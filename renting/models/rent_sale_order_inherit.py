@@ -374,19 +374,25 @@ class RentSaleOrderLine(models.Model):
     rent_product_id = fields.Many2one(comodel_name="product.product")
     rental_pricing_id = fields.Many2one(comodel_name="rental.pricing", string="Rental Pricing",
                                         domain="[('product_template_id','=',product_template_id)]")
+    service_line_ids = fields.One2many('sale.order.line', 'original_line_id', string='Service Lines')
+    original_line_id = fields.Many2one('sale.order.line', string='Original Line')
 
     def action_get_service(self):
         sequence = self.line_sequence
         line_year_number = self.line_year_number
-        for rec in self.rental_pricing_id.service_ids:
-            if rec.type == 'amount':
-                price = rec.percentage
-            if rec.type == 'percentage':
-                price = self.price_unit * (rec.percentage / 100)
+        new_line_ids = []  # List to store the IDs of the newly created lines
 
-            sequence = sequence + 1
-            self.env['sale.order.line'].sudo().create(
-                {
+        for rec in self.rental_pricing_id.service_ids:
+            
+            price = self.price_unit * 0.05
+
+            past_lines = self.env['sale.order.line'].browse(self.service_line_ids.ids)
+            if len(past_lines) > 0:
+                new_unit_price = price
+                past_lines.write({'price_unit': new_unit_price})
+            else:
+                sequence += 1
+                new_line = self.env['sale.order.line'].sudo().create({
                     'sequence': sequence,
                     'line_sequence': sequence,
                     'line_year_number': line_year_number,
@@ -398,6 +404,10 @@ class RentSaleOrderLine(models.Model):
                     'price_unit': price,
                     'rent_product_id': self.product_id.id,
                 })
+                new_line_ids.append(new_line.id)  # Add the new line's ID to the list
+                self.write({'service_line_ids': [(6, 0, new_line_ids)]})
+
+
 
     @api.depends('product_uom_qty', 'discount', 'price_unit', 'tax_id')
     def _compute_amount(self):

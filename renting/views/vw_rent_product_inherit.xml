@@ -41,13 +41,13 @@
         </record>
 
         <record id="rental_additional_service_action_view" model="ir.actions.act_window">
-            <field name="name">Offer Validity</field>
+            <field name="name">Additional Service</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">rental.additional.service</field>
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem name="Additional Services" id="rent_config_additional_service_menu"
+        <menuitem name="Additional Service" id="rent_config_additional_service_menu"
                   parent="sale_renting.menu_rental_config"
                   action="rental_additional_service_action_view"
                   sequence="10"/>
