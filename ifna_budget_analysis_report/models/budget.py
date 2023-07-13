@@ -22,7 +22,6 @@ class CrossoveredBudgetLines(models.Model):
         result = super(CrossoveredBudgetLines, self).read_group(
             domain, list(fields - fields_list), groupby, offset=offset,
             limit=limit, orderby=orderby, lazy=lazy)
-
         # Populate result with fields_list values
         if fields & fields_list:
             for group_line in result:
@@ -32,15 +31,13 @@ class CrossoveredBudgetLines(models.Model):
                     group_line['practical_amount'] = 0
                 if 'theoritical_amount' in fields:
                     group_line['theoritical_amount'] = 0
-                if 'deviation_value' in fields:
-                    group_line['deviation_value'] = 0
-                if 'deviation_ratio' in fields:
-                    group_line['deviation_ratio'] = 0
                 if 'percentage' in fields:
                     group_line['percentage'] = 0
                     group_line['practical_amount'] = 0
                     group_line['theoritical_amount'] = 0
 
+                group_line['deviation_value'] = 0
+                group_line['deviation_ratio'] = 0
                 domain = group_line.get('__domain') or domain
                 all_budget_lines_that_compose_group = self.search(domain)
 
