@@ -29,7 +29,7 @@
                 <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][1]" position="replace">
                     <button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"
                             type="action" class="btn-primary"
-                            attrs="{'invisible': ['|',('invoice_status', '!=', 'to invoice'),('is_rental_order', '=', True)]}"/>
+                            attrs="{'invisible': ['|',('invoice_status', '!=', 'to invoice'), ('state', '!=', 'sale'),('is_rental_order', '=', True)]}"/>
                 </xpath>
                 <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][2]" position="replace">
                     <button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"

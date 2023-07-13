@@ -128,17 +128,6 @@
                     <field name="ejar_cont" widget="many2many_binary"/>
                 </xpath>
 
-                <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][1]" position="replace">
-                    <button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"
-                        type="action" class="btn-primary" data-hotkey="q"
-                        attrs="{'invisible': ['|',('invoice_status', '!=', 'to invoice'), ('state', '!=', 'sale')]}"/>
-                </xpath>
-                <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][2]" position="replace">
-                    <button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"
-                        type="action" context="{'default_advance_payment_method': 'percentage'}" data-hotkey="q"
-                        attrs="{'invisible': ['|',('invoice_status', '!=', 'no'), ('state', '!=', 'sale')]}"/>
-                </xpath>
-
 
                 <xpath expr="//page[@name='property_stats']" position="after">
                     <page name="attachments" string="مرفقات"
