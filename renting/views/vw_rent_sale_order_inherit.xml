@@ -25,10 +25,14 @@
                 </xpath>
 
                 <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][1]" position="replace">
-                    <button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice" type="action" class="btn-primary" attrs="{'invisible': ['|',('invoice_status', '!=', 'to invoice'),('is_rental_order', '=', True)]}"/>
+                    <button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"
+                            type="action" class="btn-primary"
+                            attrs="{'invisible': ['|',('invoice_status', '!=', 'to invoice'), ('state', '!=', 'sale')]}"/>
                 </xpath>
                 <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][2]" position="replace">
-                    <button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice" type="action" context="{'default_advance_payment_method': 'percentage'}" attrs="{'invisible': ['|','|',('invoice_status', '!=', 'no'), ('state', '!=', 'sale'),('is_rental_order', '=', True)]}"/>
+                    <button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"
+                            type="action" context="{'default_advance_payment_method': 'percentage'}"
+                            attrs="{'invisible': ['|',('invoice_status', '!=', 'no'), ('state', '!=', 'sale')]}"/>
                 </xpath>
                 <!--                <xpath expr="//button[@name='action_cancel']" position="replace">-->
                 <!--                    <button name="action_cancel" type="object" string="Cancel"-->
