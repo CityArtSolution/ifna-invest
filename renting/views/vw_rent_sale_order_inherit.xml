@@ -442,7 +442,7 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale_renting.rental_order_view_kanban"/>
             <!--            <field name="mode">primary</field>-->
-            <field name="priority">15</field>
+            <field name="priority">150</field>
             <field name="arch" type="xml">
                 <field name="state" position="after">
                     <field name="full_invoiced"/>
