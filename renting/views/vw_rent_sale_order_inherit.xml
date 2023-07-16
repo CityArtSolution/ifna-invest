@@ -21,70 +21,55 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//button[@name='open_pickup']" position="after">
-                    <button name="create_invoices_button" string="Create Invoices"
-                            type="object" class="btn-primary"
-                            attrs="{'invisible': [('state', '!=', 'sale'),('is_rental_order', '=', True)]}"/>
+                    <button name="create_invoices_button" string="Create Invoices" type="object" class="btn-primary" attrs="{'invisible': [('state', '!=', 'sale'),('is_rental_order', '=', True)]}"/>
                 </xpath>
 
                 <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][1]" position="replace">
-                    <button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"
-                            type="action" class="btn-primary"
-                            attrs="{'invisible': ['|',('invoice_status', '!=', 'to invoice'),('is_rental_order', '=', True)]}"/>
+                    <button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice" type="action" class="btn-primary" attrs="{'invisible': ['|',('invoice_status', '!=', 'to invoice'),('is_rental_order', '=', True)]}"/>
                 </xpath>
                 <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][2]" position="replace">
-                    <button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"
-                            type="action" context="{'default_advance_payment_method': 'percentage'}"
-                            attrs="{'invisible': ['|','|',('invoice_status', '!=', 'no'), ('state', '!=', 'sale'),('is_rental_order', '=', True)]}"/>
+                    <button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice" type="action" context="{'default_advance_payment_method': 'percentage'}" attrs="{'invisible': ['|','|',('invoice_status', '!=', 'no'), ('state', '!=', 'sale'),('is_rental_order', '=', True)]}"/>
                 </xpath>
-<!--                <xpath expr="//button[@name='action_cancel']" position="replace">-->
-<!--                    <button name="action_cancel" type="object" string="Cancel"-->
-<!--                            attrs="{'invisible': ['|','|', ('state', 'not in', ['draft', 'sent','sale']), ('id', '=', False), ('no_of_invoiced', '>', 0)]}"/>-->
-<!--                    <field name="no_of_invoiced" invisible="1"/>-->
-<!--                </xpath>-->
+                <!--                <xpath expr="//button[@name='action_cancel']" position="replace">-->
+                <!--                    <button name="action_cancel" type="object" string="Cancel"-->
+                <!-- attrs="{'invisible': ['|','|', ('state', 'not in', ['draft', 'sent','sale']), ('id', '=', False), ('no_of_invoiced', '>', 0)]}"/>-->
+                <!--                    <field name="no_of_invoiced" invisible="1"/>-->
+                <!--                </xpath>-->
                 <xpath expr="// field [@ name = 'order_line'] / tree / field [@ name = 'name']" position="after">
                     <field name="is_rental" optional="hide"/>
                     <!--                    <field name="rent_ok"/>-->
-                    <field name="rental_pricing_id"
-                           attrs="{'invisible':[('is_rental','=', False)],'required':[('is_rental','=', True)]}"
-                           options="{'no_create_edit': True}"/>
+                    <field name="rental_pricing_id" attrs="{'invisible':[('is_rental','=', False)],'required':[('is_rental','=', True)]}" options="{'no_create_edit': True}"/>
                 </xpath>
-                <xpath expr="// field [@ name = 'order_line'] / tree / field [@ name = 'tax_id']"
-                       position="after">
+                <xpath expr="// field [@ name = 'order_line'] / tree / field [@ name = 'tax_id']" position="after">
                     <field name="insurance_value" optional="hide"/>
 
-                    <button name="action_get_service" class="oe_highlight" type="object" string="Get Services"
-                            attrs="{'invisible':['|',('is_rental','=', False),('rental_pricing_id','=', False)]}"/>
+                    <button name="action_get_service" class="oe_highlight" type="object" string="Get Services" attrs="{'invisible':['|',('is_rental','=', False),('rental_pricing_id','=', False)]}"/>
                     <field name="contract_admin_fees" optional="hide"/>
                     <field name="contract_service_fees" optional="hide"/>
                     <field name="contract_admin_sub_fees" optional="hide"/>
                     <field name="contract_service_sub_fees" optional="hide"/>
                 </xpath>
-                <xpath expr="// field [@ name = 'order_line'] / tree / field [@ name = 'product_id']"
-                       position="after">
+                <xpath expr="// field [@ name = 'order_line'] / tree / field [@ name = 'product_id']" position="after">
                     <field name="analytic_account" optional="hide"/>
                 </xpath>
-                <xpath expr="// field [@ name = 'order_line'] / tree / field [@ name = 'product_id']"
-                       position="before">
+                <xpath expr="// field [@ name = 'order_line'] / tree / field [@ name = 'product_id']" position="before">
                     <field name="property_number"/>
                     <field name="property_analytic_account" optional="hide"/>
                     <field name="pickup_date" invisible="1" force_save="1"/>
                     <field name="return_date" invisible="1" force_save="1"/>
                 </xpath>
 
-                <xpath expr="// field [@ name = 'order_line'] / tree / field [@ name = 'product_id']"
-                       position="attributes">
-<!--                    <attribute name="domain">-->
-<!--                        [('product_tmpl_id.property_id','=',property_number)]-->
-<!--                    </attribute>-->
-                    <attribute name="domain">
-                        [('product_tmpl_id.property_id','=',property_number),('product_tmpl_id.state_id','=','شاغرة')]
+                <xpath expr="// field [@ name = 'order_line'] / tree / field [@ name = 'product_id']" position="attributes">
+                    <!--                    <attribute name="domain">-->
+                    <!-- [('product_tmpl_id.property_id','=',property_number)]-->
+                    <!--                    </attribute>-->
+                    <attribute name="domain"> [('product_tmpl_id.property_id','=',property_number),('product_tmpl_id.state_id','=','شاغرة')]
                     </attribute>
                     <!--                    <attribute name="domain">[('product_tmpl_id.unit_number', '=',-->
-                    <!--                        unit_number),('product_tmpl_id.property_id','=',property_number),('product_tmpl_id.state_id','=','شاغرة')]-->
+                    <!-- unit_number),('product_tmpl_id.property_id','=',property_number),('product_tmpl_id.state_id','=','شاغرة')]-->
                     <!--                    </attribute>-->
                 </xpath>
-                <xpath expr="// field [@ name = 'order_line'] / tree / field [@ name = 'name']"
-                       position="attributes">
+                <xpath expr="// field [@ name = 'order_line'] / tree / field [@ name = 'name']" position="attributes">
                     <attribute name="required">False</attribute>
                 </xpath>
                 <xpath expr="//field[@name='partner_id']" position="after">
@@ -108,8 +93,6 @@
                         <group>
                             <group>
                                 <field name="order_contract"/>
-                                <!--                                <field name="insurance_value"/>-->
-                                <!--                                <field name="contract_admin_fees"/>-->
                                 <field name="brand_nameplate_allowed"/>
                                 <field name="ejar"/>
                                 <field name="ejar_number"/>
@@ -139,14 +122,12 @@
                                 <field name="invoice_date"/>
                                 <field name="status"/>
                                 <field name="services" widget="many2many_tags" optional="hide"/>
-                                <button name="create_invoices" type="object" string="Create Invoice" class="btn-success"
-                                        attrs="{'invisible':[('status','=', 'invoiced')]}"/>
+                                <button name="create_invoices" type="object" string="Create Invoice" class="btn-success" attrs="{'invisible':[('status','=', 'invoiced')]}"/>
                             </tree>
                         </field>
                     </page>
                     <page name="property_stats" string="حالة الوحدات">
-                        <field name="order_property_state" widget="section_and_note_one2many" mode="tree,form"
-                               context="{'default_sale_order': active_id}">
+                        <field name="order_property_state" widget="section_and_note_one2many" mode="tree,form" context="{'default_sale_order': active_id}">
                             <form>
                                 <group>
                                     <field name="sale_order" invisible="1"/>
@@ -392,27 +373,24 @@
                         </field>
                     </page>
                 </xpath>
-                <!--                <xpath expr="//field[@name='amount_total']" position="after">-->
-                <!--                    <field name="amount_remain" class="oe_subtotal_footer_separator" widget="monetary"-->
-                <!--                           options="{'currency_field': 'currency_id'}"/>-->
 
-                <!--                </xpath>-->
+                <xpath expr="//field[@name='origin']" position="replace">
+                    <field name="opportunity_id" readonly="1" />
+                </xpath>
+
                 <xpath expr="//div[@name='button_box']" position="after">
-                    <!--                    <div class="row float-right">-->
-                    <div class="badge-pill badge-info float-right"
-                         attrs="{'invisible': [('full_invoiced', '=', False)]}">Fully Invoiced
+                    <div class="badge-pill badge-info float-right" attrs="{'invisible': [('full_invoiced', '=', False)]}">Fully Invoiced
                     </div>
-                    <div class="badge-pill badge-info float-right"
-                         attrs="{'invisible': ['|', ('full_invoiced', '=', True),('no_of_not_invoiced', '=', 0) ]}">
-                        <field name="no_of_invoiced"/>/
+                    <div class="badge-pill badge-info float-right" attrs="{'invisible': ['|', ('full_invoiced', '=', True),('no_of_not_invoiced', '=', 0) ]}">
+                        <field name="no_of_invoiced"/>
+/
                         <field name="no_of_not_invoiced"/>
                     </div>
-                    <div class="badge-pill badge-info float-right"
-                         attrs="{'invisible': ['|', ('full_invoiced', '=', True),('no_of_not_invoiced', '=', 0) ]}">
-                        <field name="no_of_invoiced_amount"/>/
+                    <div class="badge-pill badge-info float-right" attrs="{'invisible': ['|', ('full_invoiced', '=', True),('no_of_not_invoiced', '=', 0) ]}">
+                        <field name="no_of_invoiced_amount"/>
+/
                         <field name="no_of_not_invoiced_amount"/>
                     </div>
-                    <!--                    </div>-->
 
                     <field name="full_invoiced" invisible="1"/>
                 </xpath>
@@ -453,11 +431,13 @@
                 </field>
                 <xpath expr="//div[hasclass('oe_kanban_bottom_left')][1]" position="after">
                     <!--                    <div class="oe_kanban_bottom_right">-->
-                    <div class="o_kanban_inline_block "
-                         attrs="{'invisible': ['|', ('full_invoiced', '=', True),('no_of_not_invoiced', '=', 0) ]}">
-                        <field name="no_of_invoiced"/>/
-                        <field name="no_of_not_invoiced"/>-
-                        <field name="no_of_invoiced_amount"/>/
+                    <div class="o_kanban_inline_block " attrs="{'invisible': ['|', ('full_invoiced', '=', True),('no_of_not_invoiced', '=', 0) ]}">
+                        <field name="no_of_invoiced"/>
+/
+                        <field name="no_of_not_invoiced"/>
+-
+                        <field name="no_of_invoiced_amount"/>
+/
                         <field name="no_of_not_invoiced_amount"/>
                     </div>
 
