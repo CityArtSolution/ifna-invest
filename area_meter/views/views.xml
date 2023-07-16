@@ -27,6 +27,7 @@
                             <field name="rent_unit_area_price"/>
                             <field name="price" groups="area_meter.rental_pricing_manager"/>
                             <field name="pricelist_id" groups="product.group_product_pricelist"/>
+                            <field name="service_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
                             <field name="currency_id" invisible="1"/>
                         </tree>
                     </field>
@@ -56,6 +57,7 @@
                             <field name="rent_unit_area_price"/>
                             <field name="price" groups="area_meter.rental_pricing_manager"/>
                             <field name="pricelist_id" groups="product.group_product_pricelist"/>
+                            <field name="service_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
                             <field name="currency_id" invisible="1"/>
                         </tree>
                     </field>
