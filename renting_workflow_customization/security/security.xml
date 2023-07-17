@@ -40,12 +40,12 @@
         </record>
 
         <record id="see_ceo_rentals_all" model="ir.rule">
-            <field name="name">see.ceo.rentals.only</field>
+            <field name="name">see.ceo.rentals.all</field>
             <field name="model_id" ref="model_sale_order"/>
             <field name="domain_force">
                 [('state', '!=', 'view_all_ceo_approve')]
             </field>
-<!--            <field name="groups" eval="[(4, ref('renting_workflow_customization.ceo_group'))]"/>-->
+            <!--            <field name="groups" eval="[(4, ref('renting_workflow_customization.ceo_group'))]"/>-->
             <field name="active" eval="True"/>
         </record>
 
@@ -55,10 +55,25 @@
             </function>
             <value eval="{'noupdate': False}"/>
         </function>
-
         <record model="ir.rule" id="base.res_partner_rule_private_employee">
             <field name="active" eval="False"/>
         </record>
+
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'base'), ('name', '=', 'res_partner_rule_private_employee')]"/>
+            </function>
+            <value eval="{'noupdate': True}"/>
+        </function>
+
+
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'base'), ('name', '=', 'res_partner_rule_private_group')]"/>
+            </function>
+            <value eval="{'noupdate': False}"/>
+        </function>
+
         <record model="ir.rule" id="base.res_partner_rule_private_group">
             <field name="active" eval="False"/>
         </record>
@@ -66,7 +81,7 @@
 
         <function name="write" model="ir.model.data">
             <function name="search" model="ir.model.data">
-                <value eval="[('module', '=', 'base'), ('name', '=', 'res_partner_rule_private_employee')]"/>
+                <value eval="[('module', '=', 'base'), ('name', '=', 'res_partner_rule_private_group')]"/>
             </function>
             <value eval="{'noupdate': True}"/>
         </function>
