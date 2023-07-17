@@ -14,7 +14,7 @@
 <!--                    align:left-->
 <!--                    }-->
                     tr.table_1,th.table_1,td.table_1{
-                        border: 0.5px solid;
+<!--                        border: 0.5px solid;-->
                         text-align: center;
                         border-radius:  999em 40px 40px 999em  ;
                         padding: 5px;
