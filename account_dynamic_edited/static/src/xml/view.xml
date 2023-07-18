@@ -29,7 +29,7 @@
 <t t-set="style" t-value="'font-weight:normal;border:none;'"/>
 </t>
 <t t-if="a['level'] == 0">
-<t t-set="style_td" t-value="style + 'border-bottom:2px solid #666666;'"/>
+<t t-set="style_td" t-value="style + 'border-bottom:1px solid #666666;'"/>
 </t>
 <t t-if="a['level'] == 1">
 <t t-set="style_td" t-value="style + 'border-bottom:double #666666;padding-top: 30px;'"/>
@@ -1102,7 +1102,7 @@ View General Ledger
 <t t-if="filter_data['show_hierarchy']">
 <t t-foreach="account_data" t-as="account">
 <t t-if="account['len'] == 1">
-<t t-set="style" t-value="'border: 0px; border-bottom: 2px solid #aaa'"/>
+<t t-set="style" t-value="'border: 0px; border-bottom: 1px solid #aaa'"/>
 </t>
 <t t-if="account['len'] == 2">
 <t t-set="style" t-value="'border: 0px; border-bottom: 1px solid #bbb'"/>

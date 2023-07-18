@@ -55,9 +55,7 @@
             <t t-foreach="docs" t-as="o">
                 <div class="page">
                     <b>
-                        <u>
-                            <h3 class="text-center">عرض سعر</h3>
-                        </u>
+                        <h4 class="text-center">عرض سعر</h4>
                     </b>
                     <br/>
                     <br/>
@@ -97,7 +95,7 @@
                         <span>بناءً على رغبتكم باستئجار</span>
                         <span t-field="o.order_line[0].product_id.name"/>
                         <span>في</span>
-                        <span t-field="o.order_line[0].property_number.property_name"/>
+                        <span style="direction: ltr" dir="ltr" class="text-left" t-field="o.order_line[0].property_number.property_name"/>
                         <span>
                             نشكر لكم ثقتكم بشركة أفناء للاستثمار، وتجدون بالجدول ادناه أسعار إيجار المكاتب السنوية غير
                             شاملة ضريبة القيمة المضافة وغير شاملة قيمة الخدمات
@@ -182,7 +180,7 @@
                                         <!--                                             width="100"/>-->
 
                                         <br/>
-                                        <img src="/sale_report_custom/static/src/images/finance.png" alt=""
+                                        <img t-if="o.finance" src="/sale_report_custom/static/src/images/finance.png" alt=""
                                              width="100"/>
                                         <!--                                        <img t-if="o.finance_user.finance"-->
                                         <!--                                             t-att-src="image_data_uri(o.finance_user.finance)" width="100"/>-->
@@ -191,7 +189,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <br style="clear:both" />
+                    <br style="clear:both"/>
                     <p class="text-right" dir="rtl" style="direction: rtl;">
                         <span>هذا العرض صالح لمدة</span>
                         <span t-field="o.offer_validity.name"/>
