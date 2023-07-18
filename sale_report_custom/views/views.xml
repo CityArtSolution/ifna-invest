@@ -25,36 +25,49 @@
                 <t t-call="web.html_container">
                     <t t-foreach="docs" t-as="o">
                         <t t-foreach="o.order_property_state" t-as="line">
-                            <t t-call="web.external_layout">
-                                <page style="color:#508072">
+                            <t t-call="sale_report_custom.report_header_custom">
 
-                                    <h2 style="color:#508072" class="text-center">محضر استلام الوحدة الإيجارية</h2>
-                                    <br/>
-                                    <br/>
 
-                                    <div class="row mt32 mb32 text-right" id="informations">
-                                        <div class="col-auto col-3 mw-100 mb-2">
-                                            <!--                                            <div class="square rounded p-5">-->
-                                            <p>:رقم الوحدة</p>
-                                            <p class="m-0" t-field="doc.order_line[0].product_id.name"/>
-                                            <!--                                            </div>-->
-                                        </div>
+                                <h2 class="text-center">محضر استلام الوحدة الإيجارية</h2>
+                                <br/>
+                                <br/>
 
-                                        <div class="col-auto col-3 mw-100 mb-2">
-                                            <p>:تاريخ العقد</p>
-                                            <p class="m-0" t-field="doc.ejar_date" t-options='{"widget": "date"}'/>
-                                        </div>
-
-                                        <div class="col-auto col-3 mw-100 mb-2">
-                                            <p>:رقم العقد</p>
-                                            <p class="m-0" t-field="doc.ejar_number"/>
-                                        </div>
+                                <div class="row mt32 mb32 text-right" id="informations">
+                                    <div class="col-auto col-3 mw-100 mb-2"
+                                         style="margin-right: 45.11px;border-radius: 25px;border: 1px dashed #BB9B69;">
+                                        <p style="text-align: right;direction: rtl;" class="text-right" dir="rtl">
+                                            <span>
+                                                رقم الوحدة:
+                                            </span>
+                                            <span t-field=" doc.order_line[0].product_id.name"/>
+                                        </p>
                                     </div>
 
+                                    <div class="col-auto col-3 mw-100 mb-2"
+                                         style="margin-right: 45.11px;border-radius: 25px;border: 1px dashed #BB9B69;">
+                                        <p style="text-align: right;direction: rtl;" class="text-right" dir="rtl">
+                                            <span>
+                                                تاريخ العقد:
+                                            </span>
+                                            <span class="m-0" t-field="doc.ejar_date" t-options='{"widget": "date"}'/>
+                                        </p>
+                                    </div>
+
+                                    <div class="col-auto col-3 mw-100 mb-2"
+                                         style="border-radius: 25px; border: 1px dashed #BB9B69;">
+                                        <p style="text-align: right;direction: rtl;" class="text-right" dir="rtl">
+                                            <span>
+                                                رقم العقد:
+                                            </span>
+                                            <span class="m-0" t-field="doc.ejar_number"/>
+                                        </p>
+                                    </div>
+                                </div>
+                                <page>
                                     <br/>
-                                    <table class="text-right table table-sm table-bordered rounded"
-                                           style="color:#508072">
-                                        <th colspan="2" class="text-right" style="color:white; background:#508072">
+                                    <table class="text-right table table-sm"
+                                           style="border-radius: 13px !important; border: 1px dashed #BB9B69;">
+                                        <th colspan="2" class="text-right" style="color:white; background:#BB9B69">
                                             بيانات المستأجر
                                         </th>
                                         <tbody>
@@ -76,9 +89,9 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <table class="text-right table table-sm table-bordered rounded"
-                                           style="color:#508072">
-                                        <th colspan="2" class="text-right" style="color:white; background:#508072">
+                                    <table class="text-right table table-sm"
+                                           style="border-radius: 13px !important; border: 1px dashed #BB9B69;">
+                                        <th colspan="2" class="text-right" style="color:white; background:#BB9B69">
                                             بيانات المؤجر
                                         </th>
                                         <tbody>
@@ -100,9 +113,9 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <table class="text-right table table-sm table-bordered rounded"
-                                           style="color:#508072">
-                                        <th colspan="4" class="text-right" style="color:white; background:#508072">
+                                    <table cclass="text-right table table-sm"
+                                           style="border-radius: 13px !important; border: 1px dashed #BB9B69;">
+                                        <th colspan="4" class="text-right" style="color:white; background:#BB9B69">
                                             بيانات العدادات
                                         </th>
                                         <tbody>
@@ -136,13 +149,13 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <table class="text-right table table-sm table-bordered"
-                                           style="border-radius: 25px !important">
+                                    <table class="text-right table table-sm"
+                                           style="border-radius: 25px; border: 1px dashed #BB9B69;">
 
-                                        <th colspan="4" class="text-right" style="color:white; background:#508072">
+                                        <th colspan="4" class="text-right" style="color:white; background:#BB9B69">
                                             حالة الوحدة الإيجارية عند الاستلام
                                         </th>
-                                        <tbody style="color:#508072">
+                                        <tbody>
                                             <tr>
                                                 <td>
                                                     <span>تكلفة الإصلاح</span>
@@ -773,83 +786,190 @@
                                     </table>
 
                                     <br/>
-                                    <p class="text-right" style="color:#a6886a">
+                                    <p style="text-align: right;direction: rtl;" class="text-right" dir="rtl">
+                                        الموافق
                                         <span t-field="line.pickup_date"/>
-                                        الموافق<span t-field="line.h_pickup_date"/>إنه في تاريخ
+                                        <span t-field="line.pickup_date"/>
+                                        إنه في تاريخ
+
                                         <br/>
                                         قام المستأجر الموضح بياناته أعلاه بإستلام الوحدات الإيجارية الموضح بياناتها في
                                         العقد وهي بحالة جيدة وذلك بعد التأكد من سلامة كافة مرافقها ومحتوياتها ومطابقتها
                                         من قبل المستأجر مع نموذج التسليم أعلاه
                                     </p>
-                                    <p class="text-right" style="color:#a6886a">
+                                    <p class="text-right">
                                         كما يقر المستأجر بأنه لا توجد أي ملاحظات تمنع من استلام وإخلاء الوحدات
                                         الإيجارية
                                     </p>
-                                    <p class="text-center">
+                                    <p class="text-center" style="color:#a6886a">
                                         وعليه جرى التوقيع من الطرفين
                                     </p>
                                     <br/>
 
                                     <div class="row mt32 mb32 text-right" id="signature1">
-                                        <div class="col-auto col-3 mw-100 mb-2">
-                                            <!--                                            <div class="square rounded p-5">-->
-                                            <p>:ممثل المؤجر</p>
-                                            <p>......................................الاسم /</p>
-                                            <p>......................................التوقيع /</p>
-                                            <!--                                            </div>-->
-                                        </div>
+                                        <div class=" col-auto col-3 mw-100 mb-2">
+                                            <table class="text-right table table-sm"
+                                                   style="border-radius: 25px; border: 1px dashed #BB9B69;">
+                                                <th class="text-right" style="color:white; background:#BB9B69">
+                                                    :ممثل المؤجر
+                                                </th>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <p>......................................الاسم /</p>
 
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <p>......................................التوقيع /</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                         <div class="col-auto col-3 mw-100 mb-2">
-                                            <!--                                            <div class="square rounded p-5">-->
-                                            <p>:ممثل المستأجر</p>
-                                            <p>......................................الاسم /</p>
-                                            <p>......................................التوقيع /</p>
-                                            <!--                                            </div>-->
+                                            <table class="text-right table table-sm"
+                                                   style="border-radius: 25px; border: 1px dashed #BB9B69;">
+                                                <th class="text-right" style="color:white; background:#BB9B69">
+                                                    :ممثل المستأجر
+                                                </th>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <p>......................................الاسم /</p>
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <p>......................................التوقيع /</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                     <div class="row mt32 mb32 text-right" id="signature2">
                                         <div class="col-auto col-3 mw-100 mb-2">
-                                            <!--                                            <div class="square rounded p-5">-->
-                                            <p>:ممثل الادارة المالية</p>
-                                            <p>......................................الاسم /</p>
-                                            <p t-if="doc.finance_second">
-                                                <img src="/sale_report_custom/static/src/images/finance.png" alt="" width="100"/>التوقيع /
-<!--                                                <img t-if="o.finance_user.finance" t-att-src="image_data_uri(o.finance_user.finance)" width="100"/>التوقيع /-->
-                                            </p>
-                                            <!--                                            </div>-->
-                                        </div>
-                                        <div class="col-auto col-3 mw-100 mb-2">
-                                            <!--                                            <div class="square rounded p-5">-->
-                                            <p>:ممثل الادارة القانونية</p>
-                                            <p>......................................الاسم /</p>
-                                            <p t-if="doc.legal">
-<!--                                                <img t-if="o.legal_user.legal" t-att-src="image_data_uri(o.legal_user.legal)" width="100"/>التوقيع /-->
+                                            <table class="text-right table table-sm"
+                                                   style="border-radius: 25px; border: 1px dashed #BB9B69;">
+                                                <th class="text-right" style="color:white; background:#BB9B69">
+                                                    :ممثل الادارة المالية
+                                                </th>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <p>......................................الاسم /</p>
 
-                                                <img
-                                                    src="/sale_report_custom/static/src/images/legal.png" alt=""
-                                                    width="100"/>التوقيع /
-                                            </p>                                            <!--                                            </div>-->
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <p>......................................التوقيع /</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <!--                                            <p style="color:white; border-radius: 25px; background: #BB9B69;">:ممثل-->
+                                            <!--                                                الادارة المالية-->
+                                            <!--                                            </p>-->
+                                            <!--                                            <p>......................................الاسم /</p>-->
+                                            <!--                                            <p t-if="doc.finance_second">-->
+                                            <!--                                                <img src="/sale_report_custom/static/src/images/finance.png" alt=""-->
+                                            <!--                                                     width="100"/>التوقيع /-->
+                                            <!--                                                &lt;!&ndash;                                                <img t-if="o.finance_user.finance" t-att-src="image_data_uri(o.finance_user.finance)" width="100"/>التوقيع /&ndash;&gt;-->
+                                            <!--                                            </p>-->
                                         </div>
                                         <div class="col-auto col-3 mw-100 mb-2">
-                                            <!--                                            <div class="square rounded p-5">-->
-                                            <p>:ممثل الادارة الهندسية</p>
-                                            <p>......................................الاسم /</p>
-                                            <p t-if="doc.facility_second">
-<!--                                                <img t-if="o.facility_user.facility" t-att-src="image_data_uri(o.facility_user.facility)" width="100"/>التوقيع /-->
-                                                <img
-                                                    src="/sale_report_custom/static/src/images/facility.png" alt=""
-                                                    width="100"/>التوقيع /
-                                            </p>                                            <!--                                            </div>-->
+                                            <table class="text-right table table-sm"
+                                                   style="border-radius: 25px; border: 1px dashed #BB9B69;">
+                                                <th class="text-right" style="color:white; background:#BB9B69">
+                                                    :ممثل الادارة القانونية
+                                                </th>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <p>......................................الاسم /</p>
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <p>......................................التوقيع /</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <!--                                            <p style="color:white; border-radius: 25px; background: #BB9B69;">:ممثل-->
+                                            <!--                                                الادارة القانونية-->
+                                            <!--                                            </p>-->
+                                            <!--                                            <p>......................................الاسم /</p>-->
+                                            <!--                                            <p t-if="doc.legal">-->
+                                            <!--                                                &lt;!&ndash;                                                <img t-if="o.legal_user.legal" t-att-src="image_data_uri(o.legal_user.legal)" width="100"/>التوقيع /&ndash;&gt;-->
+
+                                            <!--                                                <img-->
+                                            <!--                                                        src="/sale_report_custom/static/src/images/legal.png" alt=""-->
+                                            <!--                                                        width="100"/>التوقيع /-->
+                                            <!--                                            </p>                                          -->
+                                        </div>
+                                        <div class="col-auto col-3 mw-100 mb-2">
+                                            <table class="text-right table table-sm"
+                                                   style="border-radius: 25px; border: 1px dashed #BB9B69;">
+                                                <th class="text-right" style="color:white; background:#BB9B69">
+                                                    :ممثل الادارة القانونية
+                                                </th>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <p>......................................الاسم /</p>
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <p>......................................التوقيع /</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <!--                                            &lt;!&ndash;                                            <div class="square rounded p-5">&ndash;&gt;-->
+                                            <!--                                            <p style="color:white; border-radius: 25px; background: #BB9B69;">:ممثل-->
+                                            <!--                                                الادارة الهندسية-->
+                                            <!--                                            </p>-->
+                                            <!--                                            <p>......................................الاسم /</p>-->
+                                            <!--                                            <p t-if="doc.facility_second">-->
+                                            <!--                                                &lt;!&ndash;                                                <img t-if="o.facility_user.facility" t-att-src="image_data_uri(o.facility_user.facility)" width="100"/>التوقيع /&ndash;&gt;-->
+                                            <!--                                                <img-->
+                                            <!--                                                        src="/sale_report_custom/static/src/images/facility.png" alt=""-->
+                                            <!--                                                        width="100"/>التوقيع /-->
+                                            <!--                                            </p>                                            &lt;!&ndash;                                            </div>&ndash;&gt;-->
                                         </div>
                                     </div>
 
                                     <br/>
                                     <div class="col-auto col-3 mw-100 mb-2 text-right"
                                          t-if="o.state not in ['ff_review','ceo','draft_qu','draft','sent']">
-                                        <p>:توقيع مسئول العقارات</p>
-<!--                                        <img t-if="o.pm_user.pm" t-att-src="image_data_uri(o.pm_user.pm)" width="100"/>التوقيع /-->
-                                        <img src="/sale_report_custom/static/src/images/pm.png" alt=""
-                                             width="100"/>
+                                        <table class="text-right table table-sm"
+                                               style="border-radius: 25px; border: 1px dashed #BB9B69;">
+                                            <th class="text-right" style="color:white; background:#BB9B69">
+                                                :توقيع مسئول العقارات
+                                            </th>
+                                            <tbody>
+                                                <tr>
+                                                    <!--                                        <img t-if="o.pm_user.pm" t-att-src="image_data_uri(o.pm_user.pm)" width="100"/>التوقيع /-->
+                                                    <img src="/sale_report_custom/static/src/images/pm.png" alt=""
+                                                         width="100"/>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <!--                                        <p style="color:white; border-radius: 25px; background: #BB9B69;">:توقيع مسئول-->
+                                        <!--                                            العقارات-->
+                                        <!--                                        </p>-->
+                                        <!--                                        &lt;!&ndash;                                        <img t-if="o.pm_user.pm" t-att-src="image_data_uri(o.pm_user.pm)" width="100"/>التوقيع /&ndash;&gt;-->
+                                        <!--                                        <img src="/sale_report_custom/static/src/images/pm.png" alt=""-->
+                                        <!--                                             width="100"/>-->
                                     </div>
 
                                 </page>
@@ -882,60 +1002,70 @@
                 <t t-call="web.html_container">
                     <t t-foreach="docs" t-as="o">
                         <t t-foreach="o.order_property_state" t-as="line">
-                            <t t-call="web.external_layout">
-                                <page style="color:#508072">
+                            <t t-call="sale_report_custom.report_header_custom">
 
-                                    <h2 style="color:#508072" class="text-center">محضر تسليم الوحدة الإيجارية</h2>
-                                    <br/>
-                                    <br/>
+                                <h2 class="text-center">محضر تسليم الوحدة الإيجارية</h2>
+                                <br/>
+                                <br/>
 
-                                    <div class="row mt32 mb32 text-right" id="informations">
-                                        <div class="col-auto col-3 mw-100 mb-2">
-                                            <!--                                            <div class="square rounded p-5">-->
-                                            <p>:رقم الوحدة</p>
-                                            <p class="m-0" t-field="doc.order_line[0].product_id.name"/>
-                                            <!--                                            </div>-->
-                                        </div>
-
-                                        <div class="col-auto col-3 mw-100 mb-2">
-                                            <p>:تاريخ العقد</p>
-                                            <p class="m-0" t-field="doc.ejar_date" t-options='{"widget": "date"}'/>
-                                        </div>
-
-                                        <div class="col-auto col-3 mw-100 mb-2">
-                                            <p>:رقم العقد</p>
-                                            <p class="m-0" t-field="doc.ejar_number"/>
-                                        </div>
+                                <div class="row mt32 mb32 text-right" id="informations">
+                                    <div class="col-auto col-3 mw-100 mb-2"
+                                         style="margin-right: 45.11px;border-radius: 25px;border: 1px dashed #BB9B69;">
+                                        <p style="text-align: right;direction: rtl;" class="text-right" dir="rtl">
+                                            <span>
+                                                رقم الوحدة:
+                                            </span>
+                                            <span t-field=" doc.order_line[0].product_id.name"/>
+                                        </p>
                                     </div>
 
-                                    <br/>
-                                    <table class="text-right table table-sm table-bordered rounded"
-                                           style="color:#508072">
-                                        <th colspan="2" class="text-right" style="color:white; background:#508072">
-                                            بيانات المستأجر
-                                        </th>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <span>رقم السجل التجاري</span>
-                                                </td>
-                                                <td>
-                                                    <span>اسم المستأجر</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <span t-field="doc.partner_id.commercial_number"/>
-                                                </td>
-                                                <td>
-                                                    <span t-field="doc.partner_id.name"/>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <table class="text-right table table-sm table-bordered rounded"
-                                           style="color:#508072">
-                                        <th colspan="2" class="text-right" style="color:white; background:#508072">
+                                    <div class="col-auto col-3 mw-100 mb-2"
+                                         style="margin-right: 45.11px;border-radius: 25px;border: 1px dashed #BB9B69;">
+                                        <p style="text-align: right;direction: rtl;" class="text-right" dir="rtl">
+                                            <span>
+                                                تاريخ العقد:
+                                            </span>
+                                            <span class="m-0" t-field="doc.ejar_date" t-options='{"widget": "date"}'/>
+                                        </p>
+                                    </div>
+
+                                    <div class="col-auto col-3 mw-100 mb-2"
+                                         style="border-radius: 25px; border: 1px dashed #BB9B69;">
+                                        <p style="text-align: right;direction: rtl;" class="text-right" dir="rtl">
+                                            <span>
+                                                رقم العقد:
+                                            </span>
+                                            <span class="m-0" t-field="doc.ejar_number"/>
+                                        </p>
+                                    </div>
+                                </div>
+                                <br/>
+                                <table class="text-right table table-sm" style="border-radius: 25px; border: 1px dashed #BB9B69;">
+                                    <th colspan="2" class="text-right" style="color:white; background:#BB9B69">
+                                        بيانات المستأجر
+                                    </th>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <span>رقم السجل التجاري</span>
+                                            </td>
+                                            <td>
+                                                <span>اسم المستأجر</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span t-field="doc.partner_id.commercial_number"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="doc.partner_id.name"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <page>
+                                    <table class="text-right table table-sm" style="border-radius: 25px; border: 1px dashed #BB9B69;">
+                                        <th colspan="2" class="text-right" style="color:white; background:#BB9B69">
                                             بيانات المؤجر
                                         </th>
                                         <tbody>
@@ -957,9 +1087,8 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <table class="text-right table table-sm table-bordered rounded"
-                                           style="color:#508072">
-                                        <th colspan="4" class="text-right" style="color:white; background:#508072">
+                                    <table class="text-right table table-sm" style="border-radius: 25px; border: 1px dashed #BB9B69;">
+                                        <th colspan="4" class="text-right" style="color:white; background:#BB9B69">
                                             بيانات العدادات
                                         </th>
                                         <tbody>
@@ -993,25 +1122,24 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <table class="text-right table table-sm table-bordered"
-                                           style="border-radius: 25px !important">
+                                    <table class="text-center table table-bordered rounded rounded-3">
 
-                                        <th colspan="4" class="text-right" style="color:white; background:#508072">
+                                        <th colspan="4" class="text-right" style="color:white; background:#BB9B69">
                                             حالة الوحدة الإيجارية عند الاستلام
                                         </th>
-                                        <tbody style="color:#508072">
+                                        <tbody>
                                             <tr>
                                                 <td>
-                                                    <span>تكلفة الإصلاح</span>
+                                                    <b><span>تكلفة الإصلاح</span></b>
                                                 </td>
                                                 <td>
-                                                    <span>الملاحظات</span>
+                                                     <b><span>الملاحظات</span></b>
                                                 </td>
                                                 <td>
-                                                    <span>الحالة</span>
+                                                     <b><span>الحالة</span></b>
                                                 </td>
                                                 <td>
-                                                    <span>البند</span>
+                                                     <b><span>البند</span></b>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -1630,7 +1758,7 @@
                                     </table>
 
                                     <br/>
-                                    <p class="text-right" style="color:#a6886a">
+                                    <p style="text-align: right;direction: rtl;" class="text-right" dir="rtl">
                                         <span t-field="line.pickup_date"/>
                                         الموافق<span t-field="line.h_pickup_date"/>إنه في تاريخ
                                         <br/>
@@ -1638,11 +1766,11 @@
                                         العقد وهي بحالة جيدة وذلك بعد التأكد من سلامة كافة مرافقها ومحتوياتها ومطابقتها
                                         من قبل المستأجر مع نموذج التسليم أعلاه
                                     </p>
-                                    <p class="text-right" style="color:#a6886a">
+                                    <p class="text-right">
                                         كما يقر المستأجر بأنه لا توجد أي ملاحظات تمنع من استلام وإخلاء الوحدات
                                         الإيجارية
                                     </p>
-                                    <p class="text-center">
+                                    <p class="text-center" style="color:#a6886a">
                                         وعليه جرى التوقيع من الطرفين
                                     </p>
                                     <br/>
@@ -1650,7 +1778,9 @@
                                     <div class="row mt32 mb32 text-right" id="signature1">
                                         <div class="col-auto col-3 mw-100 mb-2">
                                             <!--                                            <div class="square rounded p-5">-->
-                                            <p>:ممثل المؤجر</p>
+                                            <p style="color:white; border-radius: 25px; background: #BB9B69;">:ممثل
+                                                المؤجر
+                                            </p>
                                             <p>......................................الاسم /</p>
                                             <p>......................................التوقيع /</p>
                                             <!--                                            </div>-->
@@ -1658,7 +1788,9 @@
 
                                         <div class="col-auto col-3 mw-100 mb-2">
                                             <!--                                            <div class="square rounded p-5">-->
-                                            <p>:ممثل المستأجر</p>
+                                            <p style="color:white; border-radius: 25px; background: #BB9B69;">:ممثل
+                                                المستأجر
+                                            </p>
                                             <p>......................................الاسم /</p>
                                             <p>......................................التوقيع /</p>
                                             <!--                                            </div>-->
@@ -1667,46 +1799,54 @@
                                     <div class="row mt32 mb32 text-right" id="signature2">
                                         <div class="col-auto col-3 mw-100 mb-2">
                                             <!--                                            <div class="square rounded p-5">-->
-                                            <p>:ممثل الادارة المالية</p>
+                                            <p style="color:white; border-radius: 25px; background: #BB9B69;">:ممثل
+                                                الادارة المالية
+                                            </p>
                                             <p>......................................الاسم /</p>
                                             <p t-if="doc.finance_second">
-<!--                                                <img t-if="o.finance_user.finance" t-att-src="image_data_uri(o.finance_user.finance)" width="100"/>التوقيع /-->
+                                                <!--                                                <img t-if="o.finance_user.finance" t-att-src="image_data_uri(o.finance_user.finance)" width="100"/>التوقيع /-->
 
                                                 <img
-                                                    src="/sale_report_custom/static/src/images/finance.png" alt=""
-                                                    width="100"/>التوقيع /
+                                                        src="/sale_report_custom/static/src/images/finance.png" alt=""
+                                                        width="100"/>التوقيع /
                                             </p>
                                             <!--                                            </div>-->
                                         </div>
                                         <div class="col-auto col-3 mw-100 mb-2">
                                             <!--                                            <div class="square rounded p-5">-->
-                                            <p>:ممثل الادارة القانونية</p>
+                                            <p style=" color:white; border-radius: 25px; background: #BB9B69;">:ممثل
+                                                الادارة القانونية
+                                            </p>
                                             <p>......................................الاسم /</p>
                                             <p t-if="doc.legal">
-<!--                                                <img t-if="o.legal_user.legal" t-att-src="image_data_uri(o.legal_user.legal)" width="100"/>التوقيع /-->
+                                                <!--                                                <img t-if="o.legal_user.legal" t-att-src="image_data_uri(o.legal_user.legal)" width="100"/>التوقيع /-->
                                                 <img
-                                                    src="/sale_report_custom/static/src/images/legal.png" alt=""
-                                                    width="100"/>التوقيع /
+                                                        src="/sale_report_custom/static/src/images/legal.png" alt=""
+                                                        width="100"/>التوقيع /
                                             </p>                                            <!--                                            </div>-->
                                         </div>
                                         <div class="col-auto col-3 mw-100 mb-2">
                                             <!--                                            <div class="square rounded p-5">-->
-                                            <p>:ممثل الادارة الهندسية</p>
+                                            <p style="color:white; border-radius: 25px; background: #BB9B69;">:ممثل
+                                                الادارة الهندسية
+                                            </p>
                                             <p>......................................الاسم /</p>
                                             <p t-if="doc.facility_second">
-<!--                                                <img t-if="o.facility_user.facility" t-att-src="image_data_uri(o.facility_user.facility)" width="100"/>التوقيع /-->
+                                                <!--                                                <img t-if="o.facility_user.facility" t-att-src="image_data_uri(o.facility_user.facility)" width="100"/>التوقيع /-->
 
                                                 <img
-                                                    src="/sale_report_custom/static/src/images/facility.png" alt=""
-                                                    width="100"/>التوقيع /
+                                                        src="/sale_report_custom/static/src/images/facility.png" alt=""
+                                                        width="100"/>التوقيع /
                                             </p>                                            <!--                                            </div>-->
                                         </div>
                                     </div>
                                     <br/>
                                     <div class="col-auto col-3 mw-100 mb-2 text-right"
                                          t-if="o.state not in ['ff_review','ceo','draft_qu','draft','sent']">
-                                        <p>:توقيع مسئول العقارات</p>
-<!--                                        <img t-if="o.pm_user.pm" t-att-src="image_data_uri(o.pm_user.pm)" width="100"/>التوقيع /-->
+                                        <p style="color:white; border-radius: 25px; background: #BB9B69;">:توقيع مسئول
+                                            العقارات
+                                        </p>
+                                        <!--                                        <img t-if="o.pm_user.pm" t-att-src="image_data_uri(o.pm_user.pm)" width="100"/>التوقيع /-->
 
                                         <img src="/sale_report_custom/static/src/images/pm.png" alt=""
                                              width="100"/>
