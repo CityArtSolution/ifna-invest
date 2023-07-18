@@ -1,0 +1,959 @@
+<odoo>
+    <data>
+        <record id="action_pickup_custom" model="ir.actions.report">
+            <field name="name">نموذج الاستلام</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">sale_report_custom.report_pickup_form</field>
+            <field name="report_file">sale_report_custom.report_pickup_form</field>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_type">report</field>
+        </record>
+
+
+        <template id="report_pickup_form">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="sale_report_custom.report_pickup_form_doc" t-lang="doc.partner_id.lang"/>
+                </t>
+            </t>
+        </template>
+
+        <template id="report_pickup_form_doc">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-foreach="o.order_property_state" t-as="line">
+                        <t t-call="sale_report_custom.report_header_custom">
+
+
+                            <h2 class="text-center">محضر استلام الوحدة الإيجارية</h2>
+                            <br/>
+                            <br/>
+
+                            <div class="row mt32 mb32 text-right" id="informations">
+                                <div class="col-auto col-3 mw-100 mb-2"
+                                     style="margin-right: 45.11px;border-radius: 25px;border: 1px dashed #BB9B69;">
+                                    <p style="text-align: right;direction: rtl;" class="text-right" dir="rtl">
+                                        <span>
+                                            رقم الوحدة:
+                                        </span>
+                                        <span t-field=" doc.order_line[0].product_id.name"/>
+                                    </p>
+                                </div>
+
+                                <div class="col-auto col-3 mw-100 mb-2"
+                                     style="margin-right: 45.11px;border-radius: 25px;border: 1px dashed #BB9B69;">
+                                    <p style="text-align: right;direction: rtl;" class="text-right" dir="rtl">
+                                        <span>
+                                            تاريخ العقد:
+                                        </span>
+                                        <span class="m-0" t-field="doc.ejar_date" t-options='{"widget": "date"}'/>
+                                    </p>
+                                </div>
+
+                                <div class="col-auto col-3 mw-100 mb-2"
+                                     style="border-radius: 25px; border: 1px dashed #BB9B69;">
+                                    <p style="text-align: right;direction: rtl;" class="text-right" dir="rtl">
+                                        <span>
+                                            رقم العقد:
+                                        </span>
+                                        <span class="m-0" t-field="doc.ejar_number"/>
+                                    </p>
+                                </div>
+                            </div>
+                            <page>
+                                <style type="text/css">
+                                    table{
+                                    border-collapse: separate;
+                                    border-spacing: 0;
+                                    overflow: hidden;
+                                    }
+                                    th, td {
+                                    padding: 10px;
+                                    border: 1px dashed #BB9B69;
+                                    }
+                                    tr:first-child th:first-child {
+                                    border-top-left-radius: 10px;
+                                    }
+                                    tr:first-child th:last-child {
+                                    border-top-right-radius: 10px;
+                                    }
+                                    tr:last-child td:first-child {
+                                    border-bottom-left-radius: 10px;
+                                    }
+                                    tr:last-child td:last-child {
+                                    border-bottom-right-radius: 10px;
+                                    }
+                                </style>
+                                <br/>
+                                <table class="text-right table table-sm"
+                                       style="border-radius: 13px !important; border: 1px dashed #BB9B69;">
+                                    <th colspan="2" class="text-right" style="color:white; background:#BB9B69">
+                                        بيانات المستأجر
+                                    </th>
+                                    <tbody>
+                                        <tr>
+                                            <td  style="border-bottom: 0px !important;">
+                                                <span>رقم السجل التجاري</span>
+                                            </td>
+                                            <td  style="border-bottom: 0px !important;">
+                                                <span>اسم المستأجر</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span t-field="doc.partner_id.commercial_number"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="doc.partner_id.name"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table class="text-right table table-sm"
+                                       style="border-radius: 13px !important; border: 1px dashed #BB9B69;">
+                                    <th colspan="2" class="text-right" style="color:white; background:#BB9B69">
+                                        بيانات المؤجر
+                                    </th>
+                                    <tbody>
+                                        <tr>
+                                            <td  style="border-bottom: 0px !important;">
+                                                <span>رقم السجل التجاري</span>
+                                            </td>
+                                            <td  style="border-bottom: 0px !important;">
+                                                <span>اسم المؤجر</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span t-field="doc.company_id.partner_id.commercial_number"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="doc.company_id.name"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table class="text-right table table-sm">
+                                    <th colspan="4" class="text-right" style="color:white; background:#BB9B69">
+                                        بيانات العدادات
+                                    </th>
+                                    <tbody>
+                                        <tr>
+                                            <td  style="border-bottom: 0px !important;">
+                                                <span t-field="doc.order_line[0].product_id.unit_water"/>
+                                            </td>
+                                            <td  style="border-bottom: 0px !important;">
+                                                <span>رقم عداد المياه</span>
+                                            </td>
+                                            <td  style="border-bottom: 0px !important;">
+                                                <span t-field="doc.order_line[0].product_id.unit_electricity"/>
+                                            </td>
+                                            <td  style="border-bottom: 0px !important;">
+                                                <span>رقم عداد الكهرباء</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td  style="border-bottom: 0px !important;">
+                                                <span t-field="line.rrecent_water"/>
+                                            </td>
+                                            <td  style="border-bottom: 0px !important;">
+                                                <span>قراءة عداد المياه الحالية</span>
+                                            </td>
+                                            <td  style="border-bottom: 0px !important;">
+                                                <span t-field="line.rrecent_electricity"/>
+                                            </td>
+                                            <td  style="border-bottom: 0px !important;">
+                                                <span>قراءة عداد الكهرباء الحالية</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table class="text-right table table-sm"
+                                       style="border-radius: 25px; border: 1px dashed #BB9B69;">
+
+                                    <th colspan="4" class="text-right" style="color:white; background:#BB9B69">
+                                        حالة الوحدة الإيجارية عند التسليم
+                                    </th>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <span>تكلفة الإصلاح</span>
+                                            </td>
+                                            <td>
+                                                <span>الملاحظات</span>
+                                            </td>
+                                            <td>
+                                                <span>الحالة</span>
+                                            </td>
+                                            <td>
+                                                <span>البند</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+
+                                            </td>
+                                            <td>
+                                                <t t-if="line.rwall_comment">
+                                                    <span t-field="line.rwall_comment"/>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <t t-if="line.rwall_good">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rwall_good">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">مقبول</span>
+
+                                                <t t-if="line.rwall_bad">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rwall_bad">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">تالف</span>
+
+
+                                                <t t-if="line.rwall_none">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rwall_none">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">لا يوجد</span>
+
+                                            </td>
+                                            <td>
+                                                <span>دهان السقف والجدران</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+
+                                            </td>
+                                            <td>
+                                                <t t-if="line.rfloor_comment">
+                                                    <span t-field="line.rfloor_comment"/>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <t t-if="line.rfloor_good">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rfloor_good">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">مقبول</span>
+
+                                                <t t-if="line.rfloor_bad">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rfloor_bad">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">تالف</span>
+
+
+                                                <t t-if="line.rfloor_none">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rfloor_none">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">لا يوجد</span>
+
+                                            </td>
+                                            <td>
+                                                <span>الأرضيات</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+
+                                            </td>
+                                            <td>
+                                                <t t-if="line.rbath_comment">
+                                                    <span t-field="line.rbath_comment"/>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <t t-if="line.rbath_good">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rbath_good">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">مقبول</span>
+
+                                                <t t-if="line.rbath_bad">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rbath_bad">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">تالف</span>
+
+
+                                                <t t-if="line.rbath_none">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rbath_none">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">لا يوجد</span>
+
+                                            </td>
+                                            <td>
+                                                <span>الحمامات والأطقم الصحية</span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+
+                                            </td>
+                                            <td>
+                                                <t t-if="line.relec_comment">
+                                                    <span t-field="line.relec_comment"/>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <t t-if="line.relec_good">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.relec_good">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">مقبول</span>
+
+                                                <t t-if="line.relec_bad">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.relec_bad">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">تالف</span>
+
+
+                                                <t t-if="line.relec_none">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.relec_none">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">لا يوجد</span>
+
+                                            </td>
+                                            <td>
+                                                <span>الكهرباء والإضاءة</span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+
+                                            </td>
+                                            <td>
+                                                <t t-if="line.rwater_comment">
+                                                    <span t-field="line.rwater_comment"/>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <t t-if="line.rwater_good">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rwater_good">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">مقبول</span>
+
+                                                <t t-if="line.rwater_bad">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rwater_bad">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">تالف</span>
+
+
+                                                <t t-if="line.rwater_none">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rwater_none">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">لا يوجد</span>
+
+                                            </td>
+                                            <td>
+                                                <span>السباكة والتمديدات</span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+
+                                            </td>
+                                            <td>
+                                                <t t-if="line.rwate_comment">
+                                                    <span t-field="line.rwate_comment"/>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <t t-if="line.rwate_good">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rwate_good">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">مقبول</span>
+
+                                                <t t-if="line.rwate_bad">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rwate_bad">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">تالف</span>
+
+
+                                                <t t-if="line.rwate_none">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rwate_none">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">لا يوجد</span>
+
+                                            </td>
+                                            <td>
+                                                <span>خزان المياه</span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+
+                                            </td>
+                                            <td>
+                                                <t t-if="line.rdoor_comment">
+                                                    <span t-field="line.rdoor_comment"/>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <t t-if="line.rdoor_good">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rdoor_good">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">مقبول</span>
+
+                                                <t t-if="line.rdoor_bad">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rdoor_bad">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">تالف</span>
+
+
+                                                <t t-if="line.rdoor_none">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rdoor_none">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">لا يوجد</span>
+
+                                            </td>
+                                            <td>
+                                                <span>الأبواب</span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+
+                                            </td>
+                                            <td>
+                                                <t t-if="line.rwindow_comment">
+                                                    <span t-field="line.rwindow_comment"/>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <t t-if="line.rwindow_good">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rwindow_good">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">مقبول</span>
+
+                                                <t t-if="line.rwindow_bad">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rwindow_bad">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">تالف</span>
+
+
+                                                <t t-if="line.rwindow_none">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rwindow_none">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">لا يوجد</span>
+
+                                            </td>
+                                            <td>
+                                                <span>النوافذ</span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+
+                                            </td>
+                                            <td>
+                                                <t t-if="line.rac_comment">
+                                                    <span t-field="line.rac_comment"/>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <t t-if="line.rac_good">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rac_good">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">مقبول</span>
+
+                                                <t t-if="line.rac_bad">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rac_bad">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">تالف</span>
+
+
+                                                <t t-if="line.rac_none">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rac_none">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">لا يوجد</span>
+
+                                            </td>
+                                            <td>
+                                                <span>أجهزة التكييف</span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+
+                                            </td>
+                                            <td>
+                                                <t t-if="line.rii_comment">
+                                                    <span t-field="line.rii_comment"/>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <t t-if="line.rii_good">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rii_good">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">مقبول</span>
+
+                                                <t t-if="line.rii_bad">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rii_bad">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">تالف</span>
+
+
+                                                <t t-if="line.rii_none">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rii_none">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">لا يوجد</span>
+
+                                            </td>
+                                            <td>
+                                                <span>الإنتر كوم ( النداء الخارجي )</span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+
+                                            </td>
+                                            <td>
+                                                <t t-if="line.rgeps_comment">
+                                                    <span t-field="line.rgeps_comment"/>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <t t-if="line.rgeps_good">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rgeps_good">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">مقبول</span>
+
+                                                <t t-if="line.rgeps_bad">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rgeps_bad">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">تالف</span>
+
+
+                                                <t t-if="line.rgeps_none">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rgeps_none">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">لا يوجد</span>
+
+                                            </td>
+                                            <td>
+                                                <span>أعمال الجبس</span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+
+                                            </td>
+                                            <td>
+                                                <t t-if="line.rkeys_comment">
+                                                    <span t-field="line.rkeys_comment"/>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <t t-if="line.rkeys_good">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rkeys_good">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">مقبول</span>
+
+                                                <t t-if="line.rkeys_bad">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rkeys_bad">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">تالف</span>
+
+
+                                                <t t-if="line.rkeys_none">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rkeys_none">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">لا يوجد</span>
+
+                                            </td>
+                                            <td>
+                                                <span>المفاتيح</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+
+                                            </td>
+                                            <td>
+                                                <t t-if="line.rother_comment">
+                                                    <span t-field="line.rother_comment"/>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <t t-if="line.rother_good">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rother_good">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">مقبول</span>
+
+                                                <t t-if="line.rother_bad">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rother_bad">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">تالف</span>
+
+
+                                                <t t-if="line.rother_none">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.rother_none">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">لا يوجد</span>
+
+                                            </td>
+                                            <td>
+                                                <span>أخرى</span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+
+                                            </td>
+                                            <td>
+                                                <t t-if="line.ril_comment">
+                                                    <span t-field="line.ril_comment"/>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <t t-if="line.ril_good">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.ril_good">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">تم</span>
+
+                                                <t t-if="line.ril_bad">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.ril_bad">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">لم يتم</span>
+
+
+                                                <t t-if="line.ril_none">
+                                                    <input type="checkbox" id="oe_import_tracking"
+                                                           checked="checked"/>
+                                                </t>
+                                                <t t-if="not line.ril_none">
+                                                    <input type="checkbox" id="oe_import_tracking"/>
+                                                </t>
+                                                <span style="margin-left:1.5em;">لا يوجد</span>
+
+                                            </td>
+                                            <td>
+                                                <span>الغاء رخصة البلدية</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <br/>
+                                <p class="text-right" dir="rtl" style="direction: rtl;">
+                                    <span>
+                                        إنه في تاريخ
+                                    </span>
+                                    <span t-field="line.h_return_date"/>
+                                    <span>
+                                        الموافق
+                                    </span>
+                                    <span t-field="line.return_date"/>
+                                    <span>
+                                        .....قام المستأجر الموضح بياناته أعلاه بإخلاء وتسليم الوحدات الإيجارية
+                                        الموضح بياناتها في العقد وهي بحالة جيدة ومماثلة للحالة التي كانت عليه عند
+                                        استلامها وذلك بعد التأكد من سلامة كافة مرافقها ومحتوياتها ومطابقتها من قبل
+                                        المؤجر مع نموذج الاستلام أعلاه
+                                    </span>
+                                </p>
+                                <p class="text-right">
+                                    كما يقر المؤجر بأنه لاتوجد اي ملاحظات تمنع من استلام وإخلاء الوحدات الايجارية
+                                </p>
+                                <b>
+                                    <p class="text-center" style="color:#a6886a">
+                                        وعليه جرى التوقيع من الطرفين
+                                    </p>
+                                </b>
+                                <br/>
+
+                                <div class="row mt32 mb32 text-right" id="signature1">
+                                    <div class="col-auto col-3 mw-100 mb-2">
+                                        <b>
+                                            <p style="color:white; border-radius: 25px; background: #BB9B69;">:ممثل
+                                                المؤجر
+                                            </p>
+                                        </b>
+                                        <p>......................................الاسم /</p>
+                                        <p>......................................التوقيع /</p>
+                                    </div>
+
+                                    <div class="col-auto col-3 mw-100 mb-2">
+                                        <b>
+                                            <p style="color:white; border-radius: 25px; background: #BB9B69;">:ممثل
+                                                المستأجر
+                                            </p>
+                                        </b>
+                                        <p>......................................الاسم /</p>
+                                        <p>......................................التوقيع /</p>
+                                    </div>
+                                </div>
+                                <div class="row mt32 mb32 text-right" id="signature2">
+                                    <div class="col-auto col-3 mw-100 mb-2">
+                                        <table class="text-right table table-sm"
+                                               style="border-radius: 25px; border: 1px dashed #BB9B69;">
+                                            <th class="text-right" style="color:white; background:#BB9B69">
+                                                :ممثل الادارة المالية
+                                            </th>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <p>......................................الاسم /</p>
+                                                        <p>......................................التوقيع /</p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-auto col-3 mw-100 mb-2">
+                                        <table class="text-right table table-sm"
+                                               style="border-radius: 25px; border: 1px dashed #BB9B69;">
+                                            <th class="text-right" style="color:white; background:#BB9B69">
+                                                :ممثل الادارة القانونية
+                                            </th>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <p>......................................الاسم /</p>
+                                                        <p>......................................التوقيع /</p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-auto col-3 mw-100 mb-2">
+                                        <table class="text-right table table-sm"
+                                               style="border-radius: 25px; border: 1px dashed #BB9B69;">
+                                            <th class="text-right" style="color:white; background:#BB9B69">
+                                                :ممثل الادارة الهندسية
+                                            </th>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <p>......................................الاسم /</p>
+                                                        <p>......................................التوقيع /</p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <br/>
+
+                                <div class="row mt32 mb32 text-right" id="signature2">
+                                    <div class="col-auto col-3 mw-100 mb-2 text-right"
+                                         t-if="o.state not in ['ff_review','ceo','draft_qu','draft','sent']">
+                                        <table class="text-right table table-sm"
+                                               style="border-radius: 25px; border: 1px dashed #BB9B69;">
+                                            <th class="text-right" style="color:white; background:#BB9B69">
+                                                :توقيع مسئول العقارات
+                                            </th>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <p>......................................الاسم /</p>
+                                                        <p>
+                                                            <img src="/sale_report_custom/static/src/images/pm.png"
+                                                                 alt="" width="100"/>
+                                                            التوقيع /
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="col-auto col-3 mw-100 mb-2">
+                                        <table class="text-right table table-sm"
+                                               style="border-radius: 25px; border: 1px dashed #BB9B69;">
+                                            <th class="text-right" style="color:white; background:#BB9B69">
+                                                :ممثل الادارة المالية
+                                            </th>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <p>......................................الاسم /</p>
+                                                        <p>......................................التوقيع /</p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </page>
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+
+    </data>
+</odoo>
