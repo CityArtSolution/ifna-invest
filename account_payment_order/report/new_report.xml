@@ -204,6 +204,8 @@
                             </td>
 
                         </tr>
+                    </table>
+                    <table style="text-align:left;">
 
                         <tr>
                             <td t-if="doc.payment_request_type != 'account'">
@@ -218,6 +220,8 @@
                                 <span style="text-align:left !important;" t-esc="amo1"/>
                             </td>
                         </tr>
+                    </table>
+                    <table style="text-align:left;">
                         <tr>
                             <td width="16%">
                                 <strong>Beneficiary:</strong>
@@ -230,11 +234,13 @@
                                 <span style="text-align:left"
                                       t-esc="doc.beneficiary_name"></span>
                             </td>
-<!--                            <td t-else="">-->
-<!--                                <span>N/A</span>-->
-<!--                            </td>-->
+                            <!--                            <td t-else="">-->
+                            <!--                                <span>N/A</span>-->
+                            <!--                            </td>-->
 
                         </tr>
+                    </table>
+                    <table style="text-align:left;">
                         <tr>
                             <td>
                                 <strong>Purpose:</strong>
@@ -243,6 +249,8 @@
                                 <span style="text-align:left" t-esc="doc.description"></span>
                             </td>
                         </tr>
+                    </table>
+                    <table style="text-align:left;">
                         <tr>
                             <td>
                                 <strong>Details:</strong>
@@ -290,8 +298,8 @@
                         </div>
                     </div>
                     <div class="row" style="border: 1px solid #808080;">
-                        <div class="col-3" style="border:1px solid #808080;text-align:center;height:70px;" >
-                            <span>Signature</span>
+                        <div class="col-3" style="padding:20px;border:1px solid #808080;text-align:center;height:70px;">
+                            <span style="padding:50px;">Signature</span>
                         </div>
                         <div class="col-3" style="border:1px solid #808080;text-align:center;">
                         </div>
@@ -304,7 +312,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="row" style="border: 1px solid black;">
-                                <div class="col-7" style="text-align:left;background-color:#BB9B69">
+                                <div class="col-8" style="text-align:left;background-color:#BB9B69">
                                     <span>For Finance Department Use Only</span>
                                 </div>
                                 <div class="col-5"
@@ -313,7 +321,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-7">
+                                <div class="col-8">
                                     <div class="row" style="border: 1px solid #808080;">
                                         <div class="col-6" style="text-align:left;">
                                             <strong>Net Amount Paid</strong>
