@@ -182,6 +182,8 @@
                                         <br/>
                                         <img t-if="o.finance" src="/sale_report_custom/static/src/images/finance.png" alt=""
                                              width="100"/>
+                                        <img t-if="o.facility" src="/sale_report_custom/static/src/images/facility.png" alt=""
+                                             width="100"/>
                                         <!--                                        <img t-if="o.finance_user.finance"-->
                                         <!--                                             t-att-src="image_data_uri(o.finance_user.finance)" width="100"/>-->
                                     </t>
