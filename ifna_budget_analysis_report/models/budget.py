@@ -1,6 +1,7 @@
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError, AccessError
 
+
 class CrossoveredBudgetLines(models.Model):
     _inherit = 'crossovered.budget.lines'
 
@@ -8,7 +9,7 @@ class CrossoveredBudgetLines(models.Model):
     def read_group(self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True):
         # overrides the default read_group in order to compute the computed fields manually for the group
 
-        fields_list = {'practical_amount', 'theoritical_amount','deviation_value', 'deviation_ratio','percentage'}
+        fields_list = {'practical_amount', 'theoritical_amount', 'deviation_value', 'deviation_ratio', 'percentage'}
 
         # Not any of the fields_list support aggregate function like :sum
         def truncate_aggr(field):
@@ -16,6 +17,7 @@ class CrossoveredBudgetLines(models.Model):
             if field_no_aggr in fields_list:
                 return field_no_aggr
             return field
+
         fields = {truncate_aggr(field) for field in fields}
 
         # Read non fields_list fields
