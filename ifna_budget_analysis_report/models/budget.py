@@ -1,7 +1,6 @@
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError, AccessError
 
-
 class CrossoveredBudgetLines(models.Model):
     _inherit = 'crossovered.budget.lines'
 
@@ -9,7 +8,7 @@ class CrossoveredBudgetLines(models.Model):
     def read_group(self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True):
         # overrides the default read_group in order to compute the computed fields manually for the group
 
-        fields_list = {'practical_amount', 'theoritical_amount', 'deviation_value', 'deviation_ratio', 'percentage'}
+        fields_list = {'practical_amount', 'theoritical_amount','deviation_value', 'deviation_ratio','percentage'}
 
         # Not any of the fields_list support aggregate function like :sum
         def truncate_aggr(field):
@@ -17,14 +16,12 @@ class CrossoveredBudgetLines(models.Model):
             if field_no_aggr in fields_list:
                 return field_no_aggr
             return field
-
         fields = {truncate_aggr(field) for field in fields}
 
         # Read non fields_list fields
         result = super(CrossoveredBudgetLines, self).read_group(
             domain, list(fields - fields_list), groupby, offset=offset,
             limit=limit, orderby=orderby, lazy=lazy)
-
         # Populate result with fields_list values
         if fields & fields_list:
             for group_line in result:
@@ -34,15 +31,13 @@ class CrossoveredBudgetLines(models.Model):
                     group_line['practical_amount'] = 0
                 if 'theoritical_amount' in fields:
                     group_line['theoritical_amount'] = 0
-                if 'deviation_value' in fields:
-                    group_line['deviation_value'] = 0
-                if 'deviation_ratio' in fields:
-                    group_line['deviation_ratio'] = 0
                 if 'percentage' in fields:
                     group_line['percentage'] = 0
                     group_line['practical_amount'] = 0
                     group_line['theoritical_amount'] = 0
 
+                group_line['deviation_value'] = 0
+                group_line['deviation_ratio'] = 0
                 domain = group_line.get('__domain') or domain
                 all_budget_lines_that_compose_group = self.search(domain)
 
