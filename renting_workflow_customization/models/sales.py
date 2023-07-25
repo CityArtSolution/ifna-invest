@@ -146,20 +146,36 @@ class SaleOrder(models.Model):
     deleg_birth = fields.Date(string="تاريح الميلاد")
     company_add = fields.Text(string="العنوان الوطني للشركة")
 
-    def create_mail_message_notification(self,rec,email_to_custom,message_txt):
+    def create_mail_message_notification(self,rec,email_to_custom,message_txt,group_name):
         action = self.env.ref('sale_renting.rental_order_action').id
         menu = self.env.ref('sale_renting.rental_orders_all').id
+        body = _(
+                " %s <a href='/web?debug=0#id=%s&action=%s&model=sale.order&view_type=kanban&menu_id=%s'> %s</a>") % (
+                    message_txt,rec.id, action, menu, rec.name)
 
-        self.env['mail.message'].sudo().create({
+
+        users = self.env.ref(group_name).users
+        b = []
+        for n in users:
+            b.append(n.partner_id.id)
+
+        h = []
+        o = self.env['mail.message'].search([('record_name', '!=', False)],
+                                            limit=1)
+        for g in b:
+            h.append([0, 0, {'mail_message_id': o.id, 'res_partner_id': g}])
+
+        obj=self.env['mail.message'].sudo().create({
             'subject': 'Finance - Rent Order',
-            'body': _(
-                " <a href='/web?debug=0#id=%s&action=%s&model=sale.order&view_type=kanban&menu_id=%s'> %s</a>") % (
-                    rec.id, action, menu, rec.name),
+            'record_name':message_txt,
+            'notification_ids': h,
+            'body': body,
             'email_from': self.env.user.name,
             'partner_ids': [(6, 0, email_to_custom.partner_id.ids)],
             'message_type': 'notification',
             'subtype_id': self.env.ref('mail.mt_note').id,
         })
+        tmp=obj
 
     def finance_facility(self):
         for rec in self:
@@ -188,7 +204,7 @@ class SaleOrder(models.Model):
                 #     message_type='comment',
                 #     partner_ids=email_to_custom.partner_id.ids)
                 message_txt = f'Finance - Rent Order.' + self.name
-                self.create_mail_message_notification(rec,email_to_custom,message_txt)
+                self.create_mail_message_notification(rec,email_to_custom,message_txt,'renting_workflow_customization.finance_group')
 
 
             facility_group = self.env.ref('renting_workflow_customization.facility_group')
@@ -213,7 +229,7 @@ class SaleOrder(models.Model):
                 #     message_type='comment',
                 #     partner_ids=email_to_custom.partner_id.ids)
                 message_txt = f'Facility - Rent Order.' + self.name
-                self.create_mail_message_notification(rec,email_to_custom,message_txt)
+                self.create_mail_message_notification(rec,email_to_custom,message_txt,'renting_workflow_customization.facility_group')
 
             rec.state = "ff_review"
 
@@ -247,7 +263,7 @@ class SaleOrder(models.Model):
                 # })
                 # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                 message_txt =  f'PM - Rent Order.' + self.name
-                self.create_mail_message_notification(rec,email_to_custom,message_txt)
+                self.create_mail_message_notification(rec,email_to_custom,message_txt,'renting_workflow_customization.pm_group')
 
             rec.state = "draft"
             # return {
@@ -280,7 +296,7 @@ class SaleOrder(models.Model):
                     # })
                     # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                     message_txt = f'CEO - Rent Order.' + self.name
-                    self.create_mail_message_notification(rec, email_to_custom, message_txt)
+                    self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.ceo_group')
 
                 rec.state = "ceo"
             return {
@@ -314,7 +330,7 @@ class SaleOrder(models.Model):
                     # })
                     # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                     message_txt =  f'CEO - Rent Order.' + self.name
-                    self.create_mail_message_notification(rec, email_to_custom, message_txt)
+                    self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.ceo_group')
 
                 rec.state = "ceo"
             return {
@@ -348,7 +364,7 @@ class SaleOrder(models.Model):
                 # })
                 # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                 message_txt = f'Rejected Rental Order by Finance.'
-                self.create_mail_message_notification(rec, email_to_custom, message_txt)
+                self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.pm_group')
 
             return {
                 'name': 'Reason',
@@ -381,7 +397,7 @@ class SaleOrder(models.Model):
                 # })
                 # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                 message_txt =  f'Rejected Rental Order by Facility.'
-                self.create_mail_message_notification(rec, email_to_custom, message_txt)
+                self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.pm_group')
 
             return {
                 'name': 'Reason',
@@ -423,7 +439,7 @@ class SaleOrder(models.Model):
                 # })
                 # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                 message_txt = f'Finance - Rent Order.' + self.name
-                self.create_mail_message_notification(rec, email_to_custom, message_txt)
+                self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.finance_group')
 
             facility_group = self.env.ref('renting_workflow_customization.facility_group')
             notification_facility_group = self.env['res.users'].search([]).filtered(
@@ -441,7 +457,7 @@ class SaleOrder(models.Model):
                 # })
                 # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                 message_txt =f'Facility - Rent Order.' + self.name,
-                self.create_mail_message_notification(rec, email_to_custom, message_txt)
+                self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.facility_group')
 
             legal_group = self.env.ref('renting_workflow_customization.legal_group')
             notification_legal_group = self.env['res.users'].search([]).filtered(
@@ -459,7 +475,7 @@ class SaleOrder(models.Model):
                 # })
                 # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                 message_txt = f'Legal - Rent Order.' + self.name
-                self.create_mail_message_notification(rec, email_to_custom, message_txt)
+                self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.legal_group')
 
     def finance_second_approve(self):
         for rec in self:
@@ -482,7 +498,7 @@ class SaleOrder(models.Model):
                     # })
                     # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                     message_txt =  f'Rejected Rental Order by Finance.'
-                    self.create_mail_message_notification(rec, email_to_custom, message_txt)
+                    self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.pm_group')
 
             return {
                 'name': 'Comment',
@@ -514,7 +530,7 @@ class SaleOrder(models.Model):
                     # })
                     # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                     message_txt = f'Rejected Rental Order by Finance.'
-                    self.create_mail_message_notification(rec, email_to_custom, message_txt)
+                    self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.pm_group')
 
             return {
                 'name': 'Comment',
@@ -546,7 +562,7 @@ class SaleOrder(models.Model):
                     # })
                     # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                     message_txt = f'Rejected Rental Order by Finance.'
-                    self.create_mail_message_notification(rec, email_to_custom, message_txt)
+                    self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.pm_group')
 
             return {
                 'name': 'Comment',
@@ -577,7 +593,7 @@ class SaleOrder(models.Model):
                 # })
                 # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                 message_txt = f'Rejected Rental Order by Finance.'
-                self.create_mail_message_notification(rec, email_to_custom, message_txt)
+                self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.pm_group')
 
             return {
                 'name': 'Reason',
@@ -608,7 +624,7 @@ class SaleOrder(models.Model):
                 # })
                 # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                 message_txt = f'Rejected Rental Order by Facility.'
-                self.create_mail_message_notification(rec, email_to_custom, message_txt)
+                self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.pm_group')
 
             return {
                 'name': 'Reason',
@@ -639,7 +655,7 @@ class SaleOrder(models.Model):
                 # })
                 # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                 message_txt = f'Rejected Rental Order by Legal.'
-                self.create_mail_message_notification(rec, email_to_custom, message_txt)
+                self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.pm_group')
 
             return {
                 'name': 'Reason',
@@ -672,7 +688,7 @@ class SaleOrder(models.Model):
                 # })
                 # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                 message_txt = f'Rental Order.'
-                self.create_mail_message_notification(rec, email_to_custom, message_txt)
+                self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.ceo_group')
 
                 # return {
                 #     'name': 'Email',
@@ -705,7 +721,7 @@ class SaleOrder(models.Model):
                 # })
                 # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                 message_txt = f'Rental Order.'
-                self.create_mail_message_notification(rec, email_to_custom, message_txt)
+                self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.pm_group')
 
     def send_finance(self):
         for rec in self:
@@ -725,7 +741,7 @@ class SaleOrder(models.Model):
                 # })
                 # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                 message_txt = f'Rental Order.'
-                self.create_mail_message_notification(rec, email_to_custom, message_txt)
+                self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.finance_group')
 
     def send_ceo_approval(self):
         for rec in self:
@@ -745,7 +761,7 @@ class SaleOrder(models.Model):
                 # })
                 # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                 message_txt = f'Rental Order.'
-                self.create_mail_message_notification(rec, email_to_custom, message_txt)
+                self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.ceo_group')
 
     def action_confirm(self):
         group = self.env.ref('renting_workflow_customization.finance_group')
@@ -763,7 +779,7 @@ class SaleOrder(models.Model):
             # })
             # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
             message_txt = f'Rental Order.'
-            self.create_mail_message_notification(self, email_to_custom, message_txt)
+            self.create_mail_message_notification(self, email_to_custom, message_txt,'renting_workflow_customization.finance_group')
 
         result = super(SaleOrder, self).action_confirm()
 

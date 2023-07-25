@@ -22,7 +22,7 @@
                             <br/>
                             <br/>
                             <h3>Payment Request:
-                                <span style="color:#00008B;font-size:22px" t-esc="doc.name"></span>
+                                <span style="color:#00008B;font-size:21px" t-esc="doc.name"></span>
                             </h3>
                         </strong>
                     </div>

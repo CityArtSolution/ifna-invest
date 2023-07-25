@@ -29,8 +29,7 @@ class RentSaleOrderLine(models.Model):
 
     rent_unit_area = fields.Float(string='المساحة m2', copy=True, readonly=False)
     rent_unit_area_price = fields.Float(string='سعر المتر', copy=True, readonly=False)
-    price_unit = fields.Float('Unit Price', required=True, digits='Product Price', default=0.0,
-                              compute="_compute_price_rent")
+    price_unit = fields.Float('Unit Price', required=True, digits='Product Price', default=0.0)
 
     @api.onchange('product_id')
     def get_area_price_rent(self):
@@ -38,7 +37,7 @@ class RentSaleOrderLine(models.Model):
             rec.rent_unit_area = rec.product_id.rent_unit_area
             rec.rent_unit_area_price = rec.product_id.rent_unit_area_price
 
-    @api.depends('rent_unit_area', 'rent_unit_area_price', 'price_unit')
+    @api.onchange('rent_unit_area', 'rent_unit_area_price', 'product_id')
     def _compute_price_rent(self):
         for rec in self:
             rec.price_unit = rec.rent_unit_area * rec.rent_unit_area_price * rec.rental_pricing_id.duration

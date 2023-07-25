@@ -12,8 +12,6 @@
         'hr_expense',
         'account_budget',
         'purchase',
-
-
     ],
     'data': [
         'views/budget.xml',

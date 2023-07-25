@@ -19,7 +19,7 @@
                         .pims_report_line_table thead{
                             width: 100%;
                             overflow: auto;
-                            border-bottom:2px solid grey;
+                            border-bottom:1px solid grey;
                         }
 
                         .pims_report_line_main_tr {
