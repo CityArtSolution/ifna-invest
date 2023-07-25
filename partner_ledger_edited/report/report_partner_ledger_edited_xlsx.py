@@ -25,14 +25,14 @@ DATE_DICT = {
 }
 
 
-class InsPartnerLedgerXlsx(models.AbstractModel):
+class InsPartnerLedgerEditedXlsx(models.AbstractModel):
     _name = 'report.partner_ledger_edited.ins_partner_ledger_edited_xlsx'
     _inherit = 'report.report_xlsx.abstract'
     _logger = logging.getLogger(__name__)
     try:
         _inherit = 'report.report_xlsx.abstract'
     except ImportError:
-        _logger.debug('Cannot find report_xlsx module for version 11')
+        _logger.debug('Cannot find report_xlsx module for version 15')
 
     def convert_to_date(self, datestring=False):
         if datestring:
@@ -44,6 +44,7 @@ class InsPartnerLedgerXlsx(models.AbstractModel):
             return False
 
     def generate_xlsx_report(self, workbook, data, record):
+        print("Generating\n\n\n\n\n\n")
 
         # self._define_formats(workbook)
         """ Add cell formats to current workbook.
