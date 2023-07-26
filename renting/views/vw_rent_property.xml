@@ -140,7 +140,10 @@
                                     <tree string="خدمات المرافق - الصيانة" editable="bottom">
                                         <field name="vendor_id"/>
                                         <field name="maintenance_type_id"/>
-                                        <field name="attachment_id" widget="many2many_binary"/>
+                                        <field name="from_date" />
+                                        <field name="to_date" />
+                                        <field name="visits" />
+                                        <field name="visits_ids" widget="many2many_binary"/>
                                     </tree>
                                 </field>
                             </page>
@@ -151,6 +154,7 @@
                                     <field name="national_permit_shop_in"/>
                                     <field name="national_permit_shop_out"/>
                                     <field name="national_permit_build"/>
+                                    <field name="note"/>
                                 </group>
                                 <group string="تصريح الدفاع المدني">
                                     <field name="defense_permit_number"/>
