@@ -145,14 +145,22 @@ class SaleOrder(models.Model):
     deleg_id = fields.Char(string="رقم الهوية")
     deleg_birth = fields.Date(string="تاريح الميلاد")
     company_add = fields.Text(string="العنوان الوطني للشركة")
+    company_add_attach = fields.Many2many("ir.attachment", 'company_add_sale_id', 'company_add_id', 'sale_id',
+                                          string="العنوان الوطني للشركة")
 
-    def create_mail_message_notification(self,rec,email_to_custom,message_txt,group_name):
+    @api.ondelete(at_uninstall=False)
+    def _unlink_except_draft_or_cancel(self):
+        for order in self:
+            if order.state not in ('draft_qu', 'cancel'):
+                raise UserError(
+                    _('You can not delete a sent quotation or a confirmed sales order. You must first cancel it.'))
+
+    def create_mail_message_notification(self, rec, email_to_custom, message_txt, group_name):
         action = self.env.ref('sale_renting.rental_order_action').id
         menu = self.env.ref('sale_renting.rental_orders_all').id
         body = _(
-                " %s <a href='/web?debug=0#id=%s&action=%s&model=sale.order&view_type=kanban&menu_id=%s'> %s</a>") % (
-                    message_txt,rec.id, action, menu, rec.name)
-
+            " %s <a href='/web?debug=0#id=%s&action=%s&model=sale.order&view_type=kanban&menu_id=%s'> %s</a>") % (
+                   message_txt, rec.id, action, menu, rec.name)
 
         users = self.env.ref(group_name).users
         b = []
@@ -165,9 +173,9 @@ class SaleOrder(models.Model):
         for g in b:
             h.append([0, 0, {'mail_message_id': o.id, 'res_partner_id': g}])
 
-        obj=self.env['mail.message'].sudo().create({
+        obj = self.env['mail.message'].sudo().create({
             'subject': 'Finance - Rent Order',
-            'record_name':message_txt,
+            'record_name': message_txt,
             'notification_ids': h,
             'body': body,
             'email_from': self.env.user.name,
@@ -175,7 +183,7 @@ class SaleOrder(models.Model):
             'message_type': 'notification',
             'subtype_id': self.env.ref('mail.mt_note').id,
         })
-        tmp=obj
+        tmp = obj
 
     def finance_facility(self):
         for rec in self:
@@ -188,7 +196,7 @@ class SaleOrder(models.Model):
                 model_id = self.env['ir.model'].search(
                     [('model', '=', self._name)]).id
 
-                #omara stopped activity and made it as mail.message notification to be able to open specific window action
+                # omara stopped activity and made it as mail.message notification to be able to open specific window action
                 # self.env['mail.activity'].with_user(email_to_custom.id).sudo().create({
                 #     'res_id': rec.id,
                 #     'res_model_id': model_id,
@@ -204,8 +212,8 @@ class SaleOrder(models.Model):
                 #     message_type='comment',
                 #     partner_ids=email_to_custom.partner_id.ids)
                 message_txt = f'Finance - Rent Order.' + self.name
-                self.create_mail_message_notification(rec,email_to_custom,message_txt,'renting_workflow_customization.finance_group')
-
+                self.create_mail_message_notification(rec, email_to_custom, message_txt,
+                                                      'renting_workflow_customization.finance_group')
 
             facility_group = self.env.ref('renting_workflow_customization.facility_group')
             notification_facility_group = self.env['res.users'].search([]).filtered(
@@ -213,7 +221,7 @@ class SaleOrder(models.Model):
             for email_to_custom in notification_facility_group:
                 model_id = self.env['ir.model'].search(
                     [('model', '=', self._name)]).id
-                #omara stopped
+                # omara stopped
                 # self.env['mail.activity'].with_user(email_to_custom.id).sudo().create({
                 #     'res_id': rec.id,
                 #     'res_model_id': model_id,
@@ -229,7 +237,8 @@ class SaleOrder(models.Model):
                 #     message_type='comment',
                 #     partner_ids=email_to_custom.partner_id.ids)
                 message_txt = f'Facility - Rent Order.' + self.name
-                self.create_mail_message_notification(rec,email_to_custom,message_txt,'renting_workflow_customization.facility_group')
+                self.create_mail_message_notification(rec, email_to_custom, message_txt,
+                                                      'renting_workflow_customization.facility_group')
 
             rec.state = "ff_review"
 
@@ -253,7 +262,7 @@ class SaleOrder(models.Model):
             for email_to_custom in notification_pm_group:
                 model_id = self.env['ir.model'].search(
                     [('model', '=', self._name)]).id
-                #omara stopped
+                # omara stopped
                 # self.env['mail.activity'].with_user(email_to_custom.id).sudo().create({
                 #     'res_id': rec.id,
                 #     'res_model_id': model_id,
@@ -262,8 +271,9 @@ class SaleOrder(models.Model):
                 #     'note': f'PM - Rent Order.' + self.name,
                 # })
                 # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
-                message_txt =  f'PM - Rent Order.' + self.name
-                self.create_mail_message_notification(rec,email_to_custom,message_txt,'renting_workflow_customization.pm_group')
+                message_txt = f'PM - Rent Order.' + self.name
+                self.create_mail_message_notification(rec, email_to_custom, message_txt,
+                                                      'renting_workflow_customization.pm_group')
 
             rec.state = "draft"
             # return {
@@ -286,7 +296,7 @@ class SaleOrder(models.Model):
                 for email_to_custom in notification_facility_group:
                     model_id = self.env['ir.model'].search(
                         [('model', '=', self._name)]).id
-                    #omara stopped
+                    # omara stopped
                     # self.env['mail.activity'].with_user(email_to_custom.id).sudo().create({
                     #     'res_id': rec.id,
                     #     'res_model_id': model_id,
@@ -296,7 +306,8 @@ class SaleOrder(models.Model):
                     # })
                     # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                     message_txt = f'CEO - Rent Order.' + self.name
-                    self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.ceo_group')
+                    self.create_mail_message_notification(rec, email_to_custom, message_txt,
+                                                          'renting_workflow_customization.ceo_group')
 
                 rec.state = "ceo"
             return {
@@ -320,7 +331,7 @@ class SaleOrder(models.Model):
                 for email_to_custom in notification_facility_group:
                     model_id = self.env['ir.model'].search(
                         [('model', '=', self._name)]).id
-                    #omara stopped
+                    # omara stopped
                     # self.env['mail.activity'].with_user(email_to_custom.id).sudo().create({
                     #     'res_id': rec.id,
                     #     'res_model_id': model_id,
@@ -329,8 +340,9 @@ class SaleOrder(models.Model):
                     #     'note': f'CEO - Rent Order.' + self.name,
                     # })
                     # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
-                    message_txt =  f'CEO - Rent Order.' + self.name
-                    self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.ceo_group')
+                    message_txt = f'CEO - Rent Order.' + self.name
+                    self.create_mail_message_notification(rec, email_to_custom, message_txt,
+                                                          'renting_workflow_customization.ceo_group')
 
                 rec.state = "ceo"
             return {
@@ -354,7 +366,7 @@ class SaleOrder(models.Model):
             for email_to_custom in notification_user:
                 model_id = self.env['ir.model'].search(
                     [('model', '=', self._name)]).id
-                #omara
+                # omara
                 # self.env['mail.activity'].with_user(email_to_custom.id).sudo().create({
                 #     'res_id': rec.id,
                 #     'res_model_id': model_id,
@@ -364,7 +376,8 @@ class SaleOrder(models.Model):
                 # })
                 # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                 message_txt = f'Rejected Rental Order by Finance.'
-                self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.pm_group')
+                self.create_mail_message_notification(rec, email_to_custom, message_txt,
+                                                      'renting_workflow_customization.pm_group')
 
             return {
                 'name': 'Reason',
@@ -387,7 +400,7 @@ class SaleOrder(models.Model):
             for email_to_custom in notification_user:
                 model_id = self.env['ir.model'].search(
                     [('model', '=', self._name)]).id
-                #omara stopped
+                # omara stopped
                 # self.env['mail.activity'].with_user(email_to_custom.id).sudo().create({
                 #     'res_id': rec.id,
                 #     'res_model_id': model_id,
@@ -396,8 +409,9 @@ class SaleOrder(models.Model):
                 #     'note': f'Rejected Rental Order by Facility.',
                 # })
                 # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
-                message_txt =  f'Rejected Rental Order by Facility.'
-                self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.pm_group')
+                message_txt = f'Rejected Rental Order by Facility.'
+                self.create_mail_message_notification(rec, email_to_custom, message_txt,
+                                                      'renting_workflow_customization.pm_group')
 
             return {
                 'name': 'Reason',
@@ -429,7 +443,7 @@ class SaleOrder(models.Model):
             for email_to_custom in notification_finance_group:
                 model_id = self.env['ir.model'].search(
                     [('model', '=', self._name)]).id
-                #omara stopped
+                # omara stopped
                 # self.env['mail.activity'].with_user(email_to_custom.id).sudo().create({
                 #     'res_id': rec.id,
                 #     'res_model_id': model_id,
@@ -439,7 +453,8 @@ class SaleOrder(models.Model):
                 # })
                 # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                 message_txt = f'Finance - Rent Order.' + self.name
-                self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.finance_group')
+                self.create_mail_message_notification(rec, email_to_custom, message_txt,
+                                                      'renting_workflow_customization.finance_group')
 
             facility_group = self.env.ref('renting_workflow_customization.facility_group')
             notification_facility_group = self.env['res.users'].search([]).filtered(
@@ -447,7 +462,7 @@ class SaleOrder(models.Model):
             for email_to_custom in notification_facility_group:
                 model_id = self.env['ir.model'].search(
                     [('model', '=', self._name)]).id
-                #omara stopped
+                # omara stopped
                 # self.env['mail.activity'].with_user(email_to_custom.id).sudo().create({
                 #     'res_id': rec.id,
                 #     'res_model_id': model_id,
@@ -456,8 +471,9 @@ class SaleOrder(models.Model):
                 #     'note': f'Facility - Rent Order.' + self.name,
                 # })
                 # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
-                message_txt =f'Facility - Rent Order.' + self.name,
-                self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.facility_group')
+                message_txt = f'Facility - Rent Order.' + self.name,
+                self.create_mail_message_notification(rec, email_to_custom, message_txt,
+                                                      'renting_workflow_customization.facility_group')
 
             legal_group = self.env.ref('renting_workflow_customization.legal_group')
             notification_legal_group = self.env['res.users'].search([]).filtered(
@@ -465,7 +481,7 @@ class SaleOrder(models.Model):
             for email_to_custom in notification_legal_group:
                 model_id = self.env['ir.model'].search(
                     [('model', '=', self._name)]).id
-                #omara stopped
+                # omara stopped
                 # self.env['mail.activity'].with_user(email_to_custom.id).sudo().create({
                 #     'res_id': rec.id,
                 #     'res_model_id': model_id,
@@ -475,7 +491,8 @@ class SaleOrder(models.Model):
                 # })
                 # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                 message_txt = f'Legal - Rent Order.' + self.name
-                self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.legal_group')
+                self.create_mail_message_notification(rec, email_to_custom, message_txt,
+                                                      'renting_workflow_customization.legal_group')
 
     def finance_second_approve(self):
         for rec in self:
@@ -488,7 +505,7 @@ class SaleOrder(models.Model):
                 for email_to_custom in notification_user:
                     model_id = self.env['ir.model'].search(
                         [('model', '=', self._name)]).id
-                    #omara stopped
+                    # omara stopped
                     # self.env['mail.activity'].with_user(email_to_custom.id).sudo().create({
                     #     'res_id': rec.id,
                     #     'res_model_id': model_id,
@@ -497,8 +514,9 @@ class SaleOrder(models.Model):
                     #     'note': f'Rejected Rental Order by Finance.',
                     # })
                     # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
-                    message_txt =  f'Rejected Rental Order by Finance.'
-                    self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.pm_group')
+                    message_txt = f'Rejected Rental Order by Finance.'
+                    self.create_mail_message_notification(rec, email_to_custom, message_txt,
+                                                          'renting_workflow_customization.pm_group')
 
             return {
                 'name': 'Comment',
@@ -520,7 +538,7 @@ class SaleOrder(models.Model):
                 for email_to_custom in notification_user:
                     model_id = self.env['ir.model'].search(
                         [('model', '=', self._name)]).id
-                    #omara stopped
+                    # omara stopped
                     # self.env['mail.activity'].with_user(email_to_custom.id).sudo().create({
                     #     'res_id': rec.id,
                     #     'res_model_id': model_id,
@@ -530,7 +548,8 @@ class SaleOrder(models.Model):
                     # })
                     # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                     message_txt = f'Rejected Rental Order by Finance.'
-                    self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.pm_group')
+                    self.create_mail_message_notification(rec, email_to_custom, message_txt,
+                                                          'renting_workflow_customization.pm_group')
 
             return {
                 'name': 'Comment',
@@ -552,7 +571,7 @@ class SaleOrder(models.Model):
                 for email_to_custom in notification_user:
                     model_id = self.env['ir.model'].search(
                         [('model', '=', self._name)]).id
-                    #omara stopped
+                    # omara stopped
                     # self.env['mail.activity'].with_user(email_to_custom.id).sudo().create({
                     #     'res_id': rec.id,
                     #     'res_model_id': model_id,
@@ -562,7 +581,8 @@ class SaleOrder(models.Model):
                     # })
                     # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                     message_txt = f'Rejected Rental Order by Finance.'
-                    self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.pm_group')
+                    self.create_mail_message_notification(rec, email_to_custom, message_txt,
+                                                          'renting_workflow_customization.pm_group')
 
             return {
                 'name': 'Comment',
@@ -583,7 +603,7 @@ class SaleOrder(models.Model):
             for email_to_custom in notification_user:
                 model_id = self.env['ir.model'].search(
                     [('model', '=', self._name)]).id
-                #omara stopped
+                # omara stopped
                 # self.env['mail.activity'].with_user(email_to_custom.id).sudo().create({
                 #     'res_id': rec.id,
                 #     'res_model_id': model_id,
@@ -593,7 +613,8 @@ class SaleOrder(models.Model):
                 # })
                 # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                 message_txt = f'Rejected Rental Order by Finance.'
-                self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.pm_group')
+                self.create_mail_message_notification(rec, email_to_custom, message_txt,
+                                                      'renting_workflow_customization.pm_group')
 
             return {
                 'name': 'Reason',
@@ -614,7 +635,7 @@ class SaleOrder(models.Model):
             for email_to_custom in notification_user:
                 model_id = self.env['ir.model'].search(
                     [('model', '=', self._name)]).id
-                #omara stopped
+                # omara stopped
                 # self.env['mail.activity'].with_user(email_to_custom.id).sudo().create({
                 #     'res_id': rec.id,
                 #     'res_model_id': model_id,
@@ -624,7 +645,8 @@ class SaleOrder(models.Model):
                 # })
                 # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                 message_txt = f'Rejected Rental Order by Facility.'
-                self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.pm_group')
+                self.create_mail_message_notification(rec, email_to_custom, message_txt,
+                                                      'renting_workflow_customization.pm_group')
 
             return {
                 'name': 'Reason',
@@ -645,7 +667,7 @@ class SaleOrder(models.Model):
             for email_to_custom in notification_user:
                 model_id = self.env['ir.model'].search(
                     [('model', '=', self._name)]).id
-                #omara stopped
+                # omara stopped
                 # self.env['mail.activity'].with_user(email_to_custom.id).sudo().create({
                 #     'res_id': rec.id,
                 #     'res_model_id': model_id,
@@ -655,7 +677,8 @@ class SaleOrder(models.Model):
                 # })
                 # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                 message_txt = f'Rejected Rental Order by Legal.'
-                self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.pm_group')
+                self.create_mail_message_notification(rec, email_to_custom, message_txt,
+                                                      'renting_workflow_customization.pm_group')
 
             return {
                 'name': 'Reason',
@@ -688,7 +711,8 @@ class SaleOrder(models.Model):
                 # })
                 # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                 message_txt = f'Rental Order.'
-                self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.ceo_group')
+                self.create_mail_message_notification(rec, email_to_custom, message_txt,
+                                                      'renting_workflow_customization.ceo_group')
 
                 # return {
                 #     'name': 'Email',
@@ -711,7 +735,7 @@ class SaleOrder(models.Model):
             for email_to_custom in notification_user:
                 model_id = self.env['ir.model'].search(
                     [('model', '=', self._name)]).id
-                #omara stopped
+                # omara stopped
                 # self.env['mail.activity'].with_user(email_to_custom.id).sudo().create({
                 #     'res_id': rec.id,
                 #     'res_model_id': model_id,
@@ -721,7 +745,8 @@ class SaleOrder(models.Model):
                 # })
                 # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                 message_txt = f'Rental Order.'
-                self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.pm_group')
+                self.create_mail_message_notification(rec, email_to_custom, message_txt,
+                                                      'renting_workflow_customization.pm_group')
 
     def send_finance(self):
         for rec in self:
@@ -731,7 +756,7 @@ class SaleOrder(models.Model):
             for email_to_custom in notification_user:
                 model_id = self.env['ir.model'].search(
                     [('model', '=', self._name)]).id
-                #omara stopped
+                # omara stopped
                 # self.env['mail.activity'].with_user(email_to_custom.id).sudo().create({
                 #     'res_id': rec.id,
                 #     'res_model_id': model_id,
@@ -741,7 +766,8 @@ class SaleOrder(models.Model):
                 # })
                 # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                 message_txt = f'Rental Order.'
-                self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.finance_group')
+                self.create_mail_message_notification(rec, email_to_custom, message_txt,
+                                                      'renting_workflow_customization.finance_group')
 
     def send_ceo_approval(self):
         for rec in self:
@@ -751,7 +777,7 @@ class SaleOrder(models.Model):
             for email_to_custom in notification_user:
                 model_id = self.env['ir.model'].search(
                     [('model', '=', self._name)]).id
-                #omara
+                # omara
                 # self.env['mail.activity'].with_user(email_to_custom.id).sudo().create({
                 #     'res_id': rec.id,
                 #     'res_model_id': model_id,
@@ -761,7 +787,8 @@ class SaleOrder(models.Model):
                 # })
                 # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
                 message_txt = f'Rental Order.'
-                self.create_mail_message_notification(rec, email_to_custom, message_txt,'renting_workflow_customization.ceo_group')
+                self.create_mail_message_notification(rec, email_to_custom, message_txt,
+                                                      'renting_workflow_customization.ceo_group')
 
     def action_confirm(self):
         group = self.env.ref('renting_workflow_customization.finance_group')
@@ -769,7 +796,7 @@ class SaleOrder(models.Model):
         for email_to_custom in notification_user:
             model_id = self.env['ir.model'].search(
                 [('model', '=', self._name)]).id
-            #omara
+            # omara
             # self.env['mail.activity'].with_user(email_to_custom.id).sudo().create({
             #     'res_id': self.id,
             #     'res_model_id': model_id,
@@ -779,7 +806,8 @@ class SaleOrder(models.Model):
             # })
             # self.message_subscribe(partner_ids=email_to_custom.partner_id.ids)
             message_txt = f'Rental Order.'
-            self.create_mail_message_notification(self, email_to_custom, message_txt,'renting_workflow_customization.finance_group')
+            self.create_mail_message_notification(self, email_to_custom, message_txt,
+                                                  'renting_workflow_customization.finance_group')
 
         result = super(SaleOrder, self).action_confirm()
 

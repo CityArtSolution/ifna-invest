@@ -24,7 +24,7 @@ class UpdatedInvoice(models.Model):
 class RentSaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    contract_number = fields.Char(string='رقم العقد')
+    contract_number = fields.Char(readonly=True, string='رقم العقد')
     fromdate = fields.Datetime(string='From Date', default=datetime.today(), copy=False, required=True)
     todate = fields.Datetime(string='To Date', default=datetime.today(), copy=True, required=True)
     # Fields in Contract Info Tab
@@ -103,6 +103,9 @@ class RentSaleOrder(models.Model):
     iselec_remain = fields.Boolean('نعم')
     isnotelec_remain = fields.Boolean('لا')
 
+    def action_pickup(self):
+        self.write({'rental_status': 'return'})
+
     def _get_remain(self):
         amount = 0
         invoices_paid = self.env['account.move'].sudo().search(
@@ -130,6 +133,11 @@ class RentSaleOrder(models.Model):
 
     def create_order_invoices(self):
         for rec in self:
+            if rec.order_contract_invoice:
+                invoiced = rec.order_contract_invoice.filtered(lambda l: l.status == 'invoiced')
+                if invoiced:
+                    raise UserError(_('There are Invoiced Invoices can not be Regenerated'))
+
             if rec.invoice_number <= 0:
                 raise UserError(_('من فضلك اكتب عدد الفواتير'))
             rec.order_contract_invoice = False
@@ -144,7 +152,6 @@ class RentSaleOrder(models.Model):
             diff = 0
             diff = total_contract_period.days / rec.invoice_number
             diff = round(diff, 0)
-
             separate = False
             for s in rec.order_line:
                 if s.product_id.product_tmpl_id.separate:
@@ -296,6 +303,8 @@ class RentSaleOrder(models.Model):
     @api.model
     def create(self, vals):
         result = super(RentSaleOrder, self).create(vals)
+        result.contract_number = "Contract/" + str(fields.Date.today().year) + "/" + str(
+            fields.Date.today().month) + "-" + "000" + str(result.id)
         if result.invoice_number <= 0 and result.is_rental_order:
             raise UserError(_('من فضلك اكتب عدد الفواتير'))
         return result
@@ -383,7 +392,7 @@ class RentSaleOrderLine(models.Model):
         new_line_ids = []  # List to store the IDs of the newly created lines
 
         for rec in self.rental_pricing_id.service_ids:
-            
+
             price = self.price_unit * 0.05
 
             past_lines = self.env['sale.order.line'].browse(self.service_line_ids.ids)
@@ -406,8 +415,6 @@ class RentSaleOrderLine(models.Model):
                 })
                 new_line_ids.append(new_line.id)  # Add the new line's ID to the list
                 self.write({'service_line_ids': [(6, 0, new_line_ids)]})
-
-
 
     @api.depends('product_uom_qty', 'discount', 'price_unit', 'tax_id')
     def _compute_amount(self):
