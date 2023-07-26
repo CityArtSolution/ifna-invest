@@ -13,6 +13,13 @@ import datetime
 from num2words import num2words
 
 
+class PaymentBeneficiary(models.Model):
+    _name = "payment.beneficiary"
+    _description = "Payment Order"
+
+    name = fields.Char(string="Name", readonly=False, copy=False)
+
+
 class AccountPaymentOrder(models.Model):
     _name = "account.payment.order"
     _description = "Payment Order"
@@ -28,8 +35,11 @@ class AccountPaymentOrder(models.Model):
                                   default=lambda self: self.env.company.currency_id.id)
     transaction_currency_id = fields.Many2one('res.currency', string='Currency', compute='get_transaction_currency_id')
     bank_id = fields.Many2one(comodel_name="res.bank", string="Bank Name")
-    bank_account_no = fields.Char(string="Bank Account No")
-    beneficiary_name = fields.Char(string="Beneficiary Name")
+    bank_account_no = fields.Many2one(comodel_name="res.partner.bank", string="Bank Account No")
+    beneficiary_name = fields.Many2one(comodel_name="payment.beneficiary", string="Beneficiary Name")
+    # bank_account_no = fields.Char(string="Bank Account No")
+    # beneficiary_name = fields.Char(string="Beneficiary Name")
+
     communication = fields.Char(string='Details',
                                 required=False, help="Label of the payment that will be seen by the destinee"
                                 )

@@ -7,9 +7,6 @@ from odoo.exceptions import ValidationError
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    def action_pickup(self):
-        self.write({'rental_status': 'return'})
-
     def _compute_has_late_lines(self):
         for order in self:
             order.has_late_lines = False

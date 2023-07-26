@@ -107,5 +107,6 @@
                   sequence="500"
                   parent="account.account_account_menu"/>
 
+
     </data>
 </odoo>

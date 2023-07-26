@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record id="email_pm_rent_order" model="mail.template">
+            <field name="name">Rent Order - Send by Email</field>
+            <field name="email_from">${object.email_from}</field>
+            <field name="subject">Rent Order to Approve - ${object.sale_id.name}</field>
+            <field name="email_to">
+                ${object.email_to}
+            </field>
+            <field name="model_id" ref="renting_workflow_customization.model_email_wizard"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="lang">${object.sale_id.lang}</field>
+            <field name="body_html"><![CDATA[
+            <![CDATA[
+            <div style="font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 11px; color: rgb(34, 34, 34); background-color: #FFF; ">
+                <p>Please Approve rent order - ${object.sale_id.name}.</p>
+                <p>Thank you,</p>
+                <br/>
+            </div>
+            ]]>
+            </field>
+        </record>
+
+
+        <menuitem
+                id="sale_renting.rental_menu_root"
+                name="Rental"
+                web_icon="sale_renting,static/description/icon.png"
+                groups="sales_team.group_sale_salesman,renting_workflow_customization.finance_group,renting_workflow_customization.facility_group,renting_workflow_customization.pm_group,renting_workflow_customization.ceo_group,renting_workflow_customization.legal_group"
+                sequence="45"
+        />
+
+
+        <record id="comment_wizard_form_views" model="ir.ui.view">
+            <field name="name">comment Report</field>
+            <field name="model">comment.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Comment">
+                    <sheet>
+                        <group col="2" colspan="2">
+                            <field name="comment"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Comment" name="comment_log" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="email_wizard_form_views" model="ir.ui.view">
+            <field name="name">Email</field>
+            <field name="model">email.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Comment">
+                    <sheet>
+                        <group col="2" colspan="2">
+                            <field name="email_from"/>
+                            <field name="email_to"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Send" name="send_email" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_order_form_rent_customize" model="ir.ui.view">
+            <field name="name">view.sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_renting.rental_order_primary_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='state']" position="replace">
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,ff_review,ceo,draft_qu,sent,initial_contract,ffl_review,draft_contract,upload_doc,view_all_ceo_approve,ejar_upload,finance_review,sale"/>
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <record id="sale_order_view_search_inherit_sale_inherit" model="ir.ui.view">
+            <field name="name">sale.order.search.inherit.sale</field>
+            <field name="model">sale.order</field>
+            <field name="mode">primary</field>
+            <field name="inherit_id" ref="sale_renting.rental_order_view_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='team_id']" position="after">
+                    <field name="contract_number" string="Contract Number"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="rent_sale_order_inherit_form_workflow_sale" model="ir.ui.view">
+            <field name="name">view.sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='other_information']" position="attributes">
+                    <attribute name="attrs">
+                        {'invisible':[('state','not in',['terms','sale'])]}
+                    </attribute>
+                </xpath>
+                <xpath expr="//page[@name='customer_signature']" position="attributes">
+                    <attribute name="attrs">
+                        {'invisible':[('state','in',['draft_qu','ff_review','ceo','draft'])]}
+                    </attribute>
+                </xpath>
+                <xpath expr="//field[@name='signature']" position="after">
+                    <field name="signature_doc" widget="many2many_binary"
+                           groups="renting_workflow_customization.ceo_group, renting_workflow_customization.pm_group"
+                           attrs="{'required': [('state', '=', 'sent')]}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="rent_sale_order_inherit_form_workflow" model="ir.ui.view">
+            <field name="name">view.sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="renting.rent_sale_order_inherit_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='contract_info']" position="attributes">
+                    <attribute name="attrs">
+                        {'invisible':[('state','not in',['ejar_upload','finance_review','sale','terms','done'])]}
+                    </attribute>
+                </xpath>
+                <xpath expr="//page[@name='contract_invoices']" position="attributes">
+                    <attribute name="attrs">
+                        {'invisible':[('state','not in',['terms','sale'])]}
+                    </attribute>
+                </xpath>
+                <xpath expr="//page[@name='property_stats']" position="attributes">
+                    <attribute name="attrs">
+                        {'invisible':[('state','in',['draft_qu','ff_review','ceo','draft','sent'])]}
+                    </attribute>
+                </xpath>
+                <xpath expr="//field[@name='ejar_date']" position="after">
+                    <field name="ejar_cont" widget="many2many_binary"
+                           attrs="{'required': [('state', '=', 'ejar_upload')]}"/>
+                </xpath>
+
+
+                <xpath expr="//page[@name='property_stats']" position="after">
+                    <page name="attachments" string="مرفقات"
+                          attrs="{'invisible': [('state','in',['draft_qu','ff_review','ceo','draft','sent'])]}">
+                        <group>
+                            <group string="مرفقات">
+                                <field name="commercial_register" widget="many2many_binary"/>
+                                <field name="authorization" widget="many2many_binary"/>
+                                <field name="company_contract" widget="many2many_binary"/>
+                                <field name="tax_certificate" widget="many2many_binary"/>
+                                <field name="ejar_cont" widget="many2many_binary"/>
+                                <field name="tenant_directory" widget="many2many_binary"/>
+
+                                <field name="pickup_signed" widget="many2many_binary"
+                                       groups="renting_workflow_customization.pm_group"/>
+                                <field name="directory_signed" widget="many2many_binary"
+                                       groups="renting_workflow_customization.pm_group"/>
+                                <field name="company_add_attach" widget="many2many_binary"/>
+                            </group>
+                            <group string="بيانات">
+                                <field name="deleg_name"/>
+                                <field name="deleg_id"/>
+                                <field name="deleg_birth"/>
+                                <field name="company_add"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_order_form_sale_customize" model="ir.ui.view">
+            <field name="name">view.sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_quotation_send'][1]" position="after">
+
+                    <button name="finance_facility" string="Send to Finance and Facility Review" type="object"
+                            states="draft_qu" class="btn-primary" data-hotkey="g"
+                            groups="sales_team.group_sale_manager,renting_workflow_customization.pm_group"/>
+
+                    <button name="finance_facility_review" string="Review" type="object" states="ff_review"
+                            class="btn-primary"
+                            data-hotkey="g"
+                            groups="renting_workflow_customization.finance_group,renting_workflow_customization.facility_group"/>
+
+                    <button name="finance_approve" string="Finance Approve" type="object"
+                            class="btn-primary" data-hotkey="g"
+                            groups="renting_workflow_customization.finance_group"
+                            attrs="{'invisible': ['|',('finance', '=', True),('state', '!=', 'ff_review')]}">
+                        <field name="finance"/>
+                    </button>
+                    <button name="facility_approve" string="Facility Approve" type="object"
+                            class="btn-primary"
+                            data-hotkey="g" groups="renting_workflow_customization.facility_group"
+                            attrs="{'invisible': ['|',('facility', '=', True),('state', '!=', 'ff_review')]}">
+                        <field name="facility"/>
+                    </button>
+
+                    <button name="finance_reject" string="Reject" type="object"
+                            class="btn-primary"
+                            data-hotkey="g" groups="renting_workflow_customization.finance_group"
+                            attrs="{'invisible': ['|',('finance', '=', True),('state', '!=', 'ff_review')]}"/>
+                    <button name="facility_reject" string="Reject" type="object"
+                            class="btn-primary"
+                            data-hotkey="g" groups="renting_workflow_customization.facility_group"
+                            attrs="{'invisible': ['|',('facility', '=', True),('state', '!=', 'ff_review')]}"/>
+
+                    <button name="ceo_approve" string="CEO Approve" type="object"
+                            class="btn-primary" data-hotkey="g"
+                            states="ceo"
+                            groups="renting_workflow_customization.ceo_group"/>
+
+                    <button name="sent_ff_legal" string="Send to Finance and Facility and Legal Review" type="object"
+                            class="btn-primary" data-hotkey="g"
+                            states="initial_contract"
+                            groups="renting_workflow_customization.pm_group"/>
+
+                    <button name="return_review" string="محضر تسليم" type="object" class="btn-primary"
+                            data-hotkey="g" states="ffl_review"
+                            groups="renting_workflow_customization.finance_group,renting_workflow_customization.facility_group,renting_workflow_customization.legal_group"/>
+
+                    <button name="pickup_review" string="محضر استلام" type="object" class="btn-primary"
+                            data-hotkey="g" states="ffl_review"
+                            groups="renting_workflow_customization.finance_group,renting_workflow_customization.facility_group,renting_workflow_customization.legal_group"/>
+
+                    <button name="finance_second_approve" string="Finance Approve" type="object"
+                            class="btn-primary" data-hotkey="g"
+                            groups="renting_workflow_customization.finance_group"
+                            attrs="{'invisible': ['|',('finance_second', '=', True),('state', '!=', 'ffl_review')]}">
+                        <field name="finance_second"/>
+                    </button>
+                    <button name="facility_second_approve" string="Facility Approve" type="object"
+                            class="btn-primary"
+                            data-hotkey="g" groups="renting_workflow_customization.facility_group"
+                            attrs="{'invisible': ['|',('facility_second', '=', True),('state', '!=', 'ffl_review')]}">
+                        <field name="facility_second"/>
+                    </button>
+                    <button name="legal_approve" string="Legal Approve" type="object"
+                            class="btn-primary"
+                            data-hotkey="g" groups="renting_workflow_customization.legal_group"
+                            attrs="{'invisible': ['|',('legal', '=', True),('state', '!=', 'ffl_review')]}">
+                        <field name="legal"/>
+                    </button>
+
+                    <button name="finance_second_reject" string="Finance Reject" type="object"
+                            class="btn-primary"
+                            data-hotkey="g" groups="renting_workflow_customization.finance_group"
+                            attrs="{'invisible': ['|',('finance_second', '=', True),('state', '!=', 'ffl_review')]}"/>
+                    <button name="facility_second_reject" string="Facility Reject" type="object"
+                            class="btn-primary"
+                            data-hotkey="g" groups="renting_workflow_customization.facility_group"
+                            attrs="{'invisible': ['|',('facility_second', '=', True),('state', '!=', 'ffl_review')]}"/>
+                    <button name="legal_reject" string="Legal Reject" type="object"
+                            class="btn-primary"
+                            data-hotkey="g" groups="renting_workflow_customization.legal_group"
+                            attrs="{'invisible': ['|',('legal', '=', True),('state', '!=', 'ffl_review')]}"/>
+
+
+                    <button name="upload_docs" string="Upload Documents" type="object" class="btn-primary"
+                            data-hotkey="g" states="draft_contract"
+                            groups="renting_workflow_customization.pm_group"/>
+
+                    <button name="send_view_docs_ceo" string="Send to View All Docs and CEO Approval" type="object"
+                            class="btn-primary"
+                            data-hotkey="g" states="upload_doc"
+                            groups="renting_workflow_customization.pm_group"/>
+
+                    <button name="view_docs_ceo" string="View All Docs and CEO Approval" type="object"
+                            class="btn-primary"
+                            data-hotkey="g" states="view_all_ceo_approve"
+                            groups="renting_workflow_customization.ceo_group"/>
+
+                    <button name="send_finance" string="Send to Finance" type="object"
+                            class="btn-primary"
+                            data-hotkey="g" states="ejar_upload"
+                            groups="renting_workflow_customization.pm_group"/>
+
+                    <button name="send_ceo_approval" string="Send to CEO" type="object"
+                            class="btn-primary"
+                            data-hotkey="g" states="finance_review"
+                            groups="renting_workflow_customization.finance_group"/>
+
+                    <!--                    <button name="finance_cancel" type="object" string="Finance Cancel"-->
+                    <!--                            states="sale"-->
+                    <!--                            groups="renting_workflow_customization.finance_group" data-hotkey="z"/>-->
+
+                </xpath>
+                <xpath expr="//button[@name='preview_sale_order']" position="replace">
+                    <button name="preview_sale_order" type="object" class="oe_stat_button" icon="fa-globe icon"
+                            groups="renting_workflow_customization.pm_group">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_text">Customer</span>
+                            <span class="o_stat_text">Preview</span>
+                        </div>
+                    </button>
+                </xpath>
+                <xpath expr="//button[@name='action_quotation_send'][1]" position="replace">
+                    <button name="action_quotation_send" string="Send by Email" type="object" states="draft"
+                            class="btn-primary" data-hotkey="g" groups="renting_workflow_customization.pm_group"/>
+                </xpath>
+                <xpath expr="//button[@name='action_quotation_send'][2]" position="replace">
+                    <button name="action_quotation_send" string="Send by Email" type="object" states="draft"
+                            class="btn-primary" data-hotkey="g" groups="renting_workflow_customization.pm_group"
+                            invisible="1"/>
+                </xpath>
+                <xpath expr="//button[@name='action_quotation_send'][3]" position="replace">
+                    <button name="action_quotation_send" string="Send by Email" type="object" states="draft"
+                            class="btn-primary" data-hotkey="g" groups="renting_workflow_customization.pm_group"
+                            invisible="1"/>
+                </xpath>
+                <xpath expr="//button[@name='action_quotation_send'][4]" position="replace">
+                    <button name="action_quotation_send" string="Send by Email" type="object" states="draft"
+                            class="btn-primary" data-hotkey="g" groups="renting_workflow_customization.pm_group"
+                            invisible="1"/>
+                </xpath>
+                <xpath expr="//button[@name='action_cancel']" position="replace">
+                    <button name="action_cancel" id="action_cancel" data-hotkey="v"
+                            string="Cancel" class="btn-primary" type="object"
+                            states="terms" groups="renting_workflow_customization.finance_group"/>
+                </xpath>
+                <xpath expr="//button[@name='action_confirm'][1]" position="replace">
+                    <button name="action_confirm" id="action_confirm" data-hotkey="v"
+                            string="Confirm" class="btn-primary" type="object"
+                            attrs="{'invisible': [('state', 'not in', ['ceo_approve'])]}"
+                            groups="renting_workflow_customization.ceo_group"/>
+                </xpath>
+                <xpath expr="//button[@name='action_confirm'][2]" position="replace">
+                    <button name="action_confirm" data-hotkey="v"
+                            string="Confirm" type="object"
+                            invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

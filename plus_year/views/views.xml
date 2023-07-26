@@ -12,14 +12,15 @@
                 </xpath>
 
                 <xpath expr="// field [@ name = 'order_line'] / tree / field [@ name = 'name']" position="after">
-                    <field name="year_number" attrs="{'invisible': [('parent.plus_year', '=', False)]}"/>
-                    <field name="fromdate" attrs="{'invisible': [('parent.plus_year', '=', False)]}"/>
-                    <field name="todate" attrs="{'invisible': [('parent.plus_year', '=', False)]}"/>
-<!--                    <field name="rental_pricing_id"-->
-<!--                           attrs="{'invisible':[('is_rental','=', False)],'required':[('is_rental','=', True)]}"-->
-<!--                           options="{'no_create_edit': True}"/>-->
+                    <field name="line_sequence" invisible="1"/>
+                    <field name="line_year_number" attrs="{'invisible': [('parent.plus_year', '=', False)]}" optional="hide"/>
+                    <field name="fromdate" attrs="{'invisible': [('parent.plus_year', '=', False)]}" optional="hide"/>
+                    <field name="todate" attrs="{'invisible': [('parent.plus_year', '=', False)]}" optional="hide"/>
                 </xpath>
 
+                <xpath expr="// field [@ name = 'order_line']/tree" position="attributes">
+                    <attribute name="default_order">line_sequence</attribute>
+                </xpath>
             </field>
         </record>
 

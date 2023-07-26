@@ -7,8 +7,7 @@
             <field name="model">rent.property</field>
             <field name="arch" type="xml">
                 <search>
-                    <field string="رقم العقار" name="ref_analytic_account"
-                           filter_domain="[('ref_analytic_account','ilike',self)]"/>
+                    <field string="رقم العقار" name="ref_analytic_account" filter_domain="[('ref_analytic_account','ilike',self)]"/>
                 </search>
             </field>
         </record>
@@ -32,18 +31,9 @@
             <field name="arch" type="xml">
                 <form string="Properties">
                     <sheet>
-                        <div class="oe_button_box" name="button_box" modifiers="{}">
-
-                            <!--                            <button type="object" name="get_elevator_maintenance"-->
-                            <!--                                    icon="fa-arrow-circle-o-up">-->
-                            <!--                                <field name="elevator_maintenance_count" string="Elevator Maintenance"-->
-                            <!--                                       widget="statinfo"/>-->
-                            <!--                            </button>-->
-
-                            <button type="object" name="get_property_maintenance"
-                                    icon="fa-building">
-                                <field name="property_maintenance_count" string="Property Maintenance"
-                                       widget="statinfo"/>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" name="get_property_maintenance" icon="fa-building">
+                                <field name="property_maintenance_count" string="Property Maintenance" widget="statinfo"/>
                             </button>
 
                         </div>
@@ -60,10 +50,6 @@
                             <div>
                                 <field name="analytic_account" style="width: 33%"/>
                             </div>
-                            <!--                            <label for="ref_analytic_account" string="رقم اشارة الحساب التحليلي "/>-->
-                            <!--                            <div>-->
-                            <!--                                <field name="ref_analytic_account" style="width: 15%"/>-->
-                            <!--                            </div>-->
                         </group>
 
                         <group string="Address Info">
@@ -99,11 +85,13 @@
                                 </group>
                             </page>
                             <page string="Property Units">
-                                <field name="unit_ids" context="{'default_property_id':'property_id'}">
+                                <field name="unit_ids" context="{'default_rent_ok':True,'default_property_id':id,'default_operating_unit':[property_address_area]}" options="{'no_create_edit': True}">
                                     <tree string="Units" editable="bottom">
                                         <field name="name"/>
                                         <field name="unit_price"/>
                                         <field name="unit_price_unit"/>
+                                        <button type="object" string="Open" name="display_product_form"/>
+                                        <!--                                        <field name="property_id"/>-->
                                     </tree>
                                 </field>
                             </page>
@@ -131,7 +119,7 @@
                                     <field name="property_electricity"/>
                                     <field name="property_water"/>
                                 </group>
-                                <group string="الصيانة">
+                                <group string="الصيانة" invisible="1">
                                     <field name="maintain_contract"/>
                                     <field name="maintain_company"/>
                                     <field name="maintain_contract_image"/>
@@ -147,6 +135,18 @@
                                     <field name="cleaning_contract_image"/>
                                 </group>
                             </page>
+                            <page string="خدمات المرافق - الصيانة">
+                                <field name="maintenance_contract_ids">
+                                    <tree string="خدمات المرافق - الصيانة" editable="bottom">
+                                        <field name="vendor_id"/>
+                                        <field name="maintenance_type_id"/>
+                                        <field name="from_date" />
+                                        <field name="to_date" />
+                                        <field name="visits" />
+                                        <field name="visits_ids" widget="many2many_binary"/>
+                                    </tree>
+                                </field>
+                            </page>
                             <page string="التصاريح الحكومية">
                                 <group string="تصريح البلدية">
                                     <field name="national_permit_number"/>
@@ -154,6 +154,7 @@
                                     <field name="national_permit_shop_in"/>
                                     <field name="national_permit_shop_out"/>
                                     <field name="national_permit_build"/>
+                                    <field name="note"/>
                                 </group>
                                 <group string="تصريح الدفاع المدني">
                                     <field name="defense_permit_number"/>

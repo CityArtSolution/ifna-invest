@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 
 
 class RentPropertyModel(models.Model):
@@ -18,7 +19,7 @@ class RentPropertyModel(models.Model):
     property_address_Postal_code = fields.Char(string=' العنوان الوطني')
     property_extra_number = fields.Char(string='Extra Number')
     unit_ids = fields.Many2many('product.template', string='Unit ID',
-                                copy=True)  # Related field to products
+                                copy=True,domain="[('rent_ok','=',True)]")  # Related field to products
     # General Info Tab Fields
     property_construction_date = fields.Date(string='Construction Date')
     rent_config_property_type_id = fields.Many2one('rent.config.property.types', string='Property Type',
@@ -57,6 +58,8 @@ class RentPropertyModel(models.Model):
     national_permit_shop_in = fields.Date('تاريخ اصدار تصريح المحل')
     national_permit_shop_out = fields.Date('تاريخ انتهاء تصريح المحل')
     national_permit_build = fields.Date('تاريخ اصدار شهادة اتمام البناء')
+
+    note = fields.Char('ملاحظات')
 
     defense_permit_number = fields.Char('رقم التصريح')
     defense_permit_image = fields.Many2many('ir.attachment', 'class_ir_attachments_rel', 'class_id', 'attachment_id',
@@ -100,7 +103,8 @@ class RentPropertyModel(models.Model):
     free_units = fields.Float(compute='_get_free', string='الوحدات الشاغرة')
     busy_ids = fields.Float()
     free_ids = fields.Float()
-
+    maintenance_contract_ids = fields.One2many(comodel_name='maintenance.contract', inverse_name='property_id', string='Maintenance Contract')
+    
     def get_ref_analytic_account(self):
         ref = ''
         if self.property_address_area.id:
@@ -163,7 +167,7 @@ class RentPropertyModel(models.Model):
         for rec in self:
             no_units = 0
             for unit in rec.unit_ids:
-                if unit.state_id == 'مؤجرة':
+                if unit.unit_state == 'مؤجرة':
                     no_units += 1
             rec.busy_units = no_units
             rec.busy_ids = no_units
@@ -172,7 +176,7 @@ class RentPropertyModel(models.Model):
         for rec in self:
             no_units = 0
             for unit in rec.unit_ids:
-                if unit.state_id == 'شاغرة':
+                if unit.unit_state == 'شاغرة':
                     no_units += 1
             rec.free_units = no_units
             rec.free_ids = no_units
@@ -208,7 +212,14 @@ class RentPropertyModel(models.Model):
                         'default_analytic_account': self.analytic_account.id},
         }
 
-
+    @api.onchange('unit_ids')
+    def relate_property_with_products(self):
+        for unit in self.unit_ids:
+            if unit.property_id:
+                if unit.property_id.id != self._origin.id:
+                    raise ValidationError('This Unit : "%s" Already Related with another property : "%s" , kindly remove it from there first !' %(unit.name,unit.property_id.property_name))
+            else:
+                unit.property_id = self._origin.id
 class RentPropertysecurity(models.Model):
     _name = 'security.rent.property'
 

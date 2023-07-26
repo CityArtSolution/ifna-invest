@@ -7,11 +7,11 @@
             <form string="Request payment">
                 <header>
                     <button
-                        name="%(account_payment_line_create_action)d"
-                        type="action"
-                        string="Create Payment Lines from Journal Items"
-                        class="oe_highlight"
-                        invisible="1"
+                            name="%(account_payment_line_create_action)d"
+                            type="action"
+                            string="Create Payment Lines from Journal Items"
+                            class="oe_highlight"
+                            invisible="1"
                     />
                     <button
                             name="reset2draft"
@@ -22,58 +22,58 @@
                             groups="account_payment_order.group_first_approve"
                     />
                     <button
-                        name="draft2open"
-                        type="object"
-                        states="draft"
-                        string="First Approve"
-                        class="oe_highlight"
-                        groups="account_payment_order.group_first_approve"
+                            name="draft2open"
+                            type="object"
+                            states="draft"
+                            string="First Approve"
+                            class="oe_highlight"
+                            groups="account_payment_order.group_first_approve"
                     />
                     <button
-                        name="open2generated"
-                        type="object"
-                        states="open"
-                        string="Second Approve"
-                        class="oe_highlight"
-                        groups="account_payment_order.group_second_approve"
+                            name="open2generated"
+                            type="object"
+                            states="open"
+                            string="Second Approve"
+                            class="oe_highlight"
+                            groups="account_payment_order.group_second_approve"
                     />
                     <button
-                        name="generated2uploaded"
-                        type="object"
-                        attrs="{'invisible': ['|',('payment_request_type', '=', 'account'),('state', '!=', 'generated')]}"
-                        string="Create journal entry"
-                        class="oe_highlight"
+                            name="generated2uploaded"
+                            type="object"
+                            attrs="{'invisible': ['|',('payment_request_type', '=', 'account'),('state', '!=', 'generated')]}"
+                            string="Create journal entry"
+                            class="oe_highlight"
                     />
                     <button
-                        name="generate_bank_statement"
-                        type="object"
-                        attrs="{'invisible': ['|',('payment_request_type', '!=', 'account'),('state', '!=', 'generated')]}"
-                        string="Create Bank Statement"
-                        class="oe_highlight"
+                            name="generate_bank_statement"
+                            type="object"
+                            attrs="{'invisible': ['|',('payment_request_type', '!=', 'account'),('state', '!=', 'generated')]}"
+                            string="Create Bank Statement"
+                            class="oe_highlight"
                     />
                     <button
-                        name="cancel2draft"
-                        type="object"
-                        states="cancel"
-                        string="Back to Draft"
+                            name="cancel2draft"
+                            type="object"
+                            states="cancel"
+                            string="Back to Draft"
                     />
                     <button
-                        name="action_cancel"
-                        type="object"
-                        states="draft,open,generated"
-                        string="Cancel Payments"
-                        groups="account_payment_order.group_first_approve,account_payment_order.group_second_approve"
+                            name="action_cancel"
+                            type="object"
+                            states="draft,open,generated"
+                            string="Cancel Payments"
+                            groups="account_payment_order.group_first_approve,account_payment_order.group_second_approve"
                     />
                     <button
-                        name="action_uploaded_cancel"
-                        type="object"
-                        states="uploaded"
-                        string="Cancel Payments"
+                            name="action_uploaded_cancel"
+                            type="object"
+                            states="uploaded"
+                            string="Cancel Payments"
                     />
                     <field
-                        name="state"
-                        widget="statusbar"
-                        statusbar_visible="draft,open,generated,uploaded"
+                            name="state"
+                            widget="statusbar"
+                            statusbar_visible="draft,open,generated,uploaded"
                     />
                 </header>
                 <sheet>
@@ -105,7 +105,7 @@
                         </button>
                     </div>
                     <div class="oe_title">
-                        <label for="name" class="oe_edit_only" />
+                        <label for="name" class="oe_edit_only"/>
                         <h1>
                             <field name="name"/>
                         </h1>
@@ -113,69 +113,76 @@
                     <group name="head" col="2">
                         <group name="head-left">
                             <field
-                                name="payment_mode_id"
-                                domain="[('payment_order_ok', '=', True), ('payment_type', '=', payment_type)]"
+                                    name="payment_mode_id"
+                                    domain="[('payment_order_ok', '=', True), ('payment_type', '=', payment_type)]"
                             />
                             <field name="payment_method"/>
-                            <field name="allowed_journal_ids" invisible="1" />
+                            <field name="allowed_journal_ids" invisible="1"/>
                             <field
-                                name="journal_id"
-                                domain="[('id', 'in', allowed_journal_ids)]"
+                                    name="journal_id"
+                                    domain="[('id', 'in', allowed_journal_ids)]"
                             />
-                            <field name="bank_account_link" invisible="1" />
-                            <field name="company_partner_bank_id" />
+                            <field name="bank_account_link" invisible="1"/>
+                            <field name="company_partner_bank_id"/>
                             <field
-                                name="company_id"
-                                groups="base.group_multi_company"
+                                    name="company_id"
+                                    groups="base.group_multi_company"
                             />
-                            <field name="payment_type" invisible="0" />
+                            <field name="payment_type" invisible="0"/>
                             <field
-                                name="bank_line_count"
-                                attrs="{'invisible': [('state', 'in', ('draft', 'cancel'))]}"
+                                    name="bank_line_count"
+                                    attrs="{'invisible': [('state', 'in', ('draft', 'cancel'))]}"
                             />
                         </group>
                         <group name="head-right">
                             <field name="request_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="payment_request_type" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
-                            <field name="date_prefered" />
+                            <field name="date_prefered"/>
                             <field
-                                name="date_scheduled"
-                                attrs="{'invisible': [('date_prefered', '!=', 'fixed')], 'required': [('date_prefered', '=', 'fixed')]}"
+                                    name="date_scheduled"
+                                    attrs="{'invisible': [('date_prefered', '!=', 'fixed')], 'required': [('date_prefered', '=', 'fixed')]}"
                             />
-                            <field name="date_generated" />
-                            <field name="generated_user_id" />
-                            <field name="date_uploaded" />
-                            <field name="description" />
-                            <field name="communication" attrs="{'invisible': [('payment_request_type', '!=', 'account')],'required': [('payment_request_type', '=', 'account')]}"/>
+                            <field name="date_generated"/>
+                            <field name="generated_user_id"/>
+                            <field name="date_uploaded"/>
+                            <field name="description"/>
+                            <field name="communication"
+                                   attrs="{'invisible': [('payment_request_type', '!=', 'account')],'required': [('payment_request_type', '=', 'account')]}"/>
                             <field name="department_id" options="{'no_create': True, 'no_create_edit': True}"/>
-                            <field name="amount" attrs="{'invisible': [('payment_request_type', '!=', 'account')],'readonly': [('state', '!=', 'draft')]}"/>
-                            <field name="currency_id" attrs="{'invisible': [('payment_request_type', '!=', 'account')],'readonly': [('state', '!=', 'draft')]}"/>
-                            <field name="bank_id" attrs="{'invisible': [('payment_request_type', '!=', 'account')],'readonly': [('state', '!=', 'draft')]}"/>
-                            <field name="bank_account_no" attrs="{'invisible': [('payment_request_type', '!=', 'account')],'readonly': [('state', '!=', 'draft')]}"/>
-                            <field name="beneficiary_name" attrs="{'invisible': [('payment_request_type', '!=', 'account')],'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="amount"
+                                   attrs="{'invisible': [('payment_request_type', '!=', 'account')],'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="currency_id"
+                                   attrs="{'invisible': [('payment_request_type', '!=', 'account')],'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="bank_id"
+                                   attrs="{'invisible': [('payment_request_type', '!=', 'account')],'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="bank_account_no"
+                                   attrs="{'invisible': [('payment_request_type', '!=', 'account')],'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="beneficiary_name"
+                                   attrs="{'invisible': [('payment_request_type', '!=', 'account')],'readonly': [('state', '!=', 'draft')]}"/>
 
                         </group>
                     </group>
                     <notebook>
-                        <page name="payment-lines" string="Transactions" attrs="{'invisible': [('payment_request_type', '=', 'account')]}">
+                        <page name="payment-lines" string="Transactions"
+                              attrs="{'invisible': [('payment_request_type', '=', 'account')]}">
                             <field
-                                name="payment_line_ids"
-                                context="{'default_payment_type': payment_type}"
+                                    name="payment_line_ids"
+                                    context="{'default_payment_type': payment_type}"
                             />
                         </page>
-<!--                        <page-->
-<!--                            name="bank-lines"-->
-<!--                            string="Bank Transactions"-->
-<!--                            attrs="{'invisible': [('state', 'in', ('draft', 'cancel'))]}"-->
-<!--                        >-->
-<!--                            <field name="bank_line_ids" edit="0" create="0" />-->
-<!--                        </page>-->
+                        <!--                        <page-->
+                        <!--                            name="bank-lines"-->
+                        <!--                            string="Bank Transactions"-->
+                        <!--                            attrs="{'invisible': [('state', 'in', ('draft', 'cancel'))]}"-->
+                        <!--                        >-->
+                        <!--                            <field name="bank_line_ids" edit="0" create="0" />-->
+                        <!--                        </page>-->
                     </notebook>
                 </sheet>
                 <div class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers" />
-                    <field name="activity_ids" widget="mail_activity" />
-                    <field name="message_ids" widget="mail_thread" />
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
                 </div>
             </form>
         </field>
@@ -185,28 +192,28 @@
         <field name="model">account.payment.order</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="name" decoration-bf="1" />
-                <field name="payment_mode_id" />
-                <field name="journal_id" />
-                <field name="company_id" groups="base.group_multi_company" />
-                <field name="date_uploaded" />
-                <field name="description" optional="show" />
+                <field name="name" decoration-bf="1"/>
+                <field name="payment_mode_id"/>
+                <field name="journal_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="date_uploaded"/>
+                <field name="description" optional="show"/>
                 <field
-                    name="bank_line_count"
-                    optional="hide"
-                    string="Bank Transactions"
+                        name="bank_line_count"
+                        optional="hide"
+                        string="Bank Transactions"
                 />
                 <field name="payment_request_type"/>
-                <field name="total_company_currency" sum="Total Company Currency" />
-                <field name="company_currency_id" invisible="1" />
+                <field name="total_company_currency" sum="Total Company Currency"/>
+                <field name="company_currency_id" invisible="1"/>
                 <field
-                    name="state"
-                    decoration-info="state == 'draft'"
-                    decoration-success="state == 'uploaded'"
-                    decoration-warning="state == 'open'"
-                    decoration-danger="state == 'generated'"
-                    decoration-muted="state == 'cancel'"
-                    widget="badge"
+                        name="state"
+                        decoration-info="state == 'draft'"
+                        decoration-success="state == 'uploaded'"
+                        decoration-warning="state == 'open'"
+                        decoration-danger="state == 'generated'"
+                        decoration-muted="state == 'cancel'"
+                        widget="badge"
                 />
             </tree>
         </field>
@@ -217,56 +224,56 @@
         <field name="arch" type="xml">
             <search string="Search Request payments">
                 <field
-                    name="description"
-                    filter_domain="['|', ('name', 'ilike', self), ('description', 'ilike', self)]"
-                    string="Name or Description"
+                        name="description"
+                        filter_domain="['|', ('name', 'ilike', self), ('description', 'ilike', self)]"
+                        string="Name or Description"
                 />
-                <field name="journal_id" />
+                <field name="journal_id"/>
                 <filter
-                    name="draft"
-                    string="Draft"
-                    domain="[('state', '=', 'draft')]"
-                />
-                <filter
-                    name="open"
-                    string="Confirmed"
-                    domain="[('state', '=', 'open')]"
+                        name="draft"
+                        string="Draft"
+                        domain="[('state', '=', 'draft')]"
                 />
                 <filter
-                    name="generated"
-                    string="File Generated"
-                    domain="[('state', '=', 'generated')]"
+                        name="open"
+                        string="Confirmed"
+                        domain="[('state', '=', 'open')]"
                 />
                 <filter
-                    name="uploaded"
-                    string="File Uploaded"
-                    domain="[('state', '=', 'uploaded')]"
+                        name="generated"
+                        string="File Generated"
+                        domain="[('state', '=', 'generated')]"
+                />
+                <filter
+                        name="uploaded"
+                        string="File Uploaded"
+                        domain="[('state', '=', 'uploaded')]"
                 />
                 <group string="Group By" name="groupby">
                     <filter
-                        name="payment_mode_groupby"
-                        string="Payment Mode"
-                        context="{'group_by': 'payment_mode_id'}"
+                            name="payment_mode_groupby"
+                            string="Payment Mode"
+                            context="{'group_by': 'payment_mode_id'}"
                     />
                     <filter
-                        name="journal_groupby"
-                        string="Bank Journal"
-                        context="{'group_by': 'journal_id'}"
+                            name="journal_groupby"
+                            string="Bank Journal"
+                            context="{'group_by': 'journal_id'}"
                     />
                     <filter
-                        name="date_generated_groupby"
-                        string="File Generation Date"
-                        context="{'group_by': 'date_generated'}"
+                            name="date_generated_groupby"
+                            string="File Generation Date"
+                            context="{'group_by': 'date_generated'}"
                     />
                     <filter
-                        name="date_uploaded_groupby"
-                        string="File Upload Date"
-                        context="{'group_by': 'date_uploaded'}"
+                            name="date_uploaded_groupby"
+                            string="File Upload Date"
+                            context="{'group_by': 'date_uploaded'}"
                     />
                     <filter
-                        name="state_groupby"
-                        string="State"
-                        context="{'group_by': 'state'}"
+                            name="state_groupby"
+                            string="State"
+                            context="{'group_by': 'state'}"
                     />
                 </group>
             </search>
@@ -277,8 +284,8 @@
         <field name="model">account.payment.order</field>
         <field name="arch" type="xml">
             <graph string="Request payments">
-                <field name="date_uploaded" type="row" interval="month" />
-                <field name="total_company_currency" type="measure" />
+                <field name="date_uploaded" type="row" interval="month"/>
+                <field name="total_company_currency" type="measure"/>
             </graph>
         </field>
     </record>
@@ -287,8 +294,8 @@
         <field name="model">account.payment.order</field>
         <field name="arch" type="xml">
             <pivot string="Request payments">
-                <field name="date_uploaded" type="row" interval="month" />
-                <field name="total_company_currency" type="measure" />
+                <field name="date_uploaded" type="row" interval="month"/>
+                <field name="total_company_currency" type="measure"/>
             </pivot>
         </field>
     </record>
@@ -306,20 +313,59 @@
         <field name="domain">[('payment_type', '=', 'inbound')]</field>
         <field name="context">{'default_payment_type': 'inbound'}</field>
     </record>
-    <menuitem id="payment_request_menu" 
+    <menuitem id="payment_request_menu"
               name="Payment Request"
               web_icon="account_payment_order,static/description/payment.png"
               sequence="4"/>
     <menuitem
-        id="account_payment_order_outbound_menu"
-        action="account_payment_order_outbound_action"
-        parent="account_payment_order.payment_request_menu"
-        sequence="1"
+            id="account_payment_order_outbound_menu"
+            action="account_payment_order_outbound_action"
+            parent="account_payment_order.payment_request_menu"
+            sequence="1"
     />
     <menuitem
-        id="account_payment_order_inbound_menu"
-        action="account_payment_order_inbound_action"
-        parent="account_payment_order.payment_request_menu"
-        sequence="5"
+            id="account_payment_order_inbound_menu"
+            action="account_payment_order_inbound_action"
+            parent="account_payment_order.payment_request_menu"
+            sequence="5"
     />
+
+    <record id="payment_beneficiary_form" model="ir.ui.view">
+        <field name="name">payment.beneficiary.form</field>
+        <field name="model">payment.beneficiary</field>
+        <field name="arch" type="xml">
+            <form string="Payment Beneficiary">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="payment_beneficiary_tree" model="ir.ui.view">
+        <field name="name">Payment Beneficiary</field>
+        <field name="model">payment.beneficiary</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="payment_beneficiary_action" model="ir.actions.act_window">
+        <field name="name">Payment Beneficiary</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">payment.beneficiary</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Configuration" id="payment_config_menu_ifna"
+              parent="account_payment_order.payment_request_menu"/>
+
+    <menuitem name="Payment Beneficiary" id="payment_beneficiary_menu"
+              parent="account_payment_order.payment_config_menu_ifna"
+              action="payment_beneficiary_action"/>
 </odoo>

@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_area_meter_area_meter,area_meter.area_meter,model_area_meter_area_meter,base.group_user,1,1,1,1

@@ -20,12 +20,13 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','sale'],
+    'depends': ['base','sale','renting','sale_renting','renting_workflow_customization'],
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
-        'views/views.xml',
+        'security/ir.model.access.csv',
+        'views/pickup.xml',
+        'views/return.xml',
         'views/report_custom.xml',
         'views/templates.xml',
     ],

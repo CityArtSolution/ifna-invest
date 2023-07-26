@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="print_account_payment_order_document1">
+        <t t-set="doc"
+           t-value="doc.with_context({'lang': doc.generated_user_id and doc.generated_user_id.lang or user.lang})"/>
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <style type="text/css">
+                    <!--                    div.pill {-->
+                    <!--                    width: 200px;-->
+                    <!--                    height: 100px;-->
+                    <!--                    background-color: blue;-->
+                    <!--                    border-radius:black 40px 999em 999em 40px;-->
+                    <!--                    align:left-->
+                    <!--                    }-->
+                    tr.table_1,th.table_1,td.table_1{
+                    <!--                        border: 0.5px solid;-->
+                    text-align: center;
+                    border-radius: 999em 40px 40px 999em ;
+                    padding: 5px;
+                    background-color:#BB9B69
+                    }
+                </style>
+                <div width="100%" style="margin-top:0px,margin-left:0px">
+                    <img width="100%" height="250px"
+                         src="account_payment_order/static/description/head.png"
+                         alt="Company Logo"/>
+                </div>
+                <br/>
+
+                <!--                <div class="row" >-->
+                <!--                    <div style="text-align:right;" align="left">-->
+                <!--                        <br/>-->
+                <table align="right" width="50%" class="table_1">
+                    <tr class="table_1">
+                        <td class="table_1">
+                            <strong align="right" class="table_1">
+                                <!--                            Date:-->
+                                <!--                            <t t-esc="time.strftime('%d/%m/%Y')"/>-->
+                                <!--                            <br/>-->
+                                <!--                            <br/>-->
+                                <!--                            <br/>-->
+                                <!--                            <br/>-->
+                                <h3>Payment Request:
+                                    <span style="color:#00008B;font-size:21px" t-esc="doc.name">
+
+                                    </span>
+                                </h3>
+                            </strong>
+                        </td>
+                    </tr>
+
+                </table>
+                <!--                    </div>-->
+                <!--                </div>-->
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <div style="border: 1px solid black;padding-right: 15px;padding-left:30px">
+                    <div class="row" style="margin-top:0px">
+                        <div class="col-4">
+                        </div>
+                        <div class="col-3"></div>
+                        <div class="col-5" style="text-align:right;" align="right">
+                            <br/>
+                            <strong>
+
+                                Amount:
+                                <span t-if="doc.payment_request_type != 'account'"
+                                      style="background-color:#BB9B69;padding-right: 0px;padding-left:3px"
+                                      t-esc="doc.total_amount"></span>
+                                <span t-if="doc.payment_request_type == 'account'"
+                                      style="background-color:#BB9B69;padding-right: 0px;padding-left:3px"
+                                      t-esc="doc.amount"></span>
+                                <span
+                                        t-esc="doc.company_currency_id.symbol"></span>
+
+                            </strong>
+                        </div>
+                    </div>
+                    <br/>
+                    <!--                    <table>-->
+                    <!--                        <tr>-->
+                    <!--                            <div class="row">-->
+                    <!--                                <div class="col-8" style="text-align:left;">-->
+                    <!--                                    <strong>Payment Method:</strong>-->
+
+                    <!--                                    <span style="text-align:left" t-field="doc.payment_method" widget="radio"-->
+                    <!--                                          options="{'horizontal': true}">-->
+
+                    <!--                                    </span>-->
+                    <!--                                </div>-->
+                    <!--                                <div class="col-4"></div>-->
+                    <!--                            </div>-->
+                    <!--                        </tr>-->
+                    <!--                        <t t-if="doc.payment_request_type != 'account'">-->
+                    <!--                            <tr>-->
+                    <!--                                <div class="row">-->
+                    <!--                                    <div class="col-12" style="text-align:left;">-->
+                    <!--                                        <t t-set="amo1" t-value="doc._convert_num_to_text_en(doc.total_amount)"/>-->
+                    <!--                                        <strong>Amount:</strong>-->
+                    <!--                                        <span style="text-align:left !important;" t-esc="amo1"/>-->
+                    <!--                                    </div>-->
+
+
+                    <!--                                </div>-->
+                    <!--                            </tr>-->
+                    <!--                            <tr>-->
+                    <!--                                <div class="row">-->
+                    <!--                                    <div class="col-8" style="text-align:left;">-->
+                    <!--                                        <strong>Beneficiary:</strong>-->
+                    <!--                                        <t t-if="doc.payment_line_ids">-->
+                    <!--                                            <span style="text-align:left"-->
+                    <!--                                                  t-esc="doc.payment_line_ids[0].partner_id.name"></span>-->
+                    <!--                                        </t>-->
+                    <!--                                        <t t-else="">-->
+                    <!--                                            <span>N/A</span>-->
+                    <!--                                        </t>-->
+                    <!--                                    </div>-->
+                    <!--                                    <div class="col-4"></div>-->
+                    <!--                                </div>-->
+                    <!--                            </tr>-->
+                    <!--                            <tr>-->
+                    <!--                                <div class="row">-->
+                    <!--                                    <div class="col-12" style="text-align:left;">-->
+                    <!--                                        <strong>Purpose:</strong>-->
+                    <!--                                        <span style="text-align:left" t-esc="doc.description"></span>-->
+                    <!--                                    </div>-->
+
+
+                    <!--                                </div>-->
+                    <!--                            </tr>-->
+                    <!--                            <tr>-->
+                    <!--                                <div class="row">-->
+                    <!--                                    <div class="col-12" style="text-align:left;">-->
+                    <!--                                        <strong>Details:</strong>-->
+                    <!--                                        <span style="text-align:left"-->
+                    <!--                                              t-esc="doc.payment_line_ids[0].communication"></span>-->
+                    <!--                                    </div>-->
+
+                    <!--                                </div>-->
+                    <!--                            </tr>-->
+                    <!--                        </t>-->
+                    <!--                        <t t-if="doc.payment_request_type == 'account'">-->
+                    <!--                            <tr>-->
+                    <!--                                <div class="row">-->
+                    <!--                                    <div class="col-12" style="text-align:left;">-->
+                    <!--                                        <t t-set="amo1" t-value="doc._convert_num_to_text_en(doc.amount)"/>-->
+                    <!--                                        <strong>Amount:</strong>-->
+                    <!--                                        <span style="text-align:left !important;" t-esc="amo1"/>-->
+                    <!--                                    </div>-->
+
+
+                    <!--                                </div>-->
+                    <!--                            </tr>-->
+                    <!--                            <tr>-->
+                    <!--                                <div class="row">-->
+                    <!--                                    <div class="col-8" style="text-align:left;">-->
+                    <!--                                        <strong>Beneficiary:</strong>-->
+                    <!--                                        <t t-if="doc.beneficiary_name">-->
+                    <!--                                            <span style="text-align:left"-->
+                    <!--                                                  t-esc="doc.beneficiary_name"></span>-->
+                    <!--                                        </t>-->
+                    <!--                                        <t t-else="">-->
+                    <!--                                            <span>N/A</span>-->
+                    <!--                                        </t>-->
+                    <!--                                    </div>-->
+                    <!--                                    <div class="col-4"></div>-->
+                    <!--                                </div>-->
+                    <!--                            </tr>-->
+                    <!--                            <tr>-->
+                    <!--                                <div class="row">-->
+                    <!--                                    <div class="col-12" style="text-align:left;">-->
+                    <!--                                        <strong>Purpose:</strong>-->
+                    <!--                                        <span style="text-align:left" t-esc="doc.description"></span>-->
+                    <!--                                    </div>-->
+
+
+                    <!--                                </div>-->
+                    <!--                            </tr>-->
+                    <!--                            <tr>-->
+                    <!--                                <div class="row">-->
+                    <!--                                    <div class="col-12" style="text-align:left;">-->
+                    <!--                                        <strong>Details:</strong>-->
+                    <!--                                        <span style="text-align:left" t-esc="doc.communication"></span>-->
+                    <!--                                    </div>-->
+
+                    <!--                                </div>-->
+                    <!--                            </tr>-->
+                    <!--                        </t>-->
+                    <!--                    </table>-->
+                    <table style="text-align:left;">
+                        <tr>
+                            <td>
+                                <strong>Payment Method:</strong>
+                            </td>
+                            <td>
+
+                                <span style="text-align:left" t-field="doc.payment_method" widget="radio"
+                                      options="{'horizontal': true}">
+
+                                </span>
+                            </td>
+
+                        </tr>
+                    </table>
+                    <table style="text-align:left;">
+
+                        <tr>
+                            <td t-if="doc.payment_request_type != 'account'">
+                                <t t-set="amo1" t-value="doc._convert_num_to_text_en(doc.total_amount)"/>
+                                <strong>Amount:</strong>
+                            </td>
+                            <td t-if="doc.payment_request_type == 'account'">
+                                <t t-set="amo1" t-value="doc._convert_num_to_text_en(doc.amount)"/>
+                                <strong>Amount:</strong>
+                            </td>
+                            <td>
+                                <span style="text-align:left !important;" t-esc="amo1"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <table style="text-align:left;">
+                        <tr>
+                            <td width="16%">
+                                <strong>Beneficiary:</strong>
+                            </td>
+                            <td t-if="doc.payment_request_type != 'account'">
+                                <span style="text-align:left"
+                                      t-esc="doc.payment_line_ids[0].partner_id.name"></span>
+                            </td>
+                            <td t-if="doc.payment_request_type == 'account'">
+                                <span style="text-align:left"
+                                      t-esc="doc.beneficiary_name"></span>
+                            </td>
+                            <!--                            <td t-else="">-->
+                            <!--                                <span>N/A</span>-->
+                            <!--                            </td>-->
+
+                        </tr>
+                    </table>
+                    <table style="text-align:left;">
+                        <tr>
+                            <td>
+                                <strong>Purpose:</strong>
+                            </td>
+                            <td>
+                                <span style="text-align:left" t-esc="doc.description"></span>
+                            </td>
+                        </tr>
+                    </table>
+                    <table style="text-align:left;">
+                        <tr>
+                            <td>
+                                <strong>Details:</strong>
+                            </td>
+                            <td t-if="doc.payment_request_type != 'account'">
+                                <span style="text-align:left"
+                                      t-esc="doc.payment_line_ids[0].communication"></span>
+                            </td>
+                            <td t-if="doc.payment_request_type == 'account'">
+                                <span style="text-align:left"
+                                      t-esc="doc.communication"></span>
+                            </td>
+                        </tr>
+
+
+                    </table>
+                    <br/>
+                    <div class="row" style="border: 1px solid black;">
+                        <div class="col-3" style="border: 1px solid black;text-align:left;background-color:#BB9B69">
+                            <span></span>
+                        </div>
+                        <div class="col-3" style="border: 1px solid black;text-align:center;background-color:#BB9B69">
+                            <span>Requested By</span>
+                        </div>
+                        <div class="col-3" style="border: 1px solid black;text-align:center;background-color:#BB9B69">
+                            <span>Department</span>
+                        </div>
+                        <div class="col-3" style="border: 1px solid black;text-align:center;background-color:#BB9B69">
+                            <span>Financial Controller</span>
+                        </div>
+                    </div>
+                    <div class="row" style="border: 1px solid #808080;">
+                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
+                            <span>Name</span>
+                        </div>
+                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
+                            <span t-esc="doc.generated_user_id.name"></span>
+                        </div>
+                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
+                            <span t-esc="doc.department_id.name"></span>
+                        </div>
+                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
+                            <span>Financial Controller</span>
+                            <!--                            <span style="text-align:left" t-esc="doc.current_user_id.name"></span>-->
+                        </div>
+                    </div>
+                    <div class="row" style="border: 1px solid #808080;">
+                        <div class="col-3" style="padding:20px;border:1px solid #808080;text-align:center;height:70px;">
+                            <span style="padding:50px;">Signature</span>
+                        </div>
+                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
+                        </div>
+                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
+                        </div>
+                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row" style="border: 1px solid black;">
+                                <div class="col-8" style="text-align:left;background-color:#BB9B69">
+                                    <span>For Finance Department Use Only</span>
+                                </div>
+                                <div class="col-5"
+                                     style="border-left: 1px solid black;text-align:center;background-color:#BB9B69">
+                                    <strong>CEO Approval</strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="row" style="border: 1px solid #808080;">
+                                        <div class="col-6" style="text-align:left;">
+                                            <strong>Net Amount Paid</strong>
+                                        </div>
+                                        <div t-if="doc.payment_request_type != 'account'" class="col-6"
+                                             style="text-align:left;">
+                                            <span t-esc="doc.total_amount"></span>
+                                        </div>
+                                        <div t-if="doc.payment_request_type == 'account'" class="col-6"
+                                             style="text-align:left;">
+                                            <span t-esc="doc.amount"></span>
+                                        </div>
+
+                                    </div>
+                                    <div class="row" style="border: 1px solid #808080;">
+                                        <div class="col-6" style="text-align:left;">
+                                            <strong>Paid Method</strong>
+                                        </div>
+                                        <div class="col-6" style="text-align:left;">
+                                            <span style="text-align:left" t-esc="doc.journal_id.name"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="border: 1px solid #808080;">
+                                        <div class="col-6" style="text-align:left;">
+                                            <strong>Bank Name</strong>
+                                        </div>
+                                        <div class="col-7" style="text-align:left;">
+                                            <!--                                            <t t-if="doc.company_partner_bank_id">-->
+                                            <!--                                                <span style="text-align:left"-->
+                                            <!--                                                      t-esc="doc.company_partner_bank_id.bank_id.name"></span>-->
+                                            <!--                                            </t>-->
+                                            <t t-if="doc.payment_request_type == 'account'">
+                                                <span style="text-align:left"
+                                                      t-esc="doc.bank_id.name"></span>
+                                            </t>
+                                            <t t-if="doc.payment_request_type != 'account'">
+                                                <span style="text-align:left"
+                                                      t-esc="doc.payment_line_ids.partner_id.bank_ids.bank_id.name"></span>
+                                            </t>
+
+                                            <t else="">
+                                                <span></span>
+                                            </t>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="border: 1px solid #808080;">
+                                        <div class="col-6" style="text-align:left;">
+                                            <strong>Bank Account Number</strong>
+                                        </div>
+                                        <div class="col-7" style="text-align:left;">
+                                            <!--                                            <t t-if="doc.company_partner_bank_id">-->
+                                            <!--                                                <span style="text-align:left"-->
+                                            <!--                                                      t-esc="doc.company_partner_bank_id.acc_number"></span>-->
+                                            <!--                                            </t>-->
+                                            <t t-if="doc.payment_request_type == 'account'">
+                                                <span style="text-align:left"
+                                                      t-esc="doc.bank_account_no"></span>
+                                            </t>
+                                            <t t-if="doc.payment_request_type != 'account'">
+                                                <span style="text-align:left"
+                                                      t-esc="doc.payment_line_ids.partner_id.bank_ids.acc_number"></span>
+                                            </t>
+                                            <t else="">
+                                                <span></span>
+                                            </t>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="border: 1px solid #808080;">
+                                        <div class="col-6" style="text-align:left;">
+                                            <strong>Beneficiary Account Name</strong>
+                                        </div>
+                                        <div class="col-7" style="text-align:left;">
+                                            <!--                                            <t t-if="doc.payment_line_ids">-->
+                                            <!--                                                <span style="text-align:left"-->
+                                            <!--                                                      t-esc="doc.payment_line_ids[0].partner_bank_id.bank_id.name"></span>-->
+                                            <!--                                            </t>-->
+                                            <t t-if="doc.payment_request_type != 'account'">
+                                                <span style="text-align:left"
+                                                      t-esc="doc.payment_line_ids.partner_id.bank_ids.partner_id.name"></span>
+                                            </t>
+                                            <t t-if="doc.payment_request_type == 'account'">
+                                                <span style="text-align:left"
+                                                      t-esc="doc.beneficiary_name"></span>
+                                            </t>
+                                            <t else="">
+                                                <span></span>
+                                            </t>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="border: 1px solid #808080;">
+                                        <div class="col-6" style="text-align:left;">
+                                            <strong>Swift Code</strong>
+                                        </div>
+                                        <div class="col-6" style="text-align:left;">
+                                            <!--                                            <t t-if="doc.payment_line_ids">-->
+                                            <!--                                                <span style="text-align:left"-->
+                                            <!--                                                      t-esc="doc.payment_line_ids[0].partner_bank_id.swift"></span>-->
+                                            <!--                                            </t>-->
+                                            <t t-if="doc.payment_request_type == 'account'">
+                                                <span style="text-align:left"
+                                                      t-esc="doc.company_partner_bank_id.swift"></span>
+                                            </t>
+                                            <t t-if="doc.payment_request_type != 'account'">
+                                                <span style="text-align:left"
+                                                      t-esc="doc.payment_line_ids.partner_id.bank_ids.swift"></span>
+                                            </t>
+                                            <t else="">
+                                                <span></span>
+                                            </t>
+                                        </div>
+                                    </div>
+                                    <!--                                    <div class="row" style="border: 1px solid #808080;">-->
+                                    <!--                                        <div class="col-6" style="text-align:left;">-->
+                                    <!--                                            <strong>Reviewed By</strong>-->
+                                    <!--                                        </div>-->
+                                    <!--                                        <div class="col-6" style="text-align:left;">-->
+                                    <!--                                            <span style="text-align:left" t-esc="doc.current_user_id.name"></span>-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
+                                </div>
+                                <div class="col-5" style="border: 1px solid #808080;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                </div>
+                <div t-attf-class="footer o_standard_footer o_company_#{doc.company_id.id}_layout">
+                    <div>
+
+                        <img src='/account_payment_order/static/description/footer1.png'
+                             style="height: 90px; width: 100%; "/>
+
+                    </div>
+                </div>
+                <div class="oe_structure"/>
+            </div>
+        </t>
+    </template>
+    <template id="print_account_payment_order_main1">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="account_payment_order.print_account_payment_order_document1"
+                   t-lang="doc.generated_user_id.lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

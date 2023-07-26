@@ -5,9 +5,9 @@
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">sale_report_custom.sale_report_custom</field>
         <field name="report_file">sale_report_custom.sale_report_custom</field>
-<!--        <field name="print_report_name">'Quotation/Order - %s' % (object.name)</field>-->
+        <field name="print_report_name">'Quotation/Order - %s' % (object.name)</field>
         <field name="binding_model_id" ref="sale.model_sale_order"/>
-                    <field name="binding_type">report</field>
+        <field name="binding_type">report</field>
 
     </record>
 
@@ -20,38 +20,202 @@
         </t>
     </template>
 
+
+    <template id="report_header_custom" inherit_id="web.internal_layout">
+        <!-- Custom header -->
+        <xpath expr="//div[1]" position="replace">
+            <div class="header">
+                <!--                <div class="row">-->
+                <!--                    <div class="col-3">-->
+                <!--                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>-->
+                <!--                    </div>-->
+                <!--                    <div class="col-2 offset-2 text-center">-->
+                <!--                        <span t-esc="company.name"/>-->
+                <!--                    </div>-->
+                <!--                    <div class="col-2 offset-3 text-right">-->
+                <!--                        <ul class="list-inline">-->
+                <!--                            <li class="list-inline-item">-->
+                <!--                                <span class="page"/>-->
+                <!--                            </li>-->
+                <!--                            <li class="list-inline-item">/</li>-->
+                <!--                            <li class="list-inline-item">-->
+                <!--                                <span class="topage"/>-->
+                <!--                            </li>-->
+                <!--                        </ul>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+            </div>
+        </xpath>
+    </template>
+
+
     <template id="report_saleorder_document_custom">
-        <t t-call="web.external_layout">
+        <t t-call="sale_report_custom.report_header_custom">
             <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
             <t t-foreach="docs" t-as="o">
-                <!--                <t t-set="line" t-value="o.order_line"/>-->
-                <!--                <t t-foreach="o.order_property_state" t-as="line">-->
-                <!--                    <t t-if="line.sale_order_line_id">-->
                 <div class="page">
-                    <b><u><h1 class="text-center">عرض سعر</h1></u></b>
+                    <b>
+                        <h4 class="text-center">عرض سعر</h4>
+                    </b>
                     <br/>
                     <br/>
-                    <br/>
-                    <h3 style="text-align: right" class="text-right">السادة / )<span t-field="o.partner_id.name"/> )</h3>
-                    <br/>
-                    <h3 style="text-align: right" class="text-right">السلام عليكم ورحمة
-                        الله وبركاته وبعد:
-                    </h3>
-                    <br/>
-                    <p class="text-right">
-                        أولا: نود اشعاركم بأننا نحن شركة أفناء للاستثمار، شركة متخصصة بإدارة أملاك ومرافق اوقاف
-                        الشيخ محمد عبدالله الماجد-رحمه الله-، عليه في حال وجود أي استفسار نأمل منكم التواصل معنا على
-                        البريد الالكتروني لإدارة الممتلكات لدينا، عناية الأستاذ/ عبدالله الطويل aaltaweel@afnaa.sa
-                    </p>
-                    <br/>
-                    <p class="text-right">
-                        ثانياً: بناءً على رغبتكم باستئجار <span t-field="o.order_line[0].product_id.name"/> في
-                        <span t-field="o.order_line[0].property_number.property_name"/> ،
-                        نشكر لكم ثقتكم بشركة أفناء للاستثمار، وتجدون بالجدول ادناه أسعار إيجار المكاتب السنوية غير
-                        شاملة ضريبة القيمة المضافة وغير شاملة قيمة الخدمات.
-                    </p>
                     <br/>
 
+                    <h5 style="text-align: right;direction: rtl;" class="text-right" dir="rtl">
+                        <span>
+                            السادة /
+                        </span>
+                        <span t-field=" o.partner_id.name"/>
+                    </h5>
+                    <br/>
+                    <h5 style="text-align: right" class="text-right">:السلام عليكم ورحمة
+                        الله وبركاته وبعد
+                    </h5>
+                    <br/>
+
+                    <p class="text-right" dir="rtl" style="direction: rtl;">
+                        <b>
+                            <span>أولا:</span>
+                        </b>
+                        <span>
+                            نود اشعاركم بأننا نحن شركة أفناء للاستثمار، شركة متخصصة بإدارة أملاك ومرافق اوقاف الشيخ
+                            محمد عبدالله الماجد-رحمة الله عليه -،في حال وجود أي استفسار نأمل منكم التواصل معنا على
+                            البريد
+                            الالكتروني لإدارة الممتلكات لدينا، عناية الأستاذ/ عبدالله الطويل
+                        </span>
+                        <span>
+                            aaltaweel@afnaa.sa
+                        </span>
+                    </p>
+                    <br/>
+                    <p class="text-right" dir="rtl" style="direction: rtl;">
+                        <b>
+                            <span>ثانياً:</span>
+                        </b>
+                        <span>بناءً على رغبتكم باستئجار</span>
+                        <span t-field="o.order_line[0].product_id.name"/>
+                        <span>في</span>
+                        <span style="direction: ltr" dir="ltr" class="text-left"
+                              t-field="o.order_line[0].property_number.property_name"/>
+                        <span>
+                            نشكر لكم ثقتكم بشركة أفناء للاستثمار، وتجدون بالجدول ادناه أسعار إيجار المكاتب السنوية غير
+                            شاملة ضريبة القيمة المضافة وغير شاملة قيمة الخدمات
+                        </span>
+                    </p>
+                    <br/>
+                    <p class="text-right" dir="rtl" style="direction: rtl;">
+                        <span>
+                            علماً بأن قيمة الخدمات -
+                        </span>
+
+                        <span class="text-right" dir="rtl" style="direction: rtl;"
+                              t-if="o.order_line[0].product_id.rental_pricing_ids and o.order_line[0].product_id.rental_pricing_ids[0].service_ids">
+                            (
+                            <t t-foreach="o.order_line[0].product_id.rental_pricing_ids[0].service_ids" t-as="service">
+                                <span t-field="service.name"/> /
+                            </t>
+                            )
+                        </span>
+                        <!--                        <span t-if="o.order_line[0].product_id.rental_pricing_ids and o.order_line[0].product_id.rental_pricing_ids[0].service_ids"-->
+                        <!--                              t-field="o.order_line[0].product_id.rental_pricing_ids[0].service_ids[0].name"/>-->
+                        <!--                        <span>-->
+
+                        <span>
+                            من الإيجار السنوي ، تدفع مع كل دفعة إيجارية ومهلة الترميم
+                        </span>
+                        <span t-field="o.restoration_deadline.name"/>
+                        <span>
+                            من تاريخ توقيع العقد
+                        </span>
+                    </p>
+
+                    <table class="text-right" style="float: right;">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div t-if="o.order_line">
+                                        <table width="100%" class="table table-condensed table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <td align="center">
+                                                        <b>الإيجار السنوي</b>
+                                                    </td>
+                                                    <td align="center">
+                                                        <b>المدة</b>
+                                                    </td>
+                                                    <td align="center">
+                                                        <b>البيــــــــــــــــــــــــــــــــــــــــــــــان</b>
+                                                    </td>
+                                                    <td align="center">
+                                                        <b>رقم</b>
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-set="num" t-value="0"/>
+                                                <t t-foreach="o.order_line" t-as="line">
+                                                    <t t-if="line.product_id.rent_ok == True">
+                                                        <t t-set="num" t-value="num + 1"/>
+                                                        <tr dir="rtl" style="direction: rtl;">
+                                                            <td align="center">
+                                                                <span t-field="line.price_unit"></span>
+                                                            </td>
+                                                            <td align="center">
+                                                                <span t-field="line.line_year_number"></span>
+                                                            </td>
+                                                            <td align="center">
+                                                                الإيجار مكتب
+                                                                <span t-field="line.product_id.name"></span>
+                                                                بمساحة
+                                                                <span t-field="line.rent_unit_area"></span>
+
+                                                                م²
+                                                            </td>
+                                                            <td align="center">
+                                                                <span t-esc="num"/>
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+
+                                                </t>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+
+                                </td>
+                                <td>
+                                    <t t-if="o.state in ['ff_review','ceo','draft','sent','initial_contract','ffl_review','draft_contract','upload_doc','view_all_ceo_approve','ejar_upload','finance_review','sale','done','cancel']">
+                                        <img src="/sale_report_custom/static/src/images/pm.png" alt=""
+                                             width="100"/>
+                                        <!--                                        <img t-if="o.pm_user.pm" t-att-src="image_data_uri(o.pm_user.pm)"-->
+                                        <!--                                             width="100"/>-->
+
+                                        <br/>
+                                        <img t-if="o.finance" src="/sale_report_custom/static/src/images/finance.png"
+                                             alt=""
+                                             width="100"/>
+                                        <img t-if="o.facility" src="/sale_report_custom/static/src/images/facility.png"
+                                             alt=""
+                                             width="100"/>
+                                        <!--                                        <img t-if="o.finance_user.finance"-->
+                                        <!--                                             t-att-src="image_data_uri(o.finance_user.finance)" width="100"/>-->
+                                    </t>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br style="clear:both"/>
+                    <p class="text-right" dir="rtl" style="direction: rtl;">
+                        <span>هذا العرض صالح لمدة</span>
+                        <span t-field="o.offer_validity.name"/>
+                        من تاريخه.
+                    </p>
+
+                    <br/>
+                    <b>
+                        <p class="text-center">،،، والله يحفظكم و يرعاكم</p>
+                    </b>
                 </div>
             </t>
         </t>

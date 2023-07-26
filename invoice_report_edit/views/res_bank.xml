@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_bank_form_efna">
+            <field name="name">view.bank.form.efna.inherit</field>
+            <field name="model">res.bank</field>
+            <field name="inherit_id" ref="base.view_res_bank_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='bic']" position="after">
+                    <field name="iban"/>
+                    <field name="swift"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_bank_partner_form_efna">
+            <field name="name">view.bank.form.efna.inherit</field>
+            <field name="model">res.partner.bank</field>
+            <field name="inherit_id" ref="base.view_partner_bank_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='bank_id']" position="after">
+                    <field name="iban"/>
+                    <field name="swift"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+
+</odoo>

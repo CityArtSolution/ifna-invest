@@ -2,7 +2,7 @@
 {
     'name': "Rent Customization",
 
-    "version" : "15.0.0.6",
+    "version": "15.0.0.6",
 
     'summary': """
        Operational Addons""",
@@ -14,8 +14,8 @@
     'author': "Ibrahim Abdullatif",
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'sale_renting','sale_operating_unit','analytic','account_asset','l10n_gcc_invoice','account_operating_unit'],
-
+    'depends': ['base', 'sale_renting', 'sale_operating_unit', 'analytic', 'account_asset', 'l10n_gcc_invoice',
+                'account_operating_unit','sale','sale_renting_crm'],
 
     # always loaded
     'data': [
@@ -43,7 +43,8 @@
         'views/vw_rent_sale_order_lines.xml',
         'views/vw_product_configuration.xml',
         # 'report/base_layout.xml',
-        'report/reports.xml',
+        'report/rent_report.xml',
+        # 'report/reports.xml',
         'data/demo_products.xml',
         'security/renting_security.xml',
         'security/ir.model.access.csv',

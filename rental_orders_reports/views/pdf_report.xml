@@ -34,8 +34,8 @@
                                 table.supplier tr:hover {background-color: #ddd;}
 
                                 table.supplier th {
-                                padding-top: 12px;
-                                padding-bottom: 12px;
+                                padding-top: 11px;
+                                padding-bottom: 11px;
                                 text-align: left;
                                 background-color: #CFE390 ;
                                 color: black;

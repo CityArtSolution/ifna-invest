@@ -27,7 +27,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/samah-kandil/PycharmProjects/odoo-v15/etmana-api-addons"
+    "last_opened_file_path": "/home/samah-kandil/PycharmProjects/odoo-v16/QKITCHN"
   }
 }]]></component>
   <component name="RunManager">
@@ -45,7 +45,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$USER_HOME$/Odoo-Versions/odoo15/odoo/odoo-bin" />
-      <option name="PARAMETERS" value="--addons-path=$USER_HOME$/Odoo-Versions/odoo15/odoo/addons,$USER_HOME$/Odoo-Versions/odoo15/odoo/odoo-enterprise-v15,$PROJECT_DIR$ -u ifna_invoice_report --xmlrpc-port=3434" />
+      <option name="PARAMETERS" value="--addons-path=$USER_HOME$/Odoo-Versions/odoo15/odoo/addons,$USER_HOME$/Odoo-Versions/odoo15/odoo/odoo-enterprise-v15,$PROJECT_DIR$ -u account_new_journal --xmlrpc-port=3434" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
