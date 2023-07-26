@@ -14,25 +14,48 @@
         <!--            <field name="code">model.create_invoices_cron()</field>-->
         <!--        </record>-->
 
+        <record model="ir.ui.view" id="rent_sale_order_inherit_form_pickup">
+            <field name="name">sale_order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_renting.rental_order_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='open_pickup']" position="replace">
+                    <button name="open_pickup" type="object" class="btn-primary" string="PICKUP" data-hotkey="y"
+                            groups="renting_workflow_customization.finance_group"
+                            attrs="{'invisible':['|', ('has_pickable_lines','=',False), ('state', 'not in', ['sale', 'done'])]}"/>
+                </xpath>
+            </field>
+        </record>
+
         <record model="ir.ui.view" id="rent_sale_order_inherit_form">
             <field name="name">sale_order</field>
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale_renting.rental_order_primary_form_view"/>
             <field name="arch" type="xml">
+                <xpath expr="//form" position="attributes">
+                    <attribute name="duplicate">0</attribute>
+                </xpath>
+
+                <xpath expr="//button[@name='action_quotation_send']" position="before">
+                    <button name="action_pickup" type="object" class="btn-primary" string="PICKUP"
+                            groups="renting_workflow_customization.finance_group"
+                            attrs="{'invisible':['|', ('rental_status','not in',['returned','cancel']), ('state', 'not in', ['sale', 'done'])]}"/>
+                </xpath>
 
                 <xpath expr="//button[@name='open_pickup']" position="after">
-                    <button name="create_invoices_button" string="Create Invoices" type="object" class="btn-primary" attrs="{'invisible': [('state', '!=', 'sale'),('is_rental_order', '=', True)]}"/>
+                    <button name="create_invoices_button" string="Create Invoices" type="object" class="btn-primary"
+                            attrs="{'invisible': [('state', '!=', 'sale'),('is_rental_order', '=', True)]}"
+                            groups="renting_workflow_customization.finance_group"
+                    />
                 </xpath>
 
                 <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][1]" position="replace">
                     <button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"
-                            type="action" class="btn-primary"
-                            attrs="{'invisible': ['|',('invoice_status', '!=', 'to invoice'), ('state', '!=', 'sale')]}"/>
+                            type="action" class="btn-primary" invisible="1"/>
                 </xpath>
                 <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][2]" position="replace">
                     <button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"
-                            type="action" context="{'default_advance_payment_method': 'percentage'}"
-                            attrs="{'invisible': ['|',('invoice_status', '!=', 'no'), ('state', '!=', 'sale')]}"/>
+                            type="action" context="{'default_advance_payment_method': 'percentage'}" invisible="1"/>
                 </xpath>
                 <!--                <xpath expr="//button[@name='action_cancel']" position="replace">-->
                 <!--                    <button name="action_cancel" type="object" string="Cancel"-->
@@ -42,12 +65,15 @@
                 <xpath expr="// field [@ name = 'order_line'] / tree / field [@ name = 'name']" position="after">
                     <field name="is_rental" optional="hide"/>
                     <!--                    <field name="rent_ok"/>-->
-                    <field name="rental_pricing_id" attrs="{'invisible':[('is_rental','=', False)],'required':[('is_rental','=', True)]}" options="{'no_create_edit': True}"/>
+                    <field name="rental_pricing_id"
+                           attrs="{'invisible':[('is_rental','=', False)],'required':[('is_rental','=', True)]}"
+                           options="{'no_create_edit': True}"/>
                 </xpath>
                 <xpath expr="// field [@ name = 'order_line'] / tree / field [@ name = 'tax_id']" position="after">
                     <field name="insurance_value" optional="hide"/>
 
-                    <button name="action_get_service" class="oe_highlight" type="object" string="Get Services" attrs="{'invisible':['|',('is_rental','=', False),('rental_pricing_id','=', False)]}"/>
+                    <button name="action_get_service" class="oe_highlight" type="object" string="Get Services"
+                            attrs="{'invisible':['|',('is_rental','=', False),('rental_pricing_id','=', False)]}"/>
                     <field name="contract_admin_fees" optional="hide"/>
                     <field name="contract_service_fees" optional="hide"/>
                     <field name="contract_admin_sub_fees" optional="hide"/>
@@ -63,11 +89,13 @@
                     <field name="return_date" invisible="1" force_save="1"/>
                 </xpath>
 
-                <xpath expr="// field [@ name = 'order_line'] / tree / field [@ name = 'product_id']" position="attributes">
+                <xpath expr="// field [@ name = 'order_line'] / tree / field [@ name = 'product_id']"
+                       position="attributes">
                     <!--                    <attribute name="domain">-->
                     <!-- [('product_tmpl_id.property_id','=',property_number)]-->
                     <!--                    </attribute>-->
-                    <attribute name="domain"> [('product_tmpl_id.property_id','=',property_number),('product_tmpl_id.state_id','=','شاغرة')]
+                    <attribute name="domain">
+                        [('product_tmpl_id.property_id','=',property_number),('product_tmpl_id.state_id','=','شاغرة')]
                     </attribute>
                     <!--                    <attribute name="domain">[('product_tmpl_id.unit_number', '=',-->
                     <!-- unit_number),('product_tmpl_id.property_id','=',property_number),('product_tmpl_id.state_id','=','شاغرة')]-->
@@ -98,9 +126,9 @@
                             <group>
                                 <field name="order_contract"/>
                                 <field name="brand_nameplate_allowed"/>
-                                <field name="ejar"/>
-                                <field name="ejar_number"/>
-                                <field name="ejar_date"/>
+                                <field name="ejar" attrs="{'required': [('state', '=', 'ejar_upload')]}"/>
+                                <field name="ejar_number" attrs="{'required': [('state', '=', 'ejar_upload')]}"/>
+                                <field name="ejar_date" attrs="{'required': [('state', '=', 'ejar_upload')]}"/>
                                 <field name="remarks_c"/>
                                 <field name="file"/>
                                 <field name="updated_invoices"/>
@@ -116,22 +144,27 @@
                     </page>
 
                     <page name="contract_invoices" string="الفواتير">
+
+                        <button name="create_order_invoices" string="Regenerate Invoices" type="object" class="btn-primary"/>
+
                         <field name="order_contract_invoice" widget="section_and_note_one2many">
                             <tree editable="bottom">
                                 <field name="sequence" widget="handle"/>
                                 <field name="name"/>
                                 <field name="amount" sum="Total Amount"/>
-                                <field name="fromdate" />
+                                <field name="fromdate"/>
                                 <field name="todate"/>
                                 <field name="invoice_date"/>
                                 <field name="status"/>
                                 <field name="services" widget="many2many_tags" optional="hide"/>
-                                <button name="create_invoices" type="object" string="Create Invoice" class="btn-success" attrs="{'invisible':[('status','=', 'invoiced')]}"/>
+                                <button name="create_invoices" type="object" string="Create Invoice" class="btn-success"
+                                        attrs="{'invisible':[('status','=', 'invoiced')]}"/>
                             </tree>
                         </field>
                     </page>
                     <page name="property_stats" string="حالة الوحدات">
-                        <field name="order_property_state" widget="section_and_note_one2many" mode="tree,form" context="{'default_sale_order': active_id}">
+                        <field name="order_property_state" widget="section_and_note_one2many" mode="tree,form"
+                               context="{'default_sale_order': active_id}">
                             <form>
                                 <group>
                                     <field name="sale_order" invisible="1"/>
@@ -379,20 +412,23 @@
                 </xpath>
 
                 <xpath expr="//field[@name='origin']" position="replace">
-                    <field name="opportunity_id" readonly="1" />
+                    <field name="opportunity_id" readonly="1"/>
                 </xpath>
 
                 <xpath expr="//div[@name='button_box']" position="after">
-                    <div class="badge-pill badge-info float-right" attrs="{'invisible': [('full_invoiced', '=', False)]}">Fully Invoiced
+                    <div class="badge-pill badge-info float-right"
+                         attrs="{'invisible': [('full_invoiced', '=', False)]}">Fully Invoiced
                     </div>
-                    <div class="badge-pill badge-info float-right" attrs="{'invisible': ['|', ('full_invoiced', '=', True),('no_of_not_invoiced', '=', 0) ]}">
+                    <div class="badge-pill badge-info float-right"
+                         attrs="{'invisible': ['|', ('full_invoiced', '=', True),('no_of_not_invoiced', '=', 0) ]}">
                         <field name="no_of_invoiced"/>
-/
+                        /
                         <field name="no_of_not_invoiced"/>
                     </div>
-                    <div class="badge-pill badge-info float-right" attrs="{'invisible': ['|', ('full_invoiced', '=', True),('no_of_not_invoiced', '=', 0) ]}">
+                    <div class="badge-pill badge-info float-right"
+                         attrs="{'invisible': ['|', ('full_invoiced', '=', True),('no_of_not_invoiced', '=', 0) ]}">
                         <field name="no_of_invoiced_amount"/>
-/
+                        /
                         <field name="no_of_not_invoiced_amount"/>
                     </div>
 
@@ -408,6 +444,7 @@
             <field name="inherit_id" ref="sale_renting.rental_order_view_search"/>
             <field name="arch" type="xml">
                 <xpath expr='//field[@name="team_id"]' position="after">
+                    <field name="contract_number"/>
                     <field name="no_of_invoiced"/>
                     <field name="no_of_not_invoiced"/>
                     <field name="no_of_invoiced_amount"/>
@@ -435,13 +472,14 @@
                 </field>
                 <xpath expr="//div[hasclass('oe_kanban_bottom_left')][1]" position="after">
                     <!--                    <div class="oe_kanban_bottom_right">-->
-                    <div class="o_kanban_inline_block " attrs="{'invisible': ['|', ('full_invoiced', '=', True),('no_of_not_invoiced', '=', 0) ]}">
+                    <div class="o_kanban_inline_block "
+                         attrs="{'invisible': ['|', ('full_invoiced', '=', True),('no_of_not_invoiced', '=', 0) ]}">
                         <field name="no_of_invoiced"/>
-/
+                        /
                         <field name="no_of_not_invoiced"/>
--
+                        -
                         <field name="no_of_invoiced_amount"/>
-/
+                        /
                         <field name="no_of_not_invoiced_amount"/>
                     </div>
 

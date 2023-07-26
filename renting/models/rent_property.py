@@ -59,6 +59,8 @@ class RentPropertyModel(models.Model):
     national_permit_shop_out = fields.Date('تاريخ انتهاء تصريح المحل')
     national_permit_build = fields.Date('تاريخ اصدار شهادة اتمام البناء')
 
+    note = fields.Char('ملاحظات')
+
     defense_permit_number = fields.Char('رقم التصريح')
     defense_permit_image = fields.Many2many('ir.attachment', 'class_ir_attachments_rel', 'class_id', 'attachment_id',
                                             string='صورة التصريح')

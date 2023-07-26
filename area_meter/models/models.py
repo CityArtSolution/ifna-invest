@@ -14,8 +14,10 @@ class RentProduct(models.Model):
 class RentRentalPricing(models.Model):
     _inherit = 'rental.pricing'
 
-    rent_unit_area = fields.Float(string='المساحة m2', copy=True, readonly=False)
-    rent_unit_area_price = fields.Float(string='سعر المتر', copy=True, readonly=False)
+    rent_unit_area = fields.Float(string='المساحة m2', copy=True, readonly=False,
+                                  related="product_template_id.rent_unit_area")
+    rent_unit_area_price = fields.Float(string='سعر المتر', copy=True, readonly=False,
+                                        related="product_template_id.rent_unit_area_price")
     price = fields.Monetary(string="Price", required=True, default=1.0, readonly=False, compute="_compute_price_rent")
 
     @api.onchange('rent_unit_area', 'rent_unit_area_price', 'duration')

@@ -2,18 +2,18 @@
 <odoo>
     <data>
 
-        <record id="view_order_form_rent_customize" model="ir.ui.view">
-            <field name="name">view.sale.order.form</field>
-            <field name="model">sale.order</field>
-            <field name="inherit_id" ref="sale_renting.rental_order_primary_form_view"/>
-            <field name="arch" type="xml">
-                <xpath expr="//button[@name='action_quotation_send']" position="before">
-                    <button name="action_pickup" type="object" class="btn-primary" string="PICKUP"
-                            groups="rent_customize.group_pickup_rental_order"
-                            attrs="{'invisible':['|', ('rental_status','not in',['returned','cancel']), ('state', 'not in', ['sale', 'done'])]}"/>
-                </xpath>
-            </field>
-        </record>
+<!--        <record id="view_order_form_rent_customize" model="ir.ui.view">-->
+<!--            <field name="name">view.sale.order.form</field>-->
+<!--            <field name="model">sale.order</field>-->
+<!--            <field name="inherit_id" ref="sale_renting.rental_order_primary_form_view"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//button[@name='action_quotation_send']" position="before">-->
+<!--                    <button name="action_pickup" type="object" class="btn-primary" string="PICKUP"-->
+<!--                            groups="renting_workflow_customization.finance_group"-->
+<!--                            attrs="{'invisible':['|', ('rental_status','not in',['returned','cancel']), ('state', 'not in', ['sale', 'done'])]}"/>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
 
         <record id="update_invoice_status_action_server" model="ir.actions.server">
             <field name="name">Update Invoice Status</field>

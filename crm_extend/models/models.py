@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api,_
+from odoo import models, fields, api, _
+
 
 class crm_extend(models.Model):
     _inherit = 'crm.lead'
@@ -10,7 +11,6 @@ class crm_extend(models.Model):
     date = fields.Date("Date")
     source_id = fields.Many2one('utm.source', 'تصنيف العميل',
                                 help="This is the source of the link, e.g. Search Engine, another domain, or name of email list")
-
 
     @api.depends('unit')
     def _compute_name(self):

@@ -1,5 +1,56 @@
 <odoo>
     <data>
+        <record id="sale.action_report_saleorder" model="ir.actions.report">
+            <field name="name">Quotation / Order</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">sale_report_custom.sale_report_custom</field>
+            <field name="report_file">sale_report_custom.sale_report_custom</field>
+            <field name="print_report_name">(object.state in ('draft', 'sent') and 'Quotation - %s' % (object.name)) or
+                'Order - %s' % (object.name)
+            </field>
+            <field name="binding_model_id" ref="model_sale_order"/>
+            <field name="binding_type">report</field>
+        </record>
+
+
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'sale'), ('name', '=', 'mail_template_sale_confirmation')]"/>
+            </function>
+            <value eval="{'noupdate': False}"/>
+        </function>
+
+        <record model="mail.template" id="sale.mail_template_sale_confirmation">
+            <field name="report_template" ref="sale_report_custom.action_pickup_form"/>
+        </record>
+
+
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'sale'), ('name', '=', 'mail_template_sale_confirmation')]"/>
+            </function>
+            <value eval="{'noupdate': True}"/>
+        </function>
+
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'sale'), ('name', '=', 'email_template_edi_sale')]"/>
+            </function>
+            <value eval="{'noupdate': False}"/>
+        </function>
+
+        <record model="mail.template" id="sale.email_template_edi_sale">
+            <field name="report_template" ref="sale_report_custom.action_pickup_form"/>
+        </record>
+
+
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'sale'), ('name', '=', 'email_template_edi_sale')]"/>
+            </function>
+            <value eval="{'noupdate': True}"/>
+        </function>
 
 
         <record id="restoration_deadline_tree_view" model="ir.ui.view">
@@ -52,7 +103,7 @@
             <field name="inherit_id" ref="renting.rent_sale_order_inherit_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='contract_number']" position="after">
-                    <field name="restoration_deadline" attrs="{'invisible':[('state','in',['draft_qu'])]}"/>
+                    <field name="restoration_deadline"/>
                     <field name="offer_validity"/>
                 </xpath>
             </field>
