@@ -3,6 +3,7 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, ValidationError
 
+from odoo.http import request
 
 class ResUsers(models.Model):
     _inherit = 'res.users'
@@ -158,32 +159,29 @@ class SaleOrder(models.Model):
     def create_mail_message_notification(self, rec, email_to_custom, message_txt, group_name):
         action = self.env.ref('sale_renting.rental_order_action').id
         menu = self.env.ref('sale_renting.rental_orders_all').id
+
+        ##
+        base_url = request.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        base_url += '/web#id=%d&view_type=form&model=%s' % (self.id, self._name)
+        base_url += '&menu_id=%d&action=%d' % (menu, action)
+        ##
+
         body = _(
-            " %s <a href='/web?debug=0#id=%s&action=%s&model=sale.order&view_type=kanban&menu_id=%s'> %s</a>") % (
-                   message_txt, rec.id, action, menu, rec.name)
+            " %s <a href='%s'> %s</a>") % (
+                   message_txt,base_url , rec.name)
 
         users = self.env.ref(group_name).users
-        b = []
-        for n in users:
-            b.append(n.partner_id.id)
-
-        h = []
-        o = self.env['mail.message'].search([('record_name', '!=', False)],
-                                            limit=1)
-        for g in b:
-            h.append([0, 0, {'mail_message_id': o.id, 'res_partner_id': g}])
-
-        obj = self.env['mail.message'].sudo().create({
-            'subject': 'Finance - Rent Order',
-            'record_name': message_txt,
-            'notification_ids': h,
-            'body': body,
-            'email_from': self.env.user.name,
-            'partner_ids': [(6, 0, email_to_custom.partner_id.ids)],
-            'message_type': 'notification',
-            'subtype_id': self.env.ref('mail.mt_note').id,
-        })
-        tmp = obj
+        for user in users:
+            notification_ids = [(0, 0, {
+                'res_partner_id': user.partner_id.id,
+                'notification_type': 'inbox'
+            })]
+            self.message_post(record_name=message_txt,
+                              body=body
+                              , message_type="notification",
+                              subtype_xmlid="mail.mt_comment",
+                              author_id=self.env.user.partner_id.id,
+                              notification_ids=notification_ids)
 
     def finance_facility(self):
         for rec in self:
