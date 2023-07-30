@@ -53,7 +53,7 @@ class RentProductProduct(models.Model):
     # unit_area = fields.Char(string='مساحة الوحدة', copy=True)
     # unit_floor_number = fields.Char(string='رقم الطابق', copy=True)
     # unit_rooms_number = fields.Char(string='عدد الغرف', copy=True)
-    unit_state = fields.Char(string='الحالة', default='شاغرة', copy=True)
+    # unit_state = fields.Char(string='الحالة', default='شاغرة', copy=True)
 
     # rent_unit_area = fields.Float(string='المساحة', copy=True)
 
@@ -105,13 +105,41 @@ class RentProductProduct(models.Model):
     # unit_maintenance_count = fields.Integer(string='Total Maintenance', compute='_get_count', readonly=True)
     unit_expenses_count = fields.Integer(string='Total Expenses', compute='_unit_expenses_count', readonly=True)
     unit_price_unit = fields.Char(string='مدة تأجير الوحدة', copy=True)
-    state_id = fields.Char(default="_get_state",store=True)
+    state_id = fields.Char(default="_get_state", store=True)
     analytic_account = fields.Many2one('account.analytic.account', copy=True, string='الحساب التحليلي', readonly=True)
     ref_analytic_account = fields.Char(string='رقم اشارة الحساب التحليلي', readonly=True)
 
     # property_analytic_account = fields.Many2one('account.analytic.account', string='الحساب التحليلي للعقار',
     #                                             related='property_id.analytic_account')
     # property_id = fields.Many2one('rent.property', string='عمارة', copy=True)  # Related field to Properties
+
+    def _get_state_rent_of_unit(self):
+        for rec in self:
+            print('11111')
+            rec.state_id = 'شاغرة'
+            rec.unit_state = 'شاغرة'
+            order = self.env['sale.order.line'].search(
+                [('product_id', '=', self._origin.id), ('property_number', '=', self.property_id.id)])
+            # order = rec.env['sale.order.line'].sudo().search(
+            #     [('product_id', '=', rec.id), ('property_number', '=', rec.property_id.id)])
+            if order:
+                print('order', order, order[0].order_id.rental_status)
+                if order[0].order_id.rental_status == 'return':
+                    print('yes return')
+                    rec.state_id = 'مؤجرة'
+                    rec.unit_state = 'مؤجرة'
+                elif order[0].order_id.rental_status == 'returned':
+                    print('yes returned')
+                    rec.state_id = 'شاغرة'
+                    rec.unit_state = 'شاغرة'
+                elif order[0].order_id.rental_status == 'cancel':
+                    print('yes cancel')
+                    rec.state_id = 'شاغرة'
+                    rec.unit_state = 'شاغرة'
+            else:
+                print('nooo')
+                rec.state_id = 'شاغرة'
+                rec.unit_state = 'شاغرة'
 
     @api.model
     def _get_state(self):
@@ -142,6 +170,7 @@ class RentProductProduct(models.Model):
                 rec.state_id = 'شاغرة'
                 rec.unit_state = 'شاغرة'
                 return 'شاغرة'
+
 
 class RentProduct(models.Model):
     _inherit = 'product.template'
@@ -212,7 +241,7 @@ class RentProduct(models.Model):
     unit_sales_count = fields.Integer(string='Total Sales', compute='_unit_sales_count', readonly=True)
     unit_price = fields.Float(string='قيمة الوحدة', compute='_get_unit_price')
     unit_price_unit = fields.Char(string='مدة تأجير الوحدة', copy=True)
-    state_id = fields.Char(default="_get_state",store=True)
+    state_id = fields.Char(default="_get_state", store=True)
     analytic_account = fields.Many2one('account.analytic.account', copy=True, string='الحساب التحليلي', readonly=True)
     ref_analytic_account = fields.Char(string='رقم اشارة الحساب التحليلي', readonly=True)
     property_analytic_account = fields.Many2one('account.analytic.account', string='الحساب التحليلي للعقار',
@@ -251,6 +280,34 @@ class RentProduct(models.Model):
                 rec.state_id = 'شاغرة'
                 rec.unit_state = 'شاغرة'
                 return 'شاغرة'
+
+    def _get_state_rent_of_unit(self):
+        for rec in self:
+            print('11111')
+            rec.state_id = 'شاغرة'
+            rec.unit_state = 'شاغرة'
+            order = self.env['sale.order.line'].search(
+                [('product_id', '=', self._origin.id), ('property_number', '=', self.property_id.id)])
+            # order = rec.env['sale.order.line'].sudo().search(
+            #     [('product_id', '=', rec.id), ('property_number', '=', rec.property_id.id)])
+            if order:
+                print('order', order, order[0].order_id.rental_status)
+                if order[0].order_id.rental_status == 'return':
+                    print('yes return')
+                    rec.state_id = 'مؤجرة'
+                    rec.unit_state = 'مؤجرة'
+                elif order[0].order_id.rental_status == 'returned':
+                    print('yes returned')
+                    rec.state_id = 'شاغرة'
+                    rec.unit_state = 'شاغرة'
+                elif order[0].order_id.rental_status == 'cancel':
+                    print('yes cancel')
+                    rec.state_id = 'شاغرة'
+                    rec.unit_state = 'شاغرة'
+            else:
+                print('nooo')
+                rec.state_id = 'شاغرة'
+                rec.unit_state = 'شاغرة'
 
     def write(self, values):
         if 'name' in values:

@@ -103,6 +103,40 @@ class RentSaleOrder(models.Model):
     iselec_remain = fields.Boolean('نعم')
     isnotelec_remain = fields.Boolean('لا')
 
+    @api.model
+    def create_invoices_cron(self):
+        for i in self.env['sale.order'].search([]):
+            if i.order_contract_invoice:
+                for rec in i.order_contract_invoice:
+                    print("/////////",rec.invoice_date)
+                    print("/////////",fields.Date.today())
+                    if rec.invoice_date == fields.Date.today() and rec.status == "uninvoiced":
+                        invoice_lines = []
+                        invoiceable_lines = i.order_line
+                        if rec.sequence == 1:
+                            seq = 0
+                            for type in INSURANCE_ADMIN_FEES_FIELDS:
+                                seq += 1
+                                fees_sum = rec._prepare_invoice_line_insurance_admin_fees_sum(type, seq)
+                                if fees_sum.get('name', False):
+                                    invoice_lines.append([0, 0, fees_sum])
+                        for line in invoiceable_lines:
+                            invoice_lines.append([0, 0, rec._prepare_invoice_line(line)])
+                            if rec.sequence == 1:
+                                seq = 0
+                                for type in INSURANCE_ADMIN_FEES_FIELDS:
+                                    seq += 1
+                                    if line.mapped(type)[0] > 0:
+                                        invoice_lines.append(
+                                            [0, 0, rec._prepare_invoice_line_insurance_admin_fees(type, line, seq)])
+
+                        vals = rec._prepare_invoice(invoice_lines)
+                        print(vals)
+                        invoice = self.env['account.move'].create(vals)
+                        rec.invoice_date = fields.Date.today()
+                        rec.status = 'invoiced'
+                        return invoice
+
     def action_pickup(self):
         self.write({'rental_status': 'return'})
 
@@ -414,7 +448,7 @@ class RentSaleOrderLine(models.Model):
                     'rent_product_id': self.product_id.id,
                 })
                 new_line_ids.append(new_line.id)  # Add the new line's ID to the list
-                self.write({'service_line_ids': [(6, 0, new_line_ids)]})
+        self.write({'service_line_ids': [(6, 0, new_line_ids)]})
 
     @api.depends('product_uom_qty', 'discount', 'price_unit', 'tax_id')
     def _compute_amount(self):

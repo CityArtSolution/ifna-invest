@@ -8,7 +8,6 @@
         <field name="print_report_name">'Quotation/Order - %s' % (object.name)</field>
         <field name="binding_model_id" ref="sale.model_sale_order"/>
         <field name="binding_type">report</field>
-
     </record>
 
 
@@ -93,10 +92,10 @@
                             <span>ثانياً:</span>
                         </b>
                         <span>بناءً على رغبتكم باستئجار</span>
-                        <span t-field="o.order_line[0].product_id.name"/>
+                        <span t-if="o.order_line" t-field="o.order_line[0].product_id.name"/>
                         <span>في</span>
                         <span style="direction: ltr" dir="ltr" class="text-left"
-                              t-field="o.order_line[0].property_number.property_name"/>
+                              t-if="o.order_line" t-field="o.order_line[0].property_number.property_name"/>
                         <span>
                             نشكر لكم ثقتكم بشركة أفناء للاستثمار، وتجدون بالجدول ادناه أسعار إيجار المكاتب السنوية غير
                             شاملة ضريبة القيمة المضافة وغير شاملة قيمة الخدمات
@@ -109,7 +108,7 @@
                         </span>
 
                         <span class="text-right" dir="rtl" style="direction: rtl;"
-                              t-if="o.order_line[0].product_id.rental_pricing_ids and o.order_line[0].product_id.rental_pricing_ids[0].service_ids">
+                              t-if="o.order_line and o.order_line[0].product_id.rental_pricing_ids and o.order_line[0].product_id.rental_pricing_ids[0].service_ids">
                             (
                             <t t-foreach="o.order_line[0].product_id.rental_pricing_ids[0].service_ids" t-as="service">
                                 <span t-field="service.name"/> /

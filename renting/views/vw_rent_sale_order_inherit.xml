@@ -3,16 +3,16 @@
 <odoo>
     <data>
 
-        <!--        <record forcecreate="True" id="cron_create_invoices" model="ir.cron">-->
-        <!--            <field name="name">Create Invoices</field>-->
-        <!--            <field eval="True" name="active"/>-->
-        <!--            <field name="interval_number">1</field>-->
-        <!--            <field name="interval_type">days</field>-->
-        <!--            <field name="numbercall">-1</field>-->
-        <!--            <field name="model_id" ref="renting.model_sale_order"/>-->
-        <!--            <field name="state">code</field>-->
-        <!--            <field name="code">model.create_invoices_cron()</field>-->
-        <!--        </record>-->
+        <record forcecreate="True" id="cron_create_invoices" model="ir.cron">
+            <field name="name">Create Invoices</field>
+            <field eval="True" name="active"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="model_id" ref="renting.model_sale_order"/>
+            <field name="state">code</field>
+            <field name="code">model.create_invoices_cron()</field>
+        </record>
 
         <record model="ir.ui.view" id="rent_sale_order_inherit_form_pickup">
             <field name="name">sale_order</field>
@@ -145,7 +145,8 @@
 
                     <page name="contract_invoices" string="الفواتير">
 
-                        <button name="create_order_invoices" string="Regenerate Invoices" type="object" class="btn-primary"/>
+                        <button name="create_order_invoices" string="Regenerate Invoices" type="object"
+                                class="btn-primary"/>
 
                         <field name="order_contract_invoice" widget="section_and_note_one2many">
                             <tree editable="bottom">
