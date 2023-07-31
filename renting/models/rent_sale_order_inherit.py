@@ -108,8 +108,6 @@ class RentSaleOrder(models.Model):
         for i in self.env['sale.order'].search([]):
             if i.order_contract_invoice:
                 for rec in i.order_contract_invoice:
-                    print("/////////",rec.invoice_date)
-                    print("/////////",fields.Date.today())
                     if rec.invoice_date == fields.Date.today() and rec.status == "uninvoiced":
                         invoice_lines = []
                         invoiceable_lines = i.order_line

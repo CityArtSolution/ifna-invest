@@ -90,10 +90,10 @@
                                         </th>
                                         <tbody>
                                             <tr>
-                                                <td style="border-bottom: 0px !important;">
+                                                <td style="border-bottom: 0px !important; width:50%;">
                                                     <span>رقم السجل التجاري</span>
                                                 </td>
-                                                <td style="border-bottom: 0px !important;">
+                                                <td style="border-bottom: 0px !important; width:50%;">
                                                     <span>اسم المستأجر</span>
                                                 </td>
                                             </tr>
@@ -115,10 +115,10 @@
                                         </th>
                                         <tbody>
                                             <tr>
-                                                <td style="border-bottom: 0px !important;">
+                                                <td style="border-bottom: 0px !important; width:50%;">
                                                     <span>رقم السجل التجاري</span>
                                                 </td>
-                                                <td style="border-bottom: 0px !important;">
+                                                <td style="border-bottom: 0px !important; width:50%;">
                                                     <span>اسم المؤجر</span>
                                                 </td>
                                             </tr>
