@@ -441,23 +441,24 @@ class RentSaleOrderLine(models.Model):
 
             past_lines = self.env['sale.order.line'].browse(self.service_line_ids.ids)
             if len(past_lines) > 0:
-                new_unit_price = price
-                past_lines.write({'price_unit': new_unit_price})
-            else:
-                sequence += 1
-                new_line = self.env['sale.order.line'].sudo().create({
-                    'sequence': sequence,
-                    'line_sequence': sequence,
-                    'line_year_number': line_year_number,
-                    'product_uom_qty': 1,
-                    'product_id': rec.service_id.product_variant_id.id,
-                    'name': rec.service_id.product_variant_id.name,
-                    'order_id': self.order_id.id,
-                    'analytic_account': self.analytic_account.id,
-                    'price_unit': price,
-                    'rent_product_id': self.product_id.id,
-                })
-                new_line_ids.append(new_line.id)  # Add the new line's ID to the list
+                for line in past_lines:
+                    line.unlink()
+                # new_unit_price = price
+                # past_lines.write({'price_unit': new_unit_price})
+            sequence += 1
+            new_line = self.env['sale.order.line'].sudo().create({
+                'sequence': sequence,
+                'line_sequence': sequence,
+                'line_year_number': line_year_number,
+                'product_uom_qty': 1,
+                'product_id': rec.service_id.product_variant_id.id,
+                'name': rec.service_id.product_variant_id.name,
+                'order_id': self.order_id.id,
+                'analytic_account': self.analytic_account.id,
+                'price_unit': price,
+                'rent_product_id': self.product_id.id,
+            })
+            new_line_ids.append(new_line.id)  # Add the new line's ID to the list
         self.write({'service_line_ids': [(6, 0, new_line_ids)]})
 
     @api.depends('product_uom_qty', 'discount', 'price_unit', 'tax_id')
