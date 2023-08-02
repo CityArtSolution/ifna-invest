@@ -250,7 +250,6 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//button[@name='action_quotation_send'][1]" position="after">
-
                     <button name="finance_facility" string="Send to Finance and Facility Review" type="object"
                             states="draft_qu" class="btn-primary" data-hotkey="g"
                             groups="sales_team.group_sale_manager,renting_workflow_customization.pm_group"/>
@@ -405,6 +404,14 @@
                     <button name="action_confirm" data-hotkey="v"
                             string="Confirm" type="object"
                             invisible="1"/>
+                </xpath>
+                <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][1]" position="replace">
+                    <button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"
+                            type="action" class="btn-primary" invisible="1"/>
+                </xpath>
+                <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d'][2]" position="replace">
+                    <button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"
+                            type="action" context="{'default_advance_payment_method': 'percentage'}" invisible="1"/>
                 </xpath>
             </field>
         </record>
