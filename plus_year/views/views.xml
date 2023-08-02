@@ -7,6 +7,7 @@
             <field name="inherit_id" ref="sale_renting.rental_order_primary_form_view"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='date_order']" position="after">
+                    <field name="is_pm" invisible="1"/>
                     <field name="plus_year" attrs="{'readonly':[('is_pm','=', False)]}"/>
                     <field name="years_number"
                            attrs="{'readonly':[('is_pm','=', False)],'invisible': [('plus_year', '=', False)]}"/>
