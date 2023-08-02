@@ -103,6 +103,18 @@ class RentSaleOrder(models.Model):
     iselec_remain = fields.Boolean('نعم')
     isnotelec_remain = fields.Boolean('لا')
 
+    is_pm = fields.Boolean('is PM', compute="_get_if_group")
+    is_finance = fields.Boolean('is PM', compute="_get_if_group")
+
+    def _get_if_group(self):
+        for rec in self:
+            rec.is_pm = False
+            rec.is_finance = False
+            if self.user_has_groups('renting_workflow_customization.pm_group'):
+                rec.is_pm = True
+            if self.user_has_groups('renting_workflow_customization.finance_group'):
+                rec.is_finance = True
+
     @api.model
     def create_invoices_cron(self):
         for i in self.env['sale.order'].search([]):

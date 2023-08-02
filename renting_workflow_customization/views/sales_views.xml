@@ -102,20 +102,79 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
+                <xpath expr="//page[@name='other_information']" position="replace">
+                    <page string="Other Info" name="other_information">
+                        <group>
+                            <group name="sales_person" string="Sales">
+                                <field name="is_pm" invisible="1"/>
+                                <field name="user_id" widget="many2one_avatar_user"
+                                       attrs="{'readonly':[('is_pm','=', False)]}"/>
+                                <field name="team_id" kanban_view_ref="%(sales_team.crm_team_view_kanban)s"
+                                       options="{'no_create': True}" attrs="{'readonly':[('is_pm','=', False)]}"/>
+                                <field name="company_id" options="{'no_create': True}"
+                                       groups="base.group_multi_company" attrs="{'readonly':[('is_pm','=', False)]}"/>
+                                <field name="require_signature" attrs="{'readonly':[('is_pm','=', False)]}"/>
+                                <field name="require_payment" attrs="{'readonly':[('is_pm','=', False)]}"/>
+                                <field name="reference" readonly="1"
+                                       attrs="{'readonly':[('is_pm','=', False)],'invisible': [('reference', '=', False)]}"/>
+                                <field name="client_order_ref" attrs="{'readonly':[('is_pm','=', False)]}"/>
+                                <field name="tag_ids" widget="many2many_tags"
+                                       attrs="{'readonly':[('is_pm','=', False)]}"
+                                       options="{'color_field': 'color', 'no_create_edit': True}"/>
+                            </group>
+                            <group name="sale_info" string="Invoicing">
+                                <field name="fiscal_position_id" options="{'no_create': True}"
+                                       attrs="{'readonly':[('is_pm','=', False)]}"/>
+                                <field name="analytic_account_id"
+                                       context="{'default_partner_id':partner_invoice_id, 'default_name':name}"
+                                       attrs="{'readonly': [('invoice_count','!=',0),('state','=','sale'),('is_pm','=', False)]}"
+                                       groups="analytic.group_analytic_accounting" force_save="1"/>
+                                <field name="invoice_status" attrs="{'readonly':[('is_pm','=', False)]}"
+                                       states="sale,done" groups="base.group_no_one"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group name="sale_shipping">
+                                <label for="commitment_date" string="Delivery Date"
+                                       attrs="{'readonly':[('is_pm','=', False)]}"/>
+                                <div name="commitment_date_div" class="o_row">
+                                    <field name="commitment_date" attrs="{'readonly':[('is_pm','=', False)]}"/>
+                                    <span name="expected_date_span" class="text-muted">Expected:
+                                        <field name="expected_date" widget="date"/>
+                                    </span>
+                                </div>
+                            </group>
+                            <group string="Tracking" name="sale_reporting">
+                                <group name="technical" colspan="2" class="mb-0">
+                                    <field name="origin" attrs="{'readonly':[('is_pm','=', False)]}"/>
+                                </group>
+                                <group name="utm_link" colspan="2" class="mt-0">
+                                    <field name="campaign_id" attrs="{'readonly':[('is_pm','=', False)]}"/>
+                                    <field name="medium_id" attrs="{'readonly':[('is_pm','=', False)]}"/>
+                                    <field name="source_id" attrs="{'readonly':[('is_pm','=', False)]}"/>
+                                </group>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
                 <xpath expr="//page[@name='other_information']" position="attributes">
                     <attribute name="attrs">
                         {'invisible':[('state','not in',['terms','sale'])]}
                     </attribute>
                 </xpath>
-                <xpath expr="//page[@name='customer_signature']" position="attributes">
-                    <attribute name="attrs">
-                        {'invisible':[('state','in',['draft_qu','ff_review','ceo','draft'])]}
-                    </attribute>
-                </xpath>
-                <xpath expr="//field[@name='signature']" position="after">
-                    <field name="signature_doc" widget="many2many_binary"
-                           groups="renting_workflow_customization.ceo_group, renting_workflow_customization.pm_group"
-                           attrs="{'required': [('state', '=', 'sent')]}"/>
+                <xpath expr="//page[@name='customer_signature']" position="replace">
+                    <page string="Customer Signature" name="customer_signature"
+                          attrs="{'invisible':[('state','in',['draft_qu','ff_review','ceo','draft'])]}">
+                        <group>
+                            <field name="signed_by" attrs="{'readonly':[('is_pm','=', False)]}"/>
+                            <field name="signed_on" attrs="{'readonly':[('is_pm','=', False)]}"/>
+                            <field name="signature" widget="image" attrs="{'readonly':[('is_pm','=', False)]}"/>
+                            <field name="signature_doc" widget="many2many_binary"
+                                   groups="renting_workflow_customization.ceo_group, renting_workflow_customization.pm_group"
+                                   attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'sent')]}"/>
+
+                        </group>
+                    </page>
                 </xpath>
             </field>
         </record>
@@ -142,7 +201,7 @@
                 </xpath>
                 <xpath expr="//field[@name='ejar_date']" position="after">
                     <field name="ejar_cont" widget="many2many_binary"
-                           attrs="{'required': [('state', '=', 'ejar_upload')]}"/>
+                           attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'ejar_upload')]}"/>
                 </xpath>
 
 
@@ -151,24 +210,33 @@
                           attrs="{'invisible': [('state','in',['draft_qu','ff_review','ceo','draft','sent'])]}">
                         <group>
                             <group string="مرفقات">
-                                <field name="commercial_register" widget="many2many_binary"/>
-                                <field name="authorization" widget="many2many_binary"/>
-                                <field name="company_contract" widget="many2many_binary"/>
-                                <field name="tax_certificate" widget="many2many_binary"/>
-                                <field name="ejar_cont" widget="many2many_binary"/>
-                                <field name="tenant_directory" widget="many2many_binary"/>
+                                <field name="commercial_register" widget="many2many_binary"
+                                       attrs="{'readonly':[('is_pm','=', False)]}"/>
+                                <field name="authorization" widget="many2many_binary"
+                                       attrs="{'readonly':[('is_pm','=', False)]}"/>
+                                <field name="company_contract" widget="many2many_binary"
+                                       attrs="{'readonly':[('is_pm','=', False)]}"/>
+                                <field name="tax_certificate" widget="many2many_binary"
+                                       attrs="{'readonly':[('is_pm','=', False)]}"/>
+                                <field name="ejar_cont" widget="many2many_binary"
+                                       attrs="{'readonly':[('is_pm','=', False)]}"/>
+                                <field name="tenant_directory" widget="many2many_binary"
+                                       attrs="{'readonly':[('is_pm','=', False)]}"/>
 
                                 <field name="pickup_signed" widget="many2many_binary"
-                                       groups="renting_workflow_customization.pm_group"/>
+                                       groups="renting_workflow_customization.pm_group"
+                                       attrs="{'readonly':[('is_pm','=', False)]}"/>
                                 <field name="directory_signed" widget="many2many_binary"
-                                       groups="renting_workflow_customization.pm_group"/>
-                                <field name="company_add_attach" widget="many2many_binary"/>
+                                       groups="renting_workflow_customization.pm_group"
+                                       attrs="{'readonly':[('is_pm','=', False)]}"/>
+                                <field name="company_add_attach" widget="many2many_binary"
+                                       attrs="{'readonly':[('is_pm','=', False)]}"/>
                             </group>
                             <group string="بيانات">
-                                <field name="deleg_name"/>
-                                <field name="deleg_id"/>
-                                <field name="deleg_birth"/>
-                                <field name="company_add"/>
+                                <field name="deleg_name" attrs="{'readonly':[('is_pm','=', False)]}"/>
+                                <field name="deleg_id" attrs="{'readonly':[('is_pm','=', False)]}"/>
+                                <field name="deleg_birth" attrs="{'readonly':[('is_pm','=', False)]}"/>
+                                <field name="company_add" attrs="{'readonly':[('is_pm','=', False)]}"/>
                             </group>
                         </group>
                     </page>
