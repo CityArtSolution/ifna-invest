@@ -106,6 +106,16 @@ class RentSaleOrder(models.Model):
     is_pm = fields.Boolean('is PM', compute="_get_if_group")
     is_finance = fields.Boolean('is PM', compute="_get_if_group")
 
+    @api.model
+    def create(self, vals):
+        result = super(RentSaleOrder, self).create(vals)
+        result.contract_number = "Contract/" + str(fields.Date.today().year) + "/" + str(
+            fields.Date.today().month) + "-" + "000" + str(result.id)
+        if result.invoice_number <= 0 and result.is_rental_order:
+            raise UserError(_('من فضلك اكتب عدد الفواتير'))
+        return result
+
+    @api.depends('partner_id')
     def _get_if_group(self):
         for rec in self:
             rec.is_pm = False
@@ -343,15 +353,6 @@ class RentSaleOrder(models.Model):
             not_invoiced = order.order_contract_invoice.filtered(lambda s: s.status == 'uninvoiced')
             if not not_invoiced and len(order.order_contract_invoice) > 0:
                 order.full_invoiced = True
-
-    @api.model
-    def create(self, vals):
-        result = super(RentSaleOrder, self).create(vals)
-        result.contract_number = "Contract/" + str(fields.Date.today().year) + "/" + str(
-            fields.Date.today().month) + "-" + "000" + str(result.id)
-        if result.invoice_number <= 0 and result.is_rental_order:
-            raise UserError(_('من فضلك اكتب عدد الفواتير'))
-        return result
 
     def create_invoices_button(self):
         for i in self:

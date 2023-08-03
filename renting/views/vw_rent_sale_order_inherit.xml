@@ -109,7 +109,7 @@
                     <attribute name="attrs">{'readonly':[('is_pm','=', False)]}</attribute>
                 </xpath>
                 <xpath expr="//field[@name='partner_id']" position="after">
-                    <field name="is_pm"/>
+                    <field name="is_pm" invisible="1"/>
                     <field name="contract_number" attrs="{'readonly':[('is_pm','=', False)]}"/>
                     <field name="invoice_terms" attrs="{'readonly':[('is_pm','=', False)]}"/>
                     <field name="invoice_number" attrs="{'readonly':[('is_pm','=', False)]}"/>
