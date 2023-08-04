@@ -283,30 +283,30 @@
                             <span>Financial Controller</span>
                         </div>
                     </div>
-                    <div class="row" style="border: 1px solid #808080;">
-                        <div class="col-3" style="padding:18px;border:1px solid #808080;text-align:center;height:70px;" >
+                    <div class="row" style="border: 1px solid black;">
+                        <div class="col-3" style="padding:18px;border:1px solid black;text-align:center;height:70px;" >
                             <span style="padding:70px;">Name</span>
                         </div>
-                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
+                        <div class="col-3" style="border:1px solid black;text-align:center;">
                             <span t-esc="doc.generated_user_id.name"></span>
                         </div>
-                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
+                        <div class="col-3" style="border:1px solid black;text-align:center;">
                             <span t-esc="doc.department_id.name"></span>
                         </div>
-                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
+                        <div class="col-3" style="border:1px solid black;text-align:center;">
                             <span>Financial Controller</span>
                             <!--                            <span style="text-align:left" t-esc="doc.current_user_id.name"></span>-->
                         </div>
                     </div>
                     <div class="row" style="border: 1px solid #808080;">
-                        <div class="col-3" style="padding:20px;border:1px solid #808080;text-align:center;height:70px;">
+                        <div class="col-3" style="padding:20px;border:1px solid black;text-align:center;height:70px;">
                             <span style="padding:50px;">Signature</span>
                         </div>
-                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
+                        <div class="col-3" style="border:1px solid black;text-align:center;">
                         </div>
-                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
+                        <div class="col-3" style="border:1px solid black;text-align:center;">
                         </div>
-                        <div class="col-3" style="border:1px solid #808080;text-align:center;">
+                        <div class="col-3" style="border:1px solid black;text-align:center;">
                         </div>
                     </div>
                     <br/>
@@ -323,7 +323,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-7">
-                                    <div class="row" style="border: 1px solid #808080;">
+                                    <div class="row" style="border: 1px solid black;">
                                         <div class="col-6" style="text-align:left;">
                                             <strong>Net Amount Paid</strong>
                                         </div>
@@ -337,7 +337,7 @@
                                         </div>
 
                                     </div>
-                                    <div class="row" style="border: 1px solid #808080;">
+                                    <div class="row" style="border: 1px solid black;">
                                         <div class="col-6" style="text-align:left;">
                                             <strong>Paid Method</strong>
                                         </div>
@@ -345,7 +345,7 @@
                                             <span style="text-align:left" t-esc="doc.journal_id.name"></span>
                                         </div>
                                     </div>
-                                    <div class="row" style="border: 1px solid #808080;">
+                                    <div class="row" style="border: 1px solid black;">
                                         <div class="col-6" style="text-align:left;">
                                             <strong>Bank Name</strong>
                                         </div>
@@ -368,7 +368,7 @@
                                             </t>
                                         </div>
                                     </div>
-                                    <div class="row" style="border: 1px solid #808080;">
+                                    <div class="row" style="border: 1px solid black;">
                                         <div class="col-6" style="text-align:left;">
                                             <strong>Bank Account Number</strong>
                                         </div>
@@ -390,7 +390,7 @@
                                             </t>
                                         </div>
                                     </div>
-                                    <div class="row" style="border: 1px solid #808080;">
+                                    <div class="row" style="border: 1px solid black;">
                                         <div class="col-6" style="text-align:left;">
                                             <strong>Beneficiary Account Name</strong>
                                         </div>
@@ -412,7 +412,7 @@
                                             </t>
                                         </div>
                                     </div>
-                                    <div class="row" style="border: 1px solid #808080;">
+                                    <div class="row" style="border: 1px solid black;">
                                         <div class="col-6" style="text-align:left;">
                                             <strong>Swift Code</strong>
                                         </div>
@@ -443,7 +443,7 @@
                                     <!--                                        </div>-->
                                     <!--                                    </div>-->
                                 </div>
-                                <div class="col-5" style="border: 1px solid #808080;"></div>
+                                <div class="col-5" style="border: 1px solid black;"></div>
                             </div>
                         </div>
                     </div>
