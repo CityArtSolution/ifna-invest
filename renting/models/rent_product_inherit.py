@@ -459,7 +459,8 @@ class RentalAdditionalService(models.Model):
 
     def get_concatenation_name(self):
         for rec in self:
-            if rec.type == 'amount':
-                rec.name = rec.service_id.name + "-" + str(rec.percentage)
-            if rec.type == 'percentage':
-                rec.name = rec.service_id.name + "-" + str(int(rec.percentage)) + "%"
+            rec.name = rec.product_id.name
+            # if rec.type == 'amount':
+            #     rec.name = rec.service_id.name + "-" + str(rec.percentage)
+            # if rec.type == 'percentage':
+            #     rec.name = rec.service_id.name + "-" + str(int(rec.percentage)) + "%"
