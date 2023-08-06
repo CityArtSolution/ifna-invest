@@ -109,12 +109,12 @@
 
                         <span class="text-right" dir="rtl" style="direction: rtl;"
                               t-if="o.order_line and o.order_line[0].product_id.rental_pricing_ids and o.order_line[0].product_id.rental_pricing_ids[0].service_ids">
-                            (
+
                             <t t-foreach="o.order_line[0].product_id.rental_pricing_ids[0].service_ids" t-as="service">
                                 <span t-field="service.name"/>
-                                /
+                                -
                             </t>
-                            )
+
                         </span>
                         <!--                        <span t-if="o.order_line[0].product_id.rental_pricing_ids and o.order_line[0].product_id.rental_pricing_ids[0].service_ids"-->
                         <!--                              t-field="o.order_line[0].product_id.rental_pricing_ids[0].service_ids[0].name"/>-->
