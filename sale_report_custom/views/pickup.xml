@@ -34,7 +34,11 @@
                                         width:100%;
                                         overflow: hidden;
                                         }
-                                        th, td {
+                                        th{
+                                        border: 1px dashed #BB9B69;
+                                        padding-right:10px;
+                                        }
+                                        td {
                                         border: 1px dashed #BB9B69;
                                         }
                                         tr:first-child th:first-child {
@@ -55,7 +59,8 @@
                                     <div class="row mt32 mb32 text-right" id="informations">
                                         <div class="col-auto col-3 mw-100 mb-2"
                                              style="margin-right: 45.11px;border-radius: 25px;border: 1px dashed #BB9B69;">
-                                            <p style="text-align: right;direction: rtl;" class="text-right" dir="rtl">
+                                            <p style="padding-top:8px; text-align: right;direction: rtl;"
+                                               class="text-right" dir="rtl">
                                                 <span>
                                                     رقم الوحدة:
                                                 </span>
@@ -65,7 +70,8 @@
 
                                         <div class="col-auto col-3 mw-100 mb-2"
                                              style="margin-right: 45.11px;border-radius: 25px;border: 1px dashed #BB9B69;">
-                                            <p style="text-align: right;direction: rtl;" class="text-right" dir="rtl">
+                                            <p style="padding-top:8px; text-align: right;direction: rtl;"
+                                               class="text-right" dir="rtl">
                                                 <span>
                                                     تاريخ العقد:
                                                 </span>
@@ -75,7 +81,8 @@
 
                                         <div class="col-auto col-3 mw-100 mb-2"
                                              style="border-radius: 25px; border: 1px dashed #BB9B69;">
-                                            <p style="text-align: right;direction: rtl;" class="text-right" dir="rtl">
+                                            <p style="padding-top:8px; text-align: right;direction: rtl;"
+                                               class="text-right" dir="rtl">
                                                 <span>
                                                     رقم العقد:
                                                 </span>
@@ -169,7 +176,7 @@
                                         </tbody>
                                     </table>
                                     <br/>
-                                    <table class="text-right"
+                                    <table class="text-center"
                                            style="border-radius: 25px; border: 1px dashed #BB9B69;">
 
                                         <th colspan="4" class="text-right" style="color:white; background:#BB9B69">
@@ -178,16 +185,24 @@
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <span>تكلفة الإصلاح</span>
+                                                    <b>
+                                                        <span>تكلفة الإصلاح</span>
+                                                    </b>
                                                 </td>
                                                 <td>
-                                                    <span>الملاحظات</span>
+                                                    <b>
+                                                        <span>الملاحظات</span>
+                                                    </b>
                                                 </td>
                                                 <td>
-                                                    <span>الحالة</span>
+                                                    <b>
+                                                        <span>الحالة</span>
+                                                    </b>
                                                 </td>
                                                 <td>
-                                                    <span>البند</span>
+                                                    <b>
+                                                        <span>البند</span>
+                                                    </b>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -776,7 +791,7 @@
                                                     <t t-if="not line.ril_good">
                                                         <input type="checkbox" id="oe_import_tracking"/>
                                                     </t>
-                                                    <span style="margin-left:1.5em;">تم</span>
+                                                    <span style="margin-left:3em;">تم</span>
 
                                                     <t t-if="line.ril_bad">
                                                         <input type="checkbox" id="oe_import_tracking"
@@ -785,9 +800,7 @@
                                                     <t t-if="not line.ril_bad">
                                                         <input type="checkbox" id="oe_import_tracking"/>
                                                     </t>
-                                                    <span style="margin-left:1.5em;">لم يتم</span>
-
-
+                                                    <span style="margin-left:1em;">لم يتم</span>
                                                     <t t-if="line.ril_none">
                                                         <input type="checkbox" id="oe_import_tracking"
                                                                checked="checked"/>
@@ -795,7 +808,7 @@
                                                     <t t-if="not line.ril_none">
                                                         <input type="checkbox" id="oe_import_tracking"/>
                                                     </t>
-                                                    <span style="margin-left:1.5em;">لا يوجد</span>
+                                                    <span style="margin-left:1.4em;">لا يوجد</span>
 
                                                 </td>
                                                 <td>
@@ -834,7 +847,8 @@
                                     <div class="row mt32 mb32 text-right" id="signature1">
                                         <div class="col-auto col-3 mw-100 mb-2">
                                             <b>
-                                                <p style="color:white; border-radius: 25px; background: #BB9B69;">:ممثل
+                                                <p style="padding-right:10px;color:white; border-radius: 25px; background: #BB9B69;">
+                                                    :ممثل
                                                     المؤجر
                                                 </p>
                                             </b>
@@ -844,7 +858,8 @@
 
                                         <div class="col-auto col-3 mw-100 mb-2">
                                             <b>
-                                                <p style="color:white; border-radius: 25px; background: #BB9B69;">:ممثل
+                                                <p style="padding-right:10px;color:white; border-radius: 25px; background: #BB9B69;">
+                                                    :ممثل
                                                     المستأجر
                                                 </p>
                                             </b>
@@ -860,7 +875,8 @@
                                     <div class="row mt32 mb32 text-right" id="informations">
                                         <div class="col-auto col-3 mw-100 mb-2"
                                              style="margin-right: 45.11px;border-radius: 25px;border: 1px dashed #BB9B69;">
-                                            <p style="text-align: right;direction: rtl;" class="text-right" dir="rtl">
+                                            <p style="padding-top:8px; text-align: right;direction: rtl;"
+                                               class="text-right" dir="rtl">
                                                 <span>
                                                     رقم الوحدة:
                                                 </span>
@@ -870,7 +886,8 @@
 
                                         <div class="col-auto col-3 mw-100 mb-2"
                                              style="margin-right: 45.11px;border-radius: 25px;border: 1px dashed #BB9B69;">
-                                            <p style="text-align: right;direction: rtl;" class="text-right" dir="rtl">
+                                            <p style="padding-top:8px; text-align: right;direction: rtl;"
+                                               class="text-right" dir="rtl">
                                                 <span>
                                                     تاريخ العقد:
                                                 </span>
@@ -880,7 +897,8 @@
 
                                         <div class="col-auto col-3 mw-100 mb-2"
                                              style="border-radius: 25px; border: 1px dashed #BB9B69;">
-                                            <p style="text-align: right;direction: rtl;" class="text-right" dir="rtl">
+                                            <p style="padding-top:8px; text-align: right;direction: rtl;"
+                                               class="text-right" dir="rtl">
                                                 <span>
                                                     رقم العقد:
                                                 </span>
@@ -914,33 +932,24 @@
                                     </table>
                                     <br/>
                                     <div class="row mt32 mb32 text-right" id="signature2">
+
                                         <div class="col-auto col-3 mw-100 mb-2">
                                             <table class="text-right table table-sm"
                                                    style="border-radius: 25px; border: 1px dashed #BB9B69;">
-                                                <th class="text-right" style="color:white; background:#BB9B69">
-                                                    :ممثل الادارة المالية
-                                                </th>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <p>...................................... /الاسم</p>
-                                                            <p>...................................... /التوقيع</p>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="col-auto col-3 mw-100 mb-2">
-                                            <table class="text-right table table-sm"
-                                                   style="border-radius: 25px; border: 1px dashed #BB9B69;">
-                                                <th class="text-right" style="color:white; background:#BB9B69">
+                                                <th class="text-right"
+                                                    style="padding-right:10px;color:white; background:#BB9B69">
                                                     :ممثل الادارة القانونية
                                                 </th>
                                                 <tbody>
                                                     <tr>
                                                         <td>
                                                             <p>...................................... /الاسم</p>
-                                                            <p>...................................... /التوقيع</p>
+                                                            <p>
+                                                                <img t-if="o.legal"
+                                                                     src="/sale_report_custom/static/src/images/legal.png"
+                                                                     width="100"/>
+                                                                /التوقيع
+                                                            </p>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -949,14 +958,20 @@
                                         <div class="col-auto col-3 mw-100 mb-2">
                                             <table class="text-right table table-sm"
                                                    style="border-radius: 25px; border: 1px dashed #BB9B69;">
-                                                <th class="text-right" style="color:white; background:#BB9B69">
+                                                <th class="text-right"
+                                                    style="padding-right:10px;color:white; background:#BB9B69">
                                                     :ممثل الادارة الهندسية
                                                 </th>
                                                 <tbody>
                                                     <tr>
                                                         <td>
                                                             <p>...................................... /الاسم</p>
-                                                            <p>...................................... /التوقيع</p>
+                                                            <p>
+                                                                <img t-if="o.facility"
+                                                                     src="/sale_report_custom/static/src/images/facility.png"
+                                                                     width="100"/>
+                                                                /التوقيع
+                                                            </p>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -969,7 +984,8 @@
                                              t-if="o.state not in ['ff_review','ceo','draft_qu','draft','sent']">
                                             <table class="text-right table table-sm"
                                                    style="border-radius: 25px; border: 1px dashed #BB9B69;">
-                                                <th class="text-right" style="color:white; background:#BB9B69">
+                                                <th class="text-right"
+                                                    style="padding-right:10px;color:white; background:#BB9B69">
                                                     :توقيع ممثل ادارة العقارات
                                                 </th>
                                                 <tbody>
@@ -986,7 +1002,6 @@
                                                 </tbody>
                                             </table>
                                         </div>
-
                                         <div class="col-auto col-3 mw-100 mb-2">
                                             <table class="text-right table table-sm"
                                                    style="border-radius: 25px; border: 1px dashed #BB9B69;">
@@ -997,7 +1012,12 @@
                                                     <tr>
                                                         <td>
                                                             <p>...................................... /الاسم</p>
-                                                            <p>...................................... /التوقيع</p>
+                                                            <p>
+                                                                <img t-if="o.finance"
+                                                                     src="/sale_report_custom/static/src/images/finance.png"
+                                                                     width="100"/>
+                                                                /التوقيع
+                                                            </p>
                                                         </td>
                                                     </tr>
                                                 </tbody>

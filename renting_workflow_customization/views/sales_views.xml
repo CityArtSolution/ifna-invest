@@ -169,8 +169,7 @@
                             <field name="signed_by" attrs="{'readonly':[('is_pm','=', False)]}"/>
                             <field name="signed_on" attrs="{'readonly':[('is_pm','=', False)]}"/>
                             <field name="signature" widget="image" attrs="{'readonly':[('is_pm','=', False)]}"/>
-                            <field name="signature_doc" widget="many2many_binary"
-                                   groups="renting_workflow_customization.ceo_group, renting_workflow_customization.pm_group"
+                            <field name="signature_doc" groups="renting_workflow_customization.ceo_group, renting_workflow_customization.pm_group"
                                    attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'sent')]}"/>
 
                         </group>
@@ -186,7 +185,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//page[@name='contract_info']" position="attributes">
                     <attribute name="attrs">
-                        {'invisible':[('state','not in',['ejar_upload','finance_review','sale','terms','done'])]}
+                        {'invisible':[('state','not in',['ceo','ceo_approval','ejar_upload','finance_review','sale','terms','done'])]}
                     </attribute>
                 </xpath>
                 <xpath expr="//page[@name='contract_invoices']" position="attributes">
@@ -200,7 +199,7 @@
                     </attribute>
                 </xpath>
                 <xpath expr="//field[@name='ejar_date']" position="after">
-                    <field name="ejar_cont" widget="many2many_binary"
+                    <field name="ejar_cont"
                            attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'ejar_upload')]}"/>
                 </xpath>
 
@@ -210,33 +209,30 @@
                           attrs="{'invisible': [('state','in',['draft_qu','ff_review','ceo','draft','sent'])]}">
                         <group>
                             <group string="مرفقات">
-                                <field name="commercial_register" widget="many2many_binary"
-                                       attrs="{'readonly':[('is_pm','=', False)]}"/>
-                                <field name="authorization" widget="many2many_binary"
-                                       attrs="{'readonly':[('is_pm','=', False)]}"/>
-                                <field name="company_contract" widget="many2many_binary"
-                                       attrs="{'readonly':[('is_pm','=', False)]}"/>
-                                <field name="tax_certificate" widget="many2many_binary"
-                                       attrs="{'readonly':[('is_pm','=', False)]}"/>
-                                <field name="ejar_cont" widget="many2many_binary"
-                                       attrs="{'readonly':[('is_pm','=', False)]}"/>
-                                <field name="tenant_directory" widget="many2many_binary"
-                                       attrs="{'readonly':[('is_pm','=', False)]}"/>
-
-                                <field name="pickup_signed" widget="many2many_binary"
-                                       groups="renting_workflow_customization.pm_group"
-                                       attrs="{'readonly':[('is_pm','=', False)]}"/>
-                                <field name="directory_signed" widget="many2many_binary"
-                                       groups="renting_workflow_customization.pm_group"
-                                       attrs="{'readonly':[('is_pm','=', False)]}"/>
-                                <field name="company_add_attach" widget="many2many_binary"
-                                       attrs="{'readonly':[('is_pm','=', False)]}"/>
+                                <field name="commercial_register"
+                                       attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'upload_doc')]}"/>
+                                <field name="authorization"
+                                       attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'upload_doc')]}"/>
+                                <field name="company_contract"
+                                       attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'upload_doc')]}"/>
+                                <field name="tax_certificate"
+                                       attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'upload_doc')]}"/>
+                                <field name="ejar_cont"
+                                       attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'upload_doc')]}"/>
+                                <field name="tenant_directory"
+                                       attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'upload_doc')]}"/>
+                                <field name="pickup_signed"
+                                       attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'upload_doc')]}"/>
+                                <field name="directory_signed"
+                                       attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'upload_doc')]}"/>
+                                <field name="company_add_attach"
+                                       attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'upload_doc')]}"/>
                             </group>
                             <group string="بيانات">
-                                <field name="deleg_name" attrs="{'readonly':[('is_pm','=', False)]}"/>
-                                <field name="deleg_id" attrs="{'readonly':[('is_pm','=', False)]}"/>
-                                <field name="deleg_birth" attrs="{'readonly':[('is_pm','=', False)]}"/>
-                                <field name="company_add" attrs="{'readonly':[('is_pm','=', False)]}"/>
+                                <field name="deleg_name" attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'upload_doc')]}"/>
+                                <field name="deleg_id" attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'upload_doc')]}"/>
+                                <field name="deleg_birth" attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'upload_doc')]}"/>
+                                <field name="company_add" attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'upload_doc')]}"/>
                             </group>
                         </group>
                     </page>
