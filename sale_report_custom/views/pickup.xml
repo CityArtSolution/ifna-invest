@@ -36,9 +36,10 @@
                                         }
                                         th{
                                         border: 1px dashed #BB9B69;
-                                        padding-right:10px;
+                                        padding-right:20px;
                                         }
                                         td {
+                                        padding-right:10px;
                                         border: 1px dashed #BB9B69;
                                         }
                                         tr:first-child th:first-child {
@@ -53,14 +54,16 @@
                                         tr:last-child td:last-child {
                                         border-bottom-right-radius: 10px;
                                         }
+                                        img {
+                                        width: 120px;;
+                                        height: 120px;
+                                        }
                                     </style>
                                     <h2 class="text-center">محضر استلام الوحدة الإيجارية</h2>
                                     <br/>
-                                    <div class="row mt32 mb32 text-right" id="informations">
-                                        <div class="col-auto col-3 mw-100 mb-2"
-                                             style="margin-right: 45.11px;border-radius: 25px;border: 1px dashed #BB9B69;">
-                                            <p style="padding-top:8px; text-align: right;direction: rtl;"
-                                               class="text-right" dir="rtl">
+                                    <div class="row mt32 mb32" id="informations">
+                                        <div class="col-auto col-3 mw-100 mb-2" style="margin-right: 45.11px;margin-left: 45.11px;border-radius: 25px;border: 1px dashed #BB9B69;">
+                                            <p style="padding-top:8px; direction: rtl;" class="text-center" dir="rtl">
                                                 <span>
                                                     رقم الوحدة:
                                                 </span>
@@ -70,8 +73,7 @@
 
                                         <div class="col-auto col-3 mw-100 mb-2"
                                              style="margin-right: 45.11px;border-radius: 25px;border: 1px dashed #BB9B69;">
-                                            <p style="padding-top:8px; text-align: right;direction: rtl;"
-                                               class="text-right" dir="rtl">
+                                            <p style="padding-top:8px; direction: rtl;" class="text-center" dir="rtl">
                                                 <span>
                                                     تاريخ العقد:
                                                 </span>
@@ -80,9 +82,8 @@
                                         </div>
 
                                         <div class="col-auto col-3 mw-100 mb-2"
-                                             style="border-radius: 25px; border: 1px dashed #BB9B69;">
-                                            <p style="padding-top:8px; text-align: right;direction: rtl;"
-                                               class="text-right" dir="rtl">
+                                             style="margin-right: 45.11px;border-radius: 25px;border: 1px dashed #BB9B69;">
+                                            <p style="padding-top:8px; direction: rtl;" class="text-center" dir="rtl">
                                                 <span>
                                                     رقم العقد:
                                                 </span>
@@ -847,7 +848,7 @@
                                     <div class="row mt32 mb32 text-right" id="signature1">
                                         <div class="col-auto col-3 mw-100 mb-2">
                                             <b>
-                                                <p style="padding-right:10px;color:white; border-radius: 25px; background: #BB9B69;">
+                                                <p style="padding-right:20px;color:white; border-radius: 25px; background: #BB9B69;">
                                                     :ممثل
                                                     المؤجر
                                                 </p>
@@ -858,7 +859,7 @@
 
                                         <div class="col-auto col-3 mw-100 mb-2">
                                             <b>
-                                                <p style="padding-right:10px;color:white; border-radius: 25px; background: #BB9B69;">
+                                                <p style="padding-right:20px;color:white; border-radius: 25px; background: #BB9B69;">
                                                     :ممثل
                                                     المستأجر
                                                 </p>
@@ -872,11 +873,9 @@
                                     <h2 class="text-center">محضر استلام الوحدة الإيجارية</h2>
                                     <br/>
                                     <br/>
-                                    <div class="row mt32 mb32 text-right" id="informations">
-                                        <div class="col-auto col-3 mw-100 mb-2"
-                                             style="margin-right: 45.11px;border-radius: 25px;border: 1px dashed #BB9B69;">
-                                            <p style="padding-top:8px; text-align: right;direction: rtl;"
-                                               class="text-right" dir="rtl">
+                                    <div class="row mt32 mb32 " id="informations">
+                                        <div class="col-auto col-3 mw-100 mb-2" style="margin-right: 45.11px;margin-left: 45.11px;border-radius: 25px;border: 1px dashed #BB9B69;">
+                                            <p style="padding-top:8px; direction: rtl;" class="text-center" dir="rtl">
                                                 <span>
                                                     رقم الوحدة:
                                                 </span>
@@ -886,8 +885,7 @@
 
                                         <div class="col-auto col-3 mw-100 mb-2"
                                              style="margin-right: 45.11px;border-radius: 25px;border: 1px dashed #BB9B69;">
-                                            <p style="padding-top:8px; text-align: right;direction: rtl;"
-                                               class="text-right" dir="rtl">
+                                            <p style="padding-top:8px; direction: rtl;" class="text-center" dir="rtl">
                                                 <span>
                                                     تاريخ العقد:
                                                 </span>
@@ -896,9 +894,8 @@
                                         </div>
 
                                         <div class="col-auto col-3 mw-100 mb-2"
-                                             style="border-radius: 25px; border: 1px dashed #BB9B69;">
-                                            <p style="padding-top:8px; text-align: right;direction: rtl;"
-                                               class="text-right" dir="rtl">
+                                             style="margin-right: 45.11px;border-radius: 25px;border: 1px dashed #BB9B69;">
+                                            <p style="padding-top:8px; direction: rtl;" class="text-center" dir="rtl">
                                                 <span>
                                                     رقم العقد:
                                                 </span>
@@ -937,12 +934,12 @@
                                             <table class="text-right table table-sm"
                                                    style="border-radius: 25px; border: 1px dashed #BB9B69;">
                                                 <th class="text-right"
-                                                    style="padding-right:10px;color:white; background:#BB9B69">
+                                                    style="padding-right:20px;color:white; background:#BB9B69">
                                                     :ممثل الادارة القانونية
                                                 </th>
                                                 <tbody>
                                                     <tr>
-                                                        <td>
+                                                        <td style="padding-right:10px;">
                                                             <p>...................................... /الاسم</p>
                                                             <p>
                                                                 <img t-if="o.legal"
@@ -959,12 +956,12 @@
                                             <table class="text-right table table-sm"
                                                    style="border-radius: 25px; border: 1px dashed #BB9B69;">
                                                 <th class="text-right"
-                                                    style="padding-right:10px;color:white; background:#BB9B69">
+                                                    style="padding-right:20px;color:white; background:#BB9B69">
                                                     :ممثل الادارة الهندسية
                                                 </th>
                                                 <tbody>
                                                     <tr>
-                                                        <td>
+                                                        <td style="padding-right:10px;">
                                                             <p>...................................... /الاسم</p>
                                                             <p>
                                                                 <img t-if="o.facility"
@@ -985,12 +982,12 @@
                                             <table class="text-right table table-sm"
                                                    style="border-radius: 25px; border: 1px dashed #BB9B69;">
                                                 <th class="text-right"
-                                                    style="padding-right:10px;color:white; background:#BB9B69">
+                                                    style="padding-right:20px;color:white; background:#BB9B69">
                                                     :توقيع ممثل ادارة العقارات
                                                 </th>
                                                 <tbody>
                                                     <tr>
-                                                        <td>
+                                                        <td style="padding-right:10px;">
                                                             <p>...................................... /الاسم</p>
                                                             <p>
                                                                 <img src="/sale_report_custom/static/src/images/pm.png"
@@ -1002,15 +999,17 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <div class="col-auto col-3 mw-100 mb-2">
+                                        <div class="col-auto col-3 mw-100 mb-2 text-right"
+                                             t-if="o.state not in ['ff_review','ceo','draft_qu','draft','sent']">
                                             <table class="text-right table table-sm"
                                                    style="border-radius: 25px; border: 1px dashed #BB9B69;">
-                                                <th class="text-right" style="color:white; background:#BB9B69">
+                                                <th class="text-right"
+                                                    style="padding-right:20px;color:white; background:#BB9B69">
                                                     :ممثل الادارة المالية
                                                 </th>
                                                 <tbody>
                                                     <tr>
-                                                        <td>
+                                                        <td style="padding-right:10px;">
                                                             <p>...................................... /الاسم</p>
                                                             <p>
                                                                 <img t-if="o.finance"
@@ -1023,7 +1022,6 @@
                                                 </tbody>
                                             </table>
                                         </div>
-
                                     </div>
                                 </div>
                             </page>
