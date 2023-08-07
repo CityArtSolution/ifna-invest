@@ -478,15 +478,16 @@ class RentSaleOrderLine(models.Model):
         new_line_ids = []  # List to store the IDs of the newly created lines
 
         for rec in self.rental_pricing_id.service_ids:
-
-            price = self.price_unit * 0.05
+            if rec.type  == 'percentage':
+                price = self.price_unit * (rec.percentage / 100)
+            if rec.type  == 'amount':
+                price = rec.percentage
 
             past_lines = self.env['sale.order.line'].browse(self.service_line_ids.ids)
             if len(past_lines) > 0:
                 for line in past_lines:
                     line.unlink()
-                # new_unit_price = price
-                # past_lines.write({'price_unit': new_unit_price})
+                
             sequence += 1
             new_line = self.env['sale.order.line'].sudo().create({
                 'sequence': sequence,
