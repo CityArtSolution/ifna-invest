@@ -169,7 +169,8 @@
                             <field name="signed_by" attrs="{'readonly':[('is_pm','=', False)]}"/>
                             <field name="signed_on" attrs="{'readonly':[('is_pm','=', False)]}"/>
                             <field name="signature" widget="image" attrs="{'readonly':[('is_pm','=', False)]}"/>
-                            <field name="signature_doc" groups="renting_workflow_customization.ceo_group, renting_workflow_customization.pm_group"
+                            <field name="signature_doc"
+                                   groups="renting_workflow_customization.ceo_group, renting_workflow_customization.pm_group"
                                    attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'sent')]}"/>
 
                         </group>
@@ -185,7 +186,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//page[@name='contract_info']" position="attributes">
                     <attribute name="attrs">
-                        {'invisible':[('state','not in',['ceo','ceo_approval','ejar_upload','finance_review','sale','terms','done'])]}
+                        {'invisible':[('state','not in',['ceo_approval','ejar_upload','finance_review','sale','terms','done'])]}
                     </attribute>
                 </xpath>
                 <xpath expr="//page[@name='contract_invoices']" position="attributes">
@@ -229,10 +230,14 @@
                                        attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'upload_doc')]}"/>
                             </group>
                             <group string="بيانات">
-                                <field name="deleg_name" attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'upload_doc')]}"/>
-                                <field name="deleg_id" attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'upload_doc')]}"/>
-                                <field name="deleg_birth" attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'upload_doc')]}"/>
-                                <field name="company_add" attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'upload_doc')]}"/>
+                                <field name="deleg_name"
+                                       attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'upload_doc')]}"/>
+                                <field name="deleg_id"
+                                       attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'upload_doc')]}"/>
+                                <field name="deleg_birth"
+                                       attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'upload_doc')]}"/>
+                                <field name="company_add"
+                                       attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'upload_doc')]}"/>
                             </group>
                         </group>
                     </page>
@@ -284,7 +289,7 @@
 
                     <button name="sent_ff_legal" string="Send to Finance and Facility and Legal Review" type="object"
                             class="btn-primary" data-hotkey="g"
-                            states="initial_contract"
+                            states="initial_contract,sent"
                             groups="renting_workflow_customization.pm_group"/>
 
                     <button name="return_review" string="محضر تسليم" type="object" class="btn-primary"
