@@ -28,6 +28,18 @@ class RentSaleInvoices(models.Model):
 
     def _prepare_invoice_line(self, line):
         self.ensure_one()
+        terms = 0
+        if line.order_id.invoice_terms == "monthly":
+            terms = 12
+        if line.order_id.invoice_terms == "quarterly":
+            terms = 4
+        if line.order_id.invoice_terms == "semi":
+            terms = 2
+        if line.order_id.invoice_terms == "yearly":
+            terms = 1
+        print("////////////////////////",terms)
+        print("//////line.price_unit/terms//////////////////",line.price_unit/terms)
+        pass
         # if self.separate:
         #     price = line.price_unit
         # else:
@@ -40,7 +52,7 @@ class RentSaleInvoices(models.Model):
             'product_uom_id': line.product_uom.id,
             'quantity': 1,
             'discount': line.discount,
-            'price_unit': line.price_unit,
+            'price_unit': line.price_unit/terms,
             'tax_ids': [(6, 0, line.tax_id.ids)],
             'analytic_account_id': line.product_id.product_tmpl_id.analytic_account.id,
             'sale_line_ids': [(4, line.id)],

@@ -62,7 +62,7 @@
                                     <br/>
                                     <div class="row mt32 mb32" id="informations">
                                         <div class="col-auto col-3 mw-100 mb-2" style="margin-right: 45.11px;margin-left: 45.11px;border-radius: 25px;border: 1px dashed #BB9B69;">
-                                            <p style="padding-top:8px; direction: rtl;" class="text-center" dir="rtl">
+                                            <p style="padding-top:11px; direction: rtl;" class="text-right" dir="rtl">
                                                 <span>
                                                     رقم الوحدة:
                                                 </span>
@@ -72,18 +72,17 @@
 
                                         <div class="col-auto col-3 mw-100 mb-2"
                                              style="margin-right: 45.11px;border-radius: 25px;border: 1px dashed #BB9B69;">
-                                            <p style="padding-top:8px; direction: rtl;" class="text-center" dir="rtl">
+                                            <p style="padding-top:11px; direction: rtl;" class="text-right" dir="rtl">
                                                 <span>
                                                     تاريخ العقد:
                                                 </span>
-                                                <span class="m-0" t-field="doc.fromdate"
-                                                      t-options='{"widget": "date"}'/>
+                                                <span class="m-0" t-field="doc.todate" t-options='{"widget": "date"}'/>
                                             </p>
                                         </div>
 
                                         <div class="col-auto col-3 mw-100 mb-2"
                                              style="margin-right: 45.11px;border-radius: 25px;border: 1px dashed #BB9B69;">
-                                            <p style="padding-top:8px; direction: rtl;" class="text-center" dir="rtl">
+                                            <p style="padding-top:11px; direction: rtl;" class="text-right" dir="rtl">
                                                 <span>
                                                     رقم العقد:
                                                 </span>
@@ -872,7 +871,7 @@
                                     <br/>
                                     <div class="row mt32 mb32" id="informations">
                                         <div class="col-auto col-3 mw-100 mb-2" style="margin-right: 45.11px;margin-left: 45.11px;border-radius: 25px;border: 1px dashed #BB9B69;">
-                                            <p style="padding-top:8px; direction: rtl;" class="text-center" dir="rtl">
+                                            <p style="padding-top:11px; direction: rtl;" class="text-right" dir="rtl">
                                                 <span>
                                                     رقم الوحدة:
                                                 </span>
@@ -882,18 +881,17 @@
 
                                         <div class="col-auto col-3 mw-100 mb-2"
                                              style="margin-right: 45.11px;border-radius: 25px;border: 1px dashed #BB9B69;">
-                                            <p style="padding-top:8px; direction: rtl;" class="text-center" dir="rtl">
+                                            <p style="padding-top:11px; direction: rtl;" class="text-right" dir="rtl">
                                                 <span>
                                                     تاريخ العقد:
                                                 </span>
-                                                <span class="m-0" t-field="doc.fromdate"
-                                                      t-options='{"widget": "date"}'/>
+                                                <span class="m-0" t-field="doc.todate" t-options='{"widget": "date"}'/>
                                             </p>
                                         </div>
 
                                         <div class="col-auto col-3 mw-100 mb-2"
                                              style="margin-right: 45.11px;border-radius: 25px;border: 1px dashed #BB9B69;">
-                                            <p style="padding-top:8px; direction: rtl;" class="text-center" dir="rtl">
+                                            <p style="padding-top:11px; direction: rtl;" class="text-right" dir="rtl">
                                                 <span>
                                                     رقم العقد:
                                                 </span>

@@ -201,11 +201,11 @@ class RentSaleOrder(models.Model):
             if total_contract_period.days <= 0:
                 raise UserError(_('يجب اختيار مدة العقد بصورة صحيحة'))
 
-            separate = False
-            for s in rec.order_line:
-                if s.product_id.product_tmpl_id.separate:
-                    separate = True
-                    break
+            # separate = False
+            # for s in rec.order_line:
+            #     if s.product_id.product_tmpl_id.separate:
+            #         separate = True
+            #         break
 
             year_amount = rec.order_line.read_group([('order_id', '=', rec.id)], ['price_subtotal:sum', 'product_id'],
                                                     'line_year_number')
@@ -346,22 +346,37 @@ class RentSaleOrder(models.Model):
 
     def get_invoice_number(self):
         for rec in self:
-            todate = rec.todate + relativedelta(days=1)
-            diff = relativedelta(todate, rec.fromdate)
-            m = month = 0
-            if diff.years != 0:
-                m = diff.years * 12
-            if diff.months != 0:
-                month = diff.months
-            months = m + month
+            year_amount = rec.order_line._origin.read_group([('order_id', '=', rec.id)],
+                                                            ['price_subtotal:sum', 'product_id'],
+                                                            'line_year_number')
+            years = len(list(dict.fromkeys(rec.order_line._origin.mapped('line_year_number'))))
+            terms = 0
             if rec.invoice_terms == "monthly":
-                rec.invoice_number = month + m
+                terms = 12
             if rec.invoice_terms == "quarterly":
-                rec.invoice_number = months / 3
+                terms = 4
             if rec.invoice_terms == "semi":
-                rec.invoice_number = months / 6
+                terms = 2
             if rec.invoice_terms == "yearly":
-                rec.invoice_number = diff.years
+                terms = 1
+            rec.invoice_number = terms * years
+            #
+            # todate = rec.todate + relativedelta(days=1)
+            # diff = relativedelta(todate, rec.fromdate)
+            # m = month = 0
+            # if diff.years != 0:
+            #     m = diff.years * 12
+            # if diff.months != 0:
+            #     month = diff.months
+            # months = m + month
+            # if rec.invoice_terms == "monthly":
+            #     rec.invoice_number = month + m
+            # if rec.invoice_terms == "quarterly":
+            #     rec.invoice_number = months / 3
+            # if rec.invoice_terms == "semi":
+            #     rec.invoice_number = months / 6
+            # if rec.invoice_terms == "yearly":
+            #     rec.invoice_number = diff.years
 
     def action_confirm(self):
         if self.invoice_number == 0:
