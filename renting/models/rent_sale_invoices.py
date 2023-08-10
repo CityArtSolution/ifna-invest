@@ -13,6 +13,7 @@ class RentSaleInvoices(models.Model):
     _name = 'rent.sale.invoices'
 
     sale_order_id = fields.Many2one('sale.order', copy=True, string='العقود', ondelete='cascade')
+    sale_order_line_ids = fields.Many2many('sale.order.line', copy=True, ondelete='cascade')
     name = fields.Char(string='Label')
     sequence = fields.Integer(string='Sequence')
     amount = fields.Float(string='Amount')
@@ -27,10 +28,22 @@ class RentSaleInvoices(models.Model):
 
     def _prepare_invoice_line(self, line):
         self.ensure_one()
-        if self.separate:
-            price = line.price_unit
-        else:
-            price = line.price_unit / self.sale_order_id.invoice_number
+        terms = 0
+        if line.order_id.invoice_terms == "monthly":
+            terms = 12
+        if line.order_id.invoice_terms == "quarterly":
+            terms = 4
+        if line.order_id.invoice_terms == "semi":
+            terms = 2
+        if line.order_id.invoice_terms == "yearly":
+            terms = 1
+        print("////////////////////////",terms)
+        print("//////line.price_unit/terms//////////////////",line.price_unit/terms)
+        pass
+        # if self.separate:
+        #     price = line.price_unit
+        # else:
+        #     price = line.price_unit / self.sale_order_id.invoice_number
         res = {
             'display_type': line.display_type,
             'sequence': line.sequence,
@@ -39,7 +52,7 @@ class RentSaleInvoices(models.Model):
             'product_uom_id': line.product_uom.id,
             'quantity': 1,
             'discount': line.discount,
-            'price_unit': price,
+            'price_unit': line.price_unit/terms,
             'tax_ids': [(6, 0, line.tax_id.ids)],
             'analytic_account_id': line.product_id.product_tmpl_id.analytic_account.id,
             'sale_line_ids': [(4, line.id)],
@@ -152,28 +165,29 @@ class RentSaleInvoices(models.Model):
 
     def create_invoices(self):
         invoice_lines = []
-        separate = False
-        for s in self.sale_order_id.order_line:
-            if s.product_id.product_tmpl_id.separate:
-                separate = True
-                break
-        if separate:
-            if self.separate:
-                invoiceable_lines = self.sale_order_id.order_line.filtered(
-                    lambda s: s.product_id.product_tmpl_id.separate == True)
-            else:
-                invoiceable_lines = self.sale_order_id.order_line.filtered(
-                    lambda s: s.product_id.product_tmpl_id.separate == False)
-        else:
-            invoiceable_lines = self.sale_order_id.order_line
+        # separate = False
+        # for s in self.sale_order_id.order_line:
+        #     if s.product_id.product_tmpl_id.separate:
+        #         separate = True
+        #         break
+        # if separate:
+        #     if self.separate:
+        #         invoiceable_lines = self.sale_order_id.order_line.filtered(
+        #             lambda s: s.product_id.product_tmpl_id.separate == True)
+        #     else:
+        #         invoiceable_lines = self.sale_order_id.order_line.filtered(
+        #             lambda s: s.product_id.product_tmpl_id.separate == False)
+        # else:
+        #     invoiceable_lines = self.sale_order_id.order_line
 
-        if self.sequence == 1:
-            seq = 0
-            for type in INSURANCE_ADMIN_FEES_FIELDS:
-                seq += 1
-                fees_sum = self._prepare_invoice_line_insurance_admin_fees_sum(type, seq)
-                if fees_sum.get('name', False):
-                    invoice_lines.append([0, 0, fees_sum])
+        # if self.sequence == 1:
+        #     seq = 0
+        #     for type in INSURANCE_ADMIN_FEES_FIELDS:
+        #         seq += 1
+        #         fees_sum = self._prepare_invoice_line_insurance_admin_fees_sum(type, seq)
+        #         if fees_sum.get('name', False):
+        #             invoice_lines.append([0, 0, fees_sum])
+        invoiceable_lines = self.sale_order_line_ids
         for line in invoiceable_lines:
             invoice_lines.append([0, 0, self._prepare_invoice_line(line)])
             if self.sequence == 1:
@@ -183,7 +197,6 @@ class RentSaleInvoices(models.Model):
                     if line.mapped(type)[0] > 0:
                         invoice_lines.append([0, 0, self._prepare_invoice_line_insurance_admin_fees(type, line, seq)])
         vals = self._prepare_invoice(invoice_lines)
-        print(vals)
         invoice = self.env['account.move'].create(vals)
         self.status = 'invoiced'
         return invoice

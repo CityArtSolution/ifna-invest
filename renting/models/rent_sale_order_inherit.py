@@ -198,20 +198,24 @@ class RentSaleOrder(models.Model):
             d1 = fields.Datetime.from_string(rec.fromdate)
             d2 = fields.Datetime.from_string(rec.todate)
             total_contract_period = d2 - d1
-            print("/////////////////////total_contract_period........",total_contract_period)
             if total_contract_period.days <= 0:
                 raise UserError(_('يجب اختيار مدة العقد بصورة صحيحة'))
 
-            separate = False
-            for s in rec.order_line:
-                if s.product_id.product_tmpl_id.separate:
-                    separate = True
-                    break
+            # separate = False
+            # for s in rec.order_line:
+            #     if s.product_id.product_tmpl_id.separate:
+            #         separate = True
+            #         break
 
-            year_amount = rec.order_line.read_group([('order_id', '=', rec.id)], ['price_unit:sum'], 'line_year_number')
+            year_amount = rec.order_line.read_group([('order_id', '=', rec.id)], ['price_subtotal:sum', 'product_id'],
+                                                    'line_year_number')
+
             count = 0
             # for i in range(0, rec.todate.date().year-rec.fromdate.date().year):
             for amount in year_amount:
+                sale_order_line_ids = rec.order_line.filtered(
+                    lambda i: i.line_year_number == amount['line_year_number'])
+                products = sale_order_line_ids.mapped('product_id')
                 terms = 0
                 if rec.invoice_terms == "monthly":
                     terms = 12
@@ -238,9 +242,10 @@ class RentSaleOrder(models.Model):
                         'fromdate': fromdate,
                         'invoice_date': fromdate.date(),
                         'todate': todate,
-                        'amount': amount['price_unit'] / terms,
+                        'amount': amount['price_subtotal'] / terms,
                         'sale_order_id': rec.id,
-                        # 'services': products,
+                        'sale_order_line_ids': sale_order_line_ids,
+                        'services': products,
                     })
                     fromdate = todate + relativedelta(days=1)
                     count = count + 1
@@ -341,22 +346,37 @@ class RentSaleOrder(models.Model):
 
     def get_invoice_number(self):
         for rec in self:
-            todate = rec.todate + relativedelta(days=1)
-            diff = relativedelta(todate, rec.fromdate)
-            m = month = 0
-            if diff.years != 0:
-                m = diff.years * 12
-            if diff.months != 0:
-                month = diff.months
-            months = m + month
+            year_amount = rec.order_line._origin.read_group([('order_id', '=', rec.id)],
+                                                            ['price_subtotal:sum', 'product_id'],
+                                                            'line_year_number')
+            years = len(list(dict.fromkeys(rec.order_line._origin.mapped('line_year_number'))))
+            terms = 0
             if rec.invoice_terms == "monthly":
-                rec.invoice_number = month + m
+                terms = 12
             if rec.invoice_terms == "quarterly":
-                rec.invoice_number = months / 3
+                terms = 4
             if rec.invoice_terms == "semi":
-                rec.invoice_number = months / 6
+                terms = 2
             if rec.invoice_terms == "yearly":
-                rec.invoice_number = diff.years
+                terms = 1
+            rec.invoice_number = terms * years
+            #
+            # todate = rec.todate + relativedelta(days=1)
+            # diff = relativedelta(todate, rec.fromdate)
+            # m = month = 0
+            # if diff.years != 0:
+            #     m = diff.years * 12
+            # if diff.months != 0:
+            #     month = diff.months
+            # months = m + month
+            # if rec.invoice_terms == "monthly":
+            #     rec.invoice_number = month + m
+            # if rec.invoice_terms == "quarterly":
+            #     rec.invoice_number = months / 3
+            # if rec.invoice_terms == "semi":
+            #     rec.invoice_number = months / 6
+            # if rec.invoice_terms == "yearly":
+            #     rec.invoice_number = diff.years
 
     def action_confirm(self):
         if self.invoice_number == 0:
@@ -478,16 +498,16 @@ class RentSaleOrderLine(models.Model):
         new_line_ids = []  # List to store the IDs of the newly created lines
 
         for rec in self.rental_pricing_id.service_ids:
-            if rec.type  == 'percentage':
+            if rec.type == 'percentage':
                 price = self.price_unit * (rec.percentage / 100)
-            if rec.type  == 'amount':
+            if rec.type == 'amount':
                 price = rec.percentage
 
             past_lines = self.env['sale.order.line'].browse(self.service_line_ids.ids)
             if len(past_lines) > 0:
                 for line in past_lines:
                     line.unlink()
-                
+
             sequence += 1
             new_line = self.env['sale.order.line'].sudo().create({
                 'sequence': sequence,

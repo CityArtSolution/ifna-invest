@@ -116,6 +116,7 @@
                     <field name="operating_unit_id" attrs="{'readonly':[('is_pm','=', False)]}"/>
                 </xpath>
                 <xpath expr="//field[@name='date_order']" position="after">
+                    <field name="is_pm" />
                     <label for="fromdate" string="مدة العقد"/>
                     <div class="d-flex">
                         <field name="fromdate" attrs="{'readonly':[('is_pm','=', False)]}"/>
@@ -174,7 +175,7 @@
                     </page>
                     <page name="property_stats" string="حالة الوحدات">
                         <field name="order_property_state" widget="section_and_note_one2many" mode="tree,form"
-                               context="{'default_sale_order': active_id}" attrs="{'readonly':[('is_pm','=', False)]}">
+                               context="{'default_sale_order': active_id}">
                             <form>
                                 <group>
                                     <field name="sale_order" invisible="1"/>

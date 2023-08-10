@@ -114,7 +114,7 @@ class SaleOrder(models.Model):
         ('return', 'Pickedup'),
         ('returned', 'Returned'),
         ('cancel', 'Cancelled'),
-    ], string="Rental Status", readonly=True)
+    ], string="Rental Status")
 
     partner_id = fields.Many2one(readonly=False)
     finance = fields.Boolean("Finance", default=False)
