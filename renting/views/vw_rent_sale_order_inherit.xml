@@ -112,7 +112,7 @@
                     <field name="is_pm" invisible="1"/>
                     <field name="contract_number" attrs="{'readonly':[('is_pm','=', False)]}"/>
                     <field name="invoice_terms" attrs="{'readonly':[('is_pm','=', False),('is_finance','=', False)]}"/>
-                    <field name="invoice_number" attrs="{'readonly':[('is_pm','=', False)]}"/>
+                    <field name="invoice_number" attrs="{'readonly':[('is_pm','=', False),('is_finance','=', False)]}"/>
                     <field name="operating_unit_id" attrs="{'readonly':[('is_pm','=', False)]}"/>
                 </xpath>
                 <xpath expr="//field[@name='date_order']" position="after">
@@ -126,29 +126,29 @@
                 </xpath>
                 <xpath expr="//page[@name='order_lines']" position="after">
                     <page name="contract_info" string="بيانات العقد"
-                          groups="renting_workflow_customization.pm_group,renting_workflow_customization.ceo_group">
+                          groups="renting_workflow_customization.finance_group,renting_workflow_customization.pm_group,renting_workflow_customization.ceo_group">
                         <group>
                             <group>
-                                <field name="order_contract" attrs="{'readonly':[('is_pm','=', False)]}"/>
-                                <field name="brand_nameplate_allowed" attrs="{'readonly':[('is_pm','=', False)]}"/>
+                                <field name="order_contract" attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
+                                <field name="brand_nameplate_allowed" attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
                                 <field name="ejar"
-                                       attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'ejar_upload')]}"/>
+                                       attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)],'required': [('state', '=', 'ejar_upload')]}"/>
                                 <field name="ejar_number"
-                                       attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'ejar_upload')]}"/>
+                                       attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)],'required': [('state', '=', 'ejar_upload')]}"/>
                                 <field name="ejar_date"
-                                       attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'ejar_upload')]}"/>
-                                <field name="remarks_c" attrs="{'readonly':[('is_pm','=', False)]}"/>
-                                <field name="file" attrs="{'readonly':[('is_pm','=', False)]}"/>
-                                <field name="updated_invoices" attrs="{'readonly':[('is_pm','=', False)]}"/>
+                                       attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)],'required': [('state', '=', 'ejar_upload')]}"/>
+                                <field name="remarks_c" attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
+                                <field name="file" attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
+                                <field name="updated_invoices" attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
                             </group>
 
                             <group>
                                 <field name="contract_hegira_date" placeholder="dd/mm/yyyy"
-                                       attrs="{'readonly':[('is_pm','=', False)]}"/>
-                                <field name="contract_penalties" attrs="{'readonly':[('is_pm','=', False)]}"/>
-                                <field name="contractor_pen" attrs="{'readonly':[('is_pm','=', False)]}"/>
+                                       attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
+                                <field name="contract_penalties" attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
+                                <field name="contractor_pen" attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
                                 <field name="contract_extra_maintenance_cost"
-                                       attrs="{'readonly':[('is_pm','=', False)]}"/>
+                                       attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
                             </group>
                         </group>
                     </page>
@@ -176,7 +176,7 @@
                             </tree>
                         </field>
                     </page>
-                    <page name="property_stats" string="حالة الوحدات">
+                    <page name="property_stats" string="حالة الوحدات" groups="renting_workflow_customization.finance_group,renting_workflow_customization.pm_group">
                         <field name="order_property_state" widget="section_and_note_one2many" mode="tree,form"
                                context="{'default_sale_order': active_id}">
                             <form>

@@ -104,7 +104,7 @@ class RentSaleOrder(models.Model):
     isnotelec_remain = fields.Boolean('لا')
 
     is_pm = fields.Boolean('is PM', compute="_get_if_group")
-    is_finance = fields.Boolean('is PM', compute="_get_if_group")
+    is_finance = fields.Boolean('is Finance', compute="_get_if_group")
 
     @api.model
     def create(self, vals):
@@ -132,7 +132,7 @@ class RentSaleOrder(models.Model):
                 for rec in i.order_contract_invoice:
                     if rec.invoice_date <= fields.Date.today() and rec.status == "uninvoiced":
                         invoice_lines = []
-                        invoiceable_lines = i.order_line
+                        invoiceable_lines = rec.sale_order_line_ids
                         if rec.sequence == 1:
                             seq = 0
                             for type in INSURANCE_ADMIN_FEES_FIELDS:

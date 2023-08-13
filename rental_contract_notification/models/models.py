@@ -37,6 +37,7 @@ class SalesInherit(models.Model):
             'rental_contract_notification.contract_expiry_days')
         if not int(contract_expiry_days):
             raise UserError('Please Configure Contract Expiry Notification Days In the Rental Configuration')
+        group = self.env.ref('rental_contract_notification.notify_group')
         notification_user = self.env['res.users'].search([]).filtered(lambda i: group in i.groups_id)
         contracts = self.env['sale.order'].search([('state', '=', 'sale')])
         if contracts:
