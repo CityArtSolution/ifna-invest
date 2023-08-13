@@ -116,7 +116,7 @@
                     <field name="operating_unit_id" attrs="{'readonly':[('is_pm','=', False)]}"/>
                 </xpath>
                 <xpath expr="//field[@name='date_order']" position="after">
-                    <field name="is_pm" />
+                    <field name="is_pm" invisible="1"/>
                     <label for="fromdate" string="مدة العقد"/>
                     <div class="d-flex">
                         <field name="fromdate" attrs="{'readonly':[('is_pm','=', False)]}"/>
@@ -125,7 +125,8 @@
                     </div>
                 </xpath>
                 <xpath expr="//page[@name='order_lines']" position="after">
-                    <page name="contract_info" string="بيانات العقد">
+                    <page name="contract_info" string="بيانات العقد"
+                          groups="renting_workflow_customization.pm_group,renting_workflow_customization.ceo_group">
                         <group>
                             <group>
                                 <field name="order_contract" attrs="{'readonly':[('is_pm','=', False)]}"/>
@@ -152,7 +153,8 @@
                         </group>
                     </page>
 
-                    <page name="contract_invoices" string="الفواتير" groups="renting_workflow_customization.finance_group,renting_workflow_customization.ceo_group">
+                    <page name="contract_invoices" string="الفواتير"
+                          groups="renting_workflow_customization.finance_group,renting_workflow_customization.ceo_group">
                         <button name="create_order_invoices" string="Regenerate Invoices" type="object"
                                 class="btn-primary"
                                 groups="renting_workflow_customization.finance_group"/>
@@ -169,7 +171,8 @@
                                 <field name="status"/>
                                 <field name="services" widget="many2many_tags" optional="hide"/>
                                 <button name="create_invoices" type="object" string="Create Invoice" class="btn-success"
-                                        attrs="{'invisible':[('status','=', 'invoiced')]}" groups="renting_workflow_customization.finance_group"/>
+                                        attrs="{'invisible':[('status','=', 'invoiced')]}"
+                                        groups="renting_workflow_customization.finance_group"/>
                             </tree>
                         </field>
                     </page>

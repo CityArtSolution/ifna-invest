@@ -186,7 +186,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//page[@name='contract_info']" position="attributes">
                     <attribute name="attrs">
-                        {'invisible':[('state','not in',['ceo_approval','ejar_upload','finance_review','sale','terms','done'])]}
+                        {'invisible':[('state','not in',['ceo_approve','ejar_upload','finance_review','sale','terms','done'])]}
                     </attribute>
                 </xpath>
                 <xpath expr="//page[@name='contract_invoices']" position="attributes">
@@ -210,8 +210,8 @@
                 <xpath expr="//page[@name='property_stats']" position="after">
                     <page name="attachments" string="مرفقات"
                           attrs="{'readonly':[('is_pm','=',
-                        False)],'invisible':['|',('state','in',['draft_qu','ff_review','ceo','draft','sent']),('is_pm','=',
-                        False)]}">
+                        False)],'invisible':[('state','in',['draft_qu','ff_review','ceo','draft','sent'])]}"
+                          groups="renting_workflow_customization.pm_group,renting_workflow_customization.ceo_group">
                         <group>
                             <group string="مرفقات">
                                 <field name="commercial_register"
