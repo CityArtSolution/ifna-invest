@@ -133,25 +133,25 @@ class RentSaleOrder(models.Model):
                     if rec.invoice_date <= fields.Date.today() and rec.status == "uninvoiced":
                         invoice_lines = []
                         invoiceable_lines = rec.sale_order_line_ids
-                        if rec.sequence == 1:
-                            seq = 0
-                            for type in INSURANCE_ADMIN_FEES_FIELDS:
-                                seq += 1
-                                fees_sum = rec._prepare_invoice_line_insurance_admin_fees_sum(type, seq)
-                                if fees_sum.get('name', False):
-                                    invoice_lines.append([0, 0, fees_sum])
+                        # if rec.sequence == 1:
+                        #     seq = 0
+                        #     for type in INSURANCE_ADMIN_FEES_FIELDS:
+                        #         seq += 1
+                        #         fees_sum = rec._prepare_invoice_line_insurance_admin_fees_sum(type, seq)
+                        #         if fees_sum.get('name', False):
+                        #             invoice_lines.append([0, 0, fees_sum])
                         for line in invoiceable_lines:
                             invoice_lines.append([0, 0, rec._prepare_invoice_line(line)])
-                            if rec.sequence == 1:
-                                seq = 0
-                                for type in INSURANCE_ADMIN_FEES_FIELDS:
-                                    seq += 1
-                                    if line.mapped(type)[0] > 0:
-                                        invoice_lines.append(
-                                            [0, 0, rec._prepare_invoice_line_insurance_admin_fees(type, line, seq)])
+                            # if rec.sequence == 1:
+                            #     seq = 0
+                            #     for type in INSURANCE_ADMIN_FEES_FIELDS:
+                            #         seq += 1
+                            #         if line.mapped(type)[0] > 0:
+                            #             invoice_lines.append(
+                            #                 [0, 0, rec._prepare_invoice_line_insurance_admin_fees(type, line, seq)])
+                        print(invoice_lines)
 
                         vals = rec._prepare_invoice(invoice_lines)
-                        print(vals)
                         invoice = self.env['account.move'].create(vals)
                         # rec.invoice_date = fields.Date.today()
                         rec.status = 'invoiced'
@@ -346,10 +346,9 @@ class RentSaleOrder(models.Model):
 
     def get_invoice_number(self):
         for rec in self:
-            year_amount = rec.order_line._origin.read_group([('order_id', '=', rec.id)],
-                                                            ['price_subtotal:sum', 'product_id'],
-                                                            'line_year_number')
-            years = len(list(dict.fromkeys(rec.order_line._origin.mapped('line_year_number'))))
+            todate = rec.todate + relativedelta(days=1)
+            diff = relativedelta(todate, rec.fromdate)
+
             terms = 0
             if rec.invoice_terms == "monthly":
                 terms = 12
@@ -359,7 +358,7 @@ class RentSaleOrder(models.Model):
                 terms = 2
             if rec.invoice_terms == "yearly":
                 terms = 1
-            rec.invoice_number = terms * years
+            rec.invoice_number = terms * diff.years
             #
             # todate = rec.todate + relativedelta(days=1)
             # diff = relativedelta(todate, rec.fromdate)
@@ -419,41 +418,41 @@ class RentSaleOrder(models.Model):
         for i in self:
             if i.order_contract_invoice:
 
-                separate = False
-                for s in i.order_contract_invoice:
-                    if s.separate:
-                        separate = True
-                        break
+                # separate = False
+                # for s in i.order_contract_invoice:
+                #     if s.separate:
+                #         separate = True
+                #         break
 
                 for rec in i.order_contract_invoice:
                     if rec.status == "uninvoiced":
                         invoice_lines = []
-                        if separate:
-                            if rec.separate:
-                                invoiceable_lines = i.order_line.filtered(
-                                    lambda s: s.product_id.product_tmpl_id.separate == True)
-                            else:
-                                invoiceable_lines = i.order_line.filtered(
-                                    lambda s: s.product_id.product_tmpl_id.separate == False)
-                        else:
-                            invoiceable_lines = i.order_line
+                        # if separate:
+                        #     if rec.separate:
+                        #         invoiceable_lines = i.order_line.filtered(
+                        #             lambda s: s.product_id.product_tmpl_id.separate == True)
+                        #     else:
+                        #         invoiceable_lines = i.order_line.filtered(
+                        #             lambda s: s.product_id.product_tmpl_id.separate == False)
+                        # else:
+                        invoiceable_lines = rec.sale_order_line_ids
 
-                        if rec.sequence == 1:
-                            seq = 0
-                            for type in INSURANCE_ADMIN_FEES_FIELDS:
-                                seq += 1
-                                fees_sum = rec._prepare_invoice_line_insurance_admin_fees_sum(type, seq)
-                                if fees_sum.get('name', False):
-                                    invoice_lines.append([0, 0, fees_sum])
+                        # if rec.sequence == 1:
+                            # seq = 0
+                            # for type in INSURANCE_ADMIN_FEES_FIELDS:
+                            #     seq += 1
+                            #     fees_sum = rec._prepare_invoice_line_insurance_admin_fees_sum(type, seq)
+                            #     if fees_sum.get('name', False):
+                            #         invoice_lines.append([0, 0, fees_sum])
                         for line in invoiceable_lines:
                             invoice_lines.append([0, 0, rec._prepare_invoice_line(line)])
-                            if rec.sequence == 1:
-                                seq = 0
-                                for type in INSURANCE_ADMIN_FEES_FIELDS:
-                                    seq += 1
-                                    if line.mapped(type)[0] > 0:
-                                        invoice_lines.append(
-                                            [0, 0, rec._prepare_invoice_line_insurance_admin_fees(type, line, seq)])
+                            # if rec.sequence == 1:
+                            #     seq = 0
+                            #     for type in INSURANCE_ADMIN_FEES_FIELDS:
+                            #         seq += 1
+                            #         if line.mapped(type)[0] > 0:
+                            #             invoice_lines.append(
+                            #                 [0, 0, rec._prepare_invoice_line_insurance_admin_fees(type, line, seq)])
 
                         vals = rec._prepare_invoice(invoice_lines)
                         print(vals)

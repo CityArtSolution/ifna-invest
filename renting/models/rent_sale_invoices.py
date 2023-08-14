@@ -39,7 +39,6 @@ class RentSaleInvoices(models.Model):
             terms = 1
         print("////////////////////////",terms)
         print("//////line.price_unit/terms//////////////////",line.price_unit/terms)
-        pass
         # if self.separate:
         #     price = line.price_unit
         # else:
@@ -59,17 +58,17 @@ class RentSaleInvoices(models.Model):
             'exclude_from_invoice_tab': False,
         }
         # 'analytic_tag_ids': [(6, 0, line.analytic_tag_ids.ids)],
-        if self.sequence == 1:
-            res.update({
-                # 'property_price_unit': line.price_unit / self.sale_order_id.invoice_number,
-                # 'price_unit': (line.price_unit / self.sale_order_id.invoice_number) + line.contract_admin_sub_fees + line.contract_service_sub_fees,
-                'price_unit': (line.price_unit / self.sale_order_id.invoice_number),
-                # 'insurance_value': line.insurance_value,
-                # 'contract_admin_fees': line.contract_admin_fees,
-                # 'contract_service_fees': line.contract_service_fees,
-                # 'contract_admin_sub_fees': line.contract_admin_sub_fees,
-                # 'contract_service_sub_fees': line.contract_service_sub_fees
-            })
+        # if self.sequence == 1:
+        #     res.update({
+        #         # 'property_price_unit': line.price_unit / self.sale_order_id.invoice_number,
+        #         # 'price_unit': (line.price_unit / self.sale_order_id.invoice_number) + line.contract_admin_sub_fees + line.contract_service_sub_fees,
+        #         'price_unit': (line.price_unit / self.sale_order_id.invoice_number),
+        #         # 'insurance_value': line.insurance_value,
+        #         # 'contract_admin_fees': line.contract_admin_fees,
+        #         # 'contract_service_fees': line.contract_service_fees,
+        #         # 'contract_admin_sub_fees': line.contract_admin_sub_fees,
+        #         # 'contract_service_sub_fees': line.contract_service_sub_fees
+        #     })
         return res
 
     def _prepare_invoice_line_insurance_admin_fees_sum(self, type, seq):

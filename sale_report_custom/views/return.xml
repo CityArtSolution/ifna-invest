@@ -29,7 +29,7 @@
                                         table{
                                         border-collapse: separate;
                                         border-spacing: 0;
-                                        height:50%;
+<!--                                        height:50%;-->
                                         width:100%;
                                         overflow: hidden;
                                         }
@@ -843,7 +843,7 @@
                                     </b>
                                     <br/>
                                     <div class="row mt32 mb32 text-right" id="signature1">
-                                        <div class="col-auto col-3 mw-100 mb-2">
+                                        <div class="col-auto col-3 mw-100 mb-2" >
                                             <b>
                                                 <p style="padding-right:20px;color:white; border-radius: 25px; background: #BB9B69;">
                                                     :ممثل
@@ -933,7 +933,7 @@
                                                 </th>
                                                 <tbody>
                                                     <tr>
-                                                        <td style="padding-right:10px;">
+                                                        <td style="padding-right:10px;height:180px;">
                                                             <p>...................................... /الاسم</p>
                                                             <p>
                                                                 <img t-if="o.legal"
@@ -956,7 +956,7 @@
                                                 </th>
                                                 <tbody>
                                                     <tr>
-                                                        <td style="padding-right:10px;">
+                                                        <td style="padding-right:10px;height:180px;">
                                                             <p>...................................... /الاسم</p>
                                                             <p>
                                                                 <img t-if="o.facility"
@@ -983,7 +983,7 @@
                                                 </th>
                                                 <tbody>
                                                     <tr>
-                                                        <td style="padding-right:10px;">
+                                                        <td style="padding-right:10px;height:180px;">
                                                             <p>...................................... /الاسم</p>
                                                             <p>
                                                                 <img src="/sale_report_custom/static/src/images/pm.png"
@@ -1004,7 +1004,7 @@
                                                 </th>
                                                 <tbody>
                                                     <tr>
-                                                        <td style="padding-right:10px;">
+                                                        <td style="padding-right:10px;height:180px;">
                                                             <p>...................................... /الاسم</p>
                                                             <p>
                                                                 <img t-if="o.finance"
