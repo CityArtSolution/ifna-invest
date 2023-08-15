@@ -527,8 +527,8 @@
 
                         </tr>
                         <tr>
-                            <td>
-                                <h5>&amp;nbsp;&amp;nbsp;
+                            <td>&amp;nbsp;&amp;nbsp;
+                                <h5>
                                     <strong> Net Amount Paid:</strong>
                                     <span t-if="doc.payment_request_type != 'account'" style="text-align:left" t-field="doc.total_amount"> </span>
                                     <span t-if="doc.payment_request_type == 'account'" style="text-align:left" t-field="doc.amount"> </span>
@@ -555,8 +555,8 @@
 
                         </tr>
                         <tr>
-                            <td>
-                                <h5>&amp;nbsp;&amp;nbsp;
+                            <td>&amp;nbsp;&amp;nbsp;
+                                <h5>
                                     <strong>Paid Method:</strong> <span style="text-align:left" t-field="doc.journal_id.name">
 
                                 </span>
@@ -571,8 +571,8 @@
 
                         </tr>
                         <tr>
-                            <td>
-                                <h5>&amp;nbsp;&amp;nbsp;
+                            <td>&amp;nbsp;&amp;nbsp;
+                                <h5>
                                     <strong>Bank Name:</strong> <span t-if="doc.payment_request_type == 'account'" style="text-align:left" t-field="doc.bank_id.name"></span>
                                          <span t-if="doc.payment_request_type != 'account'" style="text-align:left"
                                       t-field="doc.payment_line_ids.partner_id.bank_ids.bank_id.name">
@@ -598,8 +598,8 @@
 
                         </tr>
                         <tr>
-                            <td>
-                                <h5>&amp;nbsp;&amp;nbsp;
+                            <td>&amp;nbsp;&amp;nbsp;
+                                <h5>
                                     <strong>Bank Account Number:</strong><span t-if="doc.payment_request_type == 'account'" style="text-align:left" t-field="doc.bank_account_no"> </span>
                                     <span style="text-align:left" t-if="doc.payment_request_type != 'account'"
                                       t-field="doc.payment_line_ids.partner_id.bank_ids.acc_number">
@@ -619,8 +619,8 @@
 
                         </tr>
                         <tr>
-                            <td>
-                                <h5>&amp;nbsp;&amp;nbsp;
+                            <td>&amp;nbsp;&amp;nbsp;
+                                <h5>
                                     <strong>Beneficiary Account Name:</strong>
                                     <span style="text-align:left" t-if="doc.payment_request_type != 'account'"
                                       t-field="doc.payment_line_ids.partner_id.bank_ids.partner_id.name">
