@@ -647,8 +647,8 @@
 
                         </tr>
                         <tr>
-                            <td>
-                                <h5>&amp;nbsp;&amp;nbsp;
+                            <td>&amp;nbsp;&amp;nbsp;
+                                <h5>
                                     <strong>Swift Code:</strong><span t-if="doc.payment_request_type == 'account'" style="text-align:left" t-field="doc.company_partner_bank_id.swift">
 
                                 </span>
