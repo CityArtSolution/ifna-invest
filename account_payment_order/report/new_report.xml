@@ -519,10 +519,10 @@
 
                     <table style="border: 1px solid black;text-align:left;" width="100%">
                         <tr style="border: 1px solid black;text-align:center;background-color:#BB9B69">
-                            <th width="80%" style="border: 1px solid black;">
+                            <th width="85%" style="border: 1px solid black;">
                                 <strong>For Finance Department Use Only</strong>
                             </th>
-                            <th width="20%" style="border: 1px solid black;">CEO Approval</th>
+                            <th width="15%" style="border: 1px solid black;">CEO Approval</th>
 
 
                         </tr>
