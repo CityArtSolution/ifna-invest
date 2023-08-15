@@ -27,10 +27,16 @@
             <field name="binding_type">report</field>
         </record>
 
+
+        <template id="report_invoice" inherit_id="account.report_invoice">
+            <xpath expr='//t[@t-call="l10n_gcc_invoice.arabic_english_invoice"]' position="replace">
+                <t t-if="o._get_name_invoice_report() == 'l10n_gcc_invoice.arabic_english_invoice'"
+                   t-call="ifna_invoice_report.report_invoice_new" t-lang="lang"/>
+            </xpath>
+        </template>
+
         <template id="report_invoice_new"
                   inherit_id="l10n_gcc_invoice.arabic_english_invoice">
-
-
             <xpath expr='//t[@t-call="web.external_layout"]' position="replace">
                 <t t-call="web.basic_layout">
                     <t t-set="o" t-value="o.with_context(lang=lang)"/>
@@ -44,29 +50,36 @@
                         <header>
                             <div>
                                 <div class="text-right" width="100%" style="float:right; font-size:13px;">
-                                    <!-- <img style="margin-left: auto;display: block;margin-right: auto;height:140pt;width:140pt"
-                                         src="ifna_invoice_report/static/img/header.jpeg"/> -->
-                                    <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="margin-left: auto;display: block;margin-right: auto;height:140pt;width:140pt"/>
+                                    <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)"
+                                         style="margin-left: auto;display: block;margin-right: auto;height:140pt;width:140pt"/>
 
                                 </div>
                                 <div class="text-left" width="100%" style="font-family: sans-serif;float:left;">
-                                    <span style="display:block;font-size: 35px !important;padding:3px ">شركة افناء
-                                        للإستثمار
+                                    <span style="display:block;font-size: 35px !important;padding:3px ">
+                                        <span t-field="o.company_id.name"/>
                                     </span>
                                     <span style="display:block;font-size: 15px !important;padding:3px ">Vat
-                                        Number:311461336300003
+                                        Number:
+                                        <span t-field="o.company_id.vat"/>
                                     </span>
                                     <span style="display:block;font-size: 15px !important;padding:3px ">
-                                        Email:iabdulbari@afnaa.sa
+                                        Email:
+                                        <span t-field="o.company_id.email"/>
                                     </span>
-                                    <span style="display:block;font-size: 15px !important;padding:3px ">الرياض - حى
-                                        النخيل
+                                    <span style="display:block;font-size: 15px !important;padding:3px ">
+                                        <span t-field="o.company_id.street"/>
+                                        <span t-field="o.company_id.city"/>
+                                        <!--                                        الرياض - حى-->
+                                        <!--                                        النخيل-->
                                     </span>
-                                    <span style="display:block;font-size: 15px !important;padding:3px ">رقم مكتب - 9 -
-                                        التخصصى طريق 7813
+                                    <span style="display:block;font-size: 15px !important;padding:3px ">
+                                        <span t-field="o.company_id.street2"/>
                                     </span>
-                                    <span style="display:block;font-size: 15px !important;padding:3px ">12383-4334 Saudi
-                                        Arabia
+                                    <span style="display:block;font-size: 15px !important;padding:3px ">
+                                        <span t-field="o.company_id.zip"/>
+                                        <span t-field="o.company_id.country_id.name"/>
+                                        <!--                                        12383-4334 Saudi-->
+                                        <!--                                        Arabia-->
                                     </span>
 
                                 </div>
@@ -96,9 +109,11 @@
 
                             <br/>
                         </div>
+                        <br/>
+                        <br/>
+                        <br/>
                         <h3>
-                            <div class="row" style="padding-left: 20px;">
-                                <t t-set="address"></t>
+                            <div class="row" style="width:100%;padding-left: 20px;">
                                 <div class="col-4" style="text-align:left;">
                                     <span style="font-size: 20.0091px; font-family: sans-serif;"
                                           t-if="o.move_type == 'out_invoice' and o.state == 'posted'">
@@ -202,7 +217,7 @@
 
                                     <th name="th_description" style="border:1px solid gray;" class="text-right">
                                         <span>
-                                            Description////////////////////////////////
+                                            Description
                                         </span>
                                         <br/>
                                         <span>
@@ -576,13 +591,6 @@
 
             </xpath>
 
-        </template>
-
-        <template id="report_invoice" inherit_id="account.report_invoice">
-            <xpath expr='//t[@t-call="l10n_gcc_invoice.arabic_english_invoice"]' position="replace">
-                <t t-if="o._get_name_invoice_report() == 'l10n_gcc_invoice.arabic_english_invoice'"
-                   t-call="ifna_invoice_report.report_invoice_new" t-lang="lang"/>
-            </xpath>
         </template>
 
 
