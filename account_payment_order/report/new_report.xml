@@ -480,7 +480,7 @@
                                 </h5>
                             </td>
                             <td style="border:1px solid black;">
-                                <span t-field="doc.generated_user_id.name">
+                                <span t-field="doc.employee_id.name">
 
                                 </span>
                             </td>
