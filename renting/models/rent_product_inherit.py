@@ -144,7 +144,6 @@ class RentProductProduct(models.Model):
     @api.model
     def _get_state(self):
         for rec in self:
-            print("/////////", rec.state_id)
             rec.unit_state = 'شاغرة'
             rec.state_id = 'شاغرة'
             order = rec.env['sale.order.line'].sudo().search(
@@ -254,7 +253,6 @@ class RentProduct(models.Model):
     @api.model
     def _get_state(self):
         for rec in self:
-            print("/////////", rec.state_id)
             rec.unit_state = 'شاغرة'
             rec.state_id = 'شاغرة'
             order = rec.env['sale.order.line'].sudo().search(
@@ -461,7 +459,4 @@ class RentalAdditionalService(models.Model):
 
     def get_concatenation_name(self):
         for rec in self:
-            if rec.type == 'amount':
-                rec.name = rec.service_id.name + "-" + str(rec.percentage)
-            if rec.type == 'percentage':
-                rec.name = rec.service_id.name + "-" + str(int(rec.percentage)) + "%"
+            rec.name = rec.service_id.name

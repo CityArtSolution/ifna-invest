@@ -114,40 +114,32 @@ class SaleOrder(models.Model):
         ('return', 'Pickedup'),
         ('returned', 'Returned'),
         ('cancel', 'Cancelled'),
-    ], string="Rental Status", readonly=True)
+    ], string="Rental Status")
 
     partner_id = fields.Many2one(readonly=False)
     finance = fields.Boolean("Finance", default=False)
     facility = fields.Boolean("Facility", default=False)
+    ceo = fields.Boolean("CEO", default=False)
 
     finance_second = fields.Boolean("Finance", default=False)
     facility_second = fields.Boolean("Facility", default=False)
     legal = fields.Boolean("Facility", default=False)
 
-    signature_doc = fields.Many2many("ir.attachment", 'sign_sale_rel', "doc_id", "sale_id", string="Signature Doc")
-    commercial_register = fields.Many2many("ir.attachment", 'comm_sale_rel', 'comm_id', 'sale_id',
-                                           string="السجل التجاري")
-    authorization = fields.Many2many("ir.attachment", 'auth_sale_rel', 'auth_id', 'sale_id',
-                                     string="مرفق التفويض لصاحب الصلاحية")
-    company_contract = fields.Many2many("ir.attachment", "cont_sale_rel", "cont_id", "sale_id",
-                                        string="عقد تأسيس الشركة")
-    tax_certificate = fields.Many2many("ir.attachment", 'tex_sale_id', 'tax_id', 'sale_id', string="الشهادة الضريبية")
-    ejar_cont = fields.Many2many("ir.attachment", 'ejar_sale_id', 'ejar_id', 'sale_id', string="عقد منصة ايجار")
-    tenant_directory = fields.Many2many("ir.attachment", 'tenant_sale_id', 'tenant_id', 'sale_id',
-                                        string="دليل المستأجر")
-
-    pickup_signed = fields.Many2many("ir.attachment", 'pickup_signed_sale_id', 'pickup_id', 'sale_id',
-                                     string="محضر الإستلام بعد التوقيع")
-
-    directory_signed = fields.Many2many("ir.attachment", 'directory_signed_sale_id', 'directory_id', 'sale_id',
-                                        string="دليل المستخدم بعد التوقيع")
+    signature_doc = fields.Binary(string="Signature Doc")
+    commercial_register = fields.Binary(string="السجل التجاري")
+    authorization = fields.Binary(string="مرفق التفويض لصاحب الصلاحية")
+    company_contract = fields.Binary(string="عقد تأسيس الشركة")
+    tax_certificate = fields.Binary(string="الشهادة الضريبية")
+    ejar_cont = fields.Binary(string="عقد منصة ايجار")
+    tenant_directory = fields.Binary(string="دليل المستأجر")
+    pickup_signed = fields.Binary(string="محضر الإستلام بعد التوقيع")
+    directory_signed = fields.Binary(string="دليل المستخدم بعد التوقيع")
+    company_add_attach = fields.Binary(string="العنوان الوطني للشركة")
 
     deleg_name = fields.Char(string="اسم صاحب التفويض")
     deleg_id = fields.Char(string="رقم الهوية")
     deleg_birth = fields.Date(string="تاريح الميلاد")
     company_add = fields.Text(string="العنوان الوطني للشركة")
-    company_add_attach = fields.Many2many("ir.attachment", 'company_add_sale_id', 'company_add_id', 'sale_id',
-                                          string="العنوان الوطني للشركة")
 
     @api.ondelete(at_uninstall=False)
     def _unlink_except_draft_or_cancel(self):
@@ -254,6 +246,7 @@ class SaleOrder(models.Model):
 
     def ceo_approve(self):
         for rec in self:
+            rec.ceo = True
             pm_group = self.env.ref('renting_workflow_customization.pm_group')
             notification_pm_group = self.env['res.users'].search([]).filtered(
                 lambda i: pm_group in i.groups_id)

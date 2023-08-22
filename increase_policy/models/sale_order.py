@@ -142,7 +142,6 @@ class RentSaleOrder(models.Model):
         lines = self.env['increase.policy'].search(
             [('date_from', '>=', self.fromdate), ('date_from', '<=', self.todate), ('date_to', '<=', self.todate),
              ('date_to', '>=', self.fromdate)])
-        print("//////////////////////",lines)
         # self.increase_policy = lines.ids
         self.increase_policy_lines = [(6, 0, lines.ids)]
         # self.order_line.get_increase_policy()

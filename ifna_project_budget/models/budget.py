@@ -50,7 +50,6 @@ class AccountLineBudget(models.Model):
     # @api.onchange('planned_amount', 'practical_amount')
     def _set_deviation_value(self):
         for rec in self:
-            rec.deviation_value = 0.0
             for account in rec.general_budget_id.account_ids:
                 if rec.deviation_value or not rec.deviation_value:
                     if rec.crossovered_budget_id.state in ['confirm','validate','done']:

@@ -6,7 +6,8 @@
         <t t-call="web.basic_layout">
             <div class="page" style="font-size:14px;">
                 <div class="row" style="margin-top:0px">
-
+                    <br/>
+                    <br/>
                     <div class="col-4">
                         <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)"
                              style="margin-left: auto;display: block;margin-right: auto;height:220pt;width:140pt"/>

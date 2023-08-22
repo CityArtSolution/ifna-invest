@@ -73,6 +73,7 @@
                     <field name="insurance_value" optional="hide"/>
 
                     <button name="action_get_service" class="oe_highlight" type="object" string="Get Services"
+                            groups="renting_workflow_customization.pm_group"
                             attrs="{'invisible':['|',('is_rental','=', False),('rental_pricing_id','=', False)]}"/>
                     <field name="contract_admin_fees" optional="hide"/>
                     <field name="contract_service_fees" optional="hide"/>
@@ -91,64 +92,75 @@
 
                 <xpath expr="// field [@ name = 'order_line'] / tree / field [@ name = 'product_id']"
                        position="attributes">
-                    <!--                    <attribute name="domain">-->
-                    <!-- [('product_tmpl_id.property_id','=',property_number)]-->
-                    <!--                    </attribute>-->
                     <attribute name="domain">
                         [('product_tmpl_id.property_id','=',property_number),('product_tmpl_id.state_id','=','شاغرة')]
                     </attribute>
-                    <!--                    <attribute name="domain">[('product_tmpl_id.unit_number', '=',-->
-                    <!-- unit_number),('product_tmpl_id.property_id','=',property_number),('product_tmpl_id.state_id','=','شاغرة')]-->
-                    <!--                    </attribute>-->
                 </xpath>
                 <xpath expr="// field [@ name = 'order_line'] / tree / field [@ name = 'name']" position="attributes">
                     <attribute name="required">False</attribute>
                 </xpath>
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="attrs">{'readonly':[('is_pm','=', False)]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='payment_term_id']" position="attributes">
+                    <attribute name="attrs">{'readonly':[('is_pm','=', False)]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']" position="attributes">
+                    <attribute name="attrs">{'readonly':[('is_pm','=', False)]}</attribute>
+                </xpath>
                 <xpath expr="//field[@name='partner_id']" position="after">
-                    <field name="contract_number"/>
-                    <field name="invoice_terms"/>
-                    <field name="invoice_number"/>
-                    <field name="operating_unit_id"/>
-                    <!--                    <field name="property_name"/>-->
-                    <!--                    <field name="unit_number"/>-->
+                    <field name="is_pm" invisible="1"/>
+                    <field name="contract_number" attrs="{'readonly':[('is_pm','=', False)]}"/>
+                    <field name="invoice_terms" attrs="{'readonly':[('is_pm','=', False),('is_finance','=', False)]}"/>
+                    <field name="invoice_number" attrs="{'readonly':[('is_pm','=', False),('is_finance','=', False)]}"/>
+                    <field name="operating_unit_id" attrs="{'readonly':[('is_pm','=', False)]}"/>
                 </xpath>
                 <xpath expr="//field[@name='date_order']" position="after">
+                    <field name="is_pm" invisible="1"/>
                     <label for="fromdate" string="مدة العقد"/>
                     <div class="d-flex">
-                        <field name="fromdate"/>
+                        <field name="fromdate" attrs="{'readonly':[('is_pm','=', False)]}"/>
                         <span class="o_form_label mx-3 oe_edit_only">الي</span>
-                        <field name="todate"/>
+                        <field name="todate" attrs="{'readonly':[('is_pm','=', False)]}"/>
                     </div>
                 </xpath>
                 <xpath expr="//page[@name='order_lines']" position="after">
-                    <page name="contract_info" string="بيانات العقد">
+                    <page name="contract_info" string="بيانات العقد"
+                          groups="renting_workflow_customization.finance_group,renting_workflow_customization.pm_group,renting_workflow_customization.ceo_group">
                         <group>
                             <group>
-                                <field name="order_contract"/>
-                                <field name="brand_nameplate_allowed"/>
-                                <field name="ejar" attrs="{'required': [('state', '=', 'ejar_upload')]}"/>
-                                <field name="ejar_number" attrs="{'required': [('state', '=', 'ejar_upload')]}"/>
-                                <field name="ejar_date" attrs="{'required': [('state', '=', 'ejar_upload')]}"/>
-                                <field name="remarks_c"/>
-                                <field name="file"/>
-                                <field name="updated_invoices"/>
+                                <field name="order_contract" attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
+                                <field name="brand_nameplate_allowed" attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
+                                <field name="ejar"
+                                       attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)],'required': [('state', '=', 'ejar_upload')]}"/>
+                                <field name="ejar_number"
+                                       attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)],'required': [('state', '=', 'ejar_upload')]}"/>
+                                <field name="ejar_date"
+                                       attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)],'required': [('state', '=', 'ejar_upload')]}"/>
+                                <field name="remarks_c" attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
+                                <field name="file" attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
+                                <field name="updated_invoices" attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
                             </group>
 
                             <group>
-                                <field name="contract_hegira_date" placeholder="dd/mm/yyyy"/>
-                                <field name="contract_penalties"/>
-                                <field name="contractor_pen"/>
-                                <field name="contract_extra_maintenance_cost"/>
+                                <field name="contract_hegira_date" placeholder="dd/mm/yyyy"
+                                       attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
+                                <field name="contract_penalties" attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
+                                <field name="contractor_pen" attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
+                                <field name="contract_extra_maintenance_cost"
+                                       attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
                             </group>
                         </group>
                     </page>
 
-                    <page name="contract_invoices" string="الفواتير">
-
+                    <page name="contract_invoices" string="الفواتير"
+                          groups="renting_workflow_customization.finance_group,renting_workflow_customization.ceo_group">
                         <button name="create_order_invoices" string="Regenerate Invoices" type="object"
-                                class="btn-primary"/>
-
-                        <field name="order_contract_invoice" widget="section_and_note_one2many">
+                                class="btn-primary"
+                                groups="renting_workflow_customization.finance_group"/>
+                        <field name="is_finance" invisible="1"/>
+                        <field name="order_contract_invoice" widget="section_and_note_one2many"
+                               attrs="{'readonly':[('is_finance','=', False)]}">
                             <tree editable="bottom">
                                 <field name="sequence" widget="handle"/>
                                 <field name="name"/>
@@ -159,18 +171,18 @@
                                 <field name="status"/>
                                 <field name="services" widget="many2many_tags" optional="hide"/>
                                 <button name="create_invoices" type="object" string="Create Invoice" class="btn-success"
-                                        attrs="{'invisible':[('status','=', 'invoiced')]}"/>
+                                        attrs="{'invisible':[('status','=', 'invoiced')]}"
+                                        groups="renting_workflow_customization.finance_group"/>
                             </tree>
                         </field>
                     </page>
-                    <page name="property_stats" string="حالة الوحدات">
+                    <page name="property_stats" string="حالة الوحدات" groups="renting_workflow_customization.finance_group,renting_workflow_customization.pm_group">
                         <field name="order_property_state" widget="section_and_note_one2many" mode="tree,form"
                                context="{'default_sale_order': active_id}">
                             <form>
                                 <group>
                                     <field name="sale_order" invisible="1"/>
                                     <field name="sale_order_line_id"/>
-                                    <!--                                    <field name="product_id"/>-->
                                 </group>
                                 <notebook>
                                     <page name="pickup_contract" string="التسليم">
@@ -193,10 +205,10 @@
                                                 <field name="floor_comment"/>
                                             </group>
                                             <group string="الحمامات والأطقم الصحية">
-                                                <field name="rbath_good"/>
-                                                <field name="rbath_bad"/>
-                                                <field name="rbath_none"/>
-                                                <field name="rbath_comment"/>
+                                                <field name="bath_good"/>
+                                                <field name="bath_bad"/>
+                                                <field name="bath_none"/>
+                                                <field name="bath_comment"/>
                                             </group>
                                             <group string="الكهرباء والإضاءة">
                                                 <field name="elec_good"/>

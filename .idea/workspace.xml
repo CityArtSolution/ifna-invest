@@ -5,7 +5,40 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b3839cbe-664d-4098-868e-d832382f348b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account_payment_order/report/new_report.xml" beforeDir="false" afterPath="$PROJECT_DIR$/account_payment_order/report/new_report.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ifna_budget_analysis_report/models/budget.py" beforeDir="false" afterPath="$PROJECT_DIR$/ifna_budget_analysis_report/models/budget.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ifna_invoice_report/models/res_partner_bank.py" beforeDir="false" afterPath="$PROJECT_DIR$/ifna_invoice_report/models/res_partner_bank.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ifna_invoice_report/views/invoice.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ifna_invoice_report/views/invoice.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ifna_payment_custom/views/report_payment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ifna_payment_custom/views/report_payment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ifna_project_budget/models/budget.py" beforeDir="false" afterPath="$PROJECT_DIR$/ifna_project_budget/models/budget.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/increase_policy/models/sale_order.py" beforeDir="false" afterPath="$PROJECT_DIR$/increase_policy/models/sale_order.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/partner_ledger_edited/wizard/partner_ledger_edited.py" beforeDir="false" afterPath="$PROJECT_DIR$/partner_ledger_edited/wizard/partner_ledger_edited.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/partner_ledger_edited/wizard/partner_ledger_view_edited.xml" beforeDir="false" afterPath="$PROJECT_DIR$/partner_ledger_edited/wizard/partner_ledger_view_edited.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plus_year/controllers/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plus_year/controllers/controllers.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plus_year/demo/demo.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plus_year/views/templates.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plus_year/views/views.xml" beforeDir="false" afterPath="$PROJECT_DIR$/plus_year/views/views.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rental_contract_notification/models/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/rental_contract_notification/models/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rental_orders_reports/views/pdf_report.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rental_orders_reports/views/pdf_report.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renting/models/rent_product_inherit.py" beforeDir="false" afterPath="$PROJECT_DIR$/renting/models/rent_product_inherit.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renting/models/rent_sale_invoices.py" beforeDir="false" afterPath="$PROJECT_DIR$/renting/models/rent_sale_invoices.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renting/models/rent_sale_order_inherit.py" beforeDir="false" afterPath="$PROJECT_DIR$/renting/models/rent_sale_order_inherit.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renting/views/vw_rent_product_inherit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/renting/views/vw_rent_product_inherit.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renting/views/vw_rent_sale_order_inherit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/renting/views/vw_rent_sale_order_inherit.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renting_workflow_customization/models/sales.py" beforeDir="false" afterPath="$PROJECT_DIR$/renting_workflow_customization/models/sales.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renting_workflow_customization/security/ir.model.access.csv" beforeDir="false" afterPath="$PROJECT_DIR$/renting_workflow_customization/security/ir.model.access.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renting_workflow_customization/views/sales_views.xml" beforeDir="false" afterPath="$PROJECT_DIR$/renting_workflow_customization/views/sales_views.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sale_report_custom/security/ir.model.access.csv" beforeDir="false" afterPath="$PROJECT_DIR$/sale_report_custom/security/ir.model.access.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sale_report_custom/static/src/images/facility.png" beforeDir="false" afterPath="$PROJECT_DIR$/sale_report_custom/static/src/images/facility.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sale_report_custom/static/src/images/finance.png" beforeDir="false" afterPath="$PROJECT_DIR$/sale_report_custom/static/src/images/finance.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sale_report_custom/static/src/images/legal.png" beforeDir="false" afterPath="$PROJECT_DIR$/sale_report_custom/static/src/images/legal.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sale_report_custom/static/src/images/pm.png" beforeDir="false" afterPath="$PROJECT_DIR$/sale_report_custom/static/src/images/pm.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sale_report_custom/views/pickup.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sale_report_custom/views/pickup.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sale_report_custom/views/report_custom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sale_report_custom/views/report_custom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sale_report_custom/views/return.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sale_report_custom/views/return.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sale_report_custom/views/templates.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sale_report_custom/views/templates.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sale_report_custom/views/views.xml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +60,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/samah-kandil/PycharmProjects/odoo-v16/QKITCHN"
+    "last_opened_file_path": "/home/sara/PycharmProjects/ifna-updated-22-8/live/ifna-invest"
   }
 }]]></component>
   <component name="RunManager">
@@ -39,7 +72,6 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="$USER_HOME$/Odoo-Versions/odoo15/venv/bin/python" />
-      <option name="SDK_NAME" value="Python 3.8 (odoo15)" />
       <option name="WORKING_DIRECTORY" value="$USER_HOME$/Odoo-Versions/odoo15/odoo" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />

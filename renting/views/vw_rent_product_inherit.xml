@@ -34,7 +34,7 @@
                     <field name="type"/>
                     <field name="percentage" string="Amount" attrs="{'invisible': [('type','==','percentage')]}"/>
                     <field name="percentage" string="Percentage" attrs="{'invisible': [('type','==','amount')]}"/>
-                    <field name="separate"/>
+<!--                    <field name="separate"/>-->
                     <field name="fees_type"/>
                 </tree>
             </field>
