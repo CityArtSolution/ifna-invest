@@ -135,7 +135,12 @@
                                                     <span t-field="doc.company_id.partner_id.commercial_number"/>
                                                 </td>
                                                 <td>
+<<<<<<< HEAD
+                                                    <span t-field="doc.order_line[0].property_number.rent_config_property_type_id.property_type_name"/>
+<!--                                                    <span t-field="doc.company_id.name"/>-->
+=======
                                                     <span t-field="doc.company_id.name"/>
+>>>>>>> 6d3a96080945b2b9e1f1595d7fdf194b8cdcf0b5
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -964,7 +969,11 @@
                                                         <td style="padding-right:10px;height:180px;">
                                                             <p>...................................... /الاسم</p>
                                                             <p>
+<<<<<<< HEAD
+                                                                <img t-if="o.facility_second"
+=======
                                                                 <img t-if="o.facility"
+>>>>>>> 6d3a96080945b2b9e1f1595d7fdf194b8cdcf0b5
                                                                      src="/sale_report_custom/static/src/images/facility.png"
                                                                      width="100"/>
                                                                 /التوقيع
@@ -977,8 +986,12 @@
                                     </div>
                                     <br/>
                                     <div class="row mt32 mb32 text-right" id="signature3">
+<<<<<<< HEAD
+                                        <div class="col-auto col-3 mw-100 mb-2 text-right">
+=======
                                         <div class="col-auto col-3 mw-100 mb-2 text-right"
                                              t-if="o.state not in ['ff_review','ceo','draft_qu','draft','sent']">
+>>>>>>> 6d3a96080945b2b9e1f1595d7fdf194b8cdcf0b5
                                             <table class="text-right table table-sm"
                                                    style="border-radius: 25px; border: 1px dashed #BB9B69;">
                                                 <th class="text-right"
@@ -990,7 +1003,11 @@
                                                         <td style="padding-right:10px;height:180px;">
                                                             <p>...................................... /الاسم</p>
                                                             <p>
+<<<<<<< HEAD
+                                                                <img t-if="o.pm" src="/sale_report_custom/static/src/images/pm.png"
+=======
                                                                 <img src="/sale_report_custom/static/src/images/pm.png"
+>>>>>>> 6d3a96080945b2b9e1f1595d7fdf194b8cdcf0b5
                                                                      alt="" width="100"/>
                                                                 /التوقيع
                                                             </p>
@@ -999,8 +1016,12 @@
                                                 </tbody>
                                             </table>
                                         </div>
+<<<<<<< HEAD
+                                        <div class="col-auto col-3 mw-100 mb-2 text-right">
+=======
                                         <div class="col-auto col-3 mw-100 mb-2 text-right"
                                              t-if="o.state not in ['ff_review','ceo','draft_qu','draft','sent']">
+>>>>>>> 6d3a96080945b2b9e1f1595d7fdf194b8cdcf0b5
                                             <table class="text-right table table-sm"
                                                    style="border-radius: 25px; border: 1px dashed #BB9B69;">
                                                 <th class="text-right"
@@ -1012,7 +1033,11 @@
                                                         <td style="padding-right:10px;height:180px;">
                                                             <p>...................................... /الاسم</p>
                                                             <p>
+<<<<<<< HEAD
+                                                                <img t-if="o.finance_second"
+=======
                                                                 <img t-if="o.finance"
+>>>>>>> 6d3a96080945b2b9e1f1595d7fdf194b8cdcf0b5
                                                                      src="/sale_report_custom/static/src/images/finance.png"
                                                                      width="100"/>
                                                                 /التوقيع

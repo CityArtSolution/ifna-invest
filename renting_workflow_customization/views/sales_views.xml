@@ -169,10 +169,14 @@
                             <field name="signed_by" attrs="{'readonly':[('is_pm','=', False)]}"/>
                             <field name="signed_on" attrs="{'readonly':[('is_pm','=', False)]}"/>
                             <field name="signature" widget="image" attrs="{'readonly':[('is_pm','=', False)]}"/>
+<<<<<<< HEAD
+                            <field name="signature_doc" attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'sent')]}"/>
+=======
                             <field name="signature_doc"
                                    groups="renting_workflow_customization.ceo_group, renting_workflow_customization.pm_group"
                                    attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'sent')]}"/>
 
+>>>>>>> 6d3a96080945b2b9e1f1595d7fdf194b8cdcf0b5
                         </group>
                     </page>
                 </xpath>
@@ -207,8 +211,12 @@
 
                 <xpath expr="//page[@name='property_stats']" position="after">
                     <page name="attachments" string="مرفقات"
+<<<<<<< HEAD
+                          attrs="{'readonly':[('is_pm','=',False)],'invisible':[('state','in',['draft_qu','ff_review','ceo','draft','sent'])]}">
+=======
                           attrs="{'readonly':[('is_pm','=',False)],'invisible':[('state','in',['draft_qu','ff_review','ceo','draft','sent'])]}"
                           groups="renting_workflow_customization.finance_group,renting_workflow_customization.pm_group,renting_workflow_customization.ceo_group">
+>>>>>>> 6d3a96080945b2b9e1f1595d7fdf194b8cdcf0b5
                         <group>
                             <group string="مرفقات">
                                 <field name="commercial_register"
@@ -357,11 +365,14 @@
                             class="btn-primary"
                             data-hotkey="g" states="finance_review"
                             groups="renting_workflow_customization.finance_group"/>
+<<<<<<< HEAD
+=======
 
                     <!--                    <button name="finance_cancel" type="object" string="Finance Cancel"-->
                     <!--                            states="sale"-->
                     <!--                            groups="renting_workflow_customization.finance_group" data-hotkey="z"/>-->
 
+>>>>>>> 6d3a96080945b2b9e1f1595d7fdf194b8cdcf0b5
                 </xpath>
                 <xpath expr="//button[@name='preview_sale_order']" position="replace">
                     <button name="preview_sale_order" type="object" class="oe_stat_button" icon="fa-globe icon"
@@ -394,7 +405,11 @@
                 <xpath expr="//button[@name='action_cancel']" position="replace">
                     <button name="action_cancel" id="action_cancel" data-hotkey="v"
                             string="Cancel" class="btn-primary" type="object"
+<<<<<<< HEAD
+                            states="sale,terms" groups="renting_workflow_customization.finance_group"/>
+=======
                             states="terms" groups="renting_workflow_customization.finance_group"/>
+>>>>>>> 6d3a96080945b2b9e1f1595d7fdf194b8cdcf0b5
                 </xpath>
                 <xpath expr="//button[@name='action_confirm'][1]" position="replace">
                     <button name="action_confirm" id="action_confirm" data-hotkey="v"
