@@ -353,11 +353,6 @@
                             class="btn-primary"
                             data-hotkey="g" states="finance_review"
                             groups="renting_workflow_customization.finance_group"/>
-
-                    <!--                    <button name="finance_cancel" type="object" string="Finance Cancel"-->
-                    <!--                            states="sale"-->
-                    <!--                            groups="renting_workflow_customization.finance_group" data-hotkey="z"/>-->
-
                 </xpath>
                 <xpath expr="//button[@name='preview_sale_order']" position="replace">
                     <button name="preview_sale_order" type="object" class="oe_stat_button" icon="fa-globe icon"
@@ -390,7 +385,7 @@
                 <xpath expr="//button[@name='action_cancel']" position="replace">
                     <button name="action_cancel" id="action_cancel" data-hotkey="v"
                             string="Cancel" class="btn-primary" type="object"
-                            states="terms" groups="renting_workflow_customization.finance_group"/>
+                            states="sale,terms" groups="renting_workflow_customization.finance_group"/>
                 </xpath>
                 <xpath expr="//button[@name='action_confirm'][1]" position="replace">
                     <button name="action_confirm" id="action_confirm" data-hotkey="v"
