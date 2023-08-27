@@ -29,11 +29,7 @@
                                         table{
                                         border-collapse: separate;
                                         border-spacing: 0;
-<<<<<<< HEAD
                                         <!--                                        height:50%;-->
-=======
-<!--                                        height:50%;-->
->>>>>>> 6d3a96080945b2b9e1f1595d7fdf194b8cdcf0b5
                                         width:100%;
                                         overflow: hidden;
                                         }
@@ -65,12 +61,8 @@
                                     <h2 class="text-center">محضر تسليم الوحدة الإيجارية</h2>
                                     <br/>
                                     <div class="row mt32 mb32" id="informations">
-<<<<<<< HEAD
                                         <div class="col-auto col-3 mw-100 mb-2"
                                              style="margin-right: 45.11px;margin-left: 45.11px;border-radius: 25px;border: 1px dashed #BB9B69;">
-=======
-                                        <div class="col-auto col-3 mw-100 mb-2" style="margin-right: 45.11px;margin-left: 45.11px;border-radius: 25px;border: 1px dashed #BB9B69;">
->>>>>>> 6d3a96080945b2b9e1f1595d7fdf194b8cdcf0b5
                                             <p style="padding-top:11px; direction: rtl;" class="text-right" dir="rtl">
                                                 <span>
                                                     رقم الوحدة:
@@ -141,12 +133,8 @@
                                                     <span t-field="doc.company_id.partner_id.commercial_number"/>
                                                 </td>
                                                 <td>
-<<<<<<< HEAD
                                                     <span t-field="doc.order_line[0].property_number.rent_config_property_type_id.property_type_name"/>
 <!--                                                    <span t-field="doc.company_id.name"/>-->
-=======
-                                                    <span t-field="doc.company_id.name"/>
->>>>>>> 6d3a96080945b2b9e1f1595d7fdf194b8cdcf0b5
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -857,11 +845,7 @@
                                     </b>
                                     <br/>
                                     <div class="row mt32 mb32 text-right" id="signature1">
-<<<<<<< HEAD
                                         <div class="col-auto col-3 mw-100 mb-2">
-=======
-                                        <div class="col-auto col-3 mw-100 mb-2" >
->>>>>>> 6d3a96080945b2b9e1f1595d7fdf194b8cdcf0b5
                                             <b>
                                                 <p style="padding-right:20px;color:white; border-radius: 25px; background: #BB9B69;">
                                                     :ممثل
@@ -888,12 +872,8 @@
                                     <br/>
                                     <br/>
                                     <div class="row mt32 mb32" id="informations">
-<<<<<<< HEAD
                                         <div class="col-auto col-3 mw-100 mb-2"
                                              style="margin-right: 45.11px;margin-left: 45.11px;border-radius: 25px;border: 1px dashed #BB9B69;">
-=======
-                                        <div class="col-auto col-3 mw-100 mb-2" style="margin-right: 45.11px;margin-left: 45.11px;border-radius: 25px;border: 1px dashed #BB9B69;">
->>>>>>> 6d3a96080945b2b9e1f1595d7fdf194b8cdcf0b5
                                             <p style="padding-top:11px; direction: rtl;" class="text-right" dir="rtl">
                                                 <span>
                                                     رقم الوحدة:
@@ -982,11 +962,7 @@
                                                         <td style="padding-right:10px;height:180px;">
                                                             <p>...................................... /الاسم</p>
                                                             <p>
-<<<<<<< HEAD
                                                                 <img t-if="o.facility_second"
-=======
-                                                                <img t-if="o.facility"
->>>>>>> 6d3a96080945b2b9e1f1595d7fdf194b8cdcf0b5
                                                                      src="/sale_report_custom/static/src/images/facility.png"
                                                                      width="100"/>
                                                                 /التوقيع
@@ -999,12 +975,7 @@
                                     </div>
                                     <br/>
                                     <div class="row mt32 mb32 text-right" id="signature3">
-<<<<<<< HEAD
                                         <div class="col-auto col-3 mw-100 mb-2 text-right">
-=======
-                                        <div class="col-auto col-3 mw-100 mb-2 text-right"
-                                             t-if="o.state not in ['ff_review','ceo','draft_qu','draft','sent']">
->>>>>>> 6d3a96080945b2b9e1f1595d7fdf194b8cdcf0b5
 
                                             <table class="text-right table table-sm"
                                                    style="border-radius: 25px; border: 1px dashed #BB9B69;">
@@ -1017,11 +988,7 @@
                                                         <td style="padding-right:10px;height:180px;">
                                                             <p>...................................... /الاسم</p>
                                                             <p>
-<<<<<<< HEAD
                                                                 <img t-if="o.pm" src="/sale_report_custom/static/src/images/pm.png"
-=======
-                                                                <img src="/sale_report_custom/static/src/images/pm.png"
->>>>>>> 6d3a96080945b2b9e1f1595d7fdf194b8cdcf0b5
                                                                      alt="" width="100"/>
                                                                 /التوقيع
                                                             </p>
@@ -1042,11 +1009,7 @@
                                                         <td style="padding-right:10px;height:180px;">
                                                             <p>...................................... /الاسم</p>
                                                             <p>
-<<<<<<< HEAD
                                                                 <img t-if="o.finance_second"
-=======
-                                                                <img t-if="o.finance"
->>>>>>> 6d3a96080945b2b9e1f1595d7fdf194b8cdcf0b5
                                                                      src="/sale_report_custom/static/src/images/finance.png"
                                                                      width="100"/>
                                                                 /التوقيع
