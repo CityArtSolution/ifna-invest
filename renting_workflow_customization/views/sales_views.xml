@@ -169,10 +169,7 @@
                             <field name="signed_by" attrs="{'readonly':[('is_pm','=', False)]}"/>
                             <field name="signed_on" attrs="{'readonly':[('is_pm','=', False)]}"/>
                             <field name="signature" widget="image" attrs="{'readonly':[('is_pm','=', False)]}"/>
-                            <field name="signature_doc"
-                                   groups="renting_workflow_customization.ceo_group, renting_workflow_customization.pm_group"
-                                   attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'sent')]}"/>
-
+                            <field name="signature_doc" attrs="{'readonly':[('is_pm','=', False)],'required': [('state', '=', 'sent')]}"/>
                         </group>
                     </page>
                 </xpath>
@@ -207,8 +204,7 @@
 
                 <xpath expr="//page[@name='property_stats']" position="after">
                     <page name="attachments" string="مرفقات"
-                          attrs="{'readonly':[('is_pm','=',False)],'invisible':[('state','in',['draft_qu','ff_review','ceo','draft','sent'])]}"
-                          groups="renting_workflow_customization.finance_group,renting_workflow_customization.pm_group,renting_workflow_customization.ceo_group">
+                          attrs="{'readonly':[('is_pm','=',False)],'invisible':[('state','in',['draft_qu','ff_review','ceo','draft','sent'])]}">
                         <group>
                             <group string="مرفقات">
                                 <field name="commercial_register"

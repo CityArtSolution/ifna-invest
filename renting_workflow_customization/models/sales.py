@@ -82,7 +82,7 @@ class SaleOrder(models.Model):
         ('initial_contract', 'Initial Contract'),
         ('ffl_review', 'Facility & Finance & Legal Review'),
         ('draft_contract', 'Draft Contract'),
-        ('upload_doc', 'Upload Document'),
+        ('upload_doc', 'Update Upload Document'),
         ('view_all_ceo_approve', 'View All Doc & CEO Approve'),
         ('ejar_upload', 'Ejar Contract Upload'),
         ('finance_review', 'Finance Review'),
@@ -102,7 +102,7 @@ class SaleOrder(models.Model):
         ('initial_contract', 'Initial Contract'),
         ('ffl_review', 'Facility & Finance & Legal Review'),
         ('draft_contract', 'Draft Contract'),
-        ('upload_doc', 'Upload Document'),
+        ('upload_doc', 'Update Upload Document'),
         ('view_all_ceo_approve', 'View All Doc & CEO Approve'),
         ('ejar_upload', 'Ejar Contract Upload'),
         ('finance_review', 'Finance Review'),
@@ -121,6 +121,7 @@ class SaleOrder(models.Model):
     facility = fields.Boolean("Facility", default=False)
     ceo = fields.Boolean("CEO", default=False)
 
+    pm = fields.Boolean("pm", default=False)
     finance_second = fields.Boolean("Finance", default=False)
     facility_second = fields.Boolean("Facility", default=False)
     legal = fields.Boolean("Facility", default=False)
@@ -426,6 +427,7 @@ class SaleOrder(models.Model):
     def sent_ff_legal(self):
         for rec in self:
             rec.state = "ffl_review"
+            rec.pm = True
             rec.legal_user = self.env.user.id
 
             finance_group = self.env.ref('renting_workflow_customization.finance_group')
