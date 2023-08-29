@@ -191,7 +191,7 @@
                     <!--                            </tr>-->
                     <!--                        </t>-->
                     <!--                    </table>-->
-                    <table style="text-align:left;">
+                    <table style="text-align:left;" width="90%">
                         <tr>
                             <td>
                                 <h5>
@@ -208,7 +208,7 @@
 
                         </tr>
                     </table>
-                    <table style="text-align:left;">
+                    <table style="text-align:left;" width="90%">
 
                         <tr>
                             <td t-if="doc.payment_request_type != 'account'">
@@ -228,7 +228,7 @@
                             </td>
                         </tr>
                     </table>
-                    <table style="text-align:left;">
+                    <table style="text-align:left;" width="90%">
                         <tr>
                             <td width="16%">
                                 <h5>
@@ -249,7 +249,7 @@
 
                         </tr>
                     </table>
-                    <table style="text-align:left;">
+                    <table style="text-align:left;" width="90%">
                         <tr>
                             <td>
                                 <h5>
@@ -277,8 +277,6 @@
                                       t-esc="doc.communication"></span>
                             </td>
                         </tr>
-
-
                     </table>
                     <br/>
 <!--                    <div class="row" style="border: 1px solid black;">-->
