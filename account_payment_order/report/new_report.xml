@@ -41,7 +41,7 @@
                                 <!--                            <br/>-->
                                 <!--                            <br/>-->
                                 <!--                            <br/>-->
-                                <h3 align="left">Payment Request:
+                                <h3 align="left" style="padding-left:10px;">Payment Request:
                                     <span style="color:#00008B;font-size:21px" t-esc="doc.name">
 
                                     </span>
@@ -198,7 +198,7 @@
                                     <strong>Payment Method:</strong>
                                 </h5>
                             </td>
-                            <td>&amp;nbsp;&amp;nbsp;
+                            <td>
 
                                 <span style="text-align:left" t-field="doc.payment_method" widget="radio"
                                       options="{'horizontal': true}">
@@ -223,7 +223,7 @@
                                     <strong>Amount:</strong>
                                 </h5>
                             </td>
-                            <td>&amp;nbsp;&amp;nbsp;
+                            <td>
                                 <span style="text-align:left !important;" t-esc="amo1"/>
                             </td>
                         </tr>
@@ -235,13 +235,13 @@
                                     <strong>Beneficiary:</strong>
                                 </h5>
                             </td>
-                            <td t-if="doc.payment_request_type != 'account'">&amp;nbsp;&amp;nbsp;
+                            <td t-if="doc.payment_request_type != 'account'">
                                 <span style="text-align:left"
                                       t-esc="doc.payment_line_ids[0].partner_id.name"></span>
                             </td>
-                            <td t-if="doc.payment_request_type == 'account'">&amp;nbsp;&amp;nbsp;
+                            <td t-if="doc.payment_request_type == 'account'">
                                 <span style="text-align:left"
-                                      t-esc="doc.beneficiary_name"></span>
+                                      t-field="doc.beneficiary_name"/>
                             </td>
                             <!--                            <td t-else="">-->
                             <!--                                <span>N/A</span>-->
@@ -256,7 +256,7 @@
                                     <strong>Purpose:</strong>
                                 </h5>
                             </td>
-                            <td>&amp;nbsp;&amp;nbsp;
+                            <td>
                                 <span style="text-align:left" t-esc="doc.description"></span>
                             </td>
                         </tr>
@@ -268,11 +268,11 @@
                                     <strong>Details:</strong>
                                 </h5>
                             </td>
-                            <td t-if="doc.payment_request_type != 'account'">&amp;nbsp;&amp;nbsp;
+                            <td t-if="doc.payment_request_type != 'account'">
                                 <span style="text-align:left"
                                       t-esc="doc.payment_line_ids[0].communication"></span>
                             </td>
-                            <td t-if="doc.payment_request_type == 'account'">&amp;nbsp;&amp;nbsp;
+                            <td t-if="doc.payment_request_type == 'account'">
                                 <span style="text-align:left"
                                       t-esc="doc.communication"></span>
                             </td>
@@ -490,7 +490,7 @@
                                 </span>
                             </td>
                             <td style="border:1px solid black;">
-                                <h5>Financial Controller</h5>
+                                Financial Controller
                             </td>
 
 
