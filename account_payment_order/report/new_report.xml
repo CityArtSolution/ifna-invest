@@ -41,7 +41,7 @@
                                 <!--                            <br/>-->
                                 <!--                            <br/>-->
                                 <!--                            <br/>-->
-                                <h3 align="left" style="padding-left:10px;">Payment Request:
+                                <h3 align="left" style="padding-left:15px;">Payment Request:
                                     <span style="color:#00008B;font-size:21px" t-esc="doc.name">
 
                                     </span>
@@ -193,7 +193,7 @@
                     <!--                    </table>-->
                     <table style="text-align:left;" width="90%">
                         <tr>
-                            <td width="15%">
+                            <td width="30%">
                                 <h5>
                                     <strong>Payment Method:</strong>
                                 </h5>
@@ -211,13 +211,13 @@
                     <table style="text-align:left;" width="90%">
 
                         <tr>
-                            <td width="15%" t-if="doc.payment_request_type != 'account'">
+                            <td width="12%" t-if="doc.payment_request_type != 'account'">
                                 <t t-set="amo1" t-value="doc._convert_num_to_text_en(doc.total_amount)"/>
                                 <h5>
                                     <strong>Amount:</strong>
                                 </h5>
                             </td>
-                            <td width="15%" t-if="doc.payment_request_type == 'account'">
+                            <td width="12%" t-if="doc.payment_request_type == 'account'">
                                 <t t-set="amo1" t-value="doc._convert_num_to_text_en(doc.amount)"/>
                                 <h5>
                                     <strong>Amount:</strong>
@@ -251,7 +251,7 @@
                     </table>
                     <table style="text-align:left;" width="90%">
                         <tr>
-                            <td width="15%">
+                            <td width="12%">
                                 <h5>
                                     <strong>Purpose:</strong>
                                 </h5>
@@ -263,7 +263,7 @@
                     </table>
                     <table style="text-align:left;" width="90%">
                         <tr>
-                            <td width="15%">
+                            <td width="12%">
                                 <h5>
                                     <strong>Details:</strong>
                                 </h5>
