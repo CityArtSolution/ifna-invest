@@ -53,11 +53,15 @@
             <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
             <t t-foreach="docs" t-as="o">
                 <div class="page">
+                    <style type="text/css">
+                        img {
+                        width: 100px;;
+                        height: 100px;
+                        }
+                    </style>
                     <b>
                         <h4 class="text-center">عرض سعر</h4>
                     </b>
-                    <br/>
-                    <br/>
                     <br/>
 
                     <h5 style="text-align: right;direction: rtl;" class="text-right" dir="rtl">
@@ -66,7 +70,6 @@
                         </span>
                         <span t-field=" o.partner_id.name"/>
                     </h5>
-                    <br/>
                     <h5 style="text-align: right" class="text-right">:السلام عليكم ورحمة
                         الله وبركاته وبعد
                     </h5>
@@ -86,7 +89,6 @@
                             aaltaweel@afnaa.sa
                         </span>
                     </p>
-                    <br/>
                     <p class="text-right" dir="rtl" style="direction: rtl;">
                         <b>
                             <span>ثانياً:</span>
@@ -101,7 +103,6 @@
                             شاملة ضريبة القيمة المضافة وغير شاملة قيمة الخدمات
                         </span>
                     </p>
-                    <br/>
                     <p class="text-right" dir="rtl" style="direction: rtl;">
                         <span>
                             علماً بأن قيمة الخدمات -
@@ -109,11 +110,12 @@
 
                         <span class="text-right" dir="rtl" style="direction: rtl;"
                               t-if="o.order_line and o.order_line[0].product_id.rental_pricing_ids and o.order_line[0].product_id.rental_pricing_ids[0].service_ids">
-                            (
+
                             <t t-foreach="o.order_line[0].product_id.rental_pricing_ids[0].service_ids" t-as="service">
-                                <span t-field="service.name"/> /
+                                <span t-field="service.name"/>
+                                -
                             </t>
-                            )
+
                         </span>
                         <!--                        <span t-if="o.order_line[0].product_id.rental_pricing_ids and o.order_line[0].product_id.rental_pricing_ids[0].service_ids"-->
                         <!--                              t-field="o.order_line[0].product_id.rental_pricing_ids[0].service_ids[0].name"/>-->
@@ -185,17 +187,18 @@
                                 </td>
                                 <td>
                                     <t t-if="o.state in ['ff_review','ceo','draft','sent','initial_contract','ffl_review','draft_contract','upload_doc','view_all_ceo_approve','ejar_upload','finance_review','sale','done','cancel']">
-                                        <img src="/sale_report_custom/static/src/images/pm.png" alt=""
-                                             width="100"/>
                                         <!--                                        <img t-if="o.pm_user.pm" t-att-src="image_data_uri(o.pm_user.pm)"-->
                                         <!--                                             width="100"/>-->
 
+                                        <img src="/sale_report_custom/static/src/images/pm.png" width="100"/>
                                         <br/>
                                         <img t-if="o.finance" src="/sale_report_custom/static/src/images/finance.png"
-                                             alt=""
                                              width="100"/>
+                                        <br/>
                                         <img t-if="o.facility" src="/sale_report_custom/static/src/images/facility.png"
-                                             alt=""
+                                             width="100"/>
+                                        <br/>
+                                        <img t-if="o.ceo" src="/sale_report_custom/static/src/images/ceo.png"
                                              width="100"/>
                                         <!--                                        <img t-if="o.finance_user.finance"-->
                                         <!--                                             t-att-src="image_data_uri(o.finance_user.finance)" width="100"/>-->
@@ -211,7 +214,6 @@
                         من تاريخه.
                     </p>
 
-                    <br/>
                     <b>
                         <p class="text-center">،،، والله يحفظكم و يرعاكم</p>
                     </b>

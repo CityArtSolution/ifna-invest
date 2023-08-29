@@ -104,7 +104,7 @@ class RentSaleOrder(models.Model):
     isnotelec_remain = fields.Boolean('لا')
 
     is_pm = fields.Boolean('is PM', compute="_get_if_group")
-    is_finance = fields.Boolean('is PM', compute="_get_if_group")
+    is_finance = fields.Boolean('is Finance', compute="_get_if_group")
 
     @api.model
     def create(self, vals):
@@ -130,32 +130,31 @@ class RentSaleOrder(models.Model):
         for i in self.env['sale.order'].search([]):
             if i.order_contract_invoice:
                 for rec in i.order_contract_invoice:
-                    if rec.invoice_date == fields.Date.today() and rec.status == "uninvoiced":
+                    if rec.invoice_date <= fields.Date.today() and rec.status == "uninvoiced":
                         invoice_lines = []
-                        invoiceable_lines = i.order_line
-                        if rec.sequence == 1:
-                            seq = 0
-                            for type in INSURANCE_ADMIN_FEES_FIELDS:
-                                seq += 1
-                                fees_sum = rec._prepare_invoice_line_insurance_admin_fees_sum(type, seq)
-                                if fees_sum.get('name', False):
-                                    invoice_lines.append([0, 0, fees_sum])
+                        invoiceable_lines = rec.sale_order_line_ids
+                        # if rec.sequence == 1:
+                        #     seq = 0
+                        #     for type in INSURANCE_ADMIN_FEES_FIELDS:
+                        #         seq += 1
+                        #         fees_sum = rec._prepare_invoice_line_insurance_admin_fees_sum(type, seq)
+                        #         if fees_sum.get('name', False):
+                        #             invoice_lines.append([0, 0, fees_sum])
                         for line in invoiceable_lines:
                             invoice_lines.append([0, 0, rec._prepare_invoice_line(line)])
-                            if rec.sequence == 1:
-                                seq = 0
-                                for type in INSURANCE_ADMIN_FEES_FIELDS:
-                                    seq += 1
-                                    if line.mapped(type)[0] > 0:
-                                        invoice_lines.append(
-                                            [0, 0, rec._prepare_invoice_line_insurance_admin_fees(type, line, seq)])
+                            # if rec.sequence == 1:
+                            #     seq = 0
+                            #     for type in INSURANCE_ADMIN_FEES_FIELDS:
+                            #         seq += 1
+                            #         if line.mapped(type)[0] > 0:
+                            #             invoice_lines.append(
+                            #                 [0, 0, rec._prepare_invoice_line_insurance_admin_fees(type, line, seq)])
+                        print(invoice_lines)
 
                         vals = rec._prepare_invoice(invoice_lines)
-                        print(vals)
                         invoice = self.env['account.move'].create(vals)
-                        rec.invoice_date = fields.Date.today()
+                        # rec.invoice_date = fields.Date.today()
                         rec.status = 'invoiced'
-                        return invoice
 
     def action_pickup(self):
         self.write({'rental_status': 'return'})
@@ -190,7 +189,7 @@ class RentSaleOrder(models.Model):
             if rec.order_contract_invoice:
                 invoiced = rec.order_contract_invoice.filtered(lambda l: l.status == 'invoiced')
                 if invoiced:
-                    raise UserError(_('There are Invoiced Invoices can not be Regenerated'))
+                    raise UserError(_('Invoices can not be Regenerated ,Some are Invoiced'))
 
             if rec.invoice_number <= 0:
                 raise UserError(_('من فضلك اكتب عدد الفواتير'))
@@ -199,100 +198,147 @@ class RentSaleOrder(models.Model):
             d1 = fields.Datetime.from_string(rec.fromdate)
             d2 = fields.Datetime.from_string(rec.todate)
             total_contract_period = d2 - d1
-
             if total_contract_period.days <= 0:
                 raise UserError(_('يجب اختيار مدة العقد بصورة صحيحة'))
 
-            diff = 0
-            diff = total_contract_period.days / rec.invoice_number
-            diff = round(diff, 0)
-            separate = False
-            for s in rec.order_line:
-                if s.product_id.product_tmpl_id.separate:
-                    separate = True
-                    break
-            if separate:
-                lines = rec.order_line.filtered(lambda s: s.product_id.product_tmpl_id.separate == True)
-                amount = sum(lines.mapped('price_subtotal'))
-                services = lines.mapped('product_id')
+            # separate = False
+            # for s in rec.order_line:
+            #     if s.product_id.product_tmpl_id.separate:
+            #         separate = True
+            #         break
 
-                sale_invoices = self.env['rent.sale.invoices'].create({
-                    'name': "فاتورة رقم " + "0",
-                    'sequence': 0,
-                    'separate': True,
-                    'fromdate': fromdate,
-                    'invoice_date': fromdate.date(),
-                    'todate': rec.todate,
-                    'amount': amount,
-                    'sale_order_id': rec.id,
-                    'services': services,
-                })
-            for i in range(0, rec.invoice_number + 1):
-                if separate:
-                    products = rec.order_line.filtered(
-                        lambda s: s.product_id.product_tmpl_id.separate == False).mapped('product_id')
-                    total_other_amount = sum((
-                                                     i.insurance_value + i.contract_admin_fees + i.contract_service_fees + i.contract_admin_sub_fees + i.contract_service_sub_fees)
-                                             for i in rec.order_line.filtered(
-                        lambda s: s.product_id.product_tmpl_id.separate == False))
-                    taxed_total_other_amount = sum(
-                        (i.contract_admin_sub_fees + i.contract_service_sub_fees) for i in
-                        rec.order_line.filtered(lambda s: s.product_id.product_tmpl_id.separate == False))
+            year_amount = rec.order_line.read_group([('order_id', '=', rec.id)], ['price_subtotal:sum', 'product_id'],
+                                                    'line_year_number')
 
-                    total_property_amount_without_tax = sum((i.product_uom_qty * i.price_unit) for i in
-                                                            rec.order_line.filtered(lambda
-                                                                                        s: s.product_id.product_tmpl_id.separate == False))
-
-                    property_amount_per_inv = total_property_amount_without_tax / rec.invoice_number
-
-                    total_tax_first_inv = sum(
-                        (property_amount_per_inv + taxed_total_other_amount) * (tax.amount / 100) for tax in
-                        rec.order_line.filtered(lambda s: s.product_id.product_tmpl_id.separate == False).tax_id)
-                    total_tax = sum((property_amount_per_inv) * (tax.amount / 100) for tax in rec.order_line.tax_id)
-                else:
-                    products = rec.order_line.mapped('product_id')
-                    total_other_amount = sum((
-                                                     i.insurance_value + i.contract_admin_fees + i.contract_service_fees + i.contract_admin_sub_fees + i.contract_service_sub_fees)
-                                             for i in rec.order_line)
-                    taxed_total_other_amount = sum(
-                        (i.contract_admin_sub_fees + i.contract_service_sub_fees) for i in rec.order_line)
-
-                    total_property_amount_without_tax = sum((i.product_uom_qty * i.price_unit) for i in rec.order_line)
-
-                    property_amount_per_inv = total_property_amount_without_tax / rec.invoice_number
-
-                    total_tax_first_inv = sum(
-                        (property_amount_per_inv + taxed_total_other_amount) * (tax.amount / 100) for tax in
-                        rec.order_line.tax_id)
-                    total_tax = sum((property_amount_per_inv) * (tax.amount / 100) for tax in rec.order_line.tax_id)
-
+            count = 0
+            # for i in range(0, rec.todate.date().year-rec.fromdate.date().year):
+            for amount in year_amount:
+                sale_order_line_ids = rec.order_line.filtered(
+                    lambda i: i.line_year_number == amount['line_year_number'])
+                products = sale_order_line_ids.mapped('product_id')
+                terms = 0
                 if rec.invoice_terms == "monthly":
-                    todate = fromdate + relativedelta(months=1) - relativedelta(days=1)
+                    terms = 12
                 if rec.invoice_terms == "quarterly":
-                    todate = fromdate + relativedelta(months=3) - relativedelta(days=1)
+                    terms = 4
                 if rec.invoice_terms == "semi":
-                    todate = fromdate + relativedelta(months=6) - relativedelta(days=1)
+                    terms = 2
                 if rec.invoice_terms == "yearly":
-                    todate = fromdate + relativedelta(years=1) - relativedelta(days=1)
+                    terms = 1
 
-                if i == 1:
-                    amount = property_amount_per_inv + total_other_amount + total_tax_first_inv
-                if i == rec.invoice_number:
-                    amount = total_property_amount_without_tax - sum(rec.order_contract_invoice.mapped('amount'))
-                else:
-                    amount = property_amount_per_inv + total_tax
-                if amount > 0:
+                for i in range(0, terms):
+                    if rec.invoice_terms == "monthly":
+                        todate = fromdate + relativedelta(months=1) - relativedelta(days=1)
+                    if rec.invoice_terms == "quarterly":
+                        todate = fromdate + relativedelta(months=3) - relativedelta(days=1)
+                    if rec.invoice_terms == "semi":
+                        todate = fromdate + relativedelta(months=6) - relativedelta(days=1)
+                    if rec.invoice_terms == "yearly":
+                        todate = fromdate + relativedelta(years=1) - relativedelta(days=1)
+                    # if amount > 0:
                     sale_invoices = self.env['rent.sale.invoices'].create({
-                        'name': "فاتورة رقم " + str(i + 1),
-                        'sequence': i,
+                        'name': "فاتورة رقم " + str(count + 1),
+                        'sequence': count,
                         'fromdate': fromdate,
                         'invoice_date': fromdate.date(),
-                        'todate': rec.todate if rec.invoice_number == i else todate,
-                        'amount': amount,
+                        'todate': todate,
+                        'amount': amount['price_subtotal'] / terms,
                         'sale_order_id': rec.id,
+                        'sale_order_line_ids': sale_order_line_ids,
                         'services': products,
                     })
-                fromdate = todate + relativedelta(days=1)
+                    fromdate = todate + relativedelta(days=1)
+                    count = count + 1
+
+            # separate = False
+            # for s in rec.order_line:
+            #     if s.product_id.product_tmpl_id.separate:
+            #         separate = True
+            #         break
+            # if separate:
+            #     lines = rec.order_line.filtered(lambda s: s.product_id.product_tmpl_id.separate == True)
+            #     amount = sum(lines.mapped('price_subtotal'))
+            #     services = lines.mapped('product_id')
+            #
+            #     sale_invoices = self.env['rent.sale.invoices'].create({
+            #         'name': "فاتورة رقم " + "0",
+            #         'sequence': 0,
+            #         'separate': True,
+            #         'fromdate': fromdate,
+            #         'invoice_date': fromdate.date(),
+            #         'todate': rec.todate,
+            #         'amount': amount,
+            #         'sale_order_id': rec.id,
+            #         'services': services,
+            #     })
+            # for i in range(0, rec.invoice_number + 1):
+            #     if separate:
+            #         products = rec.order_line.filtered(
+            #             lambda s: s.product_id.product_tmpl_id.separate == False).mapped('product_id')
+            #         total_other_amount = sum((i.insurance_value + i.contract_admin_fees + i.contract_service_fees + i.contract_admin_sub_fees + i.contract_service_sub_fees)
+            #                                  for i in rec.order_line.filtered(
+            #             lambda s: s.product_id.product_tmpl_id.separate == False))
+            #         taxed_total_other_amount = sum(
+            #             (i.contract_admin_sub_fees + i.contract_service_sub_fees) for i in
+            #             rec.order_line.filtered(lambda s: s.product_id.product_tmpl_id.separate == False))
+            #
+            #         total_property_amount_without_tax = sum((i.product_uom_qty * i.price_unit) for i in
+            #                                                 rec.order_line.filtered(lambda
+            #                                                                             s: s.product_id.product_tmpl_id.separate == False))
+            #
+            #         property_amount_per_inv = total_property_amount_without_tax / rec.invoice_number
+            #
+            #         total_tax_first_inv = sum(
+            #             (property_amount_per_inv + taxed_total_other_amount) * (tax.amount / 100) for tax in
+            #             rec.order_line.filtered(lambda s: s.product_id.product_tmpl_id.separate == False).tax_id)
+            #         total_tax = sum((property_amount_per_inv) * (tax.amount / 100) for tax in rec.order_line.tax_id)
+            #     else:
+            #
+            #         total_other_amount = sum((
+            #                                          i.insurance_value + i.contract_admin_fees + i.contract_service_fees + i.contract_admin_sub_fees + i.contract_service_sub_fees)
+            #                                  for i in rec.order_line)
+            #         taxed_total_other_amount = sum(
+            #             (i.contract_admin_sub_fees + i.contract_service_sub_fees) for i in rec.order_line)
+            #
+            #         total_property_amount_without_tax = sum((i.product_uom_qty * i.price_unit) for i in rec.order_line)
+            #
+            #         property_amount_per_inv = total_property_amount_without_tax / rec.invoice_number
+            #
+            #         total_tax_first_inv = sum(
+            #             (property_amount_per_inv + taxed_total_other_amount) * (tax.amount / 100) for tax in
+            #             rec.order_line.tax_id)
+            #         total_tax = sum((property_amount_per_inv) * (tax.amount / 100) for tax in rec.order_line.tax_id)
+            #
+            #
+            #     if rec.invoice_terms == "monthly":
+            #         todate = fromdate + relativedelta(months=1) - relativedelta(days=1)
+            #     if rec.invoice_terms == "quarterly":
+            #         todate = fromdate + relativedelta(months=3) - relativedelta(days=1)
+            #     if rec.invoice_terms == "semi":
+            #         todate = fromdate + relativedelta(months=6) - relativedelta(days=1)
+            #     if rec.invoice_terms == "yearly":
+            #         todate = fromdate + relativedelta(years=1) - relativedelta(days=1)
+            #
+            #     if i == 1:
+            #         amount = property_amount_per_inv + total_other_amount + total_tax_first_inv
+            #     if i == rec.invoice_number:
+            #         amount = total_property_amount_without_tax - sum(rec.order_contract_invoice.mapped('amount'))
+            #     else:
+            #         amount = property_amount_per_inv + total_tax
+            #
+            #     products = rec.order_line.mapped('product_id')
+            #     if amount > 0:
+            #         sale_invoices = self.env['rent.sale.invoices'].create({
+            #             'name': "فاتورة رقم " + str(i + 1),
+            #             'sequence': i,
+            #             'fromdate': fromdate,
+            #             'invoice_date': fromdate.date(),
+            #             'todate': rec.todate if rec.invoice_number == i else todate,
+            #             'amount': amount,
+            #             'sale_order_id': rec.id,
+            #             'services': products,
+            #         })
+            #     fromdate = todate + relativedelta(days=1)
 
     @api.onchange("fromdate", "todate", "invoice_terms")
     def onchang_contract_dates(self):
@@ -302,20 +348,34 @@ class RentSaleOrder(models.Model):
         for rec in self:
             todate = rec.todate + relativedelta(days=1)
             diff = relativedelta(todate, rec.fromdate)
-            m = month = 0
-            if diff.years != 0:
-                m = diff.years * 12
-            if diff.months != 0:
-                month = diff.months
-            months = m + month
+
+            terms = 0
             if rec.invoice_terms == "monthly":
-                rec.invoice_number = month + m
+                terms = 12
             if rec.invoice_terms == "quarterly":
-                rec.invoice_number = months / 3
+                terms = 4
             if rec.invoice_terms == "semi":
-                rec.invoice_number = months / 6
+                terms = 2
             if rec.invoice_terms == "yearly":
-                rec.invoice_number = diff.years
+                terms = 1
+            rec.invoice_number = terms * diff.years
+            #
+            # todate = rec.todate + relativedelta(days=1)
+            # diff = relativedelta(todate, rec.fromdate)
+            # m = month = 0
+            # if diff.years != 0:
+            #     m = diff.years * 12
+            # if diff.months != 0:
+            #     month = diff.months
+            # months = m + month
+            # if rec.invoice_terms == "monthly":
+            #     rec.invoice_number = month + m
+            # if rec.invoice_terms == "quarterly":
+            #     rec.invoice_number = months / 3
+            # if rec.invoice_terms == "semi":
+            #     rec.invoice_number = months / 6
+            # if rec.invoice_terms == "yearly":
+            #     rec.invoice_number = diff.years
 
     def action_confirm(self):
         if self.invoice_number == 0:
@@ -358,41 +418,41 @@ class RentSaleOrder(models.Model):
         for i in self:
             if i.order_contract_invoice:
 
-                separate = False
-                for s in i.order_contract_invoice:
-                    if s.separate:
-                        separate = True
-                        break
+                # separate = False
+                # for s in i.order_contract_invoice:
+                #     if s.separate:
+                #         separate = True
+                #         break
 
                 for rec in i.order_contract_invoice:
                     if rec.status == "uninvoiced":
                         invoice_lines = []
-                        if separate:
-                            if rec.separate:
-                                invoiceable_lines = i.order_line.filtered(
-                                    lambda s: s.product_id.product_tmpl_id.separate == True)
-                            else:
-                                invoiceable_lines = i.order_line.filtered(
-                                    lambda s: s.product_id.product_tmpl_id.separate == False)
-                        else:
-                            invoiceable_lines = i.order_line
+                        # if separate:
+                        #     if rec.separate:
+                        #         invoiceable_lines = i.order_line.filtered(
+                        #             lambda s: s.product_id.product_tmpl_id.separate == True)
+                        #     else:
+                        #         invoiceable_lines = i.order_line.filtered(
+                        #             lambda s: s.product_id.product_tmpl_id.separate == False)
+                        # else:
+                        invoiceable_lines = rec.sale_order_line_ids
 
-                        if rec.sequence == 1:
-                            seq = 0
-                            for type in INSURANCE_ADMIN_FEES_FIELDS:
-                                seq += 1
-                                fees_sum = rec._prepare_invoice_line_insurance_admin_fees_sum(type, seq)
-                                if fees_sum.get('name', False):
-                                    invoice_lines.append([0, 0, fees_sum])
+                        # if rec.sequence == 1:
+                            # seq = 0
+                            # for type in INSURANCE_ADMIN_FEES_FIELDS:
+                            #     seq += 1
+                            #     fees_sum = rec._prepare_invoice_line_insurance_admin_fees_sum(type, seq)
+                            #     if fees_sum.get('name', False):
+                            #         invoice_lines.append([0, 0, fees_sum])
                         for line in invoiceable_lines:
                             invoice_lines.append([0, 0, rec._prepare_invoice_line(line)])
-                            if rec.sequence == 1:
-                                seq = 0
-                                for type in INSURANCE_ADMIN_FEES_FIELDS:
-                                    seq += 1
-                                    if line.mapped(type)[0] > 0:
-                                        invoice_lines.append(
-                                            [0, 0, rec._prepare_invoice_line_insurance_admin_fees(type, line, seq)])
+                            # if rec.sequence == 1:
+                            #     seq = 0
+                            #     for type in INSURANCE_ADMIN_FEES_FIELDS:
+                            #         seq += 1
+                            #         if line.mapped(type)[0] > 0:
+                            #             invoice_lines.append(
+                            #                 [0, 0, rec._prepare_invoice_line_insurance_admin_fees(type, line, seq)])
 
                         vals = rec._prepare_invoice(invoice_lines)
                         print(vals)
@@ -437,15 +497,16 @@ class RentSaleOrderLine(models.Model):
         new_line_ids = []  # List to store the IDs of the newly created lines
 
         for rec in self.rental_pricing_id.service_ids:
-
-            price = self.price_unit * 0.05
+            if rec.type == 'percentage':
+                price = self.price_unit * (rec.percentage / 100)
+            if rec.type == 'amount':
+                price = rec.percentage
 
             past_lines = self.env['sale.order.line'].browse(self.service_line_ids.ids)
             if len(past_lines) > 0:
                 for line in past_lines:
                     line.unlink()
-                # new_unit_price = price
-                # past_lines.write({'price_unit': new_unit_price})
+
             sequence += 1
             new_line = self.env['sale.order.line'].sudo().create({
                 'sequence': sequence,

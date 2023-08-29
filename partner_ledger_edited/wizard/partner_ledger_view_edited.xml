@@ -36,7 +36,7 @@
         </record>
 
         <record id="action_ins_partner_ledger_edited_wizard" model="ir.actions.act_window">
-            <field name="name">Partner Ledger Edited</field>
+            <field name="name">Partner Ledger Wizard</field>
             <field name="res_model">ins.partner.ledger.edited</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_mode">form</field>

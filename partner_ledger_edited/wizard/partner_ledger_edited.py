@@ -267,10 +267,10 @@ class InsPartnerLedger(models.TransientModel):
             filters['partners'] = ['All']
 
         if data.get('units_ids', []):
-            filters['partners'] = self.env['res.partner'].browse(
+            filters['units'] = self.env['product.product'].browse(
                 data.get('units_ids', [])).mapped('name')
         else:
-            filters['units_ids'] = ['All']
+            filters['units'] = ['All']
 
         if data.get('partner_category_ids', []):
             filters['categories'] = self.env['res.partner.category'].browse(
@@ -349,7 +349,7 @@ class InsPartnerLedger(models.TransientModel):
                     tuple(data.get('partner_ids')) + tuple([0]))
 
             if data.get('units_ids', []):
-                WHERE += ' AND u.id IN %s' % str(
+                WHERE += ' AND pp.id IN %s' % str(
                     tuple(data.get('units_ids')) + tuple([0]))
 
             if data.get('company_id', False):
@@ -415,7 +415,7 @@ class InsPartnerLedger(models.TransientModel):
                     LEFT JOIN res_currency c ON (l.currency_id=c.id)
                     LEFT JOIN res_partner p ON (l.partner_id=p.id)
                     JOIN account_journal j ON (l.journal_id=j.id)
-                    --LEFT JOIN product_product pp ON (l.analytic_account_id = pp.analytic_account) -- Join with product_product table
+                    LEFT JOIN product_product pp ON (l.analytic_account_id = pp.analytic_account) -- Join with product_product table
                     WHERE %s
                 ''') % WHERE_INIT
             cr.execute(sql)
@@ -429,7 +429,7 @@ class InsPartnerLedger(models.TransientModel):
                     JOIN account_move m ON (l.move_id=m.id)
                     JOIN account_account a ON (l.account_id=a.id)
                     LEFT JOIN account_account_type AS ty ON a.user_type_id = ty.id
-                    --LEFT JOIN product_product pp ON (l.analytic_account_id = pp.analytic_account) -- Join with product_product table
+                    LEFT JOIN product_product pp ON (l.analytic_account_id = pp.analytic_account) -- Join with product_product table
                     --LEFT JOIN account_analytic_account anl ON (l.analytic_account_id=anl.id)
                     LEFT JOIN res_currency c ON (l.currency_id=c.id)
                     LEFT JOIN res_currency cc ON (l.company_currency_id=cc.id)
@@ -452,7 +452,7 @@ class InsPartnerLedger(models.TransientModel):
                 JOIN account_account a ON (l.account_id=a.id)
                 LEFT JOIN account_account_type AS ty ON a.user_type_id = ty.id
                 --LEFT JOIN account_analytic_account anl ON (l.analytic_account_id=anl.id)
-                --LEFT JOIN product_product pp ON (l.analytic_account_id = pp.analytic_account) -- Join with product_product table
+                LEFT JOIN product_product pp ON (l.analytic_account_id = pp.analytic_account) -- Join with product_product table
                 LEFT JOIN res_currency c ON (l.currency_id=c.id)
                 LEFT JOIN res_currency cc ON (l.company_currency_id=cc.id)
                 LEFT JOIN res_partner p ON (l.partner_id=p.id)
@@ -472,7 +472,7 @@ class InsPartnerLedger(models.TransientModel):
                     JOIN account_account a ON (l.account_id=a.id)
                     LEFT JOIN account_account_type AS ty ON a.user_type_id = ty.id
                     --LEFT JOIN account_analytic_account anl ON (l.analytic_account_id=anl.id)
-                    --LEFT JOIN product_product pp ON (l.analytic_account_id = pp.analytic_account) -- Join with product_product table
+                    LEFT JOIN product_product pp ON (l.analytic_account_id = pp.analytic_account) -- Join with product_product table
                     LEFT JOIN res_currency c ON (l.currency_id=c.id)
                     LEFT JOIN res_partner p ON (l.partner_id=p.id)
                     JOIN account_journal j ON (l.journal_id=j.id)
@@ -517,7 +517,7 @@ class InsPartnerLedger(models.TransientModel):
                 JOIN account_account a ON (l.account_id=a.id)
                 LEFT JOIN account_account_type AS ty ON a.user_type_id = ty.id
                 --LEFT JOIN account_analytic_account anl ON (l.analytic_account_id=anl.id)
-                --LEFT JOIN product_product pp ON (l.analytic_account_id = pp.analytic_account) -- Join with product_product table
+                LEFT JOIN product_product pp ON (l.analytic_account_id = pp.analytic_account) -- Join with product_product table
                 LEFT JOIN res_currency c ON (l.currency_id=c.id)
                 LEFT JOIN res_currency cc ON (l.company_currency_id=cc.id)
                 LEFT JOIN res_partner p ON (l.partner_id=p.id)
@@ -548,7 +548,7 @@ class InsPartnerLedger(models.TransientModel):
                     JOIN account_account a ON (l.account_id=a.id)
                     LEFT JOIN account_account_type AS ty ON a.user_type_id = ty.id
                     --LEFT JOIN account_analytic_account anl ON (l.analytic_account_id=anl.id)
-                    --LEFT JOIN product_product pp ON (l.analytic_account_id = pp.analytic_account) -- Join with product_product table
+                    LEFT JOIN product_product pp ON (l.analytic_account_id = pp.analytic_account) -- Join with product_product table
                     LEFT JOIN res_currency c ON (l.currency_id=c.id)
                     LEFT JOIN res_partner p ON (l.partner_id=p.id)
                     JOIN account_journal j ON (l.journal_id=j.id)
@@ -630,7 +630,7 @@ class InsPartnerLedger(models.TransientModel):
                     JOIN account_move m ON (l.move_id=m.id)
                     JOIN account_account a ON (l.account_id=a.id)
                     LEFT JOIN account_account_type AS ty ON a.user_type_id = ty.id
-                    --LEFT JOIN product_product pp ON (l.analytic_account_id = pp.analytic_account) -- Join with product_product table
+                    LEFT JOIN product_product pp ON (l.analytic_account_id = pp.analytic_account) -- Join with product_product table
                     --LEFT JOIN account_analytic_account anl ON (l.analytic_account_id=anl.id)
                     LEFT JOIN res_currency c ON (l.currency_id=c.id)
                     LEFT JOIN res_partner p ON (l.partner_id=p.id)
@@ -666,7 +666,7 @@ class InsPartnerLedger(models.TransientModel):
                 JOIN account_move m ON (l.move_id=m.id)
                 JOIN account_account a ON (l.account_id=a.id)
                 LEFT JOIN account_account_type AS ty ON a.user_type_id = ty.id
-                --LEFT JOIN product_product pp ON (l.analytic_account_id = pp.analytic_account) -- Join with product_product table
+                LEFT JOIN product_product pp ON (l.analytic_account_id = pp.analytic_account) -- Join with product_product table
                 --LEFT JOIN account_analytic_account anl ON (l.analytic_account_id=anl.id)
                 LEFT JOIN res_currency c ON (l.currency_id=c.id)
                 LEFT JOIN res_currency cc ON (l.company_currency_id=cc.id)
@@ -704,7 +704,7 @@ class InsPartnerLedger(models.TransientModel):
                 JOIN account_move m ON (l.move_id=m.id)
                 JOIN account_account a ON (l.account_id=a.id)
                 LEFT JOIN account_account_type AS ty ON a.user_type_id = ty.id
-                --LEFT JOIN product_product pp ON (l.analytic_account_id = pp.analytic_account) -- Join with product_product table
+                LEFT JOIN product_product pp ON (l.analytic_account_id = pp.analytic_account) -- Join with product_product table
                 --LEFT JOIN account_analytic_account anl ON (l.analytic_account_id=anl.id)
                 LEFT JOIN res_currency c ON (l.currency_id=c.id)
                 LEFT JOIN res_partner p ON (l.partner_id=p.id)
@@ -940,7 +940,7 @@ class PartnerReportWizardController(http.Controller):
 
         record = wizard  # Wizard object
 
-        sheet = workbook.add_worksheet('Partner Ledger Edited')
+        sheet = workbook.add_worksheet('Partner Ledger')
         sheet_2 = workbook.add_worksheet('Filters')
         sheet.set_column(0, 0, 12)
         sheet.set_column(1, 1, 12)
