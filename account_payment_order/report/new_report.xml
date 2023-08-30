@@ -20,6 +20,10 @@
                     padding: 5px;
                     background-color:#BB9B69
                     }
+                    tr.table_2,th.table_2,td.table_2,table_2{
+                    border: 1px solid black;
+                    text-align: left;
+                    {
                 </style>
                 <div width="100%" style="margin-top:0px,margin-left:0px">
                     <img width="100%" height="250px"
@@ -191,14 +195,14 @@
                     <!--                            </tr>-->
                     <!--                        </t>-->
                     <!--                    </table>-->
-                    <table style="text-align:left;" width="90%">
+                    <table style="text-align:left;" >
                         <tr>
-                            <td width="30%">
+                            <td width="25%" style="text-align:left;">
                                 <h5>
                                     <strong>Payment Method:</strong>
                                 </h5>
                             </td>
-                            <td>
+                            <td  style="text-align:left;">
 
                                 <span style="text-align:left" t-field="doc.payment_method" widget="radio"
                                       options="{'horizontal': true}">
@@ -211,13 +215,13 @@
                     <table style="text-align:left;" width="90%">
 
                         <tr>
-                            <td width="12%" t-if="doc.payment_request_type != 'account'">
+                            <td width="10%" t-if="doc.payment_request_type != 'account'">
                                 <t t-set="amo1" t-value="doc._convert_num_to_text_en(doc.total_amount)"/>
                                 <h5>
                                     <strong>Amount:</strong>
                                 </h5>
                             </td>
-                            <td width="12%" t-if="doc.payment_request_type == 'account'">
+                            <td width="10%" t-if="doc.payment_request_type == 'account'">
                                 <t t-set="amo1" t-value="doc._convert_num_to_text_en(doc.amount)"/>
                                 <h5>
                                     <strong>Amount:</strong>
@@ -230,7 +234,7 @@
                     </table>
                     <table style="text-align:left;" width="90%">
                         <tr>
-                            <td width="15%">
+                            <td width="12%">
                                 <h5>
                                     <strong>Beneficiary:</strong>
                                 </h5>
@@ -251,7 +255,7 @@
                     </table>
                     <table style="text-align:left;" width="90%">
                         <tr>
-                            <td width="12%">
+                            <td width="10%">
                                 <h5>
                                     <strong>Purpose:</strong>
                                 </h5>
@@ -263,7 +267,7 @@
                     </table>
                     <table style="text-align:left;" width="90%">
                         <tr>
-                            <td width="12%">
+                            <td width="9%">
                                 <h5>
                                     <strong>Details:</strong>
                                 </h5>
@@ -526,13 +530,13 @@
                         </tr>
                         <tr>
                             <td>
-                                <h7>&amp;nbsp;&amp;nbsp;
+                                <h5>&amp;nbsp;&amp;nbsp;
                                     <strong> Net Amount Paid:</strong>
                                     <span t-if="doc.payment_request_type != 'account'" style="text-align:left" t-field="doc.total_amount"> </span>
                                     <span t-if="doc.payment_request_type == 'account'" style="text-align:left" t-field="doc.amount"> </span>
 
 
-                                </h7>
+                                </h5>
                             </td>
 <!--                            <td t-if="doc.payment_request_type != 'account'">-->
 
@@ -554,11 +558,11 @@
                         </tr>
                         <tr>
                             <td>
-                                <h7>&amp;nbsp;&amp;nbsp;
+                                <h5>&amp;nbsp;&amp;nbsp;
                                     <strong>Paid Method:</strong> <span style="text-align:left" t-field="doc.journal_id.name">
 
                                 </span>
-                                </h7>
+                                </h5>
                             </td>
 <!--                            <td>-->
 
@@ -570,7 +574,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <h7>&amp;nbsp;&amp;nbsp;
+                                <h5>&amp;nbsp;&amp;nbsp;
                                     <strong>Bank Name:</strong> <span t-if="doc.payment_request_type == 'account'" style="text-align:left" t-field="doc.bank_id.name"></span>
                                          <span t-if="doc.payment_request_type != 'account'" style="text-align:left"
                                       t-field="doc.payment_line_ids.partner_id.bank_ids.bank_id.name">
@@ -578,7 +582,7 @@
 
 
                                 </span>
-                                </h7>
+                                </h5>
                             </td>
 <!--                            <td t-if="doc.payment_request_type == 'account'">-->
 
@@ -597,12 +601,12 @@
                         </tr>
                         <tr>
                             <td>
-                                <h7>&amp;nbsp;&amp;nbsp;
+                                <h5>&amp;nbsp;&amp;nbsp;
                                     <strong>Bank Account Number:</strong><span t-if="doc.payment_request_type == 'account'" style="text-align:left" t-field="doc.bank_account_no"> </span>
                                     <span style="text-align:left" t-if="doc.payment_request_type != 'account'"
                                       t-field="doc.payment_line_ids.partner_id.bank_ids.acc_number">
                                 </span>
-                                </h7>
+                                </h5>
                             </td>
 <!--                            <td t-if="doc.payment_request_type == 'account'">-->
 
@@ -618,7 +622,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <h7>&amp;nbsp;&amp;nbsp;
+                                <h5>&amp;nbsp;&amp;nbsp;
                                     <strong>Beneficiary Account Name:</strong>
                                     <span style="text-align:left" t-if="doc.payment_request_type != 'account'"
                                       t-field="doc.payment_line_ids.partner_id.bank_ids.partner_id.name">
@@ -627,7 +631,7 @@
                                      <span t-if="doc.payment_request_type == 'account'" style="text-align:left" t-field="doc.beneficiary_name">
 
                                 </span>
-                                </h7>
+                                </h5>
                             </td>
 <!--                            <td t-if="doc.payment_request_type != 'account'">-->
 
@@ -646,14 +650,14 @@
                         </tr>
                         <tr>
                             <td>
-                                <h7>&amp;nbsp;&amp;nbsp;
+                                <h5>&amp;nbsp;&amp;nbsp;
                                     <strong>Swift Code:</strong><span t-if="doc.payment_request_type == 'account'" style="text-align:left" t-field="doc.company_partner_bank_id.swift">
 
                                 </span>
                                     <span t-if="doc.payment_request_type != 'account'" style="text-align:left" t-field="doc.payment_line_ids.partner_id.bank_ids.swift">
 
                                 </span>
-                                </h7>
+                                </h5>
                             </td>
 <!--                            <td t-if="doc.payment_request_type == 'account'">-->
 
