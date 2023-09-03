@@ -37,8 +37,6 @@ class RentSaleInvoices(models.Model):
             terms = 2
         if line.order_id.invoice_terms == "yearly":
             terms = 1
-        print("////////////////////////",terms)
-        print("//////line.price_unit/terms//////////////////",line.price_unit/terms)
         # if self.separate:
         #     price = line.price_unit
         # else:

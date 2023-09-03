@@ -133,22 +133,8 @@ class RentSaleOrder(models.Model):
                     if rec.invoice_date <= fields.Date.today() and rec.status == "uninvoiced":
                         invoice_lines = []
                         invoiceable_lines = rec.sale_order_line_ids
-                        # if rec.sequence == 1:
-                        #     seq = 0
-                        #     for type in INSURANCE_ADMIN_FEES_FIELDS:
-                        #         seq += 1
-                        #         fees_sum = rec._prepare_invoice_line_insurance_admin_fees_sum(type, seq)
-                        #         if fees_sum.get('name', False):
-                        #             invoice_lines.append([0, 0, fees_sum])
                         for line in invoiceable_lines:
                             invoice_lines.append([0, 0, rec._prepare_invoice_line(line)])
-                            # if rec.sequence == 1:
-                            #     seq = 0
-                            #     for type in INSURANCE_ADMIN_FEES_FIELDS:
-                            #         seq += 1
-                            #         if line.mapped(type)[0] > 0:
-                            #             invoice_lines.append(
-                            #                 [0, 0, rec._prepare_invoice_line_insurance_admin_fees(type, line, seq)])
                         print(invoice_lines)
 
                         vals = rec._prepare_invoice(invoice_lines)

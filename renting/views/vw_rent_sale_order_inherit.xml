@@ -118,11 +118,16 @@
                 <xpath expr="//field[@name='date_order']" position="after">
                     <field name="is_pm" invisible="1"/>
                     <label for="fromdate" string="مدة العقد"/>
-                    <div class="d-flex">
-                        <field name="fromdate" attrs="{'readonly':[('is_pm','=', False)]}"/>
-                        <span class="o_form_label mx-3 oe_edit_only">الي</span>
-                        <field name="todate" attrs="{'readonly':[('is_pm','=', False)]}"/>
-                    </div>
+                    <field name="fromdate" attrs="{'readonly':[('is_pm','=', False)]}" nolabel="1"/>
+                    <label for="fromdate" string="الي"/>
+                    <field name="todate" attrs="{'readonly':[('is_pm','=', False)]}" nolabel="1"/>
+
+<!--                    <div class="d-flex">-->
+<!--                        <field name="fromdate" attrs="{'readonly':[('is_pm','=', False)]}"/>-->
+<!--                        <br/>-->
+<!--                        <span class="o_form_label mx-3 oe_edit_only">الي</span>-->
+<!--                        <field name="todate" attrs="{'readonly':[('is_pm','=', False)]}"/>-->
+<!--                    </div>-->
                 </xpath>
                 <xpath expr="//page[@name='order_lines']" position="after">
                     <page name="contract_info" string="بيانات العقد"
