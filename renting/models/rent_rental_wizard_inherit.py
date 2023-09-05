@@ -8,3 +8,8 @@ class RentRentalWizardInherit(models.TransientModel):
 
     duration_unit = fields.Selection([("hour", "Hours"), ("day", "Days"), ("week", "Weeks"), ("month", "Months"), ("year", "years")],
                                      string="Unit", required=True, compute="_compute_duration")
+    # pickup_date = fields.Date(
+    #     string="Pickup", required=True)
+    # return_date = fields.Date(
+    #     string="Return", required=True)
+
