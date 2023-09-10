@@ -49,10 +49,11 @@ class Journal(models.Model):
         for rec in self:
             if rec.move_type == 'entry':
                 lines_dict = rec.env['account.move.line'].read_group(domain=[('move_id', '=', rec.id)],
-                                                                     fields=['account_id','analytic_account_id',
-                                                                             'credit', 'debit'],
-                                                                     groupby=['account_id','analytic_account_id'],lazy=False,)
+                                                                     fields=['account_id', 'analytic_account_id',
+                                                                             'debit', 'credit'],
+                                                                     groupby=['account_id', 'analytic_account_id'],
+                                                                     lazy=False, )
 
             # if lines_dict:
+            pri
             return lines_dict
-
