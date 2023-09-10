@@ -540,13 +540,10 @@
                         <tr>
                             <td style="resize: horizontal;white-space: nowrap;">
                                 <strong>&amp;nbsp;Beneficiary Account Name:&amp;nbsp;</strong>
-                                <span style="text-align:left" t-if="doc.payment_request_type != 'account'"
-                                      t-field="doc.payment_line_ids.partner_id.bank_ids.partner_id.name">
-
-                                </span>
+                                <span style="text-align:left; padding-right:5px" t-if="doc.payment_request_type != 'account'"
+                                      t-field="doc.payment_line_ids.partner_id.bank_ids.partner_id.name"/>
                                 <span t-if="doc.payment_request_type == 'account'"
-                                      style="text-align:left; padding-left:8px" t-field="doc.beneficiary_name">
-                                </span>
+                                      style="text-align:left; padding-right:5px" t-field="doc.beneficiary_name"/>
                                 &amp;nbsp;
                             </td>
                         </tr>
