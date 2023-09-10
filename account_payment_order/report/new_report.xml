@@ -3,7 +3,7 @@
     <template id="print_account_payment_order_document1">
         <t t-set="doc"
            t-value="doc.with_context({'lang': doc.generated_user_id and doc.generated_user_id.lang or user.lang})"/>
-        <t t-call="web.basic_layout" >
+        <t t-call="web.basic_layout">
             <div width="100%" style="margin-top:0px,margin-left:0px">
                 <img width="100%" height="250px"
                      src="account_payment_order/static/description/head.png"
@@ -27,7 +27,7 @@
                     <tr class="table_1">
                         <td class="table_1">
                             <strong align="right" class="table_1">
-                                <h3 align="left" style="padding-left:15px;">Payment Request:
+                                <h3 align="left" style="padding-left:40px;">Payment Request:
                                     <span style="color:#00008B;font-size:21px" t-esc="doc.name">
 
                                     </span>
@@ -194,13 +194,13 @@
                     <table style="text-align:left;" width="100%">
 
                         <tr>
-                            <td width="8%" t-if="doc.payment_request_type != 'account'">
+                            <td width="7%" t-if="doc.payment_request_type != 'account'">
                                 <t t-set="amo1" t-value="doc._convert_num_to_text_en(doc.total_amount)"/>
                                 <h6>
                                     <strong>Amount:</strong>&amp;nbsp;
                                 </h6>
                             </td>
-                            <td width="8%" t-if="doc.payment_request_type == 'account'">
+                            <td width="7%" t-if="doc.payment_request_type == 'account'">
                                 <t t-set="amo1" t-value="doc._convert_num_to_text_en(doc.amount)"/>
                                 <h6>
                                     <strong>Amount:</strong>&amp;nbsp;
@@ -213,7 +213,7 @@
                     </table>
                     <table style="text-align:left;" width="100%">
                         <tr>
-                            <td width="12%">
+                            <td width="8%">
                                 <h6>
                                     <strong>Beneficiary:</strong>&amp;nbsp;
                                 </h6>
@@ -226,10 +226,6 @@
                                 <span style="text-align:left"
                                       t-field="doc.beneficiary_name"/>
                             </td>
-                            <!--                            <td t-else="">-->
-                            <!--                                <span>N/A</span>-->
-                            <!--                            </td>-->
-
                         </tr>
                     </table>
                     <table style="text-align:left;" width="100%">
@@ -246,7 +242,7 @@
                     </table>
                     <table style="text-align:left;" width="100%">
                         <tr>
-                            <td width="8%">
+                            <td>
                                 <h6>
                                     <strong>Details:</strong>&amp;nbsp;
                                 </h6>
@@ -428,14 +424,6 @@
                     <!--                                            </t>-->
                     <!--                                        </div>-->
                     <!--                                    </div>-->
-                    <!--                                    &lt;!&ndash;                                    <div class="row" style="border: 1px solid #808080;">&ndash;&gt;-->
-                    <!--                                    &lt;!&ndash;                                        <div class="col-6" style="text-align:left;">&ndash;&gt;-->
-                    <!--                                    &lt;!&ndash;                                            <strong>Reviewed By</strong>&ndash;&gt;-->
-                    <!--                                    &lt;!&ndash;                                        </div>&ndash;&gt;-->
-                    <!--                                    &lt;!&ndash;                                        <div class="col-6" style="text-align:left;">&ndash;&gt;-->
-                    <!--                                    &lt;!&ndash;                                            <span style="text-align:left" t-esc="doc.current_user_id.name"></span>&ndash;&gt;-->
-                    <!--                                    &lt;!&ndash;                                        </div>&ndash;&gt;-->
-                    <!--                                    &lt;!&ndash;                                    </div>&ndash;&gt;-->
                     <!--                                </div>-->
                     <!--                                <div class="col-5" style="border: 1px solid black;"></div>-->
                     <!--                            </div>-->
@@ -455,7 +443,7 @@
 
                         </tr>
                         <tr>
-                            <td style="border:1px solid black;padding:20px;">
+                            <td style="border:1px solid black;padding:25px;">
                                 <h6>
                                     <strong>Name</strong>
                                 </h6>
@@ -477,7 +465,7 @@
 
                         </tr>
                         <tr>
-                            <td style="border:1px solid black;padding:20px;" height="20px">
+                            <td style="border:1px solid black;padding:25px;" height="25px">
                                 <h5>
                                     <strong>Signature</strong>
                                 </h5>
@@ -500,160 +488,71 @@
 
                     <table style="border: 1px solid black;text-align:left;page-break-inside: avoid;" width="100%">
                         <tr style="border: 1px solid black;text-align:center;background-color:#BB9B69">
-                            <th width="30%" style="border: 1px solid black;font-size:16px">
+                            <th style="border: 1px solid black;font-size:16px">
                                 <strong>For Finance Department Use Only</strong>
                             </th>
-                            <th width="35%" style="font-size:16px">Data</th>
-                            <th width="35%" style="border: 1px solid black;font-size:16px">CEO Approval</th>
-
-
+                            <th width="40%" style="border: 1px solid black;font-size:16px">CEO Approval</th>
                         </tr>
                         <tr>
                             <td>
-                                <h6>
-                                    <strong>&amp;nbsp;Net Amount Paid:</strong>
-                                </h6>
-                            </td>
-                            <td style="border-left: 1px solid black; padding:8px;">
+                                <span>
+                                    <strong>&amp;nbsp;Net Amount Paid:&amp;nbsp;</strong>
+                                </span>
                                 <span t-if="doc.payment_request_type != 'account'" style="text-align:left"
                                       t-field="doc.total_amount"></span>
                                 <span t-if="doc.payment_request_type == 'account'" style="text-align:left"
                                       t-field="doc.amount"></span>
-
                             </td>
-                            <!--                            <td t-if="doc.payment_request_type != 'account'">-->
-
-                            <!--                                <span style="text-align:left" t-field="doc.total_amount">-->
-
-                            <!--                                </span>-->
-                            <!--                            </td>-->
-                            <!--                            <td t-if="doc.payment_request_type == 'account'">-->
-
-                            <!--                                <span style="text-align:left" t-field="doc.amount">-->
-                            <!--                                </span>-->
-                            <!--                            </td>-->
-                            <td rowspan="6" style="border: 1px solid black;">
+                            <td rowspan="7" style="border: 1px solid black;">
                                 <h7>
 
                                 </h7>
                             </td>
 
                         </tr>
+
                         <tr>
                             <td>
-                                <h6>
-                                    <strong>&amp;nbsp;Paid Method:</strong>
-                                </h6>
+                                <strong>&amp;nbsp;Paid Method:&amp;nbsp;</strong>
+                                <span style="text-align:left" t-field="doc.journal_id.name"/>
                             </td>
-                            <td style="border-left: 1px solid black; padding:8px;">
-                                <span style="text-align:left" t-field="doc.journal_id.name">
-
-                                </span>
-                            </td>
-                            <!--                            <td>-->
-
-                            <!--                                <span style="text-align:left" t-field="doc.journal_id.name">-->
-
-                            <!--                                </span>-->
-                            <!--                            </td>-->
-
                         </tr>
                         <tr>
                             <td>
-                                <h6>
-                                    <strong>&amp;nbsp;Bank Name:</strong>
-                                </h6>
-                            </td>
-                            <td style="border-left: 1px solid black; padding:8px;">
+                                <strong>&amp;nbsp;Bank Name:&amp;nbsp;</strong>
                                 <span t-if="doc.payment_request_type == 'account'" style="text-align:left"
                                       t-field="doc.bank_id.name"></span>
                                 <span t-if="doc.payment_request_type != 'account'" style="text-align:left"
                                       t-field="doc.payment_line_ids.partner_id.bank_ids.bank_id.name">
-
-
                                 </span>
                             </td>
-                            <!--                            <td t-if="doc.payment_request_type == 'account'">-->
-
-                            <!--                                <span style="text-align:left" t-field="doc.bank_id.name">-->
-
-                            <!--                                </span>-->
-                            <!--                            </td>-->
-                            <!--                            <td t-if="doc.payment_request_type != 'account'">-->
-
-                            <!--                                <span style="text-align:left"-->
-                            <!--                                      t-field="doc.payment_line_ids.partner_id.bank_ids.bank_id.name">-->
-
-                            <!--                                </span>-->
-                            <!--                            </td>-->
-
                         </tr>
                         <tr>
                             <td>
-                                <h6>
-                                    <strong>&amp;nbsp;Bank Account Number:</strong>
-                                </h6>
-                            </td>
-                            <td style="border-left: 1px solid black; padding:8px;">
+                                <strong>&amp;nbsp;Bank Account Number:&amp;nbsp;</strong>
                                 <span t-if="doc.payment_request_type == 'account'" style="text-align:left"
                                       t-field="doc.bank_account_no"></span>
                                 <span style="text-align:left" t-if="doc.payment_request_type != 'account'"
                                       t-field="doc.payment_line_ids.partner_id.bank_ids.acc_number">
                                 </span>
                             </td>
-                            <!--                            <td t-if="doc.payment_request_type == 'account'">-->
+                        </tr>
+                        <tr>
+                            <td style="resize: horizontal;white-space: nowrap;">
+                                <strong>&amp;nbsp;Beneficiary Account Name:&amp;nbsp;</strong>
+                                <span style="text-align:left" t-if="doc.payment_request_type != 'account'"
+                                      t-field="doc.payment_line_ids.partner_id.bank_ids.partner_id.name">
 
-                            <!--                                <span style="text-align:left" t-field="doc.bank_account_no"></span>-->
-                            <!--                            </td>-->
-                            <!--                            <td t-if="doc.payment_request_type != 'account'">-->
-
-                            <!--                                <span style="text-align:left"-->
-                            <!--                                      t-field="doc.payment_line_ids.partner_id.bank_ids.acc_number">-->
-                            <!--                                </span>-->
-                            <!--                            </td>-->
-
+                                </span>
+                                <span t-if="doc.payment_request_type == 'account'"
+                                      style="text-align:left; padding-left:8px" t-field="doc.beneficiary_name">
+                                </span>
+                                &amp;nbsp;
+                            </td>
                         </tr>
                         <tr>
                             <td>
-                                <h6>
-                                    <strong>&amp;nbsp;Beneficiary Account Name:</strong>
-                                </h6>
-                            </td>
-                            <td style="border-left: 1px solid black; padding:8px;container-type: inline-size;">
-
-                                <div style="resize: horizontal;white-space: nowrap;">
-                                    <span style="text-align:left" t-if="doc.payment_request_type != 'account'"
-                                          t-field="doc.payment_line_ids.partner_id.bank_ids.partner_id.name">
-
-                                    </span>
-                                    <span t-if="doc.payment_request_type == 'account'"
-                                          style="text-align:left; padding-left:8px" t-field="doc.beneficiary_name">
-                                    </span>
-                                </div>
-                            </td>
-
-                            <!--                            <td t-if="doc.payment_request_type != 'account'">-->
-
-                            <!--                                <span style="text-align:left"-->
-                            <!--                                      t-field="doc.payment_line_ids.partner_id.bank_ids.partner_id.name">-->
-
-                            <!--                                </span>-->
-                            <!--                            </td>-->
-                            <!--                            <td t-if="doc.payment_request_type == 'account'">-->
-
-                            <!--                                <span style="text-align:left" t-field="doc.beneficiary_name">-->
-
-                            <!--                                </span>-->
-                            <!--                            </td>-->
-
-                        </tr>
-                        <tr>
-                            <td>
-                                <h6>
-                                    <strong>&amp;nbsp;Swift Code:</strong>
-                                </h6>
-                            </td>
-                            <td style="border-left: 1px solid black; padding:10px;">
+                                <strong>&amp;nbsp;Swift Code:&amp;nbsp;</strong>
                                 <span t-if="doc.payment_request_type == 'account'"
                                       style="text-align:left; padding-left:8px"
                                       t-field="doc.company_partner_bank_id.swift">
@@ -665,19 +564,13 @@
 
                                 </span>
                             </td>
-                            <!--                            <td t-if="doc.payment_request_type == 'account'">-->
+                        </tr>
 
-                            <!--                                <span style="text-align:left" t-field="doc.company_partner_bank_id.swift">-->
-
-                            <!--                                </span>-->
-                            <!--                            </td>-->
-                            <!--                            <td t-if="doc.payment_request_type != 'account'">-->
-
-                            <!--                                <span style="text-align:left" t-field="doc.payment_line_ids.partner_id.bank_ids.swift">-->
-
-                            <!--                                </span>-->
-                            <!--                            </td>-->
-
+                        <tr>
+                            <td>
+                                <strong>&amp;nbsp;Reviewed By:&amp;nbsp;</strong>
+                                <span style="text-align:left" t-esc="doc.current_user_id.name"></span>
+                            </td>
                         </tr>
                     </table>
 
