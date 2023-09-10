@@ -207,7 +207,7 @@ Amount:
                                     <div class="col-6" style="text-align:left;">
                                         <strong>Net Amount Paid</strong>
                                     </div>
-                                    <div class="col-6" style="text-align:left;">
+                                    <div class="col-6" style="text-align:left;padding-left:10px;">
                                         <span t-esc="doc.total_amount"></span>
                                     </div>
                                 </div>
@@ -234,7 +234,7 @@ Amount:
                                 </div>
                                 <div class="row" style="border: 1px solid #808080;">
                                     <div class="col-6" style="text-align:left;">
-                                        <strong>Bank Account Number</strong>
+                                        <strong>Bank Account Numberzzzz</strong>
                                     </div>
                                     <div class="col-6" style="text-align:left;">
                                         <t t-if="doc.company_partner_bank_id">
@@ -247,7 +247,7 @@ Amount:
                                 </div>
                                 <div class="row" style="border: 1px solid #808080;">
                                     <div class="col-6" style="text-align:left;">
-                                        <strong>Beneficiary Account Name</strong>
+                                        <strong>Beneficiary Account Nameyyyy</strong>
                                     </div>
                                     <div class="col-6" style="text-align:left;">
                                         <t t-if="doc.payment_line_ids[0].partner_bank_id">
