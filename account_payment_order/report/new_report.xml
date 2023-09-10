@@ -44,7 +44,7 @@
                     <div class="row" style="margin-top:0px">
                         <div class="col-4">
                         </div>
-                        <div class="col-3"></div>
+                        <div class="col-3"/>
                         <div class="col-5" style="text-align:right;" align="right">
                             <br/>
                             <strong>
@@ -56,9 +56,9 @@
                                 </span>
                                 <span t-if="doc.payment_request_type == 'account'"
                                       style="background-color:#BB9B69;padding-right: 0px;padding-left:3px"
-                                      t-esc="doc.amount" t-options='{"widget": "float", "precision": 2}'></span>
+                                      t-esc="doc.amount" t-options='{"widget": "float", "precision": 2}'/>
                                 <span
-                                        t-esc="doc.company_currency_id.symbol"></span>
+                                        t-esc="doc.company_currency_id.symbol"/>
 
                             </strong>
                         </div>
@@ -242,18 +242,18 @@
                     </table>
                     <table style="text-align:left;" width="100%">
                         <tr>
-                            <td>
+                            <td width="8%">
                                 <h6>
                                     <strong>Details:</strong>&amp;nbsp;
                                 </h6>
                             </td>
                             <td t-if="doc.payment_request_type != 'account'">
                                 <span style="text-align:left"
-                                      t-esc="doc.payment_line_ids[0].communication"></span>
+                                      t-esc="doc.payment_line_ids[0].communication"/>
                             </td>
                             <td t-if="doc.payment_request_type == 'account'">
                                 <span style="text-align:left"
-                                      t-esc="doc.communication"></span>
+                                      t-esc="doc.communication"/>
                             </td>
                         </tr>
                     </table>
@@ -466,9 +466,9 @@
                         </tr>
                         <tr>
                             <td style="border:1px solid black;padding:25px;" height="25px">
-                                <h5>
+                                <h6>
                                     <strong>Signature</strong>
-                                </h5>
+                                </h6>
                             </td>
                             <td style="border:1px solid black;">
 
