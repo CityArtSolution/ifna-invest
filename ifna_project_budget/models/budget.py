@@ -9,6 +9,9 @@ class AccountBudget(models.Model):
 class AccountLineBudget(models.Model):
     _inherit = 'crossovered.budget.lines'
 
+    account_id = fields.Many2one(comodel_name="account.account", string='Account')
+    account_group_id = fields.Many2one(comodel_name="account.group", string='Account Group')
+
     def _compute_practical_amount(self):
         for line in self:
             acc_ids = line.general_budget_id.account_ids.ids
@@ -52,7 +55,7 @@ class AccountLineBudget(models.Model):
         for rec in self:
             for account in rec.general_budget_id.account_ids:
                 if rec.deviation_value or not rec.deviation_value:
-                    if rec.crossovered_budget_id.state in ['confirm','validate','done']:
+                    if rec.crossovered_budget_id.state in ['confirm', 'validate', 'done']:
                         if account.user_type_id.internal_group in 'expense':
                             print(account)
                             rec.deviation_value = rec.planned_amount + rec.practical_amount
@@ -67,11 +70,11 @@ class AccountLineBudget(models.Model):
     def _set_deviation_ratio(self):
         for rec in self:
             if rec.deviation_ratio or not rec.deviation_ratio:
-                if rec.crossovered_budget_id.state in ['confirm','validate','done']:
+                if rec.crossovered_budget_id.state in ['confirm', 'validate', 'done']:
                     if rec.deviation_value and rec.planned_amount > 0:
-                        rec.deviation_ratio = (rec.deviation_value /rec.planned_amount)
+                        rec.deviation_ratio = (rec.deviation_value / rec.planned_amount)
 
-    deviation_value = fields.Float(string="Deviation Value", compute='_set_deviation_value',default=0.0 )
-    deviation_ratio = fields.Float(string="Deviation Ratio", compute='_set_deviation_ratio',default=0.0  )
+    deviation_value = fields.Float(string="Deviation Value", compute='_set_deviation_value', default=0.0)
+    deviation_ratio = fields.Float(string="Deviation Ratio", compute='_set_deviation_ratio', default=0.0)
     account_ids = fields.Many2many(comodel_name="account.account", string="Budgetary Account",
                                    related="general_budget_id.account_ids", )
