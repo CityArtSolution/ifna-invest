@@ -45,21 +45,23 @@ odoo.define('web_hijri_datepicker.ListRenderer', function (require) {
                     date_split = date.split('-');
                     year = parseInt(date_split[0]);
                     month = parseInt(date_split[1]);
-                    day = parseInt(date_split[2]);
+                    day = parseInt(date_split[2]) ; //omara -1
                     jd = calendar.toJD(year, month, day);
+                    console.log('year, month, day',year,'  ', month,'   ', day);
                     formatted_date = calendar1.fromJD(jd);
                 }
                 if (date.indexOf('/') !== -1) {
                     date_split = date.split('/');
                     year = parseInt(date_split[2]);
                     month = parseInt(date_split[0]);
-                    day = parseInt(date_split[1]);
+                    day = parseInt(date_split[1]); //omara -1
                     jd = calendar.toJD(year, month, day);
+                    console.log('year, month, day',year,'  ', month,'   ', day);
                     formatted_date = calendar1.fromJD(jd);
                 }
                 month = calendar1.formatDate('MM', formatted_date);
                 var date = calendar1.formatDate( 'yyyy', formatted_date);
-                var day = calendar1.formatDate('d', formatted_date);
+                var day = calendar1.formatDate('d', formatted_date); //omara -1
                 if (session.user_context.lang === 'ar_SY') {
                     date = date.fromDigits();
                     month = _.find(hijriMonths, function (value, key) {

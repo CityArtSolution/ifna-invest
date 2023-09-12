@@ -26,7 +26,7 @@ class RentRentalWizardInherit(models.TransientModel):
                 rec.hijri_pickup_date = ''
 
             if rec.return_date:
-                rec.hijri_return_date = Gregorian(rec.pickup_date.date().year, rec.pickup_date.date().month,
-                                                  rec.pickup_date.date().day).to_hijri()
+                rec.hijri_return_date = Gregorian(rec.return_date.date().year, rec.return_date.date().month,
+                                                  rec.return_date.date().day).to_hijri()
             else:
                 rec.hijri_return_date = ''
