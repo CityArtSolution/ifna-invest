@@ -9,16 +9,18 @@
             <field name="inherit_id" ref="account_budget.crossovered_budget_view_form"/>
             <field name="arch" type="xml">
 
+                <xpath expr="//field[@name='user_id']"
+                       position="before">
+                    <field name="check_account" force_save="1" invisible="1"/>
+                </xpath>
                 <xpath expr="//field[@name='crossovered_budget_line']//tree//field[@name='date_to']"
                        position="before">
-                    <field name="account_id"/>
-                    <field name="account_group_id"/>
+                    <field name="account_id" force_save="1"/>
+                    <field name="account_group_id" force_save="1"/>
                 </xpath>
 
                 <xpath expr="//field[@name='crossovered_budget_line']//tree//field[@name='practical_amount']"
                        position="before">
-                    <field name="account_id"/>
-                    <field name="account_group_id"/>
                     <field name="account_ids" widget="many2many_tags" invisible="1"/>
 
                     <field name="deviation_value" decoration-danger="deviation_value  &lt; 0 "

@@ -5,12 +5,33 @@ from odoo.exceptions import UserError, AccessError
 class AccountBudget(models.Model):
     _inherit = 'crossovered.budget'
 
+    check_account = fields.Boolean(compute='action_get_account_info')
+
+    @api.depends('crossovered_budget_line')
+    def action_get_account_info(self):
+        for rec in self:
+            rec.check_account = False
+            for line in rec.crossovered_budget_line:
+                line.get_account_info()
+
 
 class AccountLineBudget(models.Model):
     _inherit = 'crossovered.budget.lines'
 
-    account_id = fields.Many2one(comodel_name="account.account", string='Account')
-    account_group_id = fields.Many2one(comodel_name="account.group", string='Account Group')
+    account_id = fields.Many2one(comodel_name="account.account", string='Account', compute="get_account_info",
+                                 store=True)
+    account_group_id = fields.Many2one(comodel_name="account.group", string='Account Group',
+                                       compute="get_account_info", store=True)
+
+    # @api.depends('general_budget_id')
+    def get_account_info(self):
+        for rec in self:
+            rec.account_id = False
+            rec.account_group_id = False
+            if rec.general_budget_id:
+                if rec.general_budget_id.account_ids:
+                    rec.account_id = rec.general_budget_id.account_ids[0].id
+                    rec.account_group_id = rec.general_budget_id.account_ids[0].group_id.id
 
     def _compute_practical_amount(self):
         for line in self:
@@ -57,9 +78,7 @@ class AccountLineBudget(models.Model):
                 if rec.deviation_value or not rec.deviation_value:
                     if rec.crossovered_budget_id.state in ['confirm', 'validate', 'done']:
                         if account.user_type_id.internal_group in 'expense':
-                            print(account)
                             rec.deviation_value = rec.planned_amount + rec.practical_amount
-                            print(rec.deviation_value)
                         if account.user_type_id.internal_group in 'income':
                             rec.deviation_value = rec.practical_amount - rec.planned_amount
                         # else:
