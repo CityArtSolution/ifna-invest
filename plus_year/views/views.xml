@@ -17,8 +17,8 @@
                     <field name="line_sequence" invisible="1"/>
                     <field name="line_year_number" attrs="{'invisible': [('parent.plus_year', '=', False)]}"
                            optional="hide"/>
-                    <field name="fromdate" attrs="{'invisible': [('parent.plus_year', '=', False)]}" optional="hide"/>
-                    <field name="todate" attrs="{'invisible': [('parent.plus_year', '=', False)]}" optional="hide"/>
+                    <field name="fromdate" invisible="1"/>
+                    <field name="todate" invisible="1"/>
                 </xpath>
 
                 <xpath expr="// field [@ name = 'order_line']/tree" position="attributes">
