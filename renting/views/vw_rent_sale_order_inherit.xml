@@ -32,10 +32,23 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale_renting.rental_order_primary_form_view"/>
             <field name="arch" type="xml">
+
+
                 <xpath expr="//form" position="attributes">
                     <attribute name="duplicate">0</attribute>
                 </xpath>
 
+                <!--                omara-->
+
+<!--                <xpath expr="//field[@name='order_line']/tree[1]/field[@name='pickup_date']" position="attributes">-->
+<!--                    <attribute name="attrs">{}</attribute>-->
+<!--                    <attribute name="invisible"/>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//field[@name='order_line']/tree[1]/field[@name='return_date']" position="attributes">-->
+<!--                    <attribute name="attrs">{}</attribute>-->
+<!--                    <attribute name="invisible"/>-->
+<!--                </xpath>-->
+                <!--                omara-->
                 <xpath expr="//button[@name='action_quotation_send']" position="before">
                     <button name="action_pickup" type="object" class="btn-primary" string="PICKUP"
                             groups="renting_workflow_customization.finance_group"
@@ -82,12 +95,13 @@
                 </xpath>
                 <xpath expr="// field [@ name = 'order_line'] / tree / field [@ name = 'product_id']" position="after">
                     <field name="analytic_account" optional="hide"/>
+                      <field name="pickup_date" force_save="1"/>
+                    <field name="return_date"  force_save="1"/>
                 </xpath>
                 <xpath expr="// field [@ name = 'order_line'] / tree / field [@ name = 'product_id']" position="before">
                     <field name="property_number"/>
                     <field name="property_analytic_account" optional="hide"/>
-                    <field name="pickup_date" invisible="1" force_save="1"/>
-                    <field name="return_date" invisible="1" force_save="1"/>
+
                 </xpath>
 
                 <xpath expr="// field [@ name = 'order_line'] / tree / field [@ name = 'product_id']"
@@ -122,36 +136,43 @@
                     <label for="fromdate" string="الي"/>
                     <field name="todate" attrs="{'readonly':[('is_pm','=', False)]}" nolabel="1"/>
 
-<!--                    <div class="d-flex">-->
-<!--                        <field name="fromdate" attrs="{'readonly':[('is_pm','=', False)]}"/>-->
-<!--                        <br/>-->
-<!--                        <span class="o_form_label mx-3 oe_edit_only">الي</span>-->
-<!--                        <field name="todate" attrs="{'readonly':[('is_pm','=', False)]}"/>-->
-<!--                    </div>-->
+                    <!--                    <div class="d-flex">-->
+                    <!--                        <field name="fromdate" attrs="{'readonly':[('is_pm','=', False)]}"/>-->
+                    <!--                        <br/>-->
+                    <!--                        <span class="o_form_label mx-3 oe_edit_only">الي</span>-->
+                    <!--                        <field name="todate" attrs="{'readonly':[('is_pm','=', False)]}"/>-->
+                    <!--                    </div>-->
                 </xpath>
                 <xpath expr="//page[@name='order_lines']" position="after">
                     <page name="contract_info" string="بيانات العقد"
                           groups="renting_workflow_customization.finance_group,renting_workflow_customization.pm_group,renting_workflow_customization.ceo_group">
                         <group>
                             <group>
-                                <field name="order_contract" attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
-                                <field name="brand_nameplate_allowed" attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
+                                <field name="order_contract"
+                                       attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
+                                <field name="brand_nameplate_allowed"
+                                       attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
                                 <field name="ejar"
                                        attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)],'required': [('state', '=', 'ejar_upload')]}"/>
                                 <field name="ejar_number"
                                        attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)],'required': [('state', '=', 'ejar_upload')]}"/>
                                 <field name="ejar_date"
                                        attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)],'required': [('state', '=', 'ejar_upload')]}"/>
-                                <field name="remarks_c" attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
-                                <field name="file" attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
-                                <field name="updated_invoices" attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
+                                <field name="remarks_c"
+                                       attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
+                                <field name="file"
+                                       attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
+                                <field name="updated_invoices"
+                                       attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
                             </group>
 
                             <group>
                                 <field name="contract_hegira_date" placeholder="dd/mm/yyyy"
                                        attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
-                                <field name="contract_penalties" attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
-                                <field name="contractor_pen" attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
+                                <field name="contract_penalties"
+                                       attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
+                                <field name="contractor_pen"
+                                       attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
                                 <field name="contract_extra_maintenance_cost"
                                        attrs="{'readonly':[('is_finance','=', False),('is_pm','=', False)]}"/>
                             </group>
@@ -181,7 +202,8 @@
                             </tree>
                         </field>
                     </page>
-                    <page name="property_stats" string="حالة الوحدات" groups="renting_workflow_customization.finance_group,renting_workflow_customization.pm_group">
+                    <page name="property_stats" string="حالة الوحدات"
+                          groups="renting_workflow_customization.finance_group,renting_workflow_customization.pm_group">
                         <field name="order_property_state" widget="section_and_note_one2many" mode="tree,form"
                                context="{'default_sale_order': active_id}">
                             <form>
