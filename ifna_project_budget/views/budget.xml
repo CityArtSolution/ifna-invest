@@ -14,7 +14,7 @@
                     <field name="check_account" force_save="1" invisible="1"/>
                 </xpath>
                 <xpath expr="//field[@name='crossovered_budget_line']//tree//field[@name='date_to']"
-                       position="before">
+                       position="after">
                     <field name="account_id" force_save="1"/>
                     <field name="account_group_id" force_save="1"/>
                 </xpath>
