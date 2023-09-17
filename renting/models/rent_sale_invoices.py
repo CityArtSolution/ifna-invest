@@ -8,7 +8,7 @@ INSURANCE_ADMIN_FEES_PRODUCTS = ['insurance_value', 'contract_admin_fees', 'cont
 INSURANCE_ADMIN_FEES_FIELDS = ['insurance_value', 'contract_admin_fees', 'contract_service_fees',
                                'contract_admin_sub_fees', 'contract_service_sub_fees']
 
-
+from datetime import timedelta
 from hijri_converter import Hijri, Gregorian
 
 class RentSaleInvoices(models.Model):
@@ -49,7 +49,7 @@ class RentSaleInvoices(models.Model):
         res = {
             'display_type': line.display_type,
             'sequence': line.sequence,
-            'name': line.name+'\n'+str(self._get_hijri_date(self.fromdate.date()) if self.fromdate else '')+'\n'+'to:  '+str(self._get_hijri_date(self.todate.date()) if self.todate else '')+'\n',
+            'name': line.name+'\n'+str(self._get_hijri_date(self.fromdate.date()) if self.fromdate else '')+'\n'+'to:  '+str(self._get_hijri_date(self.todate.date()+timedelta(days=1)) if self.todate else '')+'\n',
             'product_id': line.product_id.id,
             'product_uom_id': line.product_uom.id,
             'quantity': 1,
