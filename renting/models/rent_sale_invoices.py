@@ -8,7 +8,7 @@ INSURANCE_ADMIN_FEES_PRODUCTS = ['insurance_value', 'contract_admin_fees', 'cont
 INSURANCE_ADMIN_FEES_FIELDS = ['insurance_value', 'contract_admin_fees', 'contract_service_fees',
                                'contract_admin_sub_fees', 'contract_service_sub_fees']
 
-
+from datetime import timedelta
 from hijri_converter import Hijri, Gregorian
 
 class RentSaleInvoices(models.Model):
