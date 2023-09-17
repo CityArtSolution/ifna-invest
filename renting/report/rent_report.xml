@@ -13,9 +13,12 @@
                 <xpath expr="//group[@name='rental_specs']" position="after">
                     <group>
                      <div class="o_row">
-                        <field name="hijri_pickup_date"/>
+                        <field name="hijri_pickup_date" widget="hijri" options="{'related_georgian_date':'geo_pickup_date'}"/>
+                         <field name="geo_pickup_date" invisible="1"/>
                         <span> to </span>
-                        <field name="hijri_return_date" />
+                        <field name="hijri_return_date" widget="hijri" options="{'related_georgian_date':'geo_return_date'}"/>
+                        <field name="geo_return_date" invisible="1"/>
+
                     </div>
                    </group>
                 </xpath>
