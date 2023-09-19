@@ -43,7 +43,6 @@
                             <strong>
                                 Date:
                                 <span t-esc="doc.request_date"/>
-
                             </strong>
                         </div>
                         <div class="col-3"/>
