@@ -42,7 +42,8 @@
                         <div class="col-4" style="text-align:left;" align="left">
                             <strong>
                                 Date:
-                                <span t-esc="doc.request_date"/>
+                                <span t-esc="doc.request_date" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/>
+
                             </strong>
                         </div>
                         <div class="col-3"/>
@@ -188,6 +189,7 @@
 
                             </td>
                             <td style="border:1px solid black;">
+                                <span t-esc="doc.current_user_id.name"/>
                             </td>
                         </tr>
                     </table>
@@ -248,7 +250,7 @@
                             <td>
                                 <table>
                                     <tr>
-                                        <td width="50%">
+                                        <td width="38%">
                                             <strong>&amp;nbsp;Beneficiary Account Name:&amp;nbsp;</strong>
                                         </td>
                                         <td>
@@ -282,7 +284,7 @@
 
                     <br/>
                     <!--                    <br/>-->
-<!--                    <br/>-->
+                    <!--                    <br/>-->
                 </div>
 
 
