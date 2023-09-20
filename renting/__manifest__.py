@@ -15,7 +15,7 @@
 
     # any module necessary for this one to work correctly
     'depends': ['base', 'sale_renting', 'sale_operating_unit', 'analytic', 'account_asset', 'l10n_gcc_invoice',
-                'account_operating_unit','sale','sale_renting_crm','kerbrose_hijri_widget'],
+                'account_operating_unit','sale','sale_renting_crm'],
 
     # always loaded
     'data': [

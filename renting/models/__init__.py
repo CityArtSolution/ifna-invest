@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from . import hijri_year_range
 from . import rent_account_move_inherit
 from . import rent_config_property_maintenance_statuses
 from . import rent_config_property_maintenance_types
