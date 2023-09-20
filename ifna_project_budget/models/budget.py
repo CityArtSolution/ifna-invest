@@ -5,9 +5,33 @@ from odoo.exceptions import UserError, AccessError
 class AccountBudget(models.Model):
     _inherit = 'crossovered.budget'
 
+    check_account = fields.Boolean(compute='action_get_account_info')
+
+    @api.depends('crossovered_budget_line')
+    def action_get_account_info(self):
+        for rec in self:
+            rec.check_account = False
+            for line in rec.crossovered_budget_line:
+                line.get_account_info()
+
 
 class AccountLineBudget(models.Model):
     _inherit = 'crossovered.budget.lines'
+
+    account_id = fields.Many2one(comodel_name="account.account", string='Account', compute="get_account_info",
+                                 store=True)
+    account_group_id = fields.Many2one(comodel_name="account.group", string='Account Group',
+                                       compute="get_account_info", store=True)
+
+    # @api.depends('general_budget_id')
+    def get_account_info(self):
+        for rec in self:
+            rec.account_id = False
+            rec.account_group_id = False
+            if rec.general_budget_id:
+                if rec.general_budget_id.account_ids:
+                    rec.account_id = rec.general_budget_id.account_ids[0].id
+                    rec.account_group_id = rec.general_budget_id.account_ids[0].group_id.id
 
     def _compute_practical_amount(self):
         for line in self:
@@ -52,11 +76,9 @@ class AccountLineBudget(models.Model):
         for rec in self:
             for account in rec.general_budget_id.account_ids:
                 if rec.deviation_value or not rec.deviation_value:
-                    if rec.crossovered_budget_id.state in ['confirm','validate','done']:
+                    if rec.crossovered_budget_id.state in ['confirm', 'validate', 'done']:
                         if account.user_type_id.internal_group in 'expense':
-                            print(account)
                             rec.deviation_value = rec.planned_amount + rec.practical_amount
-                            print(rec.deviation_value)
                         if account.user_type_id.internal_group in 'income':
                             rec.deviation_value = rec.practical_amount - rec.planned_amount
                         # else:
@@ -67,11 +89,11 @@ class AccountLineBudget(models.Model):
     def _set_deviation_ratio(self):
         for rec in self:
             if rec.deviation_ratio or not rec.deviation_ratio:
-                if rec.crossovered_budget_id.state in ['confirm','validate','done']:
+                if rec.crossovered_budget_id.state in ['confirm', 'validate', 'done']:
                     if rec.deviation_value and rec.planned_amount > 0:
-                        rec.deviation_ratio = (rec.deviation_value /rec.planned_amount)
+                        rec.deviation_ratio = (rec.deviation_value / rec.planned_amount)
 
-    deviation_value = fields.Float(string="Deviation Value", compute='_set_deviation_value',default=0.0 )
-    deviation_ratio = fields.Float(string="Deviation Ratio", compute='_set_deviation_ratio',default=0.0  )
+    deviation_value = fields.Float(string="Deviation Value", compute='_set_deviation_value', default=0.0)
+    deviation_ratio = fields.Float(string="Deviation Ratio", compute='_set_deviation_ratio', default=0.0)
     account_ids = fields.Many2many(comodel_name="account.account", string="Budgetary Account",
                                    related="general_budget_id.account_ids", )
