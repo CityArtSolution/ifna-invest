@@ -457,6 +457,7 @@ class RentSaleOrderLine(models.Model):
     #     'product.template', string='Product Template',
     #     related="product_id.product_tmpl_id", domain=[('sale_ok', '=', True)])
 
+
     property_number = fields.Many2one('rent.property', string='العقار')
     property_analytic_account = fields.Many2one('account.analytic.account', string='الحساب التحليلي',
                                                 related='property_number.analytic_account')
@@ -476,6 +477,18 @@ class RentSaleOrderLine(models.Model):
                                         domain="[('product_template_id','=',product_template_id)]")
     service_line_ids = fields.One2many('sale.order.line', 'original_line_id', string='Service Lines')
     original_line_id = fields.Many2one('sale.order.line', string='Original Line')
+    hijri_pickup_str = fields.Char()
+    hijri_return_str = fields.Char()
+
+    def get_sale_order_line_multiline_description_sale(self, product):
+        description = super(RentSaleOrderLine, self).get_sale_order_line_multiline_description_sale(product)
+        if self.hijri_pickup_str:
+            description += "\n" + ( self.hijri_pickup_str)
+        if self.hijri_return_str:
+            description += "\n" +'to  '+ ( self.hijri_return_str)
+
+        return description
+
 
     def action_get_service(self):
         sequence = self.line_sequence

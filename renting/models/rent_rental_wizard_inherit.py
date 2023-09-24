@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from hijri_converter import Hijri, Gregorian
+from odoo.exceptions import  UserError
 
 
 class RentRentalWizardInherit(models.TransientModel):
@@ -46,16 +47,29 @@ class RentRentalWizardInherit(models.TransientModel):
         for rec in self:
             if rec.hijri_pickup_day and rec.hijri_pickup_month and rec.hijri_pickup_year:
                 #get gregorian date correspond. to hijri date
-                gregorian = Hijri(rec.hijri_pickup_year,rec.hijri_pickup_month,rec.hijri_pickup_day).to_gregorian()
-                rec.pickup_date = rec.pickup_date.replace(day=gregorian.day, month=gregorian.month,
-                                                          year=gregorian.year)
+                try:
+                    gregorian = Hijri(rec.hijri_pickup_year,rec.hijri_pickup_month,rec.hijri_pickup_day).to_gregorian()
+                    rec.pickup_date = rec.pickup_date.replace(day=gregorian.day, month=gregorian.month,
+                                                              year=gregorian.year)
+                    #update description on sale order line
+                    rec.rental_order_line_id.hijri_pickup_str =  str(rec.hijri_pickup_year)+'-'+str(rec.hijri_pickup_month)+'-'+str(rec.hijri_pickup_day)
+                except Exception as e:
+                    raise UserError(_('تاريخ غير صحيح'))
 
     @api.onchange('hijri_return_day', 'hijri_return_month','hijri_return_year')
     def _change_return_date(self):
         for rec in self:
             if rec.hijri_return_day and rec.hijri_return_month and rec.hijri_return_year:
                 #get gregorian date correspond. to hijri date
-                gregorian = Hijri(rec.hijri_return_year,rec.hijri_return_month,rec.hijri_return_day).to_gregorian()
-                rec.return_date = rec.return_date.replace(day=gregorian.day, month=gregorian.month,
-                                                          year=gregorian.year)
+                try:
+                    gregorian = Hijri(rec.hijri_return_year,rec.hijri_return_month,rec.hijri_return_day).to_gregorian()
+                    rec.return_date = rec.return_date.replace(day=gregorian.day, month=gregorian.month,
+                                                              year=gregorian.year)
+
+                    #update description on sale order line
+                    rec.rental_order_line_id.hijri_return_str = str(rec.hijri_return_year)+'-'+str(rec.hijri_return_month)+'-'+str(rec.hijri_return_day)
+
+                except Exception as e:
+                    raise UserError(_('تاريخ غير صحيح'))
+
 
