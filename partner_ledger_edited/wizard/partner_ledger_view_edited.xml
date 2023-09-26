@@ -55,15 +55,7 @@
         file="partner_ledger_edited.ins_partner_ledger_edited_xlsx"
         attachment_use="False"
                />
-        <!-- <record id="action_ins_partner_ledger_edited_xlsx" model="ir.actions.report">
-            <field name="name">Partner Ledger</field>
-            <field name="model">ins.partner.ledger.edited</field>
-            <field name="report_type">xlsx</field>
-            <field name="report_name">partner_ledger_edited.ins_partner_ledger_edited_xlsx</field>
-            <field name="report_file">partner_ledger_edited.ins_partner_ledger_edited_xlsx</field>
-        </record> -->
-
-
+      
         <record id="action_dynamic_allinone_plg_edited_report" model="ir.actions.client">
             <field name="name">Partner Ledger Report Edited</field>
             <field name="tag">dynamic.pl</field>
