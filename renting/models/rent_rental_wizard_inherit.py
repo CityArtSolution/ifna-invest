@@ -51,8 +51,6 @@ class RentRentalWizardInherit(models.TransientModel):
                     gregorian = Hijri(rec.hijri_pickup_year,rec.hijri_pickup_month,rec.hijri_pickup_day).to_gregorian()
                     rec.pickup_date = rec.pickup_date.replace(day=gregorian.day, month=gregorian.month,
                                                               year=gregorian.year)
-                    #update description on sale order line
-                    rec.rental_order_line_id.hijri_pickup_str =  str(rec.hijri_pickup_year)+'-'+str(rec.hijri_pickup_month)+'-'+str(rec.hijri_pickup_day)
                 except Exception as e:
                     raise UserError(_('تاريخ غير صحيح'))
 
@@ -66,8 +64,6 @@ class RentRentalWizardInherit(models.TransientModel):
                     rec.return_date = rec.return_date.replace(day=gregorian.day, month=gregorian.month,
                                                               year=gregorian.year)
 
-                    #update description on sale order line
-                    rec.rental_order_line_id.hijri_return_str = str(rec.hijri_return_year)+'-'+str(rec.hijri_return_month)+'-'+str(rec.hijri_return_day)
 
                 except Exception as e:
                     raise UserError(_('تاريخ غير صحيح'))

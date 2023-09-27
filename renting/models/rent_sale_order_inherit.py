@@ -8,6 +8,8 @@ from odoo.exceptions import UserError, ValidationError
 INSURANCE_ADMIN_FEES_FIELDS = ['insurance_value', 'contract_admin_fees', 'contract_service_fees',
                                'contract_admin_sub_fees', 'contract_service_sub_fees']
 
+from hijri_converter import Hijri, Gregorian
+
 
 class ConfigurationSettings(models.TransientModel):
     _inherit = "res.config.settings"
@@ -424,12 +426,12 @@ class RentSaleOrder(models.Model):
                         invoiceable_lines = rec.sale_order_line_ids
 
                         # if rec.sequence == 1:
-                            # seq = 0
-                            # for type in INSURANCE_ADMIN_FEES_FIELDS:
-                            #     seq += 1
-                            #     fees_sum = rec._prepare_invoice_line_insurance_admin_fees_sum(type, seq)
-                            #     if fees_sum.get('name', False):
-                            #         invoice_lines.append([0, 0, fees_sum])
+                        # seq = 0
+                        # for type in INSURANCE_ADMIN_FEES_FIELDS:
+                        #     seq += 1
+                        #     fees_sum = rec._prepare_invoice_line_insurance_admin_fees_sum(type, seq)
+                        #     if fees_sum.get('name', False):
+                        #         invoice_lines.append([0, 0, fees_sum])
                         for line in invoiceable_lines:
                             invoice_lines.append([0, 0, rec._prepare_invoice_line(line)])
                             # if rec.sequence == 1:
@@ -457,7 +459,6 @@ class RentSaleOrderLine(models.Model):
     #     'product.template', string='Product Template',
     #     related="product_id.product_tmpl_id", domain=[('sale_ok', '=', True)])
 
-
     property_number = fields.Many2one('rent.property', string='العقار')
     property_analytic_account = fields.Many2one('account.analytic.account', string='الحساب التحليلي',
                                                 related='property_number.analytic_account')
@@ -477,18 +478,20 @@ class RentSaleOrderLine(models.Model):
                                         domain="[('product_template_id','=',product_template_id)]")
     service_line_ids = fields.One2many('sale.order.line', 'original_line_id', string='Service Lines')
     original_line_id = fields.Many2one('sale.order.line', string='Original Line')
-    hijri_pickup_str = fields.Char()
-    hijri_return_str = fields.Char()
+
+    def get_hijri_from_gregorian(self, date_gregorian):
+        hijri = Gregorian(date_gregorian.year, date_gregorian.month, date_gregorian.day).to_hijri()
+        return str(hijri.day) + '-' + str(hijri.month) + '-' + str(hijri.year)
 
     def get_sale_order_line_multiline_description_sale(self, product):
         description = super(RentSaleOrderLine, self).get_sale_order_line_multiline_description_sale(product)
-        if self.hijri_pickup_str:
-            description += "\n" + ( self.hijri_pickup_str)
-        if self.hijri_return_str:
-            description += "\n" +'to  '+ ( self.hijri_return_str)
+        if self.pickup_date:
+            description += "\n" + (self.get_hijri_from_gregorian(self.pickup_date.date()))
+
+        if self.return_date:
+            description += "\n" + 'to  ' + (self.get_hijri_from_gregorian(self.return_date.date()))
 
         return description
-
 
     def action_get_service(self):
         sequence = self.line_sequence
