@@ -28,3 +28,4 @@ access_rent_sale_invoices,access_rent_sale_invoices,model_rent_sale_invoices,bas
 access_rent_sale_state,access_rent_sale_state,model_rent_sale_state,base.group_user,1,1,1,1
 access_rental_additional_service,access_rental_additional_service,model_rental_additional_service,base.group_user,1,1,1,1
 access_maintenance_contract_manager,manager access for maintenance.contract,model_maintenance_contract,,1,1,1,1
+hijri_year_range,hijri_year_range,model_hijri_year_range,base.group_user,1,1,1,1

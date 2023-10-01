@@ -8,6 +8,8 @@ INSURANCE_ADMIN_FEES_PRODUCTS = ['insurance_value', 'contract_admin_fees', 'cont
 INSURANCE_ADMIN_FEES_FIELDS = ['insurance_value', 'contract_admin_fees', 'contract_service_fees',
                                'contract_admin_sub_fees', 'contract_service_sub_fees']
 
+from datetime import timedelta
+from hijri_converter import Hijri, Gregorian
 
 class RentSaleInvoices(models.Model):
     _name = 'rent.sale.invoices'
@@ -26,6 +28,9 @@ class RentSaleInvoices(models.Model):
     services = fields.Many2many('product.product', string='Services')
     separate = fields.Boolean(string="Separate Invoice")
 
+    def _get_hijri_date(self,date):
+        return Gregorian(date.year, date.month,
+                                                  date.day).to_hijri()
     def _prepare_invoice_line(self, line):
         self.ensure_one()
         terms = 0
@@ -46,7 +51,8 @@ class RentSaleInvoices(models.Model):
         res = {
             'display_type': line.display_type,
             'sequence': line.sequence,
-            'name': line.name,
+            #omara -timedelta(days=1) to make hijri date calculated right to an extent
+            'name': line.name+'\n'+str(self._get_hijri_date(self.fromdate.date()-timedelta(days=1)) if self.fromdate else '')+'\n'+'to:  '+str(self._get_hijri_date(self.todate.date()-timedelta(days=1)) if self.todate else '')+'\n',
             'product_id': line.product_id.id,
             'product_uom_id': line.product_uom.id,
             'quantity': 1,
