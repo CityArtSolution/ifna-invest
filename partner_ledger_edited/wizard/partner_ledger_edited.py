@@ -118,6 +118,9 @@ class InsPartnerLedger(models.TransientModel):
     units_ids = fields.Many2many(
         'operating.unit', string='Units'
     )
+    analytic_ids = fields.Many2many(
+        'account.analytic.account', string='analytic'
+    )
     company_id = fields.Many2one(
         'res.company', string='Company',
         default=lambda self: self.env.company
@@ -176,6 +179,12 @@ class InsPartnerLedger(models.TransientModel):
                 data.get('units_ids', [])).mapped('name')
         else:
             filters['units'] = ['All']
+
+        if data.get('analytic_ids', []):
+            filters['analytics'] = self.env['account.analytic.account'].browse(
+                data.get('analytic_ids', [])).mapped('name')
+        else:
+            filters['analytics'] = ['All']
 
         if data.get('partner_category_ids', []):
             filters['categories'] = self.env['res.partner.category'].browse(
@@ -257,6 +266,10 @@ class InsPartnerLedger(models.TransientModel):
                 WHERE += ' AND op.id IN %s' % str(
                     tuple(data.get('units_ids')) + tuple([0]))
 
+            if data.get('analytic_ids', []):
+                WHERE += ' AND anl.id IN %s' % str(
+                    tuple(data.get('analytic_ids')) + tuple([0]))
+
             if data.get('company_id', False):
                 WHERE += ' AND l.company_id = %s' % data.get('company_id')
 
@@ -316,7 +329,7 @@ class InsPartnerLedger(models.TransientModel):
                     JOIN account_move m ON (l.move_id=m.id)
                     JOIN account_account a ON (l.account_id=a.id)
                     LEFT JOIN account_account_type AS ty ON a.user_type_id = ty.id
-                    --LEFT JOIN account_analytic_account anl ON (l.analytic_account_id=anl.id)
+                    LEFT JOIN account_analytic_account anl ON (l.analytic_account_id=anl.id)
                     LEFT JOIN res_currency c ON (l.currency_id=c.id)
                     LEFT JOIN res_partner p ON (l.partner_id=p.id)
                     JOIN account_journal j ON (l.journal_id=j.id)
@@ -337,13 +350,13 @@ class InsPartnerLedger(models.TransientModel):
                     LEFT JOIN account_account_type AS ty ON a.user_type_id = ty.id
                     --LEFT JOIN product_product pp ON (l.analytic_account_id = pp.analytic_account) -- Join with product_product table
                     LEFT JOIN operating_unit op ON (l.operating_unit_id = op.id) -- Join with product_product table
-                    --LEFT JOIN account_analytic_account anl ON (l.analytic_account_id=anl.id)
+                    LEFT JOIN account_analytic_account anl ON (l.analytic_account_id=anl.id)
                     LEFT JOIN res_currency c ON (l.currency_id=c.id)
                     LEFT JOIN res_currency cc ON (l.company_currency_id=cc.id)
                     LEFT JOIN res_partner p ON (l.partner_id=p.id)
                     JOIN account_journal j ON (l.journal_id=j.id)
                     WHERE %s
-                    GROUP BY l.date, l.move_id, op.id
+                    GROUP BY l.date, l.move_id, anl.id ,op.id
                     ORDER BY %s
                     OFFSET %s ROWS
                     FETCH FIRST %s ROWS ONLY
@@ -358,7 +371,7 @@ class InsPartnerLedger(models.TransientModel):
                 JOIN account_move m ON (l.move_id=m.id)
                 JOIN account_account a ON (l.account_id=a.id)
                 LEFT JOIN account_account_type AS ty ON a.user_type_id = ty.id
-                --LEFT JOIN account_analytic_account anl ON (l.analytic_account_id=anl.id)
+                LEFT JOIN account_analytic_account anl ON (l.analytic_account_id=anl.id)
                 --LEFT JOIN product_product pp ON (l.analytic_account_id = pp.analytic_account) -- Join with product_product table
                 LEFT JOIN operating_unit op ON (l.operating_unit_id = op.id) -- Join with product_product table
                 LEFT JOIN res_currency c ON (l.currency_id=c.id)
@@ -379,7 +392,7 @@ class InsPartnerLedger(models.TransientModel):
                     JOIN account_move m ON (l.move_id=m.id)
                     JOIN account_account a ON (l.account_id=a.id)
                     LEFT JOIN account_account_type AS ty ON a.user_type_id = ty.id
-                    --LEFT JOIN account_analytic_account anl ON (l.analytic_account_id=anl.id)
+                    LEFT JOIN account_analytic_account anl ON (l.analytic_account_id=anl.id)
                     --LEFT JOIN product_product pp ON (l.analytic_account_id = pp.analytic_account) -- Join with product_product table
                     LEFT JOIN operating_unit op ON (l.operating_unit_id = op.id) -- Join with product_product table
                     LEFT JOIN res_currency c ON (l.currency_id=c.id)
@@ -388,7 +401,7 @@ class InsPartnerLedger(models.TransientModel):
                     WHERE %s
                 ''') % WHERE_INIT
             cr.execute(sql)
-            
+
             for row in cr.dictfetchall():
                 row['move_name'] = 'Initial Balance'
                 row['partner_id'] = partner
@@ -427,7 +440,7 @@ class InsPartnerLedger(models.TransientModel):
                 JOIN account_move m ON (l.move_id=m.id)
                 JOIN account_account a ON (l.account_id=a.id)
                 LEFT JOIN account_account_type AS ty ON a.user_type_id = ty.id
-                --LEFT JOIN account_analytic_account anl ON (l.analytic_account_id=anl.id)
+                LEFT JOIN account_analytic_account anl ON (l.analytic_account_id=anl.id)
                 --LEFT JOIN product_product pp ON (l.analytic_account_id = pp.analytic_account) -- Join with product_product table
                 LEFT JOIN operating_unit op ON (l.operating_unit_id = op.id) -- Join with product_product table
                 LEFT JOIN res_currency c ON (l.currency_id=c.id)
@@ -435,7 +448,7 @@ class InsPartnerLedger(models.TransientModel):
                 LEFT JOIN res_partner p ON (l.partner_id=p.id)
                 JOIN account_journal j ON (l.journal_id=j.id)
                 WHERE %s
-                GROUP BY l.id, l.partner_id, a.name, op.id, l.account_id, l.date, j.code, l.ref, l.currency_id, l.amount_currency, l.name, m.id, m.name, c.rounding, cc.id, cc.rounding, cc.position, c.position, c.symbol, cc.symbol, p.name
+                GROUP BY l.id, l.partner_id, a.name,op.id,l.analytic_account_id, l.account_id, l.date, j.code, l.ref, l.currency_id, l.amount_currency, l.name, m.id, m.name, c.rounding, cc.id, cc.rounding, cc.position, c.position, c.symbol, cc.symbol, p.name
                 ORDER BY %s
                 OFFSET %s ROWS
                 FETCH FIRST %s ROWS ONLY
@@ -459,7 +472,7 @@ class InsPartnerLedger(models.TransientModel):
                     JOIN account_move m ON (l.move_id=m.id)
                     JOIN account_account a ON (l.account_id=a.id)
                     LEFT JOIN account_account_type AS ty ON a.user_type_id = ty.id
-                    --LEFT JOIN account_analytic_account anl ON (l.analytic_account_id=anl.id)
+                    LEFT JOIN account_analytic_account anl ON (l.analytic_account_id=anl.id)
                     --LEFT JOIN product_product pp ON (l.analytic_account_id = pp.analytic_account) -- Join with product_product table
                     LEFT JOIN operating_unit op ON (l.operating_unit_id = op.id) -- Join with product_product table
                     LEFT JOIN res_currency c ON (l.currency_id=c.id)
@@ -535,7 +548,7 @@ class InsPartnerLedger(models.TransientModel):
 
             if data.get('initial_balance'):
                 sql = ('''
-                    SELECT 
+                    SELECT
                         COALESCE(SUM(l.debit),0) AS debit, 
                         COALESCE(SUM(l.credit),0) AS credit, 
                         COALESCE(SUM(l.debit - l.credit),0) AS balance
@@ -545,7 +558,7 @@ class InsPartnerLedger(models.TransientModel):
                     LEFT JOIN account_account_type AS ty ON a.user_type_id = ty.id
                     --LEFT JOIN product_product pp ON (l.analytic_account_id = pp.analytic_account) -- Join with product_product table
                     LEFT JOIN operating_unit op ON (l.operating_unit_id = op.id) -- Join with product_product table
-                    --LEFT JOIN account_analytic_account anl ON (l.analytic_account_id=anl.id)
+                    LEFT JOIN account_analytic_account anl ON (l.analytic_account_id=anl.id)
                     LEFT JOIN res_currency c ON (l.currency_id=c.id)
                     LEFT JOIN res_partner p ON (l.partner_id=p.id)
                     JOIN account_journal j ON (l.journal_id=j.id)
@@ -582,13 +595,13 @@ class InsPartnerLedger(models.TransientModel):
                 LEFT JOIN account_account_type AS ty ON a.user_type_id = ty.id
                 --LEFT JOIN product_product pp ON (l.analytic_account_id = pp.analytic_account) -- Join with product_product table
                 LEFT JOIN operating_unit op ON (l.operating_unit_id = op.id) -- Join with product_product table
-                --LEFT JOIN account_analytic_account anl ON (l.analytic_account_id=anl.id)
+                LEFT JOIN account_analytic_account anl ON (l.analytic_account_id=anl.id)
                 LEFT JOIN res_currency c ON (l.currency_id=c.id)
                 LEFT JOIN res_currency cc ON (l.company_currency_id=cc.id)
                 LEFT JOIN res_partner p ON (l.partner_id=p.id)
                 JOIN account_journal j ON (l.journal_id=j.id)
                 WHERE %s
-                GROUP BY l.id, op.id, l.account_id, l.date, j.code,l.analytic_account_id, l.currency_id, l.amount_currency, l.ref, l.name, m.id, m.name, c.rounding, cc.rounding, cc.position, c.position, c.symbol, cc.symbol, p.name, a.name
+                GROUP BY l.id, anl.id,op.id, l.account_id, l.date, j.code,l.analytic_account_id, l.currency_id, l.amount_currency, l.ref, l.name, m.id, m.name, c.rounding, cc.rounding, cc.position, c.position, c.symbol, cc.symbol, p.name, a.name
                 ORDER BY %s
             ''') % (WHERE_CURRENT, ORDER_BY_CURRENT)
             cr.execute(sql)
@@ -605,13 +618,13 @@ class InsPartnerLedger(models.TransientModel):
                 move_lines[partner.id]['lines'].append(row)
             if data.get('initial_balance'):
                 WHERE_FULL = WHERE + \
-                    " AND l.date <= '%s'" % data.get('date_to')
+                             " AND l.date <= '%s'" % data.get('date_to')
             else:
                 WHERE_FULL = WHERE + " AND l.date >= '%s'" % data.get('date_from') + " AND l.date <= '%s'" % data.get(
                     'date_to')
             WHERE_FULL += " AND p.id = %s" % partner.id
             sql = ('''
-                SELECT 
+                SELECT                         
                     COALESCE(SUM(l.debit),0) AS debit, 
                     COALESCE(SUM(l.credit),0) AS credit, 
                     COALESCE(SUM(l.debit - l.credit),0) AS balance
@@ -621,7 +634,7 @@ class InsPartnerLedger(models.TransientModel):
                 LEFT JOIN account_account_type AS ty ON a.user_type_id = ty.id
                 --LEFT JOIN product_product pp ON (l.analytic_account_id = pp.analytic_account) -- Join with product_product table
                 LEFT JOIN operating_unit op ON (l.operating_unit_id = op.id) -- Join with product_product table
-                --LEFT JOIN account_analytic_account anl ON (l.analytic_account_id=anl.id)
+                LEFT JOIN account_analytic_account anl ON (l.analytic_account_id=anl.id)
                 LEFT JOIN res_currency c ON (l.currency_id=c.id)
                 LEFT JOIN res_partner p ON (l.partner_id=p.id)
                 JOIN account_journal j ON (l.journal_id=j.id)
@@ -638,6 +651,7 @@ class InsPartnerLedger(models.TransientModel):
                     row['ending_bal'] = True
                     row['initial_bal'] = False
                     move_lines[partner.id]['lines'].append(row)
+                    # move_lines[partner.id]['analytic_account_id'] = row['analytic_account_id']
                     move_lines[partner.id]['debit'] = row['debit']
                     move_lines[partner.id]['credit'] = row['credit']
                     move_lines[partner.id]['balance'] = row['balance']
@@ -650,7 +664,6 @@ class InsPartnerLedger(models.TransientModel):
                         len(current_lines))
                     move_lines[partner.id]['single_page'] = True if len(
                         current_lines) <= FETCH_RANGE else False
-        print('==============move\n\n\n\n\n', move_lines)
         return move_lines
 
     def get_page_list(self, total_count):
@@ -681,7 +694,8 @@ class InsPartnerLedger(models.TransientModel):
             company_domain)
         partners = self.partner_ids if self.partner_ids else self.env['res.partner'].search(
             partner_company_domain)
-        units = self.units_ids if self.units_ids else self.env['operating.unit'].search(
+        units = self.units_ids if self.units_ids else self.env['operating.unit'].search(company_domain)
+        analytics = self.analytic_ids if self.analytic_ids else self.env['account.analytic.account'].search(
             company_domain)
         categories = self.partner_category_ids if self.partner_category_ids else self.env[
             'res.partner.category'].search([])
@@ -691,6 +705,7 @@ class InsPartnerLedger(models.TransientModel):
             'account_ids': self.account_ids.ids,
             'partner_ids': self.partner_ids.ids,
             'units_ids': self.units_ids.ids,
+            'analytic_ids': self.analytic_ids.ids,
             'partner_category_ids': self.partner_category_ids.ids,
             'company_id': self.company_id and self.company_id.id or False,
             'target_moves': self.target_moves,
@@ -702,11 +717,11 @@ class InsPartnerLedger(models.TransientModel):
             'include_details': self.include_details,
             'balance_less_than_zero': self.balance_less_than_zero,
             'balance_greater_than_zero': self.balance_greater_than_zero,
-
             'journals_list': [(j.id, j.name) for j in journals],
             'accounts_list': [(a.id, a.name) for a in accounts],
             'partners_list': [(p.id, p.name) for p in partners],
             'unit_list': [(u.id, u.name) for u in units],
+            'analytic_list': [(a.id, a.name) for a in analytics],
             'category_list': [(c.id, c.name) for c in categories],
             'company_name': self.company_id and self.company_id.name,
         }
@@ -736,7 +751,7 @@ class InsPartnerLedger(models.TransientModel):
     def print_xls(self):
         self.ensure_one()
         return {
-            'name': 'Profit Report',
+            'name': 'Partner Ledger',
             'type': 'ir.actions.act_url',
             'url': '/export/partner_report/%s' % (self.id),
         }
@@ -909,9 +924,6 @@ class PartnerReportWizardController(http.Controller):
             # Filter section
             row_pos_2 = 0
             row_pos_2 += 2
-            print("Filter==\n\n\n", filter)
-            print("acc_lines==\n\n\n", acc_lines)
-            print("====Partners==\n\n\n",len(filter.get('partners')))
             if filter:
                 sheet_2.write_string(row_pos_2, 0, _('Date from'),
                                      format_header)
@@ -989,21 +1001,23 @@ class PartnerReportWizardController(http.Controller):
                                    format_header)
                 sheet.write_string(row_pos, 1, _('Unit'),
                                    format_header)
-                sheet.write_string(row_pos, 2, _('JRNL'),
+                sheet.write_string(row_pos, 2, _('Analytic'),
                                    format_header)
-                sheet.write_string(row_pos, 3, _('Date'),
+                sheet.write_string(row_pos, 3, _('JRNL'),
                                    format_header)
-                sheet.write_string(row_pos, 4, _('Ref'),
+                sheet.write_string(row_pos, 4, _('Date'),
                                    format_header)
-                sheet.write_string(row_pos, 5, _('Move'),
+                sheet.write_string(row_pos, 5, _('Ref'),
                                    format_header)
-                sheet.write_string(row_pos, 6, _('Entry Label'),
+                sheet.write_string(row_pos, 6, _('Move'),
                                    format_header)
-                sheet.write_string(row_pos, 7, _('Debit'),
+                sheet.write_string(row_pos, 7, _('Entry Label'),
                                    format_header)
-                sheet.write_string(row_pos, 8, _('Credit'),
+                sheet.write_string(row_pos, 8, _('Debit'),
                                    format_header)
-                sheet.write_string(row_pos, 9, _('Balance'),
+                sheet.write_string(row_pos, 9, _('Credit'),
+                                   format_header)
+                sheet.write_string(row_pos, 10, _('Balance'),
                                    format_header)
             else:
                 sheet.merge_range(row_pos, 0, row_pos, 9,
@@ -1017,33 +1031,35 @@ class PartnerReportWizardController(http.Controller):
             if acc_lines:
                 for line in acc_lines:
                     row_pos += 1
-                    sheet.merge_range(row_pos, 0, row_pos, 9,
-                                      acc_lines[line].get('name'), line_header)
-                    sheet.write_string(
-                        row_pos, 0, acc_lines[line].get('name'), line_header)
+                    sheet.merge_range(row_pos, 0, row_pos, 9,acc_lines[line].get('name'), line_header)
+                    sheet.write_string(row_pos, 0, acc_lines[line].get('name'), line_header)
+
                     if acc_lines[line].get('operating_unit_id'):
                         operating_unit = record.env['operating.unit'].browse(
                             acc_lines[line].get('operating_unit_id'))
                         sheet.write_string(
                             row_pos, 1, operating_unit.name, line_header_light)
-                    sheet.write(row_pos, 2, acc_lines[line].get(
-                        'lcode'), line_header_light)
+
+
+                    # sheet.write(row_pos, 2, acc_lines[line].get('lcode'), line_header_light)
+
+                    sheet.write(row_pos, 2, acc_lines[line].get('lcode'), line_header_light)
                     if acc_lines[line].get('lref'):
-                        sheet.write_string(row_pos, 4, acc_lines[line].get('lref'),
+                        sheet.write_string(row_pos, 5, acc_lines[line].get('lref'),
                                            line_header_light_date)
 
-                    sheet.write_number(row_pos, 7, float(
-                        acc_lines[line].get('debit')), line_header)
                     sheet.write_number(row_pos, 8, float(
-                        acc_lines[line].get('credit')), line_header)
+                        acc_lines[line].get('debit')), line_header)
                     sheet.write_number(row_pos, 9, float(
+                        acc_lines[line].get('credit')), line_header)
+                    sheet.write_number(row_pos, 10, float(
                         acc_lines[line].get('balance')), line_header)
 
                     if filter.get('include_details', False):
                         count, offset, sub_lines = record.build_detailed_move_lines(
                             offset=0, partner=line, fetch_range=1000000)
                         for sub_line in sub_lines:
-                            print('====subline===\n\n\n',sub_line)
+
                             if sub_line.get('move_name') == 'Initial Balance':
                                 row_pos += 1
                                 sheet.write_string(
@@ -1055,20 +1071,24 @@ class PartnerReportWizardController(http.Controller):
                                         row_pos, 0, row_pos, 1, operating_unit.name, line_header)
                                     sheet.write_string(
                                         row_pos, 1, operating_unit.name, line_header)
-                                sheet.write(row_pos, 2, sub_line.get(
+                                if sub_line.get('analytic_account_id'):
+                                    analytic_account = record.env['account.analytic.account'].browse(
+                                        sub_line.get('analytic_account_id'))
+                                    sheet.write(row_pos, 2, analytic_account.name, line_header_light)
+                                sheet.write(row_pos, 3, sub_line.get(
                                     'lcode'), line_header_light)
                                 if sub_line.get('lref'):
-                                    sheet.write_string(row_pos, 4, sub_line.get('lref'),
+                                    sheet.write_string(row_pos, 5, sub_line.get('lref'),
                                                        line_header_light_date)
-                                sheet.write_string(row_pos, 5, sub_line.get('lname') or '',
+                                sheet.write_string(row_pos, 6, sub_line.get('lname') or '',
                                                    line_header_light)
-                                sheet.write_string(row_pos, 6, sub_line.get('move_name'),
+                                sheet.write_string(row_pos, 7, sub_line.get('move_name'),
                                                    line_header_light_initial)
-                                sheet.write_number(row_pos, 7, float(acc_lines[line].get('debit')),
+                                sheet.write_number(row_pos, 8, float(acc_lines[line].get('debit')),
                                                    line_header_light_initial)
-                                sheet.write_number(row_pos, 8, float(acc_lines[line].get('credit')),
+                                sheet.write_number(row_pos, 9, float(acc_lines[line].get('credit')),
                                                    line_header_light_initial)
-                                sheet.write_number(row_pos, 9, float(acc_lines[line].get('balance')),
+                                sheet.write_number(row_pos, 10, float(acc_lines[line].get('balance')),
                                                    line_header_light_initial)
                             elif sub_line.get('move_name') not in ['Initial Balance', 'Ending Balance']:
                                 row_pos += 1
@@ -1079,49 +1099,58 @@ class PartnerReportWizardController(http.Controller):
                                         sub_line.get('operating_unit'))
                                     sheet.write_string(
                                         row_pos, 1, operating_unit.name, line_header_light)
+                                if sub_line.get('analytic_account_id'):
+                                    analytic_account = record.env['account.analytic.account'].browse(
+                                        sub_line.get('analytic_account_id'))
+                                    sheet.write(row_pos, 2, analytic_account.name, line_header_light)
 
-                                sheet.write_string(row_pos, 2, sub_line.get('lcode'),
+                                sheet.write_string(row_pos, 3, sub_line.get('lcode'),
                                                    line_header_light)
-                                sheet.write_datetime(row_pos, 3, self.convert_to_date(sub_line.get('ldate')),
+                                sheet.write_datetime(row_pos, 4, self.convert_to_date(sub_line.get('ldate')),
                                                      line_header_light_date)
                                 if sub_line.get('lref'):
-                                    sheet.write_string(row_pos, 4, sub_line.get('lref'),
+                                    sheet.write_string(row_pos, 5, sub_line.get('lref'),
                                                        line_header_light_date)
-                                sheet.write_string(row_pos, 5, sub_line.get('lname') or '',
+                                sheet.write_string(row_pos, 6, sub_line.get('lname') or '',
                                                    line_header_light)
-                                sheet.write_string(row_pos, 6, sub_line.get('move_name'),
+                                sheet.write_string(row_pos, 7, sub_line.get('move_name'),
                                                    line_header_light)
-                                sheet.write_number(row_pos, 7,
-                                                   float(sub_line.get('debit')), line_header_light)
                                 sheet.write_number(row_pos, 8,
-                                                   float(sub_line.get('credit')), line_header_light)
+                                                   float(sub_line.get('debit')), line_header_light)
                                 sheet.write_number(row_pos, 9,
+                                                   float(sub_line.get('credit')), line_header_light)
+                                sheet.write_number(row_pos, 10,
                                                    float(sub_line.get('balance')), line_header_light)
                             else:  # Ending Balance
                                 row_pos += 1
                                 sheet.write_string(
                                     row_pos, 0, acc_lines[line].get('name'), line_header)
                                 if sub_line.get('operating_unit_id'):
-                                    analytic_account = record.env['operating.unit'].browse(
+                                    operating_unit = record.env['operating.unit'].browse(
                                         sub_line.get('operating_unit_id'))
                                     sheet.write_string(
-                                        row_pos, 1, analytic_account.name, line_header)
-                                sheet.write(row_pos, 2, sub_line.get(
+                                        row_pos, 1, operating_unit.name, line_header)
+                                if sub_line.get('analytic_account_id'):
+                                    analytic_account = record.env['account.analytic.account'].browse(
+                                        sub_line.get('analytic_account_id'))
+                                    sheet.write(row_pos, 2, analytic_account.name, line_header_light)
+
+                                sheet.write(row_pos, 3, sub_line.get(
                                     'lcode'), line_header_light)
                                 if sub_line.get('lref'):
-                                    sheet.write_string(row_pos, 4, sub_line.get('lref'),
+                                    sheet.write_string(row_pos, 5, sub_line.get('lref'),
                                                        line_header_light_date)
-                                sheet.write_string(row_pos, 5, sub_line.get('lname') or '',
+                                sheet.write_string(row_pos, 6, sub_line.get('lname') or '',
                                                    line_header_light)
-                                sheet.write_string(row_pos, 6, sub_line.get('move_name'),
+                                sheet.write_string(row_pos, 7, sub_line.get('move_name'),
                                                    line_header_light_ending)
-                                sheet.write_number(row_pos, 7, float(acc_lines[line].get('debit')),
+                                sheet.write_number(row_pos, 8, float(acc_lines[line].get('debit')),
                                                    line_header_light_ending)
-                                sheet.write_number(row_pos, 8, float(acc_lines[line].get('credit')),
+                                sheet.write_number(row_pos, 9, float(acc_lines[line].get('credit')),
                                                    line_header_light_ending)
-                                sheet.write_number(row_pos, 9, float(acc_lines[line].get('balance')),
+                                sheet.write_number(row_pos, 10, float(acc_lines[line].get('balance')),
                                                    line_header_light_ending)
-        
+
         workbook.close()
 
         xlsx_data = output.getvalue()
@@ -1129,6 +1158,7 @@ class PartnerReportWizardController(http.Controller):
             xlsx_data,
             headers=[
                 ('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),
-                ('Content-Disposition', 'attachment; filename=Profit Report-' + datetime.date.today().strftime('%Y.%m.%d') + '.xlsx')],
+                ('Content-Disposition',
+                 'attachment; filename=Partner Ledger-' + datetime.date.today().strftime('%Y.%m.%d') + '.xlsx')],
         )
         return response
