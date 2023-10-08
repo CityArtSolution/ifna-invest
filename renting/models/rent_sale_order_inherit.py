@@ -8,6 +8,8 @@ from odoo.exceptions import UserError, ValidationError
 INSURANCE_ADMIN_FEES_FIELDS = ['insurance_value', 'contract_admin_fees', 'contract_service_fees',
                                'contract_admin_sub_fees', 'contract_service_sub_fees']
 
+from hijri_converter import Hijri, Gregorian
+
 
 class ConfigurationSettings(models.TransientModel):
     _inherit = "res.config.settings"
@@ -490,6 +492,20 @@ class RentSaleOrderLine(models.Model):
                                         domain="[('product_template_id','=',product_template_id)]")
     service_line_ids = fields.One2many('sale.order.line', 'original_line_id', string='Service Lines')
     original_line_id = fields.Many2one('sale.order.line', string='Original Line')
+
+    def get_hijri_from_gregorian(self, date_gregorian):
+        hijri = Gregorian(date_gregorian.year, date_gregorian.month, date_gregorian.day).to_hijri()
+        return str(hijri.day) + '-' + str(hijri.month) + '-' + str(hijri.year)
+
+    def get_sale_order_line_multiline_description_sale(self, product):
+        description = super(RentSaleOrderLine, self).get_sale_order_line_multiline_description_sale(product)
+        if self.pickup_date:
+            description += "\n" + (self.get_hijri_from_gregorian(self.pickup_date.date()))
+
+        if self.return_date:
+            description += "\n" + 'to  ' + (self.get_hijri_from_gregorian(self.return_date.date()))
+
+        return description
 
     def action_get_service(self):
         sequence = self.line_sequence
