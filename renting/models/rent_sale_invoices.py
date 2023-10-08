@@ -50,7 +50,7 @@ class RentSaleInvoices(models.Model):
             'display_type': line.display_type,
             'sequence': line.sequence,
             #omara -timedelta(days=1) to make hijri date calculated right to an extent
-            'name': line.name+'\n'+'\n'+str( self.fromdate.date() if self.fromdate else '')+'\n'+'to:  '+str( self.todate.date() if self.todate else '')+'\n'
+            'name': '['+line.product_id.default_code+']'+line.product_id.name+'\n'+ str(line.pickup_date) +'\n'+'to  '+str(line.return_date)+'\n'+'\n'+str( self.fromdate.date() if self.fromdate else '')+'\n'+'to:  '+str( self.todate.date() if self.todate else '')+'\n'
                     +'\n'+str(self._get_hijri_date(self.fromdate.date()-timedelta(days=1)) if self.fromdate else '')+'\n'+'to:  '+str(self._get_hijri_date(self.todate.date()-timedelta(days=1)) if self.todate else '')+'\n',
             'product_id': line.product_id.id,
             'product_uom_id': line.product_uom.id,
