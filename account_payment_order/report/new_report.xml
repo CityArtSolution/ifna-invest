@@ -57,7 +57,11 @@
                                 <span t-if="doc.payment_request_type == 'account'"
                                       style="background-color:#BB9B69;padding-right: 0px;padding-left:3px"
                                       t-esc="doc.amount" t-options='{"widget": "float", "precision": 2}'/>
-                                <span t-esc="doc.company_currency_id.symbol"/>
+                                <span t-if="doc.payment_request_type == 'account'" style="text-align:left" t-field="doc.currency_id.symbol"/>
+                                <span t-if="doc.payment_request_type != 'account'" style="text-align:left" t-field="doc.payment_line_ids.currency_id.symbol"/>
+
+                                <!--<span t-esc="doc.currency_id.symbol"/>-->
+
                             </strong>
                         </div>
                     </div>
