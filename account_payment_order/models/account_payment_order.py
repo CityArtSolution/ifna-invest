@@ -188,6 +188,7 @@ class AccountPaymentOrder(models.Model):
     department_id = fields.Many2one(comodel_name='account.analytic.account', string='Department')
     beneficiary_partner_id = fields.Many2one(comodel_name='res.partner', string='Beneficiary Name')
 
+
     @api.onchange('payment_line_ids', 'payment_line_ids.partner_id', 'payment_line_ids.communication',
                   'payment_request_type')
     def _get_beneficiary_name(self):
