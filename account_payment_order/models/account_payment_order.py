@@ -36,7 +36,9 @@ class AccountPaymentOrder(models.Model):
     transaction_currency_id = fields.Many2one('res.currency', string='Currency', compute='get_transaction_currency_id')
     bank_id = fields.Many2one(comodel_name="res.bank", string="Bank Name")
     bank_account_no = fields.Many2one(comodel_name="res.partner.bank", string="Bank Account No")
-    beneficiary_name = fields.Many2one(comodel_name="payment.beneficiary", string="Beneficiary Name")
+
+    beneficiary_name = fields.Many2one(comodel_name="payment.beneficiary", string="Beneficiary Name", )
+
     # bank_account_no = fields.Char(string="Bank Account No")
     # beneficiary_name = fields.Char(string="Beneficiary Name")
 
@@ -184,6 +186,18 @@ class AccountPaymentOrder(models.Model):
                                                  ('transfer', 'Transfer')], default='cash')
     total_amount = fields.Float(string='Total Amount', compute="_compute_total_amount", store=True)
     department_id = fields.Many2one(comodel_name='account.analytic.account', string='Department')
+    beneficiary_partner_id = fields.Many2one(comodel_name='res.partner', string='Beneficiary Name')
+
+    @api.onchange('payment_line_ids', 'payment_line_ids.partner_id', 'payment_line_ids.communication',
+                  'payment_request_type')
+    def _get_beneficiary_name(self):
+        for rec in self:
+            if not rec.payment_request_type:
+                if rec.payment_line_ids:
+                    if rec.payment_line_ids[0].partner_id:
+                        rec.beneficiary_partner_id = rec.payment_line_ids[0].partner_id.id
+                    if rec.payment_line_ids[0].communication:
+                        rec.communication = rec.payment_line_ids[0].communication
 
     @api.depends("payment_mode_id")
     def _compute_allowed_journal_ids(self):
