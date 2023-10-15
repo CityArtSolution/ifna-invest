@@ -259,10 +259,10 @@
                                         <td style="font-size:14px">
                                             <t t-if="doc.payment_request_type != 'account'">
                                                 <span style="text-align:left"
-                                                      t-esc="doc.payment_line_ids[0].partner_id.name"></span>
+                                                      t-esc="doc.payment_line_ids[0].partner_id.name"/>
                                             </t>
                                             <t else="">
-                                                <span style="text-align:left" t-esc="doc.beneficiary_name.name"></span>
+                                                <span style="text-align:left" t-esc="doc.beneficiary_name.name"/>
                                             </t>
                                             <!--                                            <span t-esc="doc.beneficiary_name.name"/>-->
                                         </td>

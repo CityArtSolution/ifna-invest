@@ -188,7 +188,6 @@ class AccountPaymentOrder(models.Model):
     department_id = fields.Many2one(comodel_name='account.analytic.account', string='Department')
     beneficiary_partner_id = fields.Many2one(comodel_name='res.partner', string='Beneficiary Name')
 
-
     @api.onchange('payment_line_ids', 'payment_line_ids.partner_id', 'payment_line_ids.communication',
                   'payment_request_type')
     def _get_beneficiary_name(self):
@@ -294,12 +293,18 @@ class AccountPaymentOrder(models.Model):
     def get_pr_sequence(self):
         # date = datetime.datetime.strptime(vals.get("request_date"), '%Y-%m-%d').date()
         date = self.request_date
-        all_payments = self.env['account.payment.order'].search([('state', '!=', 'draft'), ('id', '!=', self.id)])
+        if self.payment_mode_id.is_receipt:
+            all_payments = self.env['account.payment.order'].search(
+                [('payment_mode_id.is_receipt', '=', True), ('state', '!=', 'draft'), ('id', '!=', self.id)])
+        else:
+            all_payments = self.env['account.payment.order'].search([('state', '!=', 'draft'), ('id', '!=', self.id)])
+
         same_month_payments_ids = []
         for payment in all_payments:
             if payment.request_date.year == date.year and payment.request_date.month == date.month:
                 same_month_payments_ids.append(payment.id)
-        last_payment = self.env['account.payment.order'].sudo().search([('id', 'in', same_month_payments_ids)], limit=1)
+        last_payment = self.env['account.payment.order'].sudo().search([('id', 'in', same_month_payments_ids)],
+                                                                       limit=1)
         month_zeros = ""
         month_digits_no = len(str(date.month))
         if month_digits_no == 1:

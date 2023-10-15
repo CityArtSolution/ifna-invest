@@ -75,6 +75,7 @@ class AccountPaymentMode(models.Model):
     generate_move = fields.Boolean(
         string="Generate Accounting Entries On File Upload", default=True
     )
+    is_receipt = fields.Boolean(string="Receipt", default=False)
     move_option = fields.Selection(
         selection=[
             ("date", "One move per payment date"),
