@@ -57,9 +57,10 @@
                                 <span t-if="doc.payment_request_type == 'account'"
                                       style="background-color:#BB9B69;padding-right: 0px;padding-left:3px"
                                       t-esc="doc.amount" t-options='{"widget": "float", "precision": 2}'/>
-                                <span t-if="doc.payment_request_type == 'account'" style="text-align:left" t-field="doc.currency_id.symbol"/>
-                                <span t-if="doc.payment_request_type != 'account'" style="text-align:left" t-field="doc.payment_line_ids.currency_id.symbol"/>
-                                <!--<span t-esc="doc.currency_id.symbol"/>-->
+                                <span t-if="doc.payment_request_type == 'account'" style="text-align:left"
+                                      t-field="doc.currency_id.symbol"/>
+                                <span t-if="doc.payment_request_type != 'account'" style="text-align:left"
+                                      t-field="doc.payment_line_ids.currency_id.symbol"/>
                             </strong>
                         </div>
                     </div>
@@ -108,8 +109,10 @@
                                 </h6>
                             </td>
                             <td t-if="doc.payment_request_type != 'account'">
-                                <span style="text-align:left"
-                                      t-esc="doc.payment_line_ids[0].partner_id.name"/>
+                                <td t-if="doc.payment_line_ids">
+                                    <span style="text-align:left"
+                                          t-esc="doc.payment_line_ids[0].partner_id.name"/>
+                                </td>
                             </td>
                             <td t-if="doc.payment_request_type == 'account'">
                                 <span style="text-align:left"
@@ -137,8 +140,11 @@
                                 </h6>
                             </td>
                             <td t-if="doc.payment_request_type != 'account'">
-                                <span style="text-align:left"
-                                      t-esc="doc.payment_line_ids[0].communication"/>
+                                <td t-if="doc.payment_line_ids">
+
+                                    <span style="text-align:left"
+                                          t-esc="doc.payment_line_ids[0].communication"/>
+                                </td>
                             </td>
                             <td t-if="doc.payment_request_type == 'account'">
                                 <span style="text-align:left"
@@ -175,7 +181,7 @@
                                 </span>
                             </td>
                             <td style="border:1px solid black;">
-<!--                                <span t-esc="doc.current_user_id.name"/>-->
+                                <span t-esc="doc.current_user_id.name"/>
                             </td>
                         </tr>
                         <tr>
@@ -196,8 +202,6 @@
                         </tr>
                     </table>
                     <br/>
-                    <!--                    <br/>-->
-
 
                     <table style="border: 1px solid black;text-align:left;" width="100%">
                         <tr style="border: 1px solid black;text-align:center;background-color:#BC9B69">
@@ -258,13 +262,14 @@
                                         </td>
                                         <td style="font-size:14px">
                                             <t t-if="doc.payment_request_type != 'account'">
-                                                <span style="text-align:left"
-                                                      t-esc="doc.payment_line_ids[0].partner_id.name"/>
+                                                <td t-if="doc.payment_line_ids">
+                                                    <span style="text-align:left"
+                                                          t-esc="doc.payment_line_ids[0].partner_id.name"/>
+                                                </td>
                                             </t>
                                             <t else="">
                                                 <span style="text-align:left" t-esc="doc.beneficiary_name.name"/>
                                             </t>
-                                            <!--                                            <span t-esc="doc.beneficiary_name.name"/>-->
                                         </td>
                                     </tr>
                                 </table>
@@ -291,8 +296,6 @@
                         </tr>
                     </table>
                     <br/>
-                    <!--                    <br/>-->
-                    <!--                    <br/>-->
                 </div>
 
 
