@@ -42,9 +42,8 @@ class AccountPaymentOrder(models.Model):
     # bank_account_no = fields.Char(string="Bank Account No")
     # beneficiary_name = fields.Char(string="Beneficiary Name")
 
-    communication = fields.Char(string='Details',
-                                required=False, help="Label of the payment that will be seen by the destinee"
-                                )
+    communication = fields.Char(string='Details', required=False,
+                                help="Label of the payment that will be seen by the destinee")
     payment_mode_id = fields.Many2one(
         comodel_name="account.payment.mode",
         required=True,
@@ -187,17 +186,6 @@ class AccountPaymentOrder(models.Model):
     total_amount = fields.Float(string='Total Amount', compute="_compute_total_amount", store=True)
     department_id = fields.Many2one(comodel_name='account.analytic.account', string='Department')
     beneficiary_partner_id = fields.Many2one(comodel_name='res.partner', string='Beneficiary Name')
-
-    @api.onchange('payment_line_ids', 'payment_line_ids.partner_id', 'payment_line_ids.communication',
-                  'payment_request_type')
-    def _get_beneficiary_name(self):
-        for rec in self:
-            if not rec.payment_request_type:
-                if rec.payment_line_ids:
-                    if rec.payment_line_ids[0].partner_id:
-                        rec.beneficiary_partner_id = rec.payment_line_ids[0].partner_id.id
-                    if rec.payment_line_ids[0].communication:
-                        rec.communication = rec.payment_line_ids[0].communication
 
     @api.depends("payment_mode_id")
     def _compute_allowed_journal_ids(self):

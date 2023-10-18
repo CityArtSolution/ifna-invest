@@ -156,21 +156,15 @@
                             <field name="bank_account_no"
                                    attrs="{'invisible': [('payment_request_type', '!=', 'account')],'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="beneficiary_name"
-                                   attrs="{'invisible': [('payment_request_type', '!=', 'account')],'readonly': [('state', '!=', 'draft')]}"/>
-                            <field name="beneficiary_partner_id"
-                                   attrs="{'invisible': [('payment_request_type', '=', 'account')],'readonly': [('state', '!=', 'draft')]}"/>
-                            <field name="communication"
-                                   attrs="{'required': [('payment_request_type', '=', 'account')]}"/>
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}" required="1"/>
+                            <field name="communication" required="1"/>
 
                         </group>
                     </group>
                     <notebook>
                         <page name="payment-lines" string="Transactions"
-                              attrs="{'invisible': [('payment_request_type', '=', 'account')]}">
-                            <field
-                                    name="payment_line_ids"
-                                    context="{'default_payment_type': payment_type}"
-                            />
+                              attrs="{'invisible': [('payment_request_type', '=', 'account')]}" >
+                            <field name="payment_line_ids" context="{'default_payment_type': payment_type,'default_communication': communication}"/>
                         </page>
                         <!--                        <page-->
                         <!--                            name="bank-lines"-->
@@ -207,7 +201,6 @@
                 />
                 <field name="payment_request_type"/>
                 <field name="beneficiary_name"/>
-                <field name="beneficiary_partner_id"/>
                 <field name="communication"/>
 
                 <field name="total_company_currency" sum="Total Company Currency"/>

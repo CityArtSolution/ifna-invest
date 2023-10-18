@@ -72,8 +72,8 @@ class AccountPaymentLine(models.Model):
     # This field is required in the form view and there is an error message
     # when going from draft to confirm if the field is empty
     communication = fields.Char(string='Details',
-        required=False, help="Label of the payment that will be seen by the destinee"
-    )
+                                required=False, help="Label of the payment that will be seen by the destinee"
+                                )
     communication_type = fields.Selection(
         selection=[("normal", "Free")], required=True, default="normal"
     )
@@ -97,7 +97,7 @@ class AccountPaymentLine(models.Model):
     def create(self, vals):
         if vals.get("name", "New") == "New":
             vals["name"] = (
-                self.env["ir.sequence"].next_by_code("account.payment.line") or "New"
+                    self.env["ir.sequence"].next_by_code("account.payment.line") or "New"
             )
         return super(AccountPaymentLine, self).create(vals)
 
@@ -150,7 +150,6 @@ class AccountPaymentLine(models.Model):
             self.partner_bank_id = False
             self.amount_currency = 0.0
             self.currency_id = self.env.user.company_id.currency_id
-            self.communication = False
 
     def invoice_reference_type2communication_type(self):
         """This method is designed to be inherited by
