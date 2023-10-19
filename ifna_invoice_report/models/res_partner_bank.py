@@ -12,3 +12,9 @@ class ResPartnerBank(models.Model):
 
 class NewModule(models.Model):
     _inherit = 'account.move'
+
+
+class ResCompany(models.Model):
+    _inherit = 'res.company'
+
+    default_bank = fields.Many2one('res.partner.bank', string="Default Bank Account")
