@@ -239,7 +239,7 @@
                                 <span t-if="doc.payment_request_type == 'account'" style="text-align:left"
                                       t-field="doc.bank_id.name"/>
                                 <span t-if="doc.payment_request_type != 'account'" style="text-align:left"
-                                      t-field="doc.payment_line_ids.partner_id.bank_ids.bank_id.name">
+                                      t-field="doc.payment_line_ids.partner_id.bank_ids[0].bank_id.name">
                                 </span>
                             </td>
                         </tr>
@@ -249,7 +249,7 @@
                                 <span t-if="doc.payment_request_type == 'account'" style="text-align:left"
                                       t-field="doc.bank_account_no"/>
                                 <span style="text-align:left" t-if="doc.payment_request_type != 'account'"
-                                      t-field="doc.payment_line_ids.partner_id.bank_ids.acc_number">
+                                      t-field="doc.payment_line_ids.partner_id.bank_ids[0].acc_number">
                                 </span>
                             </td>
                         </tr>
@@ -283,7 +283,7 @@
                                       t-field="doc.company_partner_bank_id.swift">
                                 </span>
                                 <span t-if="doc.payment_request_type != 'account'" style="text-align:left;"
-                                      t-field="doc.payment_line_ids.partner_id.bank_ids.swift">
+                                      t-field="doc.payment_line_ids.partner_id.bank_ids[0].swift">
 
                                 </span>
                             </td>
