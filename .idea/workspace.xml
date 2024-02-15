@@ -5,40 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b3839cbe-664d-4098-868e-d832382f348b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/account_payment_order/report/new_report.xml" beforeDir="false" afterPath="$PROJECT_DIR$/account_payment_order/report/new_report.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_budget_analysis_report/models/budget.py" beforeDir="false" afterPath="$PROJECT_DIR$/ifna_budget_analysis_report/models/budget.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_report/models/res_partner_bank.py" beforeDir="false" afterPath="$PROJECT_DIR$/ifna_invoice_report/models/res_partner_bank.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_invoice_report/views/invoice.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ifna_invoice_report/views/invoice.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_payment_custom/views/report_payment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ifna_payment_custom/views/report_payment.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifna_project_budget/models/budget.py" beforeDir="false" afterPath="$PROJECT_DIR$/ifna_project_budget/models/budget.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/increase_policy/models/sale_order.py" beforeDir="false" afterPath="$PROJECT_DIR$/increase_policy/models/sale_order.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/partner_ledger_edited/wizard/partner_ledger_edited.py" beforeDir="false" afterPath="$PROJECT_DIR$/partner_ledger_edited/wizard/partner_ledger_edited.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/partner_ledger_edited/wizard/partner_ledger_view_edited.xml" beforeDir="false" afterPath="$PROJECT_DIR$/partner_ledger_edited/wizard/partner_ledger_view_edited.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plus_year/controllers/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plus_year/controllers/controllers.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plus_year/demo/demo.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plus_year/views/templates.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/plus_year/views/views.xml" beforeDir="false" afterPath="$PROJECT_DIR$/plus_year/views/views.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rental_contract_notification/models/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/rental_contract_notification/models/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rental_orders_reports/views/pdf_report.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rental_orders_reports/views/pdf_report.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renting/models/rent_product_inherit.py" beforeDir="false" afterPath="$PROJECT_DIR$/renting/models/rent_product_inherit.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renting/models/rent_sale_invoices.py" beforeDir="false" afterPath="$PROJECT_DIR$/renting/models/rent_sale_invoices.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renting/models/rent_sale_order_inherit.py" beforeDir="false" afterPath="$PROJECT_DIR$/renting/models/rent_sale_order_inherit.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renting/views/vw_rent_product_inherit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/renting/views/vw_rent_product_inherit.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renting/views/vw_rent_sale_order_inherit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/renting/views/vw_rent_sale_order_inherit.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renting_workflow_customization/models/sales.py" beforeDir="false" afterPath="$PROJECT_DIR$/renting_workflow_customization/models/sales.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renting_workflow_customization/security/ir.model.access.csv" beforeDir="false" afterPath="$PROJECT_DIR$/renting_workflow_customization/security/ir.model.access.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renting_workflow_customization/views/sales_views.xml" beforeDir="false" afterPath="$PROJECT_DIR$/renting_workflow_customization/views/sales_views.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sale_report_custom/security/ir.model.access.csv" beforeDir="false" afterPath="$PROJECT_DIR$/sale_report_custom/security/ir.model.access.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sale_report_custom/static/src/images/facility.png" beforeDir="false" afterPath="$PROJECT_DIR$/sale_report_custom/static/src/images/facility.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sale_report_custom/static/src/images/finance.png" beforeDir="false" afterPath="$PROJECT_DIR$/sale_report_custom/static/src/images/finance.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sale_report_custom/static/src/images/legal.png" beforeDir="false" afterPath="$PROJECT_DIR$/sale_report_custom/static/src/images/legal.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sale_report_custom/static/src/images/pm.png" beforeDir="false" afterPath="$PROJECT_DIR$/sale_report_custom/static/src/images/pm.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sale_report_custom/views/pickup.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sale_report_custom/views/pickup.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sale_report_custom/views/report_custom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sale_report_custom/views/report_custom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sale_report_custom/views/return.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sale_report_custom/views/return.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sale_report_custom/views/templates.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sale_report_custom/views/templates.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sale_report_custom/views/views.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account_payment_order/views/account_payment_order.xml" beforeDir="false" afterPath="$PROJECT_DIR$/account_payment_order/views/account_payment_order.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +19,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2Lzm6fPIP54S64UbXNEHWiC8wkc" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -60,12 +31,15 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/sara/PycharmProjects/ifna-updated-22-8/live/ifna-invest"
+    "git-widget-placeholder": "production",
+    "last_opened_file_path": "/home/sara/Documents/GitHub/ifna-invest/account_payment_order",
+    "two.files.diff.last.used.folder": "/home/sara/Documents/GitHub/ifna-test"
   }
 }]]></component>
   <component name="RunManager">
     <configuration name="odoo-bin" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="ifna-invest" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -85,6 +59,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-5a2391486177-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.13763.11" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
