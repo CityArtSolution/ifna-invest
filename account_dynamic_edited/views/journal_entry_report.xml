@@ -138,17 +138,14 @@
                                                 <span t-field="line.analytic_account_id"/>
                                             </td>
                                             <td class="text-center" style="border: 1px solid; vertical-align: middle;">
-                                                <t t-foreach="line.analytic_tag_ids" t-as="tag">
-                                                    (<span t-field="tag.name"
-                                                          t-options="{'widget': 'text'}"/>)
-                                                </t>
+                                                <span t-field="line.analytic_tag_ids" t-options="{'widget': 'text'}"/>
                                             </td>
                                             <td style="border: 1px solid; vertical-align: middle;"
-                                                t-attf-class="text-center {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                                t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
                                                 <span class="text-nowrap" t-field="line.debit"/>
                                             </td>
                                             <td style="border: 1px solid; vertical-align: middle;"
-                                                t-attf-class="text-center {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                                t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
                                                 <span class="text-nowrap" t-field="line.credit"/>
                                             </td>
                                         </tr>
@@ -185,50 +182,51 @@
 
 
                         </div>
-                        <br/>
                         <div>
                             <span class="text-left">Totals For Journal Number :</span>
                             <span class="text-left" t-field="doc.name"/>
+
                         </div>
 
-                        <div class="content" style="margin-left:-5px;margin-right:-5px" width="100%">
+                        <div width="100%"  class="content" style="margin-left:-5px;margin-right:-5px">
                             <div style="float: left; width: 100%; padding: 5px;">
-                                <table style="padding: 15px; border: 1px solid;" dir="ltr" class="table table-sm">
+                                <table style="width:100%;border: 1px solid" dir="ltr" class="table table-condensed">
                                     <thead>
                                         <t t-set="items" t-value="doc.calculate_total_account()"/>
-                                        <tr>
-                                            <th style="border: 1px solid; vertical-align: middle; width:20%;"
-                                                class="text-left">
+                                        <tr style="border: 1px solid">
+
+                                            <th style="border: 1px solid" class="text-left">
                                                 Account
                                             </th>
-                                            <th style="border: 1px solid; vertical-align: middle; width:20%;"
-                                                class="text-left">
+                                            <th style="border: 1px solid" class="text-left">
                                                 Analytic Account
                                             </th>
-                                            <th style="border: 1px solid; vertical-align: middle; width:20%;"
-                                                class="text-left">
+                                             <th style="border: 1px solid" class="text-left">
                                                 Debit
                                             </th>
-                                            <th style="border: 1px solid; vertical-align: middle; width:20%;"
-                                                class="text-left">
+                                            <th style="border: 1px solid" class="text-left">
                                                 Credit
                                             </th>
+
+
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr t-foreach="items" t-as="item">
-                                            <td style="border: 1px solid; vertical-align: middle; width:20%;"
-                                                class="text-left">
+                                        <tr style="border: 1px solid" t-foreach="items" t-as="item">
+                                            <td style="border: 1px solid" class="text-left">
                                                 <span t-esc="item.get('account_id')[1]"/>
                                             </td>
-                                            <td style="border: 1px solid; vertical-align: middle; width:20%;"
-                                                class="text-left">
+                                            <td style="border: 1px solid" class="text-left">
                                                 <t t-if="item.get('analytic_account_id')">
+
+
                                                     <span t-esc="item.get('analytic_account_id')[1]"/>
                                                 </t>
                                             </td>
-                                            <td style="border: 1px solid; vertical-align: middle; width:20%;"
-                                                class="text-left">
+
+
+                                            <td style="border: 1px solid" class="text-left">
+
                                                 <t t-if="item.get('debit')">
                                                     <span t-esc="item.get('debit')"/>
                                                 </t>
@@ -236,8 +234,9 @@
                                                     <span>0.00</span>
                                                 </t>
                                             </td>
-                                            <td style="border: 1px solid; vertical-align: middle; width:20%;"
-                                                class="text-left">
+
+                                            <td style="border: 1px solid" class="text-left">
+
                                                 <t t-if="item.get('credit')">
                                                     <span t-esc="item.get('credit')"/>
                                                 </t>
@@ -245,9 +244,12 @@
                                                     <span>0.00</span>
                                                 </t>
                                             </td>
+
+
                                         </tr>
                                     </tbody>
                                 </table>
+
                             </div>
 
 

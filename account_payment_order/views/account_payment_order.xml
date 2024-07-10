@@ -156,7 +156,7 @@
                             <field name="bank_account_no"
                                    attrs="{'invisible': [('payment_request_type', '!=', 'account')],'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="beneficiary_name"
-                                   attrs="{'readonly': [('state', '!=', 'draft')]}" required="1"/>
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="communication" required="1"/>
 
                         </group>

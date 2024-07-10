@@ -11,6 +11,7 @@ INSURANCE_ADMIN_FEES_FIELDS = ['insurance_value', 'contract_admin_fees', 'contra
 from datetime import timedelta
 from hijri_converter import Hijri, Gregorian
 
+
 class RentSaleInvoices(models.Model):
     _name = 'rent.sale.invoices'
 
@@ -28,9 +29,10 @@ class RentSaleInvoices(models.Model):
     services = fields.Many2many('product.product', string='Services')
     separate = fields.Boolean(string="Separate Invoice")
 
-    def _get_hijri_date(self,date):
+    def _get_hijri_date(self, date):
         return Gregorian(date.year, date.month,
-                                                  date.day).to_hijri()
+                         date.day).to_hijri()
+
     def _prepare_invoice_line(self, line):
         self.ensure_one()
         terms = 0
@@ -42,6 +44,8 @@ class RentSaleInvoices(models.Model):
             terms = 2
         if line.order_id.invoice_terms == "yearly":
             terms = 1
+        print("////////////////////////", terms)
+        print("//////line.price_unit/terms//////////////////", line.price_unit / terms)
         # if self.separate:
         #     price = line.price_unit
         # else:
@@ -49,14 +53,20 @@ class RentSaleInvoices(models.Model):
         res = {
             'display_type': line.display_type,
             'sequence': line.sequence,
-            #omara -timedelta(days=1) to make hijri date calculated right to an extent
-            'name': '['+line.product_id.default_code+']'+line.product_id.name+'\n'+ str(line.pickup_date) +'\n'+'to  '+str(line.return_date)+'\n'+'\n'+str( self.fromdate.date() if self.fromdate else '')+'\n'+'to:  '+str( self.todate.date() if self.todate else '')+'\n'
-                    +'\n'+str(self._get_hijri_date(self.fromdate.date()-timedelta(days=1)) if self.fromdate else '')+'\n'+'to:  '+str(self._get_hijri_date(self.todate.date()-timedelta(days=1)) if self.todate else '')+'\n',
+            # omara -timedelta(days=1) to make hijri date calculated right to an extent
+            'name': '[' + line.product_id.default_code + ']' + line.product_id.name + '\n' + str(
+                line.pickup_date) + '\n' + 'to  ' + str(line.return_date) + '\n' + '\n' + str(
+                self.fromdate.date() if self.fromdate else '') + '\n' + 'to:  ' + str(
+                self.todate.date() if self.todate else '') + '\n'
+                    + '\n' + str(self._get_hijri_date(
+                self.fromdate.date() - timedelta(days=1)) if self.fromdate else '') + '\n' + 'to:  ' + str(
+                self._get_hijri_date(self.todate.date() - timedelta(days=1)) if self.todate else '') + '\n',
+
             'product_id': line.product_id.id,
             'product_uom_id': line.product_uom.id,
             'quantity': 1,
             'discount': line.discount,
-            'price_unit': line.price_unit/terms,
+            'price_unit': line.price_unit / terms,
             'tax_ids': [(6, 0, line.tax_id.ids)],
             'analytic_account_id': line.product_id.product_tmpl_id.analytic_account.id,
             'sale_line_ids': [(4, line.id)],
