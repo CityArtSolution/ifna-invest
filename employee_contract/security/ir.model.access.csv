@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_employee_contract,access_employee_contract,model_employee_contract,base.group_user,1,1,1,1
-access_employee_contract_line,access_employee_contract_line,model_employee_contract_line,base.group_user,1,1,1,1
-access_employee_contract_stage,access_employee_contract_stage,model_employee_contract_stage,base.group_user,1,1,1,1
-access_employee_contract_tag,access_employee_contract_tag,model_employee_contract_tag,base.group_user,1,1,1,1
