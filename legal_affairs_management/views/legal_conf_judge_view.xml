@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_legal_judge_tree" model="ir.ui.view">
+            <field name="name">legal.judge.tree</field>
+            <field name="model">legal.judge</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                    <field name="company_id" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_legal_judge_search" model="ir.ui.view">
+            <field name="name">legal.judge.search</field>
+            <field name="model">legal.judge</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="company_id"/>
+                    <filter name="inactive_filter" string="Inactive" domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="action_legal_judge" model="ir.actions.act_window">
+            <field name="name">Judges</field>
+            <field name="res_model">legal.judge</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem id="menu_legal_judge" name="Judges" parent="legal_affairs_management.legal_affairs_configurations_menu" action="action_legal_judge" sequence="4"/>
+    </data>
+</odoo>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_legal_authorization_type_tree" model="ir.ui.view">
+            <field name="name">legal.authorization.type.tree</field>
+            <field name="model">legal.authorization.type</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="company_id" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_legal_authorization_type_search" model="ir.ui.view">
+            <field name="name">legal.authorization.type.search</field>
+            <field name="model">legal.authorization.type</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="company_id"/>
+                    <filter name="authorization_filter" string="Authorization" domain="[('type', '=', 'authorization')]"/>
+                    <filter name="agency_filter" string="Agency" domain="[('type', '=', 'agency')]"/>
+                    <separator/>
+                    <filter name="inactive_filter" string="Inactive" domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="action_legal_authorization_type" model="ir.actions.act_window">
+            <field name="name">Types of Authorizations and Agencies</field>
+            <field name="res_model">legal.authorization.type</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem id="menu_legal_authorization_type" name="Types of Authorizations and Agencies" parent="legal_affairs_management.legal_affairs_configurations_menu" action="action_legal_authorization_type" sequence="7"/>
+    </data>
+</odoo>

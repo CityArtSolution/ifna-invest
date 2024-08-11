@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="PjDashboard">
+        <div class="oh_dashboards" style="margin-top: 20px;">
+            <div class="container-fluid o_pj_dashboard">
+            </div>
+        </div>
+    </t>
+
+    <t t-name="DashboardProject">
+<!--        <div class="row main-section" style="margin-left: 170px;">-->
+<!--            <div class="inner_select" style="display: flex;width:100%;">-->
+<!--                <p style="margin-left: 20px;">Start Date :</p>-->
+<!--                <p>-->
+<!--                    <input type="date" class="inner_select" id="start_date" name="start_date" />-->
+<!--                </p>-->
+<!--                <p>End Date :</p>-->
+<!--                <p>-->
+<!--                    <input type="date" class="inner_select" id="end_date" name="end_date" />-->
+<!--                </p>-->
+<!--                <p>Project :</p>-->
+<!--                <p>-->
+<!--                    <select class="inner_select" id="project_selection">-->
+<!--                        <option value="null">All Projects</option>-->
+<!--                    </select>-->
+<!--                </p>-->
+<!--                <p>Employees :</p>-->
+<!--                <p>-->
+<!--                    <select class="inner_select" id="employee_selection">-->
+<!--                        <option value="null">All Employees</option>-->
+<!--                    </select>-->
+<!--                </p>-->
+<!--            </div>-->
+<!--        </div>-->
+
+        <div class="row" style="margin-left: 2%;margin-right: 2%;">
+            <div class="col-md-3 col-sm-6 tot_consultations oh-payslip">
+                <div class="oh-card" style="width: 410px; border-radius: 10px; background-color: #e3f2fd;border: 2px solid #1e88e5">
+                    <div class="oh-card-body tot_consultations" style="box-shadow: 5px 11px 30px rgba(0, 0, 0, 0.1); padding: 20px;">
+                        <div class="stat-widget-one" style="display: flex; align-items: center;">
+                            <div class="stat-icon" style="font-size: 30px; color: #1e88e5;"><i class="fa fa-puzzle-piece" /></div>
+                            <div class="stat-head" style="padding-left: 10%; width: 60%; font-size: 18px; color: #1e88e5;">Total <br/> Consultations</div>
+                            <div class="stat_count" style="padding-left: 10%; width: 30%; font-size: 24px; color: #0d47a1;" id="tot_consultations">
+                                <t t-esc="widget.total_consultations" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6 oh-payslip">
+                <div class="oh-card" style="width: 410px; border-radius: 10px; background-color: #f1f8e9;border: 2px solid #43a047">
+                    <div class="oh-card-body tot_client" style="box-shadow: 5px 11px 30px rgba(0, 0, 0, 0.1); padding: 20px;">
+                        <div class="stat-widget-one" style="display: flex; align-items: center;">
+                            <div class="stat-icon" style="font-size: 30px; color: #43a047;"><i class="fa fa-user" /></div>
+                            <div class="stat-head" style="padding-left: 10%; width: 60%; font-size: 18px; color: #43a047;">Total <br/> Clients</div>
+                            <div class="stat_count" style="padding-left: 10%; width: 30%; font-size: 24px; color: #1b5e20;" id="tot_client">
+                                <t t-esc="widget.total_clients" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6 oh-payslip">
+                <div class="oh-card" style="width: 410px; border-radius: 10px; background-color: #fff8e1;border: 2px solid #fb8c00">
+                    <div class="oh-card-body tot_auths_agens" style="box-shadow: 5px 11px 30px rgba(0, 0, 0, 0.1); padding: 20px;">
+                        <div class="stat-widget-one" style="display: flex; align-items: center;">
+                            <div class="stat-icon" style="font-size: 30px; color: #fb8c00;"><i class="fa fa-tasks" /></div>
+                            <div class="stat-head" style="padding-left: 10%; width: 60%; font-size: 18px; color: #fb8c00;">Total <br/> Auths &amp; Agencies</div>
+                            <div class="stat_count" style="padding-left: 10%; width: 30%; font-size: 24px; color: #e65100;" id="tot_auth_agen">
+                                <t t-esc="widget.total_auths_agens" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6 oh-payslip">
+                <div class="oh-card" style="width: 410px; border-radius: 10px; background-color: #f3e5f5;border: 2px solid #8e24aa">
+                    <div class="oh-card-body tot_decisions" style="box-shadow: 5px 11px 30px rgba(0, 0, 0, 0.1); padding: 20px;">
+                        <div class="stat-widget-one" style="display: flex; align-items: center;">
+                            <div class="stat-icon" style="font-size: 30px; color: #8e24aa;"><i class="fa fa-clock-o" /></div>
+                            <div class="stat-head" style="padding-left: 10%; width: 60%; font-size: 18px; color: #8e24aa;">Total <br/> Board Decisions</div>
+                            <div class="stat_count" style="padding-left: 10%; width: 30%; font-size: 24px; color: #4a148c;" id="tot_decisions">
+                                <t t-esc="widget.total_decisions" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6 oh-payslip">
+                <div class="oh-card" style="width: 410px; border-radius: 10px; background-color: #e0f7fa; border: 2px solid #00acc1;">
+                    <div class="oh-card-body tot_requests" style="box-shadow: 5px 11px 30px rgba(0, 0, 0, 0.1); padding: 20px;">
+                        <div class="stat-widget-one" style="display: flex; align-items: center;">
+                            <div class="stat-icon" style="font-size: 30px; color: #00acc1;"><i class="fa fa-calendar" /></div>
+                            <div class="stat-head" style="padding-left: 10%; width: 60%; font-size: 18px; color: #00acc1;">Total <br/> Exec Requests</div>
+                            <div class="stat_count" style="padding-left: 10%; width: 30%; font-size: 24px; color: #00838f;" id="tot_request">
+                                <t t-esc="widget.total_requests" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </t>
+
+    <t t-name="DashboardChart">
+        <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12" style="display:none">
+            <div class="row main-section" style="margin-left: 2%;margin-right: 2%;">
+                <div class="col-sm-7 col-lg-7" style="margin-left: 2%;display:none">
+                    <div class="graph_view" style="padding:0">
+                        <div class="text-color hr-chart-1">
+                            <canvas id="project_doughnut" style="background:#fff;" width="200" height="120" />
+                        </div>
+                    </div>
+                    <div class="selling_product_graph_view">
+                        <div class="oh-card text-color" style="background-color:#fff;">
+                            <canvas class="top_selling_employees" width="200" height="120" />
+                        </div>
+                    </div>
+                    <div class="row" style="margin:0px">
+                        <div class="col-md-12" id="col-graph">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-title">
+                                        <b>
+                                            <h3 class="custom-h3">Profitability</h3>
+                                        </b>
+                                    </div>
+                                    <div class="card-tools">
+                                        <select id="income_expense_values">
+                                            <option id="income_this_year" value="income_this_year">This Year</option>
+                                            <option id="income_this_month" value="income_this_month">This Month</option>
+                                            <div role="separator" class="dropdown-divider" />
+                                            <option id="income_last_year" value="income_last_year">Last Year</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="card-body mt-3" id="in_ex_body_hide">
+                                    <div class="row">
+                                        <p id="myelement1"> </p>
+                                        <div class="chart">
+                                            <canvas id="canvas" width="100% !important" height="auto !important"> </canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-lg-12" style="top: 20px;right: -100px;">
+                    <div class="hr_notification" style="background: #fff;
+                    height: 763px;margin-bottom: 15px;margin-top: 15px;box-shadow:5px 11px 30px;">
+                        <div class="hr_notification_head" style="font-size: 17px;text-align: center;padding: 12px 0;color: #fff;font-weight: 300;background: #000080;margin-bottom: 9px;">
+                            Case &amp; Matters Details
+                        </div>
+                        <div class="col-sm-12 col-lg-12" style="padding:0;">
+                            <div class="text-color">
+                                <div class="media" style="overflow-y: auto;height: 704px;">
+                                    <div class="media-body">
+                                        <table class="table table-sm" id="example">
+                                            <thead>
+                                                <tr>
+                                                    <th rowspan="14">Project Name</th>
+                                                    <th rowspan="14">Task Name</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-foreach="widget.task_data" t-as="proj">
+                                                    <tr>
+                                                        <td>
+                                                            <t t-esc="proj[1]" />
+                                                        </td>
+                                                        <td>
+                                                            <t t-esc="proj[0]" />
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hr_notification" style="display:none;background: #fff;transition: transform 0.2s ease, box-shadow 0.2s ease;will-change: transform, box-shadow;box-shadow: 0 10px 40px 0 rgba(62,57,107,0.07), 0 2px 9px 0 rgba(62,57,107,0.06);
+                        height: 284px;margin-bottom: 15px;">
+                        <div class="hr_notification_head" style="font-size: 17px;text-align: center;padding: 12px 0;color: #fff;font-weight: 300;background: #000080;margin-bottom: 9px;">
+                            Hours Recorded
+                        </div>
+                        <div class="col-sm-12 col-lg-12" style="padding:0;">
+                            <div class="text-color">
+                                <div class="">
+                                    <div class="media">
+                                        <div class="media-body">
+                                            <table class="table table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th rowspan="14">Billed on Timesheet</th>
+                                                    </tr>
+
+                                                </thead>
+                                                <tbody>
+                                                    <t t-foreach="widget.hour_recorde" t-as="hour_recorde">
+                                                        <tr>
+                                                            <td>
+                                                                <h2 class="text-color display-6" style="font-size: 15px;margin-left: 400px;margin-top: -30px;">
+                                                                    <t t-esc="hour_recorde" />
+                                                                </h2>
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                </tbody>
+                                            </table>
+                                            <table class="table table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th rowspan="14">Billed at a Fixed price</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <t t-foreach="widget.billable_fix" t-as="billable_fix">
+                                                        <tr>
+                                                            <td>
+                                                                <h2 class="text-color display-6" style="font-size: 15px;margin-left: 400px;margin-top: -30px;">
+                                                                    <t t-esc="billable_fix" />
+                                                                </h2>
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                </tbody>
+                                            </table>
+                                            <table class="table table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th rowspan="14">No task found</th>
+                                                    </tr>
+
+                                                </thead>
+                                                <tbody>
+                                                    <t t-foreach="widget.hour_recorded" t-as="hour_recorded">
+                                                        <tr>
+
+                                                            <td>
+                                                                <h2 class="text-color display-6" style="font-size: 15px;margin-left: 400px;margin-top: -30px;">
+
+                                                                    <t t-esc="hour_recorded" />
+                                                                </h2>
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                </tbody>
+                                            </table>
+                                            <table class="table table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th rowspan="14">Non Billable Tasks</th>
+                                                    </tr>
+
+                                                </thead>
+                                                <tbody>
+                                                    <t t-foreach="widget.non_billable" t-as="non_billable">
+                                                        <tr>
+
+                                                            <td>
+                                                                <h2 class="text-color display-6" style="font-size: 15px;margin-left: 400px;margin-top: -30px;">
+
+                                                                    <t t-esc="non_billable" />
+                                                                </h2>
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                </tbody>
+                                            </table>
+                                            <table class="table table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th rowspan="14" style="padding-left: 24.3rem;">Total:</th>
+                                                    </tr>
+
+                                                </thead>
+                                                <tbody>
+                                                    <t t-foreach="widget.total_hr" t-as="total_hr">
+                                                        <tr>
+
+                                                            <td>
+                                                                <h2 class="text-color display-6" style="font-size: 15px;margin-left: 400px;margin-top: -30px;">
+
+                                                                    <t t-esc="total_hr" />
+                                                                </h2>
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="hr_notification" style="display:none;background: #fff;transition: transform 0.2s ease, box-shadow 0.2s ease;will-change: transform, box-shadow;box-shadow: 0 10px 40px 0 rgba(62,57,107,0.07), 0 2px 9px 0 rgba(62,57,107,0.06);
+                    height: 284px;margin-bottom: 15px;">
+                        <div class="hr_notification_head" style="font-size: 17px;text-align: center;padding: 12px 0;color: #fff;font-weight: 300;background:#000080;;margin-bottom: 9px;">
+                            Profitability
+                        </div>
+                        <div class="col-sm-12 col-lg-12" style="padding:0;">
+                            <div class="text-color">
+                                <div class="">
+                                    <div class="media">
+                                        <div class="media-body">
+                                            <table class="table table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th rowspan="14">Invoiced</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <t t-foreach="widget.invoiced" t-as="invoiced">
+                                                        <tr>
+                                                            <td>
+                                                                <h2 class="text-color display-6" style="font-size: 15px;margin-left: 400px;margin-top: -30px;">
+                                                                    <t t-esc="invoiced" />
+                                                                </h2>
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                </tbody>
+                                            </table>
+                                            <table class="table table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th rowspan="14">To Invoice</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <t t-foreach="widget.to_invoice" t-as="to_invoice">
+                                                        <tr>
+                                                            <td>
+                                                                <h2 class="text-color display-6" style="font-size: 15px;margin-left: 400px;margin-top: -30px;">
+
+                                                                    <t t-esc="to_invoice" />
+                                                                </h2>
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                </tbody>
+                                            </table>
+                                            <table class="table table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th rowspan="14">Timesheet costs</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <t t-foreach="widget.time_cost" t-as="time_cost">
+                                                        <tr>
+
+                                                            <td>
+                                                                <h2 class="text-color display-6" style="font-size: 15px;margin-left: 400px;margin-top: -30px;">
+
+                                                                    <t t-esc="time_cost" />
+                                                                </h2>
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                </tbody>
+                                            </table>
+                                            <table class="table table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th rowspan="14">Other costs</th>
+                                                    </tr>
+
+                                                </thead>
+                                                <tbody>
+                                                    <t t-foreach="widget.expen_cost" t-as="expen_cost">
+                                                        <tr>
+                                                            <td>
+                                                                <h2 class="text-color display-6" style="font-size: 15px;margin-left: 400px;margin-top: -30px;">
+
+                                                                    <t t-esc="expen_cost" />
+                                                                </h2>
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                </tbody>
+                                            </table>
+                                            <table class="table table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th rowspan="14" style="padding-left: 24.3rem;">Total:</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <t t-foreach="widget.payment_details" t-as="payment_method">
+                                                        <tr>
+
+                                                            <td>
+                                                                <h2 class="text-color display-6" style="font-size: 15px;margin-left: 400px;margin-top: -30px;">
+
+                                                                    <t t-esc="payment_method" />
+                                                                </h2>
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hr_notification" style="display:none;background: #fff;transition: transform 0.2s ease, box-shadow 0.2s ease;will-change: transform, box-shadow;box-shadow: 0 10px 40px 0 rgba(62,57,107,0.07), 0 2px 9px 0 rgba(62,57,107,0.06);
+                            height: auto;padding-bottom: 15px;box-shadow:5px 11px 30px;">
+                        <div class="hr_notification_head" style="font-size: 17px;text-align: center;padding: 12px 0;color: #fff;font-weight: 300;background: #000080;margin-bottom: 9px;">
+                            Stage Wise Total Projects
+                        </div>
+                        <table id="table_status" style="width">
+                            <tr>
+                                <th />
+                                <th />
+                            </tr>
+                            <t t-foreach="widget.project_stage_list" t-as="data">
+                                <tr>
+                                    <td style="text-align:center;">
+                                        <h4 t-esc="data['name']" />
+                                    </td>
+                                    <td style="text-align:center;">
+                                        <h4 class="project-pill" t-esc="data['projects']" />
+                                    </td>
+                                </tr>
+                            </t>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="LegalCaseDashboard">
+        <div class="o_legal_case_dashboard" style="display:none">
+            <h1>Legal Case Dashboard</h1>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Case Name</th>
+                        <th>Court</th>
+                        <th>Lawyer</th>
+                        <th>Trial Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="legal_case_table_body">
+                    <!-- Rows will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </t>
+</templates>

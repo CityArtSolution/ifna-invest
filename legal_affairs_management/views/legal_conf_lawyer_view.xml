@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_legal_lawyer_tree" model="ir.ui.view">
+            <field name="name">legal.lawyer.tree</field>
+            <field name="model">legal.lawyer</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                    <field name="law_area"/>
+                    <field name="company_id" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_legal_lawyer_search" model="ir.ui.view">
+            <field name="name">legal.lawyer.search</field>
+            <field name="model">legal.lawyer</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="law_area"/>
+                    <field name="company_id"/>
+                    <filter name="inactive_filter" string="Inactive" domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="action_legal_lawyer" model="ir.actions.act_window">
+            <field name="name">Lawyers</field>
+            <field name="res_model">legal.lawyer</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem id="menu_legal_lawyer" name="Lawyers" parent="legal_affairs_management.legal_affairs_configurations_menu" action="action_legal_lawyer" sequence="1"/>
+    </data>
+</odoo>

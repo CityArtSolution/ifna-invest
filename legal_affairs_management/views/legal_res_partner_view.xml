@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="legal_res_partner_inherit_view_form" model="ir.ui.view">
+            <field name="name">legal.res.partner.inherit.view.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button name="action_view_invoices" type="object" class="oe_stat_button" icon="fa-file-text">
+                        <field name="overdue_invoice_count" widget="statinfo"/>
+                        <div class="o_field_value">
+                            <span>Overdue Invoices</span>
+                        </div>
+                    </button>
+                    <button name="action_view_latest_invoice_pdf" type="object" class="oe_stat_button" icon="fa-file-pdf-o">
+                        <div class="o_field_value">
+                            <span>Latest Invoice PDF</span>
+                        </div>
+                    </button>
+                </div>
+            </field>
+        </record>
+
+
+        <record id="legal_res_partner_action" model="ir.actions.act_window">
+            <field name="name">Clients</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[('is_legal_defendant', '=', True)]</field>
+            <field name="context">{'default_is_legal_defendant': True}</field>
+        </record>
+
+        <menuitem id="legal_res_partner_menuitem" name="Clients" parent="legal_affairs_management.cases_and_execution_requests_menu" action="legal_res_partner_action" sequence="1"/>
+    </data>
+</odoo>

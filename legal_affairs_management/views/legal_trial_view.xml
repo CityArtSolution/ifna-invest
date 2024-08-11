@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_trial_tree" model="ir.ui.view">
+            <field name="name">legal.trial.tree</field>
+            <field name="model">legal.trial</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="case_id"/>
+                    <field name="trial_date"/>
+                    <field name="court_id"/>
+                    <field name="lawyer_id"/>
+                    <field name="company_id" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_trial_form" model="ir.ui.view">
+            <field name="name">legal.trial.form</field>
+            <field name="model">legal.trial</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="trial_state" widget="statusbar" options="{'clickable': '1'}"/>
+                    </header>
+                    <sheet>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                        <div class="oe_title mb24">
+                            <field name="active" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                            <label for="case_id">Case Number</label>
+                            <h1>
+                                <field class="text-break" name="case_id" default_focus="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="partner_id"/>
+                                <field name="lawyer_id"/>
+                            </group>
+                            <group>
+                                <field name="court_id"/>
+                            </group>
+                        </group>
+                        <group string="  ">
+                            <group>
+                                <field name="trial_date"/>
+                            </group>
+                            <group>
+                                 <field name="attachment" filename="attachment_filename"/>
+          	                     <field name="attachment_filename" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Description">
+                                <field name="notes" widget="html" placeholder="Enter your Notes...."/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers" groups="base.group_user" />
+						<field name="activity_ids" widget="mail_activity" />
+						<field name="message_ids" widget="mail_thread" />
+					</div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_trial_search" model="ir.ui.view">
+            <field name="name">legal.trial.search</field>
+            <field name="model">legal.trial</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="case_id"/>
+                    <field name="trial_date"/>
+                    <field name="court_id"/>
+                    <filter string="Inactive" name="inactive" domain="[('active', '=', False)]"/>
+                    <group expand="1" string="Group By">
+                        <filter string="Company" name="group_by_company" context="{'group_by':'company_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action for Trial -->
+        <record id="action_trial" model="ir.actions.act_window">
+            <field name="name">Trials</field>
+            <field name="res_model">legal.trial</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="legal_trial_menuitem" name="Trials" parent="legal_affairs_management.cases_and_execution_requests_menu" action="action_trial" sequence="3"/>
+    </data>
+</odoo>
