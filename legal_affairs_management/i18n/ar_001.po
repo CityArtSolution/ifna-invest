@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-11 04:32+0000\n"
-"PO-Revision-Date: 2024-08-11 04:32+0000\n"
+"POT-Creation-Date: 2024-08-18 00:31+0000\n"
+"PO-Revision-Date: 2024-08-18 00:31+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -20,14 +20,36 @@ msgstr ""
 #: model:ir.cron,cron_name:legal_affairs_management.ir_cron_check_expiring_authorizations
 #: model:ir.cron,name:legal_affairs_management.ir_cron_check_expiring_authorizations
 msgid "(Legal) Check Expiring Authorizations"
-msgstr ""
+msgstr "فحص التفويضات المنتهية (قانونيًا)"
 
 #. module: legal_affairs_management
 #: model:ir.actions.server,name:legal_affairs_management.ir_cron_send_trial_reminders_ir_actions_server
 #: model:ir.cron,cron_name:legal_affairs_management.ir_cron_send_trial_reminders
 #: model:ir.cron,name:legal_affairs_management.ir_cron_send_trial_reminders
 msgid "(Legal) Send Trial Reminders"
+msgstr "إرسال تذكيرات المحاكمات (قانونيًا)"
+
+#. module: legal_affairs_management
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_case_matters_form
+msgid ""
+"<span class=\"o_stat_text\">\n"
+"                                        Defendant Invoices\n"
+"                                    </span>"
 msgstr ""
+"<span class=\"o_stat_text\">\n"
+"                                        فواتير المدعى عليه\n"
+"                                    </span>"
+
+#. module: legal_affairs_management
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_case_matters_form
+msgid ""
+"<span class=\"o_stat_text\">\n"
+"                                        Execution Requests\n"
+"                                    </span>"
+msgstr ""
+"<span class=\"o_stat_text\">\n"
+"                                        طلبات التنفيذ\n"
+"                                    </span>"
 
 #. module: legal_affairs_management
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_case_matters_form
@@ -36,6 +58,14 @@ msgid ""
 "                                        Trials\n"
 "                                    </span>"
 msgstr ""
+"<span class=\"o_stat_text\">\n"
+"                                        الجلسات\n"
+"                                    </span>"
+
+#. module: legal_affairs_management
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_execution_request_form
+msgid "<span class=\"o_stat_text\">Journal Entries</span>"
+msgstr "<span class=\"o_stat_text\">مسودة القيد</span>"
 
 #. module: legal_affairs_management
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.legal_res_partner_inherit_view_form
@@ -48,10 +78,35 @@ msgid "<span>Overdue Invoices</span>"
 msgstr "<span>الفواتير المتأخرة</span>"
 
 #. module: legal_affairs_management
+#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__account_id
+msgid "Account"
+msgstr ""
+
+#. module: legal_affairs_management
+#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__journal_id
+msgid "Account Journal"
+msgstr "دفتر الحسابات"
+
+#. module: legal_affairs_management
+#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__account_journal_count
+msgid "Account Journal Count"
+msgstr "دفتر الحسابات"
+
+#. module: legal_affairs_management
+#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__account_move_count
+msgid "Account Move Count"
+msgstr ""
+
+#. module: legal_affairs_management
+#: code:addons/legal_affairs_management/models/legal_execution_request.py:0
+#, python-format
+msgid "Account Receivable Entry"
+msgstr ""
+
+#. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__message_needaction
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__message_needaction
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__message_needaction
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__message_needaction
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__message_needaction
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__message_needaction
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__message_needaction
@@ -60,8 +115,6 @@ msgstr "<span>الفواتير المتأخرة</span>"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__message_needaction
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__message_needaction
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__message_needaction
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__message_needaction
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__message_needaction
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__message_needaction
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__message_needaction
 msgid "Action Needed"
@@ -71,7 +124,6 @@ msgstr "الإجراء المطلوب"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__active
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__active
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__active
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__active
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__active
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__active
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__active
@@ -80,8 +132,6 @@ msgstr "الإجراء المطلوب"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__active
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__active
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__active
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__active
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__active
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__active
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__active
 #: model:ir.model.fields.selection,name:legal_affairs_management.selection__legal_company_document__document_status__active
@@ -92,7 +142,6 @@ msgstr "نشط"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__activity_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__activity_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__activity_ids
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__activity_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__activity_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__activity_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__activity_ids
@@ -101,8 +150,6 @@ msgstr "نشط"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__activity_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__activity_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__activity_ids
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__activity_ids
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__activity_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__activity_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__activity_ids
 msgid "Activities"
@@ -112,7 +159,6 @@ msgstr "أنشطة"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__activity_exception_decoration
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__activity_exception_decoration
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__activity_exception_decoration
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__activity_exception_decoration
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__activity_exception_decoration
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__activity_exception_decoration
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__activity_exception_decoration
@@ -121,8 +167,6 @@ msgstr "أنشطة"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__activity_exception_decoration
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__activity_exception_decoration
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__activity_exception_decoration
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__activity_exception_decoration
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__activity_exception_decoration
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__activity_exception_decoration
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__activity_exception_decoration
 msgid "Activity Exception Decoration"
@@ -132,7 +176,6 @@ msgstr "زخرفة استثناء النشاط"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__activity_state
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__activity_state
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__activity_state
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__activity_state
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__activity_state
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__activity_state
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__activity_state
@@ -141,8 +184,6 @@ msgstr "زخرفة استثناء النشاط"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__activity_state
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__activity_state
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__activity_state
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__activity_state
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__activity_state
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__activity_state
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__activity_state
 msgid "Activity State"
@@ -152,7 +193,6 @@ msgstr "حالة النشاط"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__activity_type_icon
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__activity_type_icon
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__activity_type_icon
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__activity_type_icon
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__activity_type_icon
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__activity_type_icon
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__activity_type_icon
@@ -161,8 +201,6 @@ msgstr "حالة النشاط"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__activity_type_icon
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__activity_type_icon
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__activity_type_icon
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__activity_type_icon
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__activity_type_icon
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__activity_type_icon
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__activity_type_icon
 msgid "Activity Type Icon"
@@ -177,7 +215,6 @@ msgid "Agency"
 msgstr "وكالة"
 
 #. module: legal_affairs_management
-#: model:ir.model.fields.selection,name:legal_affairs_management.selection__legal_case__court_level__appeal
 #: model:ir.model.fields.selection,name:legal_affairs_management.selection__legal_court__court_level__appeal
 msgid "Appeal Court"
 msgstr "محكمة استئناف"
@@ -197,6 +234,7 @@ msgstr "معتمد"
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_company_document_form
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_execution_request_form
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_external_legal_consultation_form
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_legal_case_type_form
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_trial_form
 msgid "Archived"
 msgstr ""
@@ -213,7 +251,6 @@ msgstr "ملف مرفق"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__message_attachment_count
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__message_attachment_count
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__message_attachment_count
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__message_attachment_count
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__message_attachment_count
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__message_attachment_count
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__message_attachment_count
@@ -222,8 +259,6 @@ msgstr "ملف مرفق"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__message_attachment_count
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__message_attachment_count
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__message_attachment_count
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__message_attachment_count
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__message_attachment_count
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__message_attachment_count
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__message_attachment_count
 msgid "Attachment Count"
@@ -274,15 +309,13 @@ msgid "Authorizations & Agencies"
 msgstr "تفويضات و وكالات"
 
 #. module: legal_affairs_management
+#: model:ir.actions.act_window,name:legal_affairs_management.legal_authorized_res_partner_action
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__authorized_person_id
+#: model:ir.model.fields,field_description:legal_affairs_management.field_res_partner__is_legal_authorized
+#: model:ir.model.fields,field_description:legal_affairs_management.field_res_users__is_legal_authorized
+#: model:ir.ui.menu,name:legal_affairs_management.legal_authorized_res_partner_menuitem
 msgid "Authorized"
 msgstr "المفوض"
-
-#. module: legal_affairs_management
-#: model:ir.actions.act_window,name:legal_affairs_management.action_legal_authorized_person
-#: model:ir.ui.menu,name:legal_affairs_management.menu_legal_authorized_person
-msgid "Authorized Persons"
-msgstr "الشخص المفوض"
 
 #. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__authorized_role
@@ -291,30 +324,8 @@ msgstr "دور المفوض"
 
 #. module: legal_affairs_management
 #. openerp-web
-#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
-#, python-format
-msgid "Auths & Agencies"
-msgstr "تفويضات و وكالات"
-
-#. module: legal_affairs_management
-#. openerp-web
-#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
-#, python-format
-msgid "Billed at a Fixed price"
-msgstr ""
-
-#. module: legal_affairs_management
-#. openerp-web
-#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
-#, python-format
-msgid "Billed on Timesheet"
-msgstr ""
-
-#. module: legal_affairs_management
-#. openerp-web
 #: code:addons/legal_affairs_management/static/src/js/dashboard.js:0
 #: code:addons/legal_affairs_management/static/src/js/dashboard.js:0
-#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
 #: model:ir.actions.act_window,name:legal_affairs_management.action_board_decision
 #: model:ir.ui.menu,name:legal_affairs_management.legal_board_decision_menuitem
 #, python-format
@@ -329,10 +340,27 @@ msgid "Cancelled"
 msgstr "إلغاء"
 
 #. module: legal_affairs_management
+#. openerp-web
+#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
+#: model:ir.model.fields,field_description:legal_affairs_management.field_account_bank_statement_line__case_id
+#: model:ir.model.fields,field_description:legal_affairs_management.field_account_move__case_id
+#: model:ir.model.fields,field_description:legal_affairs_management.field_account_payment__case_id
+#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__case_id
+#, python-format
+msgid "Case"
+msgstr "القضية"
+
+#. module: legal_affairs_management
 #: model:ir.actions.act_window,name:legal_affairs_management.action_case_matters
 #: model:ir.ui.menu,name:legal_affairs_management.legal_case_menuitem
 msgid "Case & Matters"
 msgstr "القضايا"
+
+#. module: legal_affairs_management
+#: code:addons/legal_affairs_management/models/legal_execution_request.py:0
+#, python-format
+msgid "Case Account Entry"
+msgstr "مدخل حساب القضية"
 
 #. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__name
@@ -348,6 +376,7 @@ msgstr "حالة القضية"
 
 #. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__case_type_id
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_legal_case_type_form
 msgid "Case Type"
 msgstr "نوع القضية"
 
@@ -378,26 +407,12 @@ msgid "Chamber of Commerce Subscription"
 msgstr "اشتراك الغرفة التجارة"
 
 #. module: legal_affairs_management
+#. openerp-web
+#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__claim_amount
+#, python-format
 msgid "Claim Amount"
 msgstr "مبلغ المطالبة"
-
-#. module: legal_affairs_management
-#: model:ir.model.fields,field_description:legal_affairs_management.field_res_partner__is_legal_client
-#: model:ir.model.fields,field_description:legal_affairs_management.field_res_users__is_legal_client
-msgid "Client"
-msgstr "عميل"
-
-#. module: legal_affairs_management
-#. openerp-web
-#: code:addons/legal_affairs_management/static/src/js/dashboard.js:0
-#: code:addons/legal_affairs_management/static/src/js/dashboard.js:0
-#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
-#: model:ir.actions.act_window,name:legal_affairs_management.legal_res_partner_action
-#: model:ir.ui.menu,name:legal_affairs_management.legal_res_partner_menuitem
-#, python-format
-msgid "Clients"
-msgstr "العملاء"
 
 #. module: legal_affairs_management
 #: model:ir.model.fields.selection,name:legal_affairs_management.selection__legal_case__case_status__closed
@@ -413,7 +428,6 @@ msgstr "السجل التجاري"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__company_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__company_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__company_id
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__company_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__company_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__company_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__company_id
@@ -422,8 +436,6 @@ msgstr "السجل التجاري"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__company_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__company_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__company_id
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__company_id
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__company_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__company_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__company_id
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_authorization_agency_search
@@ -431,6 +443,7 @@ msgstr "السجل التجاري"
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_case_matters_search
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_company_document_search
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_contract_search
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_execution_request_search
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_letter_search
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_trial_search
 msgid "Company"
@@ -448,14 +461,8 @@ msgid "Company Documents and Licenses, Board of Directors' Decisions"
 msgstr "قرارات مجلس المديرين و مستندات الشركو و تراخيصها "
 
 #. module: legal_affairs_management
-#: model:ir.model.fields.selection,name:legal_affairs_management.selection__legal_authorized_person__role__company_rep
-#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_legal_authorized_person_search
+#: model:ir.model.fields.selection,name:legal_affairs_management.selection__legal_authorization_agency__authorized_role__company_rep
 msgid "Company Representative"
-msgstr "منسوبي الشركة"
-
-#. module: legal_affairs_management
-#: model:ir.model.fields.selection,name:legal_affairs_management.selection__legal_execution_request__state__completed
-msgid "Completed"
 msgstr ""
 
 #. module: legal_affairs_management
@@ -493,7 +500,6 @@ msgstr "أنواع اﻷستشارات"
 #. openerp-web
 #: code:addons/legal_affairs_management/static/src/js/dashboard.js:0
 #: code:addons/legal_affairs_management/static/src/js/dashboard.js:0
-#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
 #, python-format
 msgid "Consultations"
 msgstr "اﻷستشارات"
@@ -513,6 +519,13 @@ msgstr "العقود"
 #: model:ir.ui.menu,name:legal_affairs_management.contracts_outgoing_letters_menu
 msgid "Contracts and outgoing letters"
 msgstr "العقود و الخطابات الصادرة"
+
+#. module: legal_affairs_management
+#. openerp-web
+#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
+#, python-format
+msgid "Court"
+msgstr "المحكمة"
 
 #. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__court_level
@@ -536,6 +549,23 @@ msgstr "المحاكم"
 #. module: legal_affairs_management
 #: code:addons/legal_affairs_management/models/legal_case.py:0
 #, python-format
+msgid "Create Defendant Invoices"
+msgstr "إنشاء فواتير المدعى عليه"
+
+#. module: legal_affairs_management
+#: code:addons/legal_affairs_management/models/legal_case.py:0
+#, python-format
+msgid "Create Execution Request"
+msgstr "إنشاء طلب تنفيذ"
+
+#. module: legal_affairs_management
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_execution_request_form
+msgid "Create Journal Entries"
+msgstr "إنشاء قيود دفتر اليومية"
+
+#. module: legal_affairs_management
+#: code:addons/legal_affairs_management/models/legal_case.py:0
+#, python-format
 msgid "Create Trail"
 msgstr "أضافة جلسة"
 
@@ -543,7 +573,6 @@ msgstr "أضافة جلسة"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__create_uid
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__create_uid
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__create_uid
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__create_uid
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__create_uid
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__create_uid
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__create_uid
@@ -552,8 +581,6 @@ msgstr "أضافة جلسة"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__create_uid
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__create_uid
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__create_uid
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__create_uid
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__create_uid
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__create_uid
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__create_uid
 msgid "Created by"
@@ -563,7 +590,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__create_date
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__create_date
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__create_date
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__create_date
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__create_date
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__create_date
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__create_date
@@ -572,8 +598,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__create_date
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__create_date
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__create_date
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__create_date
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__create_date
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__create_date
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__create_date
 msgid "Created on"
@@ -583,7 +607,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__currency_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__currency_id
 msgid "Currency"
-msgstr ""
+msgstr "العملة"
 
 #. module: legal_affairs_management
 #: model:ir.actions.client,name:legal_affairs_management.project_action_dashboard
@@ -613,14 +637,39 @@ msgid "Decision Subject"
 msgstr "موضوع القرار"
 
 #. module: legal_affairs_management
+#. openerp-web
+#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__partner_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__partner_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__partner_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__partner_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_res_partner__is_legal_defendant
 #: model:ir.model.fields,field_description:legal_affairs_management.field_res_users__is_legal_defendant
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_execution_request_search
+#, python-format
 msgid "Defendant"
 msgstr "المدعي عليه"
+
+#. module: legal_affairs_management
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_case_matters_form
+msgid "Defendant Invoice"
+msgstr "فاتورة المدعى عليه"
+
+#. module: legal_affairs_management
+#: code:addons/legal_affairs_management/models/legal_case.py:0
+#, python-format
+msgid "Defendant Invoices"
+msgstr "فواتير المدعى عليهم"
+
+#. module: legal_affairs_management
+#. openerp-web
+#: code:addons/legal_affairs_management/static/src/js/dashboard.js:0
+#: code:addons/legal_affairs_management/static/src/js/dashboard.js:0
+#: model:ir.actions.act_window,name:legal_affairs_management.legal_defendant_res_partner_action
+#: model:ir.ui.menu,name:legal_affairs_management.legal_defendant_res_partner_menuitem
+#, python-format
+msgid "Defendants"
+msgstr "العملاء"
 
 #. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__description
@@ -637,7 +686,6 @@ msgstr "وصف"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__display_name
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__display_name
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__display_name
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__display_name
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__display_name
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__display_name
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__display_name
@@ -646,12 +694,15 @@ msgstr "وصف"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__display_name
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__display_name
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__display_name
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__display_name
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__display_name
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__display_name
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__display_name
 msgid "Display Name"
 msgstr ""
+
+#. module: legal_affairs_management
+#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__is_disputes
+msgid "Disputes"
+msgstr "منازعات"
 
 #. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_company_document__attachment
@@ -671,6 +722,7 @@ msgstr "أسم الوثيقة"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__document_status
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_company_document__document_status
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__document_status
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_execution_request_search
 msgid "Document Status"
 msgstr "حالة المستند"
 
@@ -685,17 +737,15 @@ msgstr "منجز"
 #: model:ir.model.fields.selection,name:legal_affairs_management.selection__legal_board_decision__document_status__draft
 #: model:ir.model.fields.selection,name:legal_affairs_management.selection__legal_company_document__document_status__draft
 #: model:ir.model.fields.selection,name:legal_affairs_management.selection__legal_execution_request__document_status__draft
-#: model:ir.model.fields.selection,name:legal_affairs_management.selection__legal_execution_request__state__draft
 #: model:ir.model.fields.selection,name:legal_affairs_management.selection__legal_trial__trial_state__draft
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_execution_request_search
 msgid "Draft"
 msgstr "مسودة"
 
 #. module: legal_affairs_management
-#: model:ir.model.fields.selection,name:legal_affairs_management.selection__legal_authorized_person__role__employee
-#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_legal_authorized_person_search
+#: model:ir.model.fields.selection,name:legal_affairs_management.selection__legal_authorization_agency__authorized_role__employee
 msgid "Employee"
-msgstr "موظف"
+msgstr ""
 
 #. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__end_date
@@ -706,7 +756,7 @@ msgstr "تاريخ اﻷنتهاء"
 #: code:addons/legal_affairs_management/models/legal_authorization_agency.py:0
 #, python-format
 msgid "End Date Warning"
-msgstr ""
+msgstr "تحذير تاريخ الانتهاء"
 
 #. module: legal_affairs_management
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_execution_request_form
@@ -716,7 +766,7 @@ msgstr "أدخل ملاحظاتك هنا..."
 #. module: legal_affairs_management
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_external_legal_consultation_form
 msgid "Enter Your Notes...."
-msgstr ""
+msgstr "أدخل ملاحظاتك هنا..."
 
 #. module: legal_affairs_management
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_authorization_agency_form
@@ -725,13 +775,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_trial_form
 msgid "Enter your Notes...."
 msgstr "أدخل ملاحظاتك هنا...."
-
-#. module: legal_affairs_management
-#. openerp-web
-#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
-#, python-format
-msgid "Exec Requests"
-msgstr "طلبات التنفيذ"
 
 #. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__execution_amount
@@ -747,6 +790,16 @@ msgstr "رقم التنفيذ"
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_execution_request_form
 msgid "Execution Request"
 msgstr "طلبات التنفيذ"
+
+#. module: legal_affairs_management
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_case_matters_form
+msgid "Execution Request"
+msgstr "اضافة طلب التنفيذ"
+
+#. module: legal_affairs_management
+#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__execution_request_count
+msgid "Execution Request Count"
+msgstr "عدد طلبات التنفيذ"
 
 #. module: legal_affairs_management
 #. openerp-web
@@ -777,10 +830,14 @@ msgid "External Legal Consultations"
 msgstr "اﻷستشارات للمحامي الخارجي"
 
 #. module: legal_affairs_management
+#: model:res.groups,name:legal_affairs_management.group_account_invoice
+msgid "Financial Manager"
+msgstr ""
+
+#. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__message_follower_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__message_follower_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__message_follower_ids
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__message_follower_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__message_follower_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__message_follower_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__message_follower_ids
@@ -789,8 +846,6 @@ msgstr "اﻷستشارات للمحامي الخارجي"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__message_follower_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__message_follower_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__message_follower_ids
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__message_follower_ids
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__message_follower_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__message_follower_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__message_follower_ids
 msgid "Followers"
@@ -800,7 +855,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__message_partner_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__message_partner_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__message_partner_ids
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__message_partner_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__message_partner_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__message_partner_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__message_partner_ids
@@ -809,8 +863,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__message_partner_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__message_partner_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__message_partner_ids
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__message_partner_ids
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__message_partner_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__message_partner_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__message_partner_ids
 msgid "Followers (Partners)"
@@ -820,7 +872,6 @@ msgstr ""
 #: model:ir.model.fields,help:legal_affairs_management.field_external_legal_consultation__activity_type_icon
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_authorization_agency__activity_type_icon
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_authorization_type__activity_type_icon
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_authorized_person__activity_type_icon
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_board_decision__activity_type_icon
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_case__activity_type_icon
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_case_type__activity_type_icon
@@ -829,8 +880,6 @@ msgstr ""
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_contract__activity_type_icon
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_court__activity_type_icon
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_execution_request__activity_type_icon
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_judge__activity_type_icon
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_lawyer__activity_type_icon
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_letter__activity_type_icon
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_trial__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
@@ -842,6 +891,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_case_matters_search
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_company_document_search
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_contract_search
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_execution_request_search
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_letter_search
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_trial_search
 msgid "Group By"
@@ -856,7 +906,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__has_message
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__has_message
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__has_message
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__has_message
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__has_message
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__has_message
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__has_message
@@ -865,25 +914,21 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__has_message
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__has_message
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__has_message
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__has_message
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__has_message
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__has_message
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__has_message
 msgid "Has Message"
 msgstr ""
 
 #. module: legal_affairs_management
-#. openerp-web
-#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
+#: code:addons/legal_affairs_management/models/legal_execution_request.py:0
 #, python-format
-msgid "Hours Recorded"
+msgid "High Amount Warning"
 msgstr ""
 
 #. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__id
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__id
@@ -892,8 +937,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__id
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__id
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__id
 msgid "ID"
@@ -903,7 +946,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__activity_exception_icon
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__activity_exception_icon
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__activity_exception_icon
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__activity_exception_icon
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__activity_exception_icon
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__activity_exception_icon
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__activity_exception_icon
@@ -912,8 +954,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__activity_exception_icon
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__activity_exception_icon
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__activity_exception_icon
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__activity_exception_icon
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__activity_exception_icon
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__activity_exception_icon
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__activity_exception_icon
 msgid "Icon"
@@ -923,7 +963,6 @@ msgstr ""
 #: model:ir.model.fields,help:legal_affairs_management.field_external_legal_consultation__activity_exception_icon
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_authorization_agency__activity_exception_icon
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_authorization_type__activity_exception_icon
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_authorized_person__activity_exception_icon
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_board_decision__activity_exception_icon
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_case__activity_exception_icon
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_case_type__activity_exception_icon
@@ -932,8 +971,6 @@ msgstr ""
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_contract__activity_exception_icon
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_court__activity_exception_icon
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_execution_request__activity_exception_icon
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_judge__activity_exception_icon
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_lawyer__activity_exception_icon
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_letter__activity_exception_icon
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_trial__activity_exception_icon
 msgid "Icon to indicate an exception activity."
@@ -946,8 +983,6 @@ msgstr ""
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_authorization_agency__message_unread
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_authorization_type__message_needaction
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_authorization_type__message_unread
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_authorized_person__message_needaction
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_authorized_person__message_unread
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_board_decision__message_needaction
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_board_decision__message_unread
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_case__message_needaction
@@ -964,10 +999,6 @@ msgstr ""
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_court__message_unread
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_execution_request__message_needaction
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_execution_request__message_unread
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_judge__message_needaction
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_judge__message_unread
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_lawyer__message_needaction
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_lawyer__message_unread
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_letter__message_needaction
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_letter__message_unread
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_trial__message_needaction
@@ -982,8 +1013,6 @@ msgstr ""
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_authorization_agency__message_has_sms_error
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_authorization_type__message_has_error
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_authorization_type__message_has_sms_error
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_authorized_person__message_has_error
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_authorized_person__message_has_sms_error
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_board_decision__message_has_error
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_board_decision__message_has_sms_error
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_case__message_has_error
@@ -1000,10 +1029,6 @@ msgstr ""
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_court__message_has_sms_error
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_execution_request__message_has_error
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_execution_request__message_has_sms_error
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_judge__message_has_error
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_judge__message_has_sms_error
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_lawyer__message_has_error
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_lawyer__message_has_sms_error
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_letter__message_has_error
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_letter__message_has_sms_error
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_trial__message_has_error
@@ -1024,28 +1049,22 @@ msgstr "جاري التجهيز"
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_contract_search
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_external_legal_consultation_search
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_legal_authorization_type_search
-#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_legal_authorized_person_search
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_legal_case_type_search
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_legal_court_search
-#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_legal_judge_search
-#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_legal_lawyer_search
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_letter_search
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_trial_search
 msgid "Inactive"
 msgstr ""
 
 #. module: legal_affairs_management
-#. openerp-web
-#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
-#, python-format
-msgid "Invoiced"
+#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__account_move_ids
+msgid "Invoices"
 msgstr ""
 
 #. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__message_is_follower
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__message_is_follower
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__message_is_follower
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__message_is_follower
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__message_is_follower
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__message_is_follower
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__message_is_follower
@@ -1054,8 +1073,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__message_is_follower
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__message_is_follower
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__message_is_follower
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__message_is_follower
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__message_is_follower
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__message_is_follower
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__message_is_follower
 msgid "Is Follower"
@@ -1067,13 +1084,38 @@ msgid "Issue Date"
 msgstr "تاريخ اﻷصدار"
 
 #. module: legal_affairs_management
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_execution_request_form
+msgid "Journal Account..."
+msgstr ""
+
+#. module: legal_affairs_management
+#: code:addons/legal_affairs_management/models/legal_execution_request.py:0
+#, python-format
+msgid "Journal Entries"
+msgstr ""
+
+#. module: legal_affairs_management
+#: code:addons/legal_affairs_management/models/legal_case.py:0
+#: code:addons/legal_affairs_management/models/legal_execution_request.py:0
+#: model:ir.model,name:legal_affairs_management.model_account_move
+#, python-format
+msgid "Journal Entry"
+msgstr "قيد اليومية"
+
+#. module: legal_affairs_management
+#: model:ir.model.fields,field_description:legal_affairs_management.field_res_partner__is_legal_judge
+#: model:ir.model.fields,field_description:legal_affairs_management.field_res_users__is_legal_judge
+msgid "Judge"
+msgstr "قاضي"
+
+#. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__judge_id
 msgid "Judge Name"
 msgstr "أسم المحكمة"
 
 #. module: legal_affairs_management
-#: model:ir.actions.act_window,name:legal_affairs_management.action_legal_judge
-#: model:ir.ui.menu,name:legal_affairs_management.menu_legal_judge
+#: model:ir.actions.act_window,name:legal_affairs_management.legal_judge_res_partner_action
+#: model:ir.ui.menu,name:legal_affairs_management.legal_judge_res_partner_menuitem
 msgid "Judges"
 msgstr "القضاه"
 
@@ -1081,7 +1123,6 @@ msgstr "القضاه"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation____last_update
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency____last_update
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type____last_update
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person____last_update
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision____last_update
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case____last_update
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type____last_update
@@ -1090,8 +1131,6 @@ msgstr "القضاه"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract____last_update
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court____last_update
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request____last_update
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge____last_update
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer____last_update
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter____last_update
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial____last_update
 msgid "Last Modified on"
@@ -1101,7 +1140,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__write_uid
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__write_uid
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__write_uid
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__write_uid
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__write_uid
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__write_uid
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__write_uid
@@ -1110,8 +1148,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__write_uid
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__write_uid
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__write_uid
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__write_uid
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__write_uid
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__write_uid
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__write_uid
 msgid "Last Updated by"
@@ -1121,7 +1157,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__write_date
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__write_date
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__write_date
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__write_date
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__write_date
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__write_date
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__write_date
@@ -1130,28 +1165,25 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__write_date
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__write_date
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__write_date
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__write_date
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__write_date
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__write_date
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__write_date
 msgid "Last Updated on"
 msgstr ""
 
 #. module: legal_affairs_management
-#. openerp-web
-#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
-#, python-format
-msgid "Last Year"
-msgstr ""
-
-#. module: legal_affairs_management
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__law_area
+#: model:ir.model.fields,field_description:legal_affairs_management.field_res_partner__lawyer_law_area
+#: model:ir.model.fields,field_description:legal_affairs_management.field_res_users__lawyer_law_area
 msgid "Law Area"
 msgstr "المجال القانوني"
 
 #. module: legal_affairs_management
+#. openerp-web
+#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__lawyer_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__lawyer_id
+#: model:ir.model.fields,field_description:legal_affairs_management.field_res_partner__is_legal_lawyer
+#: model:ir.model.fields,field_description:legal_affairs_management.field_res_users__is_legal_lawyer
+#, python-format
 msgid "Lawyer"
 msgstr "المحامي"
 
@@ -1166,8 +1198,8 @@ msgid "Lawyer Response"
 msgstr "رد المحامي"
 
 #. module: legal_affairs_management
-#: model:ir.actions.act_window,name:legal_affairs_management.action_legal_lawyer
-#: model:ir.ui.menu,name:legal_affairs_management.menu_legal_lawyer
+#: model:ir.actions.act_window,name:legal_affairs_management.legal_lawyer_res_partner_action
+#: model:ir.ui.menu,name:legal_affairs_management.legal_lawyer_res_partner_menuitem
 msgid "Lawyers"
 msgstr "المحامين"
 
@@ -1179,17 +1211,12 @@ msgstr "الإدارة القانونية"
 #. module: legal_affairs_management
 #: model:ir.model,name:legal_affairs_management.model_legal_authorization_type
 msgid "Legal Authorization Type"
-msgstr ""
+msgstr "نوع التفويض القانوني"
 
 #. module: legal_affairs_management
 #: model:ir.model,name:legal_affairs_management.model_legal_authorization_agency
 msgid "Legal Authorization and Agency"
-msgstr ""
-
-#. module: legal_affairs_management
-#: model:ir.model,name:legal_affairs_management.model_legal_authorized_person
-msgid "Legal Authorized Person"
-msgstr ""
+msgstr "التفويض القانوني والوكالة"
 
 #. module: legal_affairs_management
 #: model:ir.model,name:legal_affairs_management.model_legal_board_decision
@@ -1202,9 +1229,22 @@ msgid "Legal Case & Matters"
 msgstr "القضايا القانونية والشؤون"
 
 #. module: legal_affairs_management
+#. openerp-web
+#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
+#, python-format
+msgid "Legal Case Details"
+msgstr "تفاصيل القضايا"
+
+#. module: legal_affairs_management
+#: model:product.product,name:legal_affairs_management.legal_product_product_case_data
+#: model:product.template,name:legal_affairs_management.legal_product_product_case_data_product_template
+msgid "Legal Case Expenses"
+msgstr "مصروفات القضية القانونية"
+
+#. module: legal_affairs_management
 #: model:ir.model,name:legal_affairs_management.model_legal_case_type
 msgid "Legal Case Type"
-msgstr ""
+msgstr "نوع القضية القانونية"
 
 #. module: legal_affairs_management
 #: model:ir.model,name:legal_affairs_management.model_legal_company_document
@@ -1237,14 +1277,9 @@ msgid "Legal Field"
 msgstr "المجال القانوني"
 
 #. module: legal_affairs_management
-#: model:ir.model,name:legal_affairs_management.model_legal_judge
-msgid "Legal Judge"
-msgstr "القاضي"
-
-#. module: legal_affairs_management
-#: model:ir.model,name:legal_affairs_management.model_legal_lawyer
-msgid "Legal Lawyer"
-msgstr "المحامي"
+#: model:res.groups,name:legal_affairs_management.group_account_financial_manager
+msgid "Legal Financial Manager"
+msgstr "مدير الشؤون المالية القانونية"
 
 #. module: legal_affairs_management
 #: model:ir.model,name:legal_affairs_management.model_legal_letter
@@ -1277,7 +1312,6 @@ msgstr "الخطابات"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__message_main_attachment_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__message_main_attachment_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__message_main_attachment_id
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__message_main_attachment_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__message_main_attachment_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__message_main_attachment_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__message_main_attachment_id
@@ -1286,8 +1320,6 @@ msgstr "الخطابات"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__message_main_attachment_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__message_main_attachment_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__message_main_attachment_id
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__message_main_attachment_id
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__message_main_attachment_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__message_main_attachment_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__message_main_attachment_id
 msgid "Main Attachment"
@@ -1297,7 +1329,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__message_has_error
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__message_has_error
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__message_has_error
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__message_has_error
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__message_has_error
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__message_has_error
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__message_has_error
@@ -1306,8 +1337,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__message_has_error
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__message_has_error
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__message_has_error
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__message_has_error
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__message_has_error
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__message_has_error
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__message_has_error
 msgid "Message Delivery error"
@@ -1317,7 +1346,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__message_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__message_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__message_ids
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__message_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__message_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__message_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__message_ids
@@ -1326,8 +1354,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__message_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__message_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__message_ids
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__message_ids
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__message_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__message_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__message_ids
 msgid "Messages"
@@ -1337,7 +1363,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__my_activity_date_deadline
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__my_activity_date_deadline
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__my_activity_date_deadline
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__my_activity_date_deadline
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__my_activity_date_deadline
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__my_activity_date_deadline
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__my_activity_date_deadline
@@ -1346,21 +1371,16 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__my_activity_date_deadline
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__my_activity_date_deadline
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__my_activity_date_deadline
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__my_activity_date_deadline
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__my_activity_date_deadline
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__my_activity_date_deadline
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__my_activity_date_deadline
 msgid "My Activity Deadline"
 msgstr ""
 
 #. module: legal_affairs_management
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__name
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__name
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_consultation_type__name
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__name
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__name
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__name
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__name
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__name
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_case_matters_form
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_contract_form
@@ -1386,7 +1406,6 @@ msgstr "جديد"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__activity_date_deadline
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__activity_date_deadline
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__activity_date_deadline
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__activity_date_deadline
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__activity_date_deadline
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__activity_date_deadline
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__activity_date_deadline
@@ -1395,8 +1414,6 @@ msgstr "جديد"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__activity_date_deadline
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__activity_date_deadline
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__activity_date_deadline
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__activity_date_deadline
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__activity_date_deadline
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__activity_date_deadline
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__activity_date_deadline
 msgid "Next Activity Deadline"
@@ -1406,7 +1423,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__activity_summary
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__activity_summary
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__activity_summary
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__activity_summary
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__activity_summary
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__activity_summary
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__activity_summary
@@ -1415,8 +1431,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__activity_summary
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__activity_summary
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__activity_summary
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__activity_summary
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__activity_summary
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__activity_summary
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__activity_summary
 msgid "Next Activity Summary"
@@ -1426,7 +1440,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__activity_type_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__activity_type_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__activity_type_id
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__activity_type_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__activity_type_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__activity_type_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__activity_type_id
@@ -1435,8 +1448,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__activity_type_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__activity_type_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__activity_type_id
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__activity_type_id
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__activity_type_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__activity_type_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__activity_type_id
 msgid "Next Activity Type"
@@ -1446,14 +1457,13 @@ msgstr ""
 #. openerp-web
 #: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
 #, python-format
-msgid "No task found"
+msgid "No data Available"
 msgstr ""
 
 #. module: legal_affairs_management
-#. openerp-web
-#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
-#, python-format
-msgid "Non Billable Tasks"
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_execution_request_form
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_execution_request_search
+msgid "Not paid"
 msgstr ""
 
 #. module: legal_affairs_management
@@ -1470,7 +1480,6 @@ msgstr "ملاحظات"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__message_needaction_counter
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__message_needaction_counter
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__message_needaction_counter
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__message_needaction_counter
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__message_needaction_counter
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__message_needaction_counter
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__message_needaction_counter
@@ -1479,8 +1488,6 @@ msgstr "ملاحظات"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__message_needaction_counter
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__message_needaction_counter
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__message_needaction_counter
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__message_needaction_counter
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__message_needaction_counter
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__message_needaction_counter
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__message_needaction_counter
 msgid "Number of Actions"
@@ -1490,7 +1497,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__message_has_error_counter
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__message_has_error_counter
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__message_has_error_counter
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__message_has_error_counter
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__message_has_error_counter
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__message_has_error_counter
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__message_has_error_counter
@@ -1499,8 +1505,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__message_has_error_counter
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__message_has_error_counter
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__message_has_error_counter
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__message_has_error_counter
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__message_has_error_counter
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__message_has_error_counter
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__message_has_error_counter
 msgid "Number of errors"
@@ -1510,7 +1514,6 @@ msgstr ""
 #: model:ir.model.fields,help:legal_affairs_management.field_external_legal_consultation__message_needaction_counter
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_authorization_agency__message_needaction_counter
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_authorization_type__message_needaction_counter
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_authorized_person__message_needaction_counter
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_board_decision__message_needaction_counter
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_case__message_needaction_counter
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_case_type__message_needaction_counter
@@ -1519,8 +1522,6 @@ msgstr ""
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_contract__message_needaction_counter
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_court__message_needaction_counter
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_execution_request__message_needaction_counter
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_judge__message_needaction_counter
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_lawyer__message_needaction_counter
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_letter__message_needaction_counter
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_trial__message_needaction_counter
 msgid "Number of messages which requires an action"
@@ -1530,7 +1531,6 @@ msgstr ""
 #: model:ir.model.fields,help:legal_affairs_management.field_external_legal_consultation__message_has_error_counter
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_authorization_agency__message_has_error_counter
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_authorization_type__message_has_error_counter
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_authorized_person__message_has_error_counter
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_board_decision__message_has_error_counter
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_case__message_has_error_counter
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_case_type__message_has_error_counter
@@ -1539,8 +1539,6 @@ msgstr ""
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_contract__message_has_error_counter
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_court__message_has_error_counter
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_execution_request__message_has_error_counter
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_judge__message_has_error_counter
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_lawyer__message_has_error_counter
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_letter__message_has_error_counter
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_trial__message_has_error_counter
 msgid "Number of messages with delivery error"
@@ -1550,7 +1548,6 @@ msgstr ""
 #: model:ir.model.fields,help:legal_affairs_management.field_external_legal_consultation__message_unread_counter
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_authorization_agency__message_unread_counter
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_authorization_type__message_unread_counter
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_authorized_person__message_unread_counter
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_board_decision__message_unread_counter
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_case__message_unread_counter
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_case_type__message_unread_counter
@@ -1559,8 +1556,6 @@ msgstr ""
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_contract__message_unread_counter
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_court__message_unread_counter
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_execution_request__message_unread_counter
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_judge__message_unread_counter
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_lawyer__message_unread_counter
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_letter__message_unread_counter
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_trial__message_unread_counter
 msgid "Number of unread messages"
@@ -1572,69 +1567,61 @@ msgid "Open"
 msgstr "منظورة"
 
 #. module: legal_affairs_management
-#. openerp-web
-#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
-#, python-format
-msgid "Other costs"
-msgstr ""
-
-#. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_res_partner__overdue_invoice_count
 #: model:ir.model.fields,field_description:legal_affairs_management.field_res_users__overdue_invoice_count
 msgid "Overdue Invoice Count"
-msgstr ""
+msgstr "عدد الفواتير المتأخرة"
 
 #. module: legal_affairs_management
 #: code:addons/legal_affairs_management/models/legal_res_partner.py:0
 #, python-format
 msgid "Overdue Invoices"
-msgstr ""
+msgstr "الفواتير المتأخرة"
+
+#. module: legal_affairs_management
+#: model:ir.model.fields.selection,name:legal_affairs_management.selection__legal_execution_request__state__paid
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_execution_request_form
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_execution_request_search
+msgid "Paid"
+msgstr "مدفوع"
+
+#. module: legal_affairs_management
+#. openerp-web
+#: code:addons/legal_affairs_management/static/src/js/dashboard.js:0
+#: code:addons/legal_affairs_management/static/src/js/dashboard.js:0
+#: code:addons/legal_affairs_management/static/src/js/dashboard.js:0
+#: code:addons/legal_affairs_management/static/src/js/dashboard.js:0
+#, python-format
+msgid "Paid Execution Requests"
+msgstr "طلبات التنفيذ المسددة"
+
+#. module: legal_affairs_management
+#: code:addons/legal_affairs_management/models/legal_execution_request.py:0
+#, python-format
+msgid "Partner or Case account is not configured properly."
+msgstr "حساب الشريك أو القضية غير مُعد بشكل صحيح."
 
 #. module: legal_affairs_management
 #: code:addons/legal_affairs_management/models/external_legal_consultation.py:0
 #, python-format
 msgid "Past Date Warning"
-msgstr ""
+msgstr "تحذير التاريخ الماضي"
 
 #. module: legal_affairs_management
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__plaintiff
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__plaintiff
+#. openerp-web
+#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
+#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__plaintiff_id
+#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__plaintiff_id
+#: model:ir.model.fields,field_description:legal_affairs_management.field_res_partner__is_legal_plaintiff
+#: model:ir.model.fields,field_description:legal_affairs_management.field_res_users__is_legal_plaintiff
+#, python-format
 msgid "Plaintiff"
 msgstr "المدعي"
 
 #. module: legal_affairs_management
-#: model:ir.model.fields.selection,name:legal_affairs_management.selection__legal_case__court_level__primary
 #: model:ir.model.fields.selection,name:legal_affairs_management.selection__legal_court__court_level__primary
 msgid "Primary Court"
 msgstr "محكمة ابتدائية"
-
-#. module: legal_affairs_management
-#. openerp-web
-#: code:addons/legal_affairs_management/static/src/js/dashboard.js:0
-#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
-#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
-#, python-format
-msgid "Profitability"
-msgstr ""
-
-#. module: legal_affairs_management
-#: model:ir.model,name:legal_affairs_management.model_project_project
-msgid "Project"
-msgstr "المشروع"
-
-#. module: legal_affairs_management
-#. openerp-web
-#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
-#, python-format
-msgid "Project Name"
-msgstr ""
-
-#. module: legal_affairs_management
-#. openerp-web
-#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
-#, python-format
-msgid "Project Task Details"
-msgstr ""
 
 #. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_company_document__real_estate_management_brokerage
@@ -1647,6 +1634,12 @@ msgid "Reminder Sent"
 msgstr "تم التنبيه"
 
 #. module: legal_affairs_management
+#: code:addons/legal_affairs_management/models/legal_trial.py:0
+#, python-format
+msgid "Reminder: Upcoming Trial"
+msgstr ""
+
+#. module: legal_affairs_management
 #: model:ir.model.fields.selection,name:legal_affairs_management.selection__external_legal_consultation__document_status__renewed
 #: model:ir.model.fields.selection,name:legal_affairs_management.selection__legal_authorization_agency__document_status__renewed
 #: model:ir.model.fields.selection,name:legal_affairs_management.selection__legal_company_document__document_status__renewed
@@ -1655,7 +1648,6 @@ msgstr "تجديد"
 
 #. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__name
-#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_execution_request_form
 msgid "Request Number"
 msgstr "رقم الطلب"
 
@@ -1668,7 +1660,6 @@ msgstr "تاريخ الرد"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__activity_user_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__activity_user_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__activity_user_id
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__activity_user_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__activity_user_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__activity_user_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__activity_user_id
@@ -1677,23 +1668,15 @@ msgstr "تاريخ الرد"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__activity_user_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__activity_user_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__activity_user_id
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__activity_user_id
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__activity_user_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__activity_user_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__activity_user_id
 msgid "Responsible User"
 msgstr ""
 
 #. module: legal_affairs_management
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__role
-msgid "Role"
-msgstr "دور"
-
-#. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__message_has_sms_error
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__message_has_sms_error
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__message_has_sms_error
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__message_has_sms_error
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__message_has_sms_error
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__message_has_sms_error
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__message_has_sms_error
@@ -1702,26 +1685,15 @@ msgstr "دور"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__message_has_sms_error
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__message_has_sms_error
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__message_has_sms_error
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__message_has_sms_error
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__message_has_sms_error
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__message_has_sms_error
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__message_has_sms_error
 msgid "SMS Delivery error"
 msgstr ""
 
 #. module: legal_affairs_management
-#. openerp-web
-#: code:addons/legal_affairs_management/static/src/js/dashboard.js:0
-#: code:addons/legal_affairs_management/static/src/js/dashboard.js:0
-#, python-format
-msgid "Sale Order"
-msgstr ""
-
-#. module: legal_affairs_management
-#. openerp-web
-#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
-#, python-format
-msgid "Stage Wise Total Projects"
+#: model:ir.model.fields,field_description:legal_affairs_management.field_res_partner__show_legal_group
+#: model:ir.model.fields,field_description:legal_affairs_management.field_res_users__show_legal_group
+msgid "Show Legal Group"
 msgstr ""
 
 #. module: legal_affairs_management
@@ -1737,13 +1709,20 @@ msgstr "بدء جلسة جديدة"
 #. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__state
 msgid "State"
-msgstr ""
+msgstr "الحالة"
+
+#. module: legal_affairs_management
+#. openerp-web
+#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_execution_request_search
+#, python-format
+msgid "Status"
+msgstr "الحالة"
 
 #. module: legal_affairs_management
 #: model:ir.model.fields,help:legal_affairs_management.field_external_legal_consultation__activity_state
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_authorization_agency__activity_state
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_authorization_type__activity_state
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_authorized_person__activity_state
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_board_decision__activity_state
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_case__activity_state
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_case_type__activity_state
@@ -1752,8 +1731,6 @@ msgstr ""
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_contract__activity_state
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_court__activity_state
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_execution_request__activity_state
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_judge__activity_state
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_lawyer__activity_state
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_letter__activity_state
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_trial__activity_state
 msgid ""
@@ -1771,82 +1748,88 @@ msgstr "ايقاف"
 
 #. module: legal_affairs_management
 #: model:ir.model.fields.selection,name:legal_affairs_management.selection__legal_execution_request__document_status__submitted
-#: model:ir.model.fields.selection,name:legal_affairs_management.selection__legal_execution_request__state__submitted
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_execution_request_search
 msgid "Submitted"
 msgstr "اعتماد"
 
 #. module: legal_affairs_management
-#. openerp-web
-#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
-#, python-format
-msgid "Task Name"
-msgstr ""
-
-#. module: legal_affairs_management
 #: code:addons/legal_affairs_management/models/external_legal_consultation.py:0
 #, python-format
 msgid "The consultation date is in the past. Please check."
-msgstr ""
+msgstr "تاريخ الاستشارة في الماضي. يرجى التحقق."
 
 #. module: legal_affairs_management
 #: code:addons/legal_affairs_management/models/legal_authorization_agency.py:0
 #, python-format
 msgid "The end date is in the past or today. Please check."
-msgstr ""
+msgstr "تاريخ الانتهاء في الماضي أو اليوم. يرجى التحقق."
+
+#. module: legal_affairs_management
+#: code:addons/legal_affairs_management/models/legal_execution_request.py:0
+#, python-format
+msgid "The execution amount is very high. Please double-check."
+msgstr "المبلغ المطلوب للتنفيذ مرتفع جداً. يرجى التحقق مرة أخرى."
+
+#. module: legal_affairs_management
+#: code:addons/legal_affairs_management/models/legal_execution_request.py:0
+#, python-format
+msgid "The execution request state must be paid."
+msgstr "يجب أن تكون حالة طلب التنفيذ مدفوعة."
 
 #. module: legal_affairs_management
 #. openerp-web
 #: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
 #, python-format
-msgid "This Month"
-msgstr ""
+msgid "Total Authorizations & Agencies"
+msgstr "إجمالي التفويضات والوكالات"
 
 #. module: legal_affairs_management
 #. openerp-web
 #: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
 #, python-format
-msgid "This Year"
-msgstr ""
+msgid "Total Board Decisions"
+msgstr "إجمالي قرارات المديرين"
 
 #. module: legal_affairs_management
 #. openerp-web
 #: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
 #, python-format
-msgid "Timesheet costs"
-msgstr ""
+msgid "Total Consultations"
+msgstr "إجمالي الاستشارات"
 
 #. module: legal_affairs_management
 #. openerp-web
 #: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
 #, python-format
-msgid "To Invoice"
-msgstr ""
+msgid "Total Defendants"
+msgstr "إجمالي المدعى عليهم"
 
 #. module: legal_affairs_management
 #. openerp-web
 #: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
-#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
-#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
-#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
-#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
 #, python-format
-msgid "Total"
-msgstr "جميع"
+msgid "Total Execution Requests"
+msgstr "إجمالي طلبات التنفيذ"
 
 #. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_res_partner__total_overdue_amount
 #: model:ir.model.fields,field_description:legal_affairs_management.field_res_users__total_overdue_amount
 msgid "Total Overdue Amount"
-msgstr ""
+msgstr "إجمالي المبلغ المتأخر"
 
 #. module: legal_affairs_management
 #. openerp-web
 #: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
+#, python-format
+msgid "Total Paid Amounts"
+msgstr "إجمالي المبالغ المسددة"
+
+#. module: legal_affairs_management
+#. openerp-web
 #: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
 #, python-format
-msgid "Total:"
-msgstr "جميع"
+msgid "Total UnPaid Amounts"
+msgstr "إجمالي المبالغ غير المسددة"
 
 #. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__trail_ids
@@ -1869,9 +1852,12 @@ msgid "Trial State"
 msgstr "حالة الجلسة"
 
 #. module: legal_affairs_management
+#. openerp-web
+#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
 #: model:ir.actions.act_window,name:legal_affairs_management.action_trial
 #: model:ir.ui.menu,name:legal_affairs_management.legal_trial_menuitem
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_case_matters_form
+#, python-format
 msgid "Trials"
 msgstr "الجلسات"
 
@@ -1885,7 +1871,6 @@ msgstr "النوع"
 #: model:ir.model.fields,help:legal_affairs_management.field_external_legal_consultation__activity_exception_decoration
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_authorization_agency__activity_exception_decoration
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_authorization_type__activity_exception_decoration
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_authorized_person__activity_exception_decoration
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_board_decision__activity_exception_decoration
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_case__activity_exception_decoration
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_case_type__activity_exception_decoration
@@ -1894,8 +1879,6 @@ msgstr "النوع"
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_contract__activity_exception_decoration
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_court__activity_exception_decoration
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_execution_request__activity_exception_decoration
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_judge__activity_exception_decoration
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_lawyer__activity_exception_decoration
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_letter__activity_exception_decoration
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_trial__activity_exception_decoration
 msgid "Type of the exception activity on record."
@@ -1908,10 +1891,20 @@ msgid "Types of Authorizations and Agencies"
 msgstr "انواع التفويضات و الوكالات"
 
 #. module: legal_affairs_management
+#: model:ir.model.fields.selection,name:legal_affairs_management.selection__legal_execution_request__state__not_paid
+msgid "Un Paid"
+msgstr "غير مدفوع"
+
+#. module: legal_affairs_management
+#: model:product.product,uom_name:legal_affairs_management.legal_product_product_case_data
+#: model:product.template,uom_name:legal_affairs_management.legal_product_product_case_data_product_template
+msgid "Units"
+msgstr ""
+
+#. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__message_unread
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__message_unread
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__message_unread
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__message_unread
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__message_unread
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__message_unread
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__message_unread
@@ -1920,8 +1913,6 @@ msgstr "انواع التفويضات و الوكالات"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__message_unread
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__message_unread
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__message_unread
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__message_unread
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__message_unread
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__message_unread
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__message_unread
 msgid "Unread Messages"
@@ -1931,7 +1922,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__message_unread_counter
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__message_unread_counter
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__message_unread_counter
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__message_unread_counter
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__message_unread_counter
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__message_unread_counter
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__message_unread_counter
@@ -1940,8 +1930,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__message_unread_counter
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__message_unread_counter
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__message_unread_counter
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__message_unread_counter
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__message_unread_counter
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__message_unread_counter
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__message_unread_counter
 msgid "Unread Messages Counter"
@@ -1951,7 +1939,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__website_message_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__website_message_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__website_message_ids
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorized_person__website_message_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__website_message_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__website_message_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__website_message_ids
@@ -1960,8 +1947,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__website_message_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__website_message_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__website_message_ids
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_judge__website_message_ids
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_lawyer__website_message_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__website_message_ids
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__website_message_ids
 msgid "Website Messages"
@@ -1971,7 +1956,6 @@ msgstr ""
 #: model:ir.model.fields,help:legal_affairs_management.field_external_legal_consultation__website_message_ids
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_authorization_agency__website_message_ids
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_authorization_type__website_message_ids
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_authorized_person__website_message_ids
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_board_decision__website_message_ids
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_case__website_message_ids
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_case_type__website_message_ids
@@ -1980,8 +1964,6 @@ msgstr ""
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_contract__website_message_ids
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_court__website_message_ids
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_execution_request__website_message_ids
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_judge__website_message_ids
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_lawyer__website_message_ids
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_letter__website_message_ids
 #: model:ir.model.fields,help:legal_affairs_management.field_legal_trial__website_message_ids
 msgid "Website communication history"

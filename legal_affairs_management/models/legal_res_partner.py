@@ -5,10 +5,17 @@ from odoo import models, fields, api, _
 class LegalResPartner(models.Model):
     _inherit = "res.partner"
 
-    is_legal_client = fields.Boolean(string="Client")
-    is_legal_defendant = fields.Boolean(string="Defendant")
+    is_legal_plaintiff = fields.Boolean(string="Plaintiff", tracking=True)
+    is_legal_defendant = fields.Boolean(string="Defendant", tracking=True)
+    is_legal_lawyer = fields.Boolean(string="Lawyer", tracking=True)
+    is_legal_judge = fields.Boolean(string="Judge", tracking=True)
+    is_legal_authorized = fields.Boolean(string="Authorized", tracking=True)
+    show_legal_group = fields.Boolean(compute='_compute_show_legal_group')
 
-    total_overdue_amount = fields.Monetary(string="Total Overdue Amount", compute='_compute_total_overdue_amount', store=True)
+    lawyer_law_area = fields.Char(string="Law Area", tracking=True)
+
+    total_overdue_amount = fields.Monetary(string="Total Overdue Amount", compute='_compute_total_overdue_amount',
+                                           store=True)
     overdue_invoice_count = fields.Integer(compute='_compute_overdue_invoice_count')
 
     @api.depends('invoice_ids')
@@ -17,7 +24,7 @@ class LegalResPartner(models.Model):
             overdue_invoices = self.env['account.move'].search([
                 ('partner_id', '=', partner.id),
                 ('move_type', '=', 'out_invoice'),
-                ('invoice_date_due', '<', fields.Date.today()),
+                ('invoice_date_due', '<=', fields.Date.today()),
                 ('state', '=', 'posted'),
                 ('payment_state', '!=', 'paid'),
             ])
@@ -61,3 +68,14 @@ class LegalResPartner(models.Model):
             return self.env.ref('account.account_invoices').report_action(latest_invoice)
         else:
             return {'type': 'ir.actions.act_window_close'}
+
+    @api.depends('is_legal_defendant', 'is_legal_lawyer', 'is_legal_judge',
+                 'is_legal_authorized')
+    def _compute_show_legal_group(self):
+        for record in self:
+            record.show_legal_group = (
+                self.env.context.get('default_is_legal_defendant', False) or
+                self.env.context.get('default_is_legal_lawyer', False) or
+                self.env.context.get('default_is_legal_judge', False) or
+                self.env.context.get('default_is_legal_authorized', False)
+            )

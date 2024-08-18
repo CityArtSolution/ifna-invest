@@ -11,10 +11,8 @@ from . import legal_authorization_agency
 from . import legal_board_decision
 from . import legal_company_document
 from . import legal_conf_authorization_type
-from . import legal_conf_authorized_person
 from . import legal_conf_case_type
 from . import legal_conf_consultation_type
 from . import legal_conf_court
-from . import legal_conf_judge
-from . import legal_conf_lawyer
+from . import legal_account_move
 from . import pj_dashboard

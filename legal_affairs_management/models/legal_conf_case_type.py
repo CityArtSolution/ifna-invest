@@ -11,3 +11,6 @@ class LegalCaseType(models.Model):
     company_id = fields.Many2one('res.company', string="Company", required=True, default=lambda self: self.env.company)
 
     name = fields.Char(string="Name", required=True, tracking=True)
+    is_disputes = fields.Boolean(string="Disputes", tracking=True)
+    account_id = fields.Many2one("account.account", "Account", tracking=True)
+

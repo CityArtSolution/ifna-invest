@@ -17,11 +17,11 @@ class LegalAuthorizationAgency(models.Model):
     name = fields.Char(string="Document Name", required=True, copy=False, readonly=True, index=True,
                        default=lambda self: _('New'), tracking=True)
     partner_id = fields.Many2one('res.partner', string="Defendant", required=True, domain=[('is_legal_defendant', '=', True)], tracking=True)
-    authorized_person_id = fields.Many2one('legal.authorized.person', string="Authorized", tracking=True)
+    authorized_person_id = fields.Many2one('res.partner', string="Authorized", domain=[('is_legal_authorized', '=', True)], tracking=True)
     authorized_role = fields.Selection([
         ('employee', 'Employee'),
         ('company_rep', 'Company Representative'),
-    ], string="Authorized Role", related="authorized_person_id.role", tracking=True)
+    ], string="Authorized Role", compute="_compute_authorized_role", store=True, tracking=True)
     authorization_type = fields.Selection([
         ('agency', 'Agency'),
         ('authorization', 'Authorization'),
@@ -53,6 +53,19 @@ class LegalAuthorizationAgency(models.Model):
                     'message': _('The end date is in the past or today. Please check.'),
                 }
             }
+
+    @api.depends('authorized_person_id')
+    def _compute_authorized_role(self):
+        for record in self:
+            if record.authorized_person_id:
+                if record.authorized_person_id.company_type == 'person':
+                    record.authorized_role = 'employee'
+                elif record.authorized_person_id.company_type == 'company':
+                    record.authorized_role = 'company_rep'
+                else:
+                    record.authorized_role = False
+            else:
+                record.authorized_role = False
 
     @api.model
     def _send_expiration_notification(self):

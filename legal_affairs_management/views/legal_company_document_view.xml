@@ -5,7 +5,7 @@
             <field name="name">legal.company.document.tree</field>
             <field name="model">legal.company.document</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree sample="1">
                     <field name="name"/>
                     <field name="issue_date"/>
                     <field name="expiration_date"/>

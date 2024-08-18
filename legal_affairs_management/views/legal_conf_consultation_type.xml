@@ -5,7 +5,7 @@
             <field name="name">legal.consultation.type.view.tree</field>
             <field name="model">legal.consultation.type</field>
             <field name="arch" type="xml">
-                <tree editable="bottom">
+                <tree sample="1" editable="bottom">
                     <field name="name"/>
                     <field name="company_id" optional="hide"/>
                 </tree>

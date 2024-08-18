@@ -16,7 +16,7 @@ class LegalTrial(models.Model):
     court_id = fields.Many2one('legal.court', string="Court Name", related="case_id.court_id", tracking=True)
 
     partner_id = fields.Many2one('res.partner', string="Defendant", related="case_id.partner_id", tracking=True)
-    lawyer_id = fields.Many2one('legal.lawyer', string="Lawyer Name", related="case_id.lawyer_id", tracking=True)
+    lawyer_id = fields.Many2one('res.partner', string="Lawyer Name", related="case_id.lawyer_id", tracking=True)
 
     trial_date = fields.Datetime(string="Trial Date", tracking=True)
     trail_details = fields.Text(string="Trial Details", tracking=True)

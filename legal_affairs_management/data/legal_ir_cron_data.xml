@@ -12,17 +12,6 @@
             <field name="doall">False</field>
         </record>
 
-<!--        <record id="ir_cron_send_execution_reminders" model="ir.cron">-->
-<!--            <field name="name">(Legal) Send Execution Reminders</field>-->
-<!--            <field name="model_id" ref="model_legal_execution_request"/>-->
-<!--            <field name="state">code</field>-->
-<!--            <field name="code">model.send_execution_reminders()</field>-->
-<!--            <field name="interval_number">1</field>-->
-<!--            <field name="interval_type">days</field>-->
-<!--            <field name="numbercall">-1</field>-->
-<!--            <field name="doall">False</field>-->
-<!--        </record>-->
-
         <record id="ir_cron_check_expiring_authorizations" model="ir.cron">
             <field name="name">(Legal) Check Expiring Authorizations</field>
             <field name="model_id" ref="model_legal_authorization_agency"/>

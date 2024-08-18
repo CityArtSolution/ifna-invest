@@ -5,7 +5,7 @@
             <field name="name">legal.board.decision.tree</field>
             <field name="model">legal.board.decision</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree sample="1">
                     <field name="name"/>
                     <field name="decision_date"/>
                     <field name="document_status" widget="badge"/>

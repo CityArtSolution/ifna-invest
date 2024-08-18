@@ -5,7 +5,7 @@
             <field name="name">legal.court.tree</field>
             <field name="model">legal.court</field>
             <field name="arch" type="xml">
-                <tree editable="bottom">
+                <tree sample="1" editable="bottom">
                     <field name="name"/>
                     <field name="court_level"/>
                     <field name="company_id" optional="hide"/>

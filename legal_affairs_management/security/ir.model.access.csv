@@ -5,12 +5,9 @@ access_legal_board_decision,access_legal_board_decision,model_legal_board_decisi
 access_legal_case,access_legal_case,model_legal_case,base.group_user,1,1,1,1
 access_legal_company_document,access_legal_company_document,model_legal_company_document,base.group_user,1,1,1,1
 access_legal_authorization_type,access_legal_authorization_type,model_legal_authorization_type,base.group_user,1,1,1,1
-access_legal_authorized_person,access_legal_authorized_person,model_legal_authorized_person,base.group_user,1,1,1,1
 access_legal_case_type,access_legal_case_type,model_legal_case_type,base.group_user,1,1,1,1
 access_legal_consultation_type,access_legal_consultation_type,model_legal_consultation_type,base.group_user,1,1,1,1
 access_legal_court,access_legal_court,model_legal_court,base.group_user,1,1,1,1
-access_legal_judge,access_legal_judge,model_legal_judge,base.group_user,1,1,1,1
-access_legal_lawyer,access_legal_lawyer,model_legal_lawyer,base.group_user,1,1,1,1
 access_legal_contract,access_legal_contract,model_legal_contract,base.group_user,1,1,1,1
 access_legal_execution_request,access_legal_execution_request,model_legal_execution_request,base.group_user,1,1,1,1
 access_legal_letter,access_legal_letter,model_legal_letter,base.group_user,1,1,1,1

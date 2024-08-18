@@ -1,6 +1,7 @@
 $(document).ready(function() {
-    console.log($('#example').length)
-    $('#example').DataTable({
+    console.log("legal custom", $('#legal_case_table').length)
+    console.log("table custom", $('.table').length)
+    $('#legal_case_table').DataTable({
         "paging": true,         // Enable pagination
         "searching": true,      // Enable search box
         "ordering": true,       // Enable sorting
