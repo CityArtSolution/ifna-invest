@@ -9,7 +9,6 @@
             <field name="sale_ok" eval="False"/>
             <field name="purchase_ok" eval="False"/>
             <field name="default_code">LCE</field>
-            <field name="categ_id" ref="product.product_category_3"/>
         </record>
     </data>
 </odoo>
