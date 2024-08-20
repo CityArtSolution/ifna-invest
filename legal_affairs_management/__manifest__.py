@@ -16,7 +16,7 @@
     'version': '15.0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'mail', 'contacts', 'account', 'om_account_accountant'],
+    'depends': ['base', 'mail', 'contacts', 'account'],
 
     # always loaded
     'data': [
