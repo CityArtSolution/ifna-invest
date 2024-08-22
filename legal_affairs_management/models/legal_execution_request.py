@@ -92,22 +92,22 @@ class LegalExecutionRequest(models.Model):
         if not partner_account or not case_account:
             raise UserError(_('Partner or Case account is not configured properly.'))
 
-        debit_amount = 100
-        credit_amount = 100
+        debit_amount = self.execution_amount
+        credit_amount = self.execution_amount
 
         default_line_ids = [
             (0, 0, {
                 'account_id': partner_account.id,
                 'partner_id': self.partner_id.id,
-                'debit': debit_amount,
-                'credit': 0.0,
+                'debit': 0.0,
+                'credit': credit_amount,
                 'name': _('Account Receivable Entry')
             }),
             (0, 0, {
                 'account_id': case_account.id,
                 'partner_id': self.partner_id.id,
-                'debit': 0.0,
-                'credit': credit_amount,
+                'debit': debit_amount,
+                'credit': 0.0,
                 'name': _('Case Account Entry')
             }),
         ]
