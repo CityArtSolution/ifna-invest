@@ -47,6 +47,7 @@
         'views/legal_conf_consultation_type.xml',
         'views/legal_conf_court_view.xml',
         'views/legal_account_move_view.xml',
+        'views/legal_dashboard_view.xml',
     ],
     'images': [
         'static/description/banner.png',
