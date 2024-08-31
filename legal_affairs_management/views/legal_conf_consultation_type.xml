@@ -14,7 +14,6 @@
 
         <record id="legal_consultation_type_action" model="ir.actions.act_window">
             <field name="name">Consultation Types</field>
-            <field name="type">ir.actions.act_window</field>
             <field name="res_model">legal.consultation.type</field>
             <field name="view_mode">tree</field>
         </record>

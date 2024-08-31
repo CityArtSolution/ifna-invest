@@ -80,7 +80,6 @@
             <field name="name">External Legal Consultations</field>
             <field name="res_model">external.legal.consultation</field>
             <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="view_external_legal_consultation_tree"/>
         </record>
 
         <menuitem id="external_legal_consultation_menuitem" name="External Legal Consultations" parent="legal_affairs_management.legal_affairs_management_root" action="action_external_legal_consultation" sequence="2"/>

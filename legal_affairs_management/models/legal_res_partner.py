@@ -10,15 +10,16 @@ class LegalResPartner(models.Model):
     is_legal_lawyer = fields.Boolean(string="Lawyer", tracking=True)
     is_legal_judge = fields.Boolean(string="Judge", tracking=True)
     is_legal_authorized = fields.Boolean(string="Authorized", tracking=True)
+    is_main_view = fields.Boolean(string="Main")
     show_legal_group = fields.Boolean(compute='_compute_show_legal_group')
 
     lawyer_law_area = fields.Char(string="Law Area", tracking=True)
 
-    total_overdue_amount = fields.Monetary(string="Total Overdue Amount", compute='_compute_total_overdue_amount',
+    total_overdue_amount = fields.Float(string="Total Overdue Amount", compute='_compute_total_overdue_amount',
                                            store=True)
     overdue_invoice_count = fields.Integer(compute='_compute_overdue_invoice_count')
 
-    @api.depends('invoice_ids')
+    @api.model
     def _compute_total_overdue_amount(self):
         for partner in self:
             overdue_invoices = self.env['account.move'].search([
@@ -30,7 +31,7 @@ class LegalResPartner(models.Model):
             ])
             partner.total_overdue_amount = sum(invoice.amount_total for invoice in overdue_invoices)
 
-    @api.depends('invoice_ids')
+    @api.model
     def _compute_overdue_invoice_count(self):
         for partner in self:
             partner.overdue_invoice_count = self.env['account.move'].search_count([

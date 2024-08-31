@@ -22,15 +22,13 @@ class LegalCaseMatters(models.Model):
     lawyer_id = fields.Many2one('res.partner', string="Lawyer", domain=[('is_legal_lawyer', '=', True)], tracking=True)
     legal_field = fields.Char(string="Legal Field", related="lawyer_id.lawyer_law_area", tracking=True)
 
-    judge_id = fields.Many2one('res.partner', string="Judge Name", domain=[('is_legal_judge', '=', True)],
+    judge_id = fields.Many2one('res.partner', string="Judge", domain=[('is_legal_judge', '=', True)],
                                tracking=True)
     case_date = fields.Date(string="Date Filed", tracking=True)
     case_status = fields.Selection([('open', 'Open'), ('closed', 'Closed')], string="Case Status", tracking=True)
     claim_amount = fields.Float(string="Claim Amount", tracking=True)
-    court_id = fields.Many2one('legal.court', string="Court Name", tracking=True)
-    court_level = fields.Selection([('primary', 'Primary Court'), ('appeal', 'Appeal Court')],
-                                   related="court_id.court_level", string="Court Level",
-                                   tracking=True)
+    court_id = fields.Many2one('legal.court', string="Court", tracking=True)
+    court_level = fields.Selection(related="court_id.court_level", string="Court Level", tracking=True)
     attachment_ids = fields.Many2many('ir.attachment', string="Attachments", tracking=True)
 
     trail_ids = fields.One2many('legal.trial', 'case_id', string='Trails', tracking=True)

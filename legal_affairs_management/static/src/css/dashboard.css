@@ -203,7 +203,7 @@ overflow: auto !important;
     padding-top: 3px !important;
 }
 .row.main-section {
-    margin-right: 0px; !important;
+    margin-right: 0px !important;
 }
 
 .text-align {
@@ -255,4 +255,9 @@ overflow: auto !important;
 
 .inner_select p {
     margin-left: 20px
+}
+
+[dir="rtl"] {
+    direction: rtl;
+    text-align: right;
 }

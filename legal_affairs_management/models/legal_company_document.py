@@ -12,7 +12,7 @@ class LegalCompanyDocument(models.Model):
     active = fields.Boolean(default=True)
     company_id = fields.Many2one('res.company', string="Company", required=True, default=lambda self: self.env.company)
 
-    name = fields.Char(string="Document Name", required=True, tracking=True)
+    name = fields.Char(string="Document", required=True, tracking=True)
     issue_date = fields.Date(string="Issue Date", required=True, tracking=True)
     expiration_date = fields.Date(string="Expiration Date", required=True, tracking=True)
     attachment = fields.Binary(string="Document Attachment", tracking=True)
@@ -33,8 +33,8 @@ class LegalCompanyDocument(models.Model):
     @api.model
     def _create_expiration_notification(self, document):
         notification_message = _(
-            f"The document '{document.name}' for {document.company_id.name} is expiring on {document.expiration_date.strftime('%Y-%m-%d')}."
-        )
+            "The document '%s' for %s is expiring on %s."
+        ) % (document.name, document.company_id.name, document.expiration_date.strftime('%Y-%m-%d'))
 
         self.env['mail.message'].create({
             'message_type': 'notification',

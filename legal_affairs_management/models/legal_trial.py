@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from datetime import datetime, timedelta
 
 
@@ -12,11 +12,11 @@ class LegalTrial(models.Model):
     active = fields.Boolean(default=True)
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company)
 
-    case_id = fields.Many2one('legal.case', string="Case Number", tracking=True)
-    court_id = fields.Many2one('legal.court', string="Court Name", related="case_id.court_id", tracking=True)
+    case_id = fields.Many2one('legal.case', string="Case Number", tracking=True, required=True)
+    court_id = fields.Many2one('legal.court', string="Court", related="case_id.court_id", tracking=True)
 
     partner_id = fields.Many2one('res.partner', string="Defendant", related="case_id.partner_id", tracking=True)
-    lawyer_id = fields.Many2one('res.partner', string="Lawyer Name", related="case_id.lawyer_id", tracking=True)
+    lawyer_id = fields.Many2one('res.partner', string="Lawyer", related="case_id.lawyer_id", tracking=True)
 
     trial_date = fields.Datetime(string="Trial Date", tracking=True)
     trail_details = fields.Text(string="Trial Details", tracking=True)
@@ -56,19 +56,30 @@ class LegalTrial(models.Model):
 
     def _send_reminder(self, trial):
         subject = _('Reminder: Upcoming Trial')
-        body = _(f"Dear {self.env.user.partner_id.name},\n\n" \
-                 f"This is a reminder that the trial for case {trial.case_id.name} is scheduled for {trial.trial_date.strftime('%Y-%m-%d %H:%M:%S')}.\n\n" \
-                 f"Best regards,\nYour Legal Affairs Team")
+        body = _(
+            "Dear %(user_name)s,\n\n"
+            "This is a reminder that the trial for case %(case_name)s is scheduled for %(trial_date)s.\n\n"
+            "Best regards,\nYour Legal Affairs Team"
+        ) % {
+            'user_name': self.env.user.partner_id.name,
+            'case_name': trial.case_id.name,
+            'trial_date': trial.trial_date.strftime('%Y-%m-%d %H:%M:%S')
+        }
 
         mail_values = {
             'subject': subject,
             'body_html': body,
             'email_to': self.env.user.partner_id.email,
         }
-        self.env['mail.mail'].send().create(mail_values)
+        self.env['mail.mail'].create(mail_values).send()
 
     def _create_warning_notification(self, trial):
-        notification_message = f"Upcoming trial for case {trial.case_id.name} is scheduled for {trial.trial_date.strftime('%Y-%m-%d %H:%M:%S')}."
+        notification_message = _(
+            "Upcoming trial for case %(case_name)s is scheduled for %(trial_date)s."
+        ) % {
+            'case_name': trial.case_id.name,
+            'trial_date': trial.trial_date.strftime('%Y-%m-%d %H:%M:%S')
+        }
 
         self.env['mail.message'].create({
             'message_type': 'notification',

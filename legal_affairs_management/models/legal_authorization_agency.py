@@ -14,7 +14,7 @@ class LegalAuthorizationAgency(models.Model):
 
     active = fields.Boolean(default=True)
     company_id = fields.Many2one('res.company', string="Company", required=True, default=lambda self: self.env.company)
-    name = fields.Char(string="Document Name", required=True, copy=False, readonly=True, index=True,
+    name = fields.Char(string="Document", required=True, copy=False, readonly=True, index=True,
                        default=lambda self: _('New'), tracking=True)
     partner_id = fields.Many2one('res.partner', string="Defendant", required=True, domain=[('is_legal_defendant', '=', True)], tracking=True)
     authorized_person_id = fields.Many2one('res.partner', string="Authorized", domain=[('is_legal_authorized', '=', True)], tracking=True)
@@ -71,15 +71,18 @@ class LegalAuthorizationAgency(models.Model):
     def _send_expiration_notification(self):
         records = self.search([('end_date', '=', fields.Date.today() + timedelta(days=7))])
         for record in records:
-            message = _(f"The authorization/agency {record.name} will expire in 7 days.")
+            message = _("The authorization/agency %s will expire in 7 days.") % (record.name)
             record.message_post(body=message)
 
     @api.model
     def _create_warning_notification(self, authorization):
         notification_message = _(
-            f"Upcoming expiration for {authorization.name}: "
-            f"Authorization/Agency {authorization.authorization_type} for {authorization.partner_id.name} "
-            f"will expire on {authorization.end_date.strftime('%Y-%m-%d')}."
+            "Upcoming expiration for %s: Authorization/Agency %s for %s will expire on %s."
+        ) % (
+            authorization.name,
+            authorization.authorization_type,
+            authorization.partner_id.name,
+            authorization.end_date.strftime('%Y-%m-%d')
         )
 
         self.env['mail.message'].create({
