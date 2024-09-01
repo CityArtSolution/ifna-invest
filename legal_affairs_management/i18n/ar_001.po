@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-22 21:21+0000\n"
-"PO-Revision-Date: 2024-08-22 21:21+0000\n"
+"POT-Creation-Date: 2024-08-26 12:21+0000\n"
+"PO-Revision-Date: 2024-08-26 12:21+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -523,6 +523,10 @@ msgstr "العقود و الخطابات الصادرة"
 #. module: legal_affairs_management
 #. openerp-web
 #: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
+#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__court_id
+#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__court_id
+#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__court_id
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_case_matters_search
 #, python-format
 msgid "Court"
 msgstr "المحكمة"
@@ -532,13 +536,6 @@ msgstr "المحكمة"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__court_level
 msgid "Court Level"
 msgstr "الدرجة"
-
-#. module: legal_affairs_management
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__court_id
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__court_id
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__court_id
-msgid "Court Name"
-msgstr "المحكمة"
 
 #. module: legal_affairs_management
 #: model:ir.actions.act_window,name:legal_affairs_management.action_legal_court
@@ -619,6 +616,18 @@ msgstr "لوحة المعلومات"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__case_date
 msgid "Date Filed"
 msgstr "تاريخ رفع القضية"
+
+#. module: legal_affairs_management
+#: code:addons/legal_affairs_management/models/legal_trial.py:0
+#, python-format
+msgid ""
+"Dear %(user_name)s,\n"
+"\n"
+"This is a reminder that the trial for case %(case_name)s is scheduled for %(trial_date)s.\n"
+"\n"
+"Best regards,\n"
+"Your Legal Affairs Team"
+msgstr ""
 
 #. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__attachment
@@ -705,13 +714,17 @@ msgid "Disputes"
 msgstr "منازعات"
 
 #. module: legal_affairs_management
+#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__name
+#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_company_document__name
+msgid "Document"
+msgstr ""
+
+#. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_company_document__attachment
 msgid "Document Attachment"
 msgstr "ملف مرفق"
 
 #. module: legal_affairs_management
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__name
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_company_document__name
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_company_document_form
 msgid "Document Name"
 msgstr "أسم الوثيقة"
@@ -1098,15 +1111,12 @@ msgid "Journal Entry"
 msgstr "قيد اليومية"
 
 #. module: legal_affairs_management
+#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__judge_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_res_partner__is_legal_judge
 #: model:ir.model.fields,field_description:legal_affairs_management.field_res_users__is_legal_judge
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_case_matters_search
 msgid "Judge"
 msgstr "قاضي"
-
-#. module: legal_affairs_management
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__judge_id
-msgid "Judge Name"
-msgstr "أسم المحكمة"
 
 #. module: legal_affairs_management
 #: model:ir.actions.act_window,name:legal_affairs_management.legal_judge_res_partner_action
@@ -1176,16 +1186,13 @@ msgstr "المجال القانوني"
 #: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__lawyer_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__lawyer_id
+#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__lawyer_id
 #: model:ir.model.fields,field_description:legal_affairs_management.field_res_partner__is_legal_lawyer
 #: model:ir.model.fields,field_description:legal_affairs_management.field_res_users__is_legal_lawyer
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_case_matters_search
 #, python-format
 msgid "Lawyer"
 msgstr "المحامي"
-
-#. module: legal_affairs_management
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__lawyer_id
-msgid "Lawyer Name"
-msgstr "أسم المحامي"
 
 #. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__response
@@ -1390,24 +1397,7 @@ msgstr "العنوان الوطني"
 #: code:addons/legal_affairs_management/models/legal_execution_request.py:0
 #, python-format
 msgid "New"
-msgstr ""
-
-#. module: legal_affairs_management
-#: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__activity_calendar_event_id
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__activity_calendar_event_id
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__activity_calendar_event_id
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_board_decision__activity_calendar_event_id
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__activity_calendar_event_id
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case_type__activity_calendar_event_id
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_company_document__activity_calendar_event_id
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_consultation_type__activity_calendar_event_id
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_contract__activity_calendar_event_id
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__activity_calendar_event_id
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__activity_calendar_event_id
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__activity_calendar_event_id
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
-msgstr ""
+msgstr "جديد"
 
 #. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__activity_date_deadline
@@ -1760,10 +1750,22 @@ msgid "Submitted"
 msgstr "اعتماد"
 
 #. module: legal_affairs_management
+#: code:addons/legal_affairs_management/models/legal_authorization_agency.py:0
+#, python-format
+msgid "The authorization/agency %s will expire in 7 days."
+msgstr ""
+
+#. module: legal_affairs_management
 #: code:addons/legal_affairs_management/models/external_legal_consultation.py:0
 #, python-format
 msgid "The consultation date is in the past. Please check."
 msgstr "تاريخ الاستشارة في الماضي. يرجى التحقق."
+
+#. module: legal_affairs_management
+#: code:addons/legal_affairs_management/models/legal_company_document.py:0
+#, python-format
+msgid "The document '%s' for %s is expiring on %s."
+msgstr ""
 
 #. module: legal_affairs_management
 #: code:addons/legal_affairs_management/models/legal_authorization_agency.py:0
@@ -1871,6 +1873,7 @@ msgstr "الجلسات"
 #. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__authorization_type
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__type
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_case_matters_search
 msgid "Type"
 msgstr "النوع"
 
@@ -1940,6 +1943,20 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_letter__message_unread_counter
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__message_unread_counter
 msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: legal_affairs_management
+#: code:addons/legal_affairs_management/models/legal_authorization_agency.py:0
+#, python-format
+msgid ""
+"Upcoming expiration for %s: Authorization/Agency %s for %s will expire on "
+"%s."
+msgstr ""
+
+#. module: legal_affairs_management
+#: code:addons/legal_affairs_management/models/legal_trial.py:0
+#, python-format
+msgid "Upcoming trial for case %(case_name)s is scheduled for %(trial_date)s."
 msgstr ""
 
 #. module: legal_affairs_management
