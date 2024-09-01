@@ -20,24 +20,8 @@ odoo.define('pj_dashboard.Dashboard', function(require) {
     var tot_unpaid = [];
     var tot_margin = [];
 
-     $(document).ready(function () {
-        console.log("read", $('#legal_case_table').length)
-        $('#legal_case_table').DataTable({
-            "paging": true,         // Enable pagination
-            "searching": true,      // Enable search box
-            "ordering": true,       // Enable sorting
-            "info": true            // Show information (e.g., "Showing 1 to 10 of 50 entries")
-        });
-    });
-
     var PjDashboard = AbstractAction.extend({
         template: 'PjDashboard',
-        cssLibs: [
-            '/legal_affairs_management/static/src/css/lib/nv.d3.css'
-        ],
-        jsLibs: [
-            '/legal_affairs_management/static/src/js/lib/d3.min.js',
-        ],
 
         events: {
             'click .tot_consultations': 'tot_consultations',
@@ -52,16 +36,14 @@ odoo.define('pj_dashboard.Dashboard', function(require) {
 
         init: function(parent, context) {
             this._super(parent, context);
-            this.dashboards_templates = ['DashboardProject', 'LegalCaseDashboard'];
+            this.dashboards_templates = ['LegalCaseDashboard'];
             this.today_sale = [];
-            console.log("legal", $('#legal_case_table').length)
         },
 
         willStart: function() {
             var self = this;
             return $.when(ajax.loadLibs(this), this._super()).then(function() {
                 return self.fetch_data();
-                console.log("will", $('#legal_case_table').length)
             });
         },
 
@@ -70,7 +52,6 @@ odoo.define('pj_dashboard.Dashboard', function(require) {
             this.set("title", 'Dashboard');
             return this._super().then(function() {
                 self.render_dashboards();
-                console.log("dasg", $('#legal_case_table').length)
             });
         },
 
@@ -81,7 +62,6 @@ odoo.define('pj_dashboard.Dashboard', function(require) {
                     widget: self
                 }));
             });
-            console.log("ren", $('#legal_case_table').length)
         },
 
         on_reverse_breadcrumb: function() {
@@ -90,7 +70,6 @@ odoo.define('pj_dashboard.Dashboard', function(require) {
             this.fetch_data().then(function() {
                 self.$('.o_pj_dashboard').empty();
                 self.render_dashboards();
-                console.log("rev", $('#legal_case_table').length)
             });
         },
 
@@ -101,7 +80,6 @@ odoo.define('pj_dashboard.Dashboard', function(require) {
                 model: 'legal.case',
                 method: 'get_tiles_data'
             }).then(function(result) {
-                console.log("result", result)
                 self.total_consultations = result['total_consultations'];
                 self.total_auths_agens = result['total_auths_agens'];
                 self.total_decisions = result['total_decisions'];
@@ -116,19 +94,8 @@ odoo.define('pj_dashboard.Dashboard', function(require) {
                 model: "legal.case",
                 method: "get_legal_case_data",
             }).then(function(res) {
-                console.log("res", res)
-                console.log("legal", $('#legal_case_table').length)
-                $('#legal_case_table').DataTable({
-                    "paging": true,         // Enable pagination
-                    "searching": true,      // Enable search box
-                    "ordering": true,       // Enable sorting
-                    "info": true            // Show information (e.g., "Showing 1 to 10 of 50 entries")
-                });
                 self.case_data = res['case_data'];
             });
-
-            console.log("fet", $('#legal_case_table').length)
-
             return $.when(def1, def2);
         },
 
