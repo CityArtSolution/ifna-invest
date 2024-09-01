@@ -3,19 +3,19 @@
     'name': "Legal Affairs Management",
 
     'summary': """
-        Legal Affairs Management""",
+        CityArt Legal Affairs Management""",
 
     'description': """
-        Legal Affairs Management
+        CityArt Legal Affairs Management
     """,
 
     'author': "",
     'website': "",
 
-    'category': 'Uncategorized',
-    'version': '15.0.1',
 
-    # any module necessary for this one to work correctly
+    'category': 'Uncategorized',
+    'version': '0.1',
+
     'depends': ['base', 'mail', 'contacts', 'account'],
 
     # always loaded
@@ -37,11 +37,9 @@
         'views/legal_res_partner_judge_view.xml',
         'views/legal_res_partner_authorized_view.xml',
         'views/legal_trial_view.xml',
-        'views/legal_authorization_agency_view.xml',
         'views/legal_board_decision_view.xml',
         'views/legal_company_document_view.xml',
         'views/legal_authorization_agency_view.xml',
-        'views/legal_board_decision_view.xml',
         'views/legal_conf_authorization_type_view.xml',
         'views/legal_conf_case_type_view.xml',
         'views/legal_conf_consultation_type.xml',
@@ -49,22 +47,9 @@
         'views/legal_account_move_view.xml',
         'views/legal_dashboard_view.xml',
     ],
-    'images': [
-        'static/description/banner.png',
-    ],
     'assets': {
         'web.assets_backend': [
-            'legal_affairs_management/static/src/css/lib/nv.d3.css',
-            'legal_affairs_management/static/src/css/dashboard.css',
-            "legal_affairs_management/static/src/js/dashboard.js",
-            'legal_affairs_management/static/src/js/lib/d3.min.js',
-            'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js',
-            'legal_affairs_management/static/src/css/dataTables.bootstrap5.css',
-            'legal_affairs_management/static/src/css/responsive.bootstrap.min.css',
-            'legal_affairs_management/static/src/css/buttons.dataTables.min.css',
-            'legal_affairs_management/static/src/js/jquery.dataTables.min.js',
-            'legal_affairs_management/static/src/js/dataTables.responsive.min.js',
-            'legal_affairs_management/static/src/js/custom.js',
+            'legal_affairs_management/static/src/js/dashboard.js',
         ],
         'web.assets_qweb': [
             'legal_affairs_management/static/src/xml/dashboard.xml',
