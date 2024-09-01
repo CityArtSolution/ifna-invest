@@ -40,11 +40,12 @@
                             </group>
                             <group>
                                 <field name="court_id"/>
+                                <field name="trial_date"/>
                             </group>
                         </group>
                         <group string="  ">
                             <group>
-                                <field name="trial_date"/>
+                                <field name="trail_details"/>
                             </group>
                             <group>
                                  <field name="attachment" filename="attachment_filename"/>
