@@ -678,7 +678,7 @@ msgstr "فواتير المدعى عليهم"
 #: model:ir.ui.menu,name:legal_affairs_management.legal_defendant_res_partner_menuitem
 #, python-format
 msgid "Defendants"
-msgstr "العملاء"
+msgstr "المدعى عليهم"
 
 #. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__description
