@@ -79,7 +79,7 @@
                         </div>
                         <group>
                             <group>
-                                <field name="plaintiff_id" context="{'default_plaintiff_id': True}"/>
+                                <field name="plaintiff_id" context="{'default_is_legal_plaintiff': True}"/>
                                 <field name="partner_id" widget="res_partner_many2one" context="{'default_is_legal_defendant': True}"/>
                                 <field name="lawyer_id" context="{'default_is_legal_lawyer': True}"/>
                                 <field name="legal_field"/>
@@ -106,6 +106,7 @@
                                     <tree create="0">
                                         <field name="trial_date"/>
                                         <field name="trail_details"/>
+                                        <field name="trial_state" widget="badge" options="{'draft': 'primary', 'confirmed': 'success', 'done': 'info', 'cancelled': 'danger'}"/>
                                     </tree>
                                 </field>
                             </page>
@@ -132,8 +133,16 @@
                     <field name="case_type_id"/>
                     <field name="court_id"/>
                     <field name="case_status"/>
+                    <field name="plaintiff_id" domain="[('is_legal_plaintiff', '=', True)]"/>
+                    <field name="partner_id" domain="[('is_legal_defendant', '=', True)]"/>
+                    <field name="lawyer_id" domain="[('is_legal_lawyer', '=', True)]"/>
+                    <field name="judge_id" domain="[('is_legal_judge', '=', True)]"/>
                     <filter string="Inactive" name="inactive" domain="[('active', '=', False)]"/>
                     <group expand="1" string="Group By">
+                        <filter string="Type" name="group_by_case_type_id" context="{'group_by':'case_type_id'}"/>
+                        <filter string="Court" name="group_by_court_id" context="{'group_by':'court_id'}"/>
+                        <filter string="Lawyer" name="group_by_lawyer_id" context="{'group_by':'lawyer_id'}"/>
+                        <filter string="Judge" name="group_by_judge_id" context="{'group_by':'judge_id'}"/>
                         <filter string="Company" name="group_by_company" context="{'group_by':'company_id'}"/>
                     </group>
                 </search>
