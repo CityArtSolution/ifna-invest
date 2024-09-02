@@ -1116,7 +1116,7 @@ msgstr "قيد اليومية"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_res_users__is_legal_judge
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_case_matters_search
 msgid "Judge"
-msgstr "قاضي"
+msgstr "القاضي"
 
 #. module: legal_affairs_management
 #: model:ir.actions.act_window,name:legal_affairs_management.legal_judge_res_partner_action
