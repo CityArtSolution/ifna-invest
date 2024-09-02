@@ -1,0 +1,65 @@
+      <div class="row" style="margin-left: 4%;">
+
+    <div class="col-md-5 col-sm-6 tot_consultations oh-payslip">
+        <div class="oh-card" style="width: 350px; height: 150px; border-radius: 20px; border: 2px solid #1e88e5; background-color: #e3f2fd;">
+            <div class="oh-card-body tot_consultations" style="box-shadow: 5px 11px 30px rgba(0, 0, 0, 0.1); padding: 20px;">
+                <div class="stat-widget-one" style="display: flex; align-items: center; height: 100%;">
+                    <div class="stat-icon" style="font-size: 40px; color: #1e88e5; margin-right: 15px;"><i class="fa fa-puzzle-piece" /></div>
+                    <div class="stat-head" style="font-size: 18px; font-weight: 600; color: #1e88e5; flex: 1;">Total Consultations</div>
+                    <div class="stat_count" style="font-size: 28px; font-weight: bold; color: #0d47a1;" id="tot_consultations">
+                        <t t-esc="widget.total_consultations" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-2 col-sm-0"/>
+
+    <div class="col-md-5 col-sm-6 oh-payslip">
+        <div class="oh-card" style="width: 350px; height: 150px; border-radius: 20px; border: 2px solid #43a047; background-color: #f1f8e9;">
+            <div class="oh-card-body tot_client" style="box-shadow: 5px 11px 30px rgba(0, 0, 0, 0.1); padding: 20px;">
+                <div class="stat-widget-one" style="display: flex; align-items: center; height: 100%;">
+                    <div class="stat-icon" style="font-size: 40px; color: #43a047; margin-right: 15px;"><i class="fa fa-user" /></div>
+                    <div class="stat-head" style="font-size: 18px; font-weight: 600; color: #43a047; flex: 1;">Total Defendants</div>
+                    <div class="stat_count" style="font-size: 28px; font-weight: bold; color: #1b5e20;" id="tot_client">
+                        <t t-esc="widget.total_clients" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-2 col-sm-0"/>
+
+    <div class="col-md-5 col-sm-6 oh-payslip">
+        <div class="oh-card" style="width: 350px; height: 150px; border-radius: 20px; border: 2px solid #fb8c00; background-color: #fff8e1;">
+            <div class="oh-card-body tot_auths_agens" style="box-shadow: 5px 11px 30px rgba(0, 0, 0, 0.1); padding: 20px;">
+                <div class="stat-widget-one" style="display: flex; align-items: center; height: 100%;">
+                    <div class="stat-icon" style="font-size: 40px; color: #fb8c00; margin-right: 15px;"><i class="fa fa-tasks" /></div>
+                    <div class="stat-head" style="font-size: 18px; font-weight: 600; color: #fb8c00; flex: 1;">Total Authorizations &amp; Agencies</div>
+                    <div class="stat_count" style="font-size: 28px; font-weight: bold; color: #e65100;" id="tot_auth_agen">
+                        <t t-esc="widget.total_auths_agens" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-2 col-sm-0"/>
+
+    <div class="col-md-5 col-sm-6 oh-payslip">
+        <div class="oh-card" style="width: 350px; height: 150px; border-radius: 20px; border: 2px solid #8e24aa; background-color: #f3e5f5;">
+            <div class="oh-card-body tot_decisions" style="box-shadow: 5px 11px 30px rgba(0, 0, 0, 0.1); padding: 20px;">
+                <div class="stat-widget-one" style="display: flex; align-items: center; height: 100%;">
+                    <div class="stat-icon" style="font-size: 40px; color: #8e24aa; margin-right: 15px;"><i class="fa fa-clock-o" /></div>
+                    <div class="stat-head" style="font-size: 18px; font-weight: 600; color: #8e24aa; flex: 1;">Total Board Decisions</div>
+                    <div class="stat_count" style="font-size: 28px; font-weight: bold; color: #4a148c;" id="tot_decisions">
+                        <t t-esc="widget.total_decisions" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
