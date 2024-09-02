@@ -17,8 +17,8 @@ class LegalExecutionRequest(models.Model):
     case_id = fields.Many2one('legal.case', 'Case', tracking=True)
     plaintiff_id = fields.Many2one("res.partner", "Plaintiff", domain=[('is_legal_plaintiff', '=', True)], related="case_id.plaintiff_id", tracking=True)
     partner_id = fields.Many2one('res.partner', string="Defendant", domain=[('is_legal_defendant', '=', True)], related="case_id.partner_id", required=True)
-    execution_amount = fields.Monetary(string="Execution Amount", currency_field='currency_id', related="partner_id.total_overdue_amount", readonly=False)
-    court_id = fields.Many2one('legal.court', string="Court Name", related="case_id.court_id", tracking=True)
+    execution_amount = fields.Float(string="Execution Amount", compute="_compute_execution_amount", store=True, readonly=False)
+    court_id = fields.Many2one('legal.court', string="Court", related="case_id.court_id", tracking=True)
     execution_number = fields.Char(string="Execution Number")
     document_status = fields.Selection([
         ('draft', 'Draft'),
@@ -92,22 +92,22 @@ class LegalExecutionRequest(models.Model):
         if not partner_account or not case_account:
             raise UserError(_('Partner or Case account is not configured properly.'))
 
-        debit_amount = self.execution_amount
-        credit_amount = self.execution_amount
+        debit_amount = 100
+        credit_amount = 100
 
         default_line_ids = [
             (0, 0, {
                 'account_id': partner_account.id,
                 'partner_id': self.partner_id.id,
-                'debit': 0.0,
-                'credit': credit_amount,
+                'debit': debit_amount,
+                'credit': 0.0,
                 'name': _('Account Receivable Entry')
             }),
             (0, 0, {
                 'account_id': case_account.id,
                 'partner_id': self.partner_id.id,
-                'debit': debit_amount,
-                'credit': 0.0,
+                'debit': 0.0,
+                'credit': credit_amount,
                 'name': _('Case Account Entry')
             }),
         ]
@@ -157,4 +157,10 @@ class LegalExecutionRequest(models.Model):
         else:
             return {'type': 'ir.actions.act_window_close'}
 
-
+    @api.depends()
+    def _compute_execution_amount(self):
+        for rec in self:
+            if rec.partner_id:
+                rec.execution_amount = rec.partner_id.total_overdue_amount
+            else:
+                rec.execution_amount = 0.0
