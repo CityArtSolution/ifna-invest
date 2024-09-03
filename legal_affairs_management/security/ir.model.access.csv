@@ -8,6 +8,7 @@ access_legal_authorization_type,access_legal_authorization_type,model_legal_auth
 access_legal_case_type,access_legal_case_type,model_legal_case_type,base.group_user,1,1,1,1
 access_legal_consultation_type,access_legal_consultation_type,model_legal_consultation_type,base.group_user,1,1,1,1
 access_legal_court,access_legal_court,model_legal_court,base.group_user,1,1,1,1
+access_legal_court_level,access_legal_court_level,model_legal_court_level,base.group_user,1,1,1,1
 access_legal_contract,access_legal_contract,model_legal_contract,base.group_user,1,1,1,1
 access_legal_execution_request,access_legal_execution_request,model_legal_execution_request,base.group_user,1,1,1,1
 access_legal_letter,access_legal_letter,model_legal_letter,base.group_user,1,1,1,1

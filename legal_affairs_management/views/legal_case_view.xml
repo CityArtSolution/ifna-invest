@@ -89,7 +89,7 @@
                                 <field name="claim_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                                 <field name="judge_id" context="{'default_is_legal_judge': True}"/>
                                 <field name="court_id"/>
-                                <field name="court_level"/>
+                                <field name="court_level_id"/>
                             </group>
                         </group>
                         <group string=" ">
@@ -106,6 +106,7 @@
                                     <tree create="0">
                                         <field name="trial_date"/>
                                         <field name="trail_details"/>
+                                        <field name="trial_state" widget="badge" options="{'draft': 'primary', 'confirmed': 'success', 'done': 'info', 'cancelled': 'danger'}"/>
                                     </tree>
                                 </field>
                             </page>

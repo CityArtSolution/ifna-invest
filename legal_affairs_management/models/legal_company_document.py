@@ -30,6 +30,10 @@ class LegalCompanyDocument(models.Model):
     real_estate_management_brokerage = fields.Char(string="Real Estate Management and Brokerage", tracking=True)
     commercial_registration = fields.Char(string="Commercial Registration", tracking=True)
 
+    _sql_constraints = [
+        ('unique_name', 'unique (name)', 'Name already exists!')
+    ]
+
     @api.model
     def _create_expiration_notification(self, document):
         notification_message = _(

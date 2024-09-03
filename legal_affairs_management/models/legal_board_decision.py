@@ -20,3 +20,7 @@ class LegalBoardDecision(models.Model):
     ], string="Document Status", required=True, default='draft', tracking=True)
     notes = fields.Text(string="Notes")
 
+    _sql_constraints = [
+        ('unique_name', 'unique (name)', 'Name already exists!')
+    ]
+

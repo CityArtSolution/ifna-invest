@@ -11,4 +11,8 @@ class LegalLetter(models.Model):
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company)
     name = fields.Char(required=True)
 
+    _sql_constraints = [
+        ('unique_name', 'unique (name)', 'Name already exists!')
+    ]
+
 

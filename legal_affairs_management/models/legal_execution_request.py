@@ -17,7 +17,7 @@ class LegalExecutionRequest(models.Model):
     case_id = fields.Many2one('legal.case', 'Case', tracking=True)
     plaintiff_id = fields.Many2one("res.partner", "Plaintiff", domain=[('is_legal_plaintiff', '=', True)], related="case_id.plaintiff_id", tracking=True)
     partner_id = fields.Many2one('res.partner', string="Defendant", domain=[('is_legal_defendant', '=', True)], related="case_id.partner_id", required=True)
-    execution_amount = fields.Float(string="Execution Amount", related="partner_id.total_overdue_amount", readonly=False)
+    execution_amount = fields.Float(string="Execution Amount", compute="_compute_execution_amount", store=True, readonly=False)
     court_id = fields.Many2one('legal.court', string="Court", related="case_id.court_id", tracking=True)
     execution_number = fields.Char(string="Execution Number")
     document_status = fields.Selection([
@@ -33,6 +33,7 @@ class LegalExecutionRequest(models.Model):
     state = fields.Selection([
         ('paid', 'Paid'),
         ('not_paid', 'Un Paid'),
+        ('other', 'Other'),
     ], string='State')
 
     account_journal_count = fields.Integer(compute="_compute_account_journal_count")
@@ -156,5 +157,14 @@ class LegalExecutionRequest(models.Model):
             }
         else:
             return {'type': 'ir.actions.act_window_close'}
+
+    @api.depends()
+    def _compute_execution_amount(self):
+        for rec in self:
+            if rec.partner_id:
+                rec.execution_amount = rec.partner_id.total_overdue_amount
+            else:
+                rec.execution_amount = 0.0
+                
 
 

@@ -15,8 +15,7 @@ class LegalCaseMatters(models.Model):
     name = fields.Char(string="Case Number", required=True, tracking=True)
     case_type_id = fields.Many2one('legal.case.type', string="Case Type", tracking=True)
 
-    plaintiff_id = fields.Many2one("res.partner", "Plaintiff", domain=[('is_legal_plaintiff', '=', True)],
-                                   tracking=True)
+    plaintiff_id = fields.Many2one("res.partner", "Plaintiff", domain=[('is_legal_plaintiff', '=', True)], tracking=True)
     partner_id = fields.Many2one('res.partner', 'Defendant', domain=[('is_legal_defendant', '=', True)], tracking=True)
 
     lawyer_id = fields.Many2one('res.partner', string="Lawyer", domain=[('is_legal_lawyer', '=', True)], tracking=True)
@@ -28,7 +27,8 @@ class LegalCaseMatters(models.Model):
     case_status = fields.Selection([('open', 'Open'), ('closed', 'Closed')], string="Case Status", tracking=True)
     claim_amount = fields.Float(string="Claim Amount", tracking=True)
     court_id = fields.Many2one('legal.court', string="Court", tracking=True)
-    court_level = fields.Selection(related="court_id.court_level", string="Court Level", tracking=True)
+    court_level_id = fields.Many2one('legal.court.level', related="court_id.court_level_id", string="Court Level", tracking=True)
+
     attachment_ids = fields.Many2many('ir.attachment', string="Attachments", tracking=True)
 
     trail_ids = fields.One2many('legal.trial', 'case_id', string='Trails', tracking=True)
@@ -38,6 +38,10 @@ class LegalCaseMatters(models.Model):
 
     account_move_ids = fields.One2many('account.move', 'case_id', string='Invoices', tracking=True)
     account_move_count = fields.Integer(compute='_compute_account_move_count')
+
+    _sql_constraints = [
+        ('unique_name', 'unique (name)', 'Name already exists!')
+    ]
 
     @api.depends('trail_ids')
     def _compute_legal_trail_count(self):

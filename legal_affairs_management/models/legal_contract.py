@@ -10,3 +10,7 @@ class LegalContract(models.Model):
     active = fields.Boolean(default=True)
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company)
     name = fields.Char(required=True)
+
+    _sql_constraints = [
+        ('unique_name', 'unique (name)', 'Name already exists!')
+    ]

@@ -16,3 +16,7 @@ class LegalAuthorizationType(models.Model):
         ('agency', 'Agency'),
     ], string="Type", required=True)
     description = fields.Text(string="Description")
+
+    _sql_constraints = [
+        ('unique_name', 'unique (name)', 'Name already exists!')
+    ]
