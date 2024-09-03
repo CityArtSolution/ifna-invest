@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_legal_case_type_tree" model="ir.ui.view">
+            <field name="name">legal.case.type.tree</field>
+            <field name="model">legal.case.type</field>
+            <field name="arch" type="xml">
+                <tree sample="1">
+                    <field name="name"/>
+                    <field name="is_disputes" widget="boolean_toggle"/>
+                    <field name="account_id"/>
+                    <field name="company_id" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_legal_case_type_form" model="ir.ui.view">
+            <field name="name">legal.case.type.form</field>
+            <field name="model">legal.case.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                        <div class="oe_title mb24">
+                            <field name="active" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                            <label for="name">Case Type</label>
+                            <h1 style="display:inline-block">
+                                <field class="text-break" name="name" default_focus="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="is_disputes" widget="boolean_toggle"/>
+                            </group>
+                            <group>
+                                <field name="account_id" attrs="{'invisible': [('is_disputes', '=', False)], 'required': [('is_disputes', '=', False)]}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_legal_case_type_search" model="ir.ui.view">
+            <field name="name">legal.case.type.search</field>
+            <field name="model">legal.case.type</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="company_id"/>
+                    <filter name="inactive_filter" string="Inactive" domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="action_legal_case_type" model="ir.actions.act_window">
+            <field name="name">Case Types</field>
+            <field name="res_model">legal.case.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_legal_case_type" name="Case Types" parent="legal_affairs_management.legal_affairs_configurations_menu" action="action_legal_case_type" sequence="2"/>
+    </data>
+</odoo>

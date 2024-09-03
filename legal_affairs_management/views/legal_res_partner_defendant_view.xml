@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="legal_defendant_res_partner_action" model="ir.actions.act_window">
+            <field name="name">Defendants</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[('is_legal_defendant', '=', True)]</field>
+            <field name="context">{'default_is_legal_defendant': True}</field>
+        </record>
+
+        <menuitem id="legal_defendant_res_partner_menuitem" name="Defendants" parent="legal_affairs_management.cases_and_execution_requests_menu" action="legal_defendant_res_partner_action" sequence="1"/>
+    </data>
+</odoo>
