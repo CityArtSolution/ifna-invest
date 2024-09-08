@@ -46,6 +46,7 @@
         'views/legal_conf_court_view.xml',
         'views/legal_conf_court_level_view.xml',
         'views/legal_account_move_view.xml',
+        'views/legal_account_payment_view.xml',
         'views/legal_dashboard_view.xml',
     ],
     'assets': {

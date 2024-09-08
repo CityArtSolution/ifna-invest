@@ -24,6 +24,7 @@ class PosDashboard(models.Model):
         all_consultation = self.env['external.legal.consultation'].search([])
         all_auth_agen = self.env['legal.authorization.agency'].search([])
         all_decision = self.env['legal.board.decision'].search([])
+        all_opened_cases = self.env['legal.case'].search([('case_status', '=', 'open')])
         all_requests = self.env['legal.execution.request'].search([])
         all_paid_requests = self.env['legal.execution.request'].search([('state', '=', 'paid')])
         all_unpaid_requests = self.env['legal.execution.request'].search([('state', '=', 'not_paid')])
@@ -34,6 +35,7 @@ class PosDashboard(models.Model):
             'total_consultations': len(all_consultation),
             'total_auths_agens': len(all_auth_agen),
             'total_decisions': len(all_decision),
+            'total_opened_cases': len(all_opened_cases),
             'total_requests': len(all_requests),
             'total_paids': f"{sum(paid.execution_amount for paid in all_paid_requests):,.2f} {company_currency}",
             'total_unpaids': f"{sum(paid.execution_amount for paid in all_unpaid_requests):,.2f} {company_currency}",

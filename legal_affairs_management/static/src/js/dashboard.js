@@ -15,6 +15,7 @@ odoo.define('pj_dashboard.Dashboard', function(require) {
     var tot_auth_agen = [];
     var tot_client = [];
     var tot_decisions = [];
+    var tot_opened_case = [];
     var tot_request = [];
     var tot_paid = [];
     var tot_unpaid = [];
@@ -27,6 +28,7 @@ odoo.define('pj_dashboard.Dashboard', function(require) {
             'click .tot_consultations': 'tot_consultations',
             'click .tot_auths_agens': 'tot_auths_agens',
             'click .tot_decisions': 'tot_decisions',
+            'click .tot_opened_cases': 'tot_opened_cases',
             'click .tot_requests': 'tot_requests',
             'click .tot_paids': 'tot_paids',
             'click .tot_unpaids': 'tot_unpaids',
@@ -83,6 +85,7 @@ odoo.define('pj_dashboard.Dashboard', function(require) {
                 self.total_consultations = result['total_consultations'];
                 self.total_auths_agens = result['total_auths_agens'];
                 self.total_decisions = result['total_decisions'];
+                self.total_opened_cases = result['total_opened_cases'];
                 self.total_requests = result['total_requests'];
                 self.total_paids = result['total_paids'];
                 self.total_unpaids = result['total_unpaids'];
@@ -213,6 +216,50 @@ odoo.define('pj_dashboard.Dashboard', function(require) {
                         res_model: 'legal.board.decision',
                         domain: [
                             ["id", "in", tot_decisions]
+                        ],
+                        view_mode: 'tree,form',
+                        views: [
+                            [false, 'list'],
+                            [false, 'form']
+                        ],
+                        target: 'current'
+                    }, options)
+                }
+            }
+        },
+
+         /**
+        for opening opened cases view
+        */
+        tot_opened_cases: function(e) {
+            var self = this;
+            e.stopPropagation();
+            e.preventDefault();
+            var options = {
+                on_reverse_breadcrumb: this.on_reverse_breadcrumb,
+            };
+            if (flag == 0) {
+                this.do_action({
+                    name: _t("Legal Opened Cases"),
+                    type: 'ir.actions.act_window',
+                    res_model: 'legal.case',
+                    view_mode: 'tree,form',
+                    views: [
+                        [false, 'list'],
+                        [false, 'form']
+                    ],
+                    target: 'current',
+                    domain: [["case_status", "=", "open"]]
+                }, options)
+            } else {
+                if (tot_opened_case) {
+                    this.do_action({
+                        name: _t("Legal Opened Cases"),
+                        type: 'ir.actions.act_window',
+                        res_model: 'legal.case',
+                        domain: [
+                            ["id", "in", tot_opened_case],
+                            ["case_status", "=", "open"]
                         ],
                         view_mode: 'tree,form',
                         views: [

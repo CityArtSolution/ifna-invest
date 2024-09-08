@@ -25,9 +25,12 @@ class LegalCaseMatters(models.Model):
                                tracking=True)
     case_date = fields.Date(string="Date Filed", tracking=True)
     case_status = fields.Selection([('open', 'Open'), ('closed', 'Closed')], string="Case Status", tracking=True)
-    claim_amount = fields.Float(string="Claim Amount", tracking=True)
+    claim_amount = fields.Float(string="Claim Amount", compute="_compute_claim_amount", store=True, readonly=False, tracking=True, help="Sum of total overdue amount defendant invoices")
+    judgment_amount = fields.Float(string="Judgment Amount", tracking=True)
     court_id = fields.Many2one('legal.court', string="Court", tracking=True)
     court_level_id = fields.Many2one('legal.court.level', related="court_id.court_level_id", string="Court Level", tracking=True)
+
+    expected_collection_date = fields.Date("Expected Collection", tracking=True)
 
     attachment_ids = fields.Many2many('ir.attachment', string="Attachments", tracking=True)
 
@@ -42,6 +45,14 @@ class LegalCaseMatters(models.Model):
     _sql_constraints = [
         ('unique_name', 'unique (name)', 'Name already exists!')
     ]
+
+    @api.depends('partner_id')
+    def _compute_claim_amount(self):
+        for rec in self:
+            if rec.partner_id:
+                rec.claim_amount = rec.partner_id.total_overdue_amount
+            else:
+                rec.claim_amount = 0.0
 
     @api.depends('trail_ids')
     def _compute_legal_trail_count(self):
@@ -114,9 +125,9 @@ class LegalCaseMatters(models.Model):
             'name': _('Defendant Invoices'),
             'res_model': 'account.move',
             'view_mode': 'tree,form',
-            'domain': [('case_id', '=', self.id), ('partner_id', '=', self.partner_id.id),
+            'domain': [('is_legal_invoice', '=', True), ('case_id', '=', self.id), ('partner_id', '=', self.partner_id.id),
                        ('move_type', '=', 'out_invoice')],
-            'context': {'default_case_id': self.id, 'default_partner_id': self.partner_id.id,
+            'context': {'default_is_legal_invoice': True, 'default_case_id': self.id, 'default_partner_id': self.partner_id.id,
                         'default_move_type': 'out_invoice'},
             'target': 'current',
         }

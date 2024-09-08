@@ -18,6 +18,8 @@ class LegalTrial(models.Model):
     partner_id = fields.Many2one('res.partner', string="Defendant", related="case_id.partner_id", tracking=True)
     lawyer_id = fields.Many2one('res.partner', string="Lawyer", related="case_id.lawyer_id", tracking=True)
 
+    expected_collection_date = fields.Date("Expected Collection", compute="_compute_expected_collection_date", store=True, readonly=False, tracking=True)
+
     trial_date = fields.Datetime(string="Trial Date", tracking=True)
     trail_details = fields.Text(string="Trial Details", tracking=True)
     trial_state = fields.Selection([
@@ -30,6 +32,12 @@ class LegalTrial(models.Model):
     attachment_filename = fields.Char(string="Attachment Filename", tracking=True)
     notes = fields.Text(string="Notes", tracking=True)
     reminder_sent = fields.Boolean(string="Reminder Sent", default=False)
+
+    @api.depends('case_id')
+    def _compute_expected_collection_date(self):
+        for rec in self:
+            if rec.case_id:
+                rec.expected_collection_date = rec.case_id.expected_collection_date
 
     @api.model
     def send_trial_reminders(self):

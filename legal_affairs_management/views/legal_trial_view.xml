@@ -37,10 +37,11 @@
                             <group>
                                 <field name="partner_id"/>
                                 <field name="lawyer_id"/>
+                                <field name="court_id"/>
                             </group>
                             <group>
-                                <field name="court_id"/>
                                 <field name="trial_date"/>
+                                <field name="expected_collection_date"/>
                             </group>
                         </group>
                         <group string="  ">

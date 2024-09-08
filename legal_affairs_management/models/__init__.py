@@ -16,4 +16,5 @@ from . import legal_conf_consultation_type
 from . import legal_conf_court
 from . import legal_conf_court_level
 from . import legal_account_move
+from . import legal_account_payment
 from . import pj_dashboard

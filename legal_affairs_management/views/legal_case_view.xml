@@ -81,13 +81,14 @@
                             <group>
                                 <field name="plaintiff_id" context="{'default_is_legal_plaintiff': True}"/>
                                 <field name="partner_id" widget="res_partner_many2one" context="{'default_is_legal_defendant': True}"/>
+                                <field name="judge_id" context="{'default_is_legal_judge': True}"/>
                                 <field name="lawyer_id" context="{'default_is_legal_lawyer': True}"/>
                                 <field name="legal_field"/>
                             </group>
                             <group>
                                 <field name="currency_id" invisible="1"/>
                                 <field name="claim_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                                <field name="judge_id" context="{'default_is_legal_judge': True}"/>
+                                <field name="judgment_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                                 <field name="court_id"/>
                                 <field name="court_level_id"/>
                             </group>
@@ -95,6 +96,7 @@
                         <group string=" ">
                             <group>
                                 <field name="case_date"/>
+                                <field name="expected_collection_date"/>
                             </group>
                             <group>
                                 <field name="case_status"/>
