@@ -103,8 +103,12 @@ msgid "Configurations"
 msgstr "الاعدادات"
 
 #. module: employee_contract
-#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_line__contract_id
 #: model:ir.ui.menu,name:employee_contract.menu_employee_contract_root
+msgid "Contract"
+msgstr "العقود"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_line__contract_id
 msgid "Contract"
 msgstr "العقد"
 
