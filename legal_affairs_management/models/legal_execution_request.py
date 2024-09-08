@@ -45,6 +45,7 @@ class LegalExecutionRequest(models.Model):
 
     account_payment_ids = fields.One2many('account.payment', 'case_id', string='Payments', tracking=True)
     account_payment_count = fields.Integer(compute='_compute_account_payment_count')
+    operating_unit_id = fields.Many2one('operating.unit', string="Operating Unit")
 
     total_required = fields.Float("Total Amount", compute="_compute_total_required", store=True, tracking=True)
     total_payment = fields.Float("Payments Amount", compute="_compute_total_payment", store=True, tracking=True)
