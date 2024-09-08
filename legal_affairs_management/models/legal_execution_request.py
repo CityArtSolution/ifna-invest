@@ -43,7 +43,7 @@ class LegalExecutionRequest(models.Model):
     account_journal_count = fields.Integer(compute="_compute_account_journal_count")
     journal_id = fields.Many2one('account.journal', 'Account Journal', domain=[('type', 'in', ('bank', 'cash'))], tracking=True)
 
-    account_payment_ids = fields.One2many('account.payment', 'case_id', string='Payments', tracking=True)
+    account_payment_ids = fields.One2many('account.payment', 'case_id', string='Payments', compute="_compute_account_payment_ids", store=True, tracking=True)
     account_payment_count = fields.Integer(compute='_compute_account_payment_count')
     operating_unit_id = fields.Many2one('operating.unit', string="Operating Unit")
 
@@ -255,6 +255,14 @@ class LegalExecutionRequest(models.Model):
         }
 
     @api.depends('case_id')
+    def _compute_account_payment_ids(self):
+        # Search for payments related to the current case
+        case_payments = self.env['account.payment'].sudo().search([('case_id', '=', self.case_id.id)])
+
+        # Assign the found payments to the field
+        self.account_payment_ids = case_payments
+
+    @api.depends('case_id')
     def _compute_total_required(self):
         for rec in self:
             if rec.case_id:
@@ -278,4 +286,6 @@ class LegalExecutionRequest(models.Model):
                 rec.total_residual = rec.total_required - rec.total_payment
             else:
                 rec.total_residual = 0.0
+
+
 
