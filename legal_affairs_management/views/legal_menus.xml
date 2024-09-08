@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="legal_affairs_management_root" name="Legal Affairs Management" sequence="5"/>
+
+        <menuitem id="cases_and_execution_requests_menu" name="Cases and Execution Requests" parent="legal_affairs_management_root" sequence="2"/>
+
+        <menuitem id="contracts_outgoing_letters_menu" name="Contracts and outgoing letters" parent="legal_affairs_management_root" sequence="1"/>
+
+        <menuitem id="company_documents_and_licenses_menu" name="Company Documents and Licenses, Board of Directors' Decisions" parent="legal_affairs_management_root" sequence="4"/>
+
+        <menuitem id="legal_affairs_configurations_menu" name="Configurations" parent="legal_affairs_management_root" sequence="10"/>
+    </data>
+</odoo>
