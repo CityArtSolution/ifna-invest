@@ -42,6 +42,14 @@ class LegalCaseMatters(models.Model):
     account_move_ids = fields.One2many('account.move', 'case_id', string='Invoices', tracking=True)
     account_move_count = fields.Integer(compute='_compute_account_move_count')
 
+    account_payment_ids = fields.One2many('account.payment', 'case_id', string='Payments',
+                                          compute="_compute_account_payment_ids", store=True, tracking=True)
+    account_payment_count = fields.Integer(compute='_compute_account_payment_count')
+    operating_unit_id = fields.Many2one('operating.unit', string="Operating Unit")
+
+    total_payment = fields.Float("Payments Amount", compute="_compute_total_payment", store=True, tracking=True)
+    total_residual = fields.Float("Residual Amount", compute="_compute_total_residual", store=True, tracking=True)
+
     _sql_constraints = [
         ('unique_name', 'unique (name)', 'Name already exists!')
     ]
@@ -160,3 +168,52 @@ class LegalCaseMatters(models.Model):
             'target': 'self',
         }
 
+    # ===============================================BELONGS ACCOUNT PAYMENTS===========================================
+    @api.depends('case_id')
+    def _compute_account_payment_count(self):
+        for rec in self:
+            account_payment_counts = self.env['account.payment'].sudo().search_count(
+                [('case_id', '=', self.id)])
+            rec.account_payment_count = account_payment_counts
+
+    def action_view_account_payments(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Account Payments'),
+            'res_model': 'account.payment',
+            'view_mode': 'tree,form',
+            'domain': [('is_legal_payment', '=', True), ('case_id', '=', self.id)],
+            'context': {'default_is_legal_payment': True, 'default_case_id': self.id,
+                        'default_partner_id': self.partner_id.id,
+                        'default_amount': self.claim_amount, 'default_ref': str("PAY#" + self.name)},
+            'target': 'current',
+        }
+
+    def action_create_account_payments(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Create Account Payment'),
+            'view_mode': 'form',
+            'res_model': 'account.payment',
+            'context': {'default_is_legal_payment': True, 'default_case_id': self.id,
+                        'default_partner_id': self.partner_id.id,
+                        'default_amount': self.claim_amount, 'default_ref': str("PAY#" + self.name)},
+            'target': 'self',
+        }
+
+    @api.depends('account_payment_ids')
+    def _compute_total_payment(self):
+        for rec in self:
+            if rec.case_id:
+                payments = rec.account_payment_ids.filtered(lambda p: p.case_id == rec.id)
+                rec.total_payment = sum(payment.amount for payment in payments)
+            else:
+                rec.total_payment = 0.0
+
+    @api.depends('claim_amount', 'total_payment')
+    def _compute_total_residual(self):
+        for rec in self:
+            if rec.claim_amount:
+                rec.total_residual = rec.claim_amount - rec.total_payment
+            else:
+                rec.total_residual = 0.0

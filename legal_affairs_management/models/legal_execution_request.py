@@ -43,14 +43,6 @@ class LegalExecutionRequest(models.Model):
     account_journal_count = fields.Integer(compute="_compute_account_journal_count")
     journal_id = fields.Many2one('account.journal', 'Account Journal', domain=[('type', 'in', ('bank', 'cash'))], tracking=True)
 
-    account_payment_ids = fields.One2many('account.payment', 'case_id', string='Payments', compute="_compute_account_payment_ids", store=True, tracking=True)
-    account_payment_count = fields.Integer(compute='_compute_account_payment_count')
-    operating_unit_id = fields.Many2one('operating.unit', string="Operating Unit")
-
-    total_required = fields.Float("Total Amount", compute="_compute_total_required", store=True, tracking=True)
-    total_payment = fields.Float("Payments Amount", compute="_compute_total_payment", store=True, tracking=True)
-    total_residual = fields.Float("Residual Amount", compute="_compute_total_residual", store=True, tracking=True)
-
     @api.model
     def create(self, vals):
         if vals.get('name', 'New') == 'New':
@@ -111,38 +103,6 @@ class LegalExecutionRequest(models.Model):
             else:
                 rec.is_remaining_amount = False
                 rec.remaining_amount = 0
-
-    @api.depends('case_id')
-    def _compute_account_payment_ids(self):
-        case_payments = self.env['account.payment'].sudo().search([('case_id', '=', self.case_id.id)])
-
-        self.account_payment_ids = case_payments
-
-    @api.depends('case_id')
-    def _compute_total_required(self):
-        for rec in self:
-            if rec.case_id:
-                rec.total_required = rec.case_id.claim_amount
-            else:
-                rec.total_required = 0.0
-
-    @api.depends('account_payment_ids')
-    def _compute_total_payment(self):
-        for rec in self:
-            if rec.case_id:
-                payments = rec.account_payment_ids.filtered(lambda p: p.case_id == rec.case_id)
-                rec.total_payment = sum(payment.amount for payment in payments)
-            else:
-                rec.total_payment = 0.0
-
-    @api.depends('total_required', 'total_payment')
-    def _compute_total_residual(self):
-        for rec in self:
-            if rec.total_required:
-                rec.total_residual = rec.total_required - rec.total_payment
-            else:
-                rec.total_residual = 0.0
-
 
     # ===============================================BELONGS JOURNAL ENTRIES============================================
     @api.depends('partner_id', 'name')
@@ -242,38 +202,6 @@ class LegalExecutionRequest(models.Model):
         else:
             return {'type': 'ir.actions.act_window_close'}
 
-    # ===============================================BELONGS ACCOUNT PAYMENTS===========================================
-    @api.depends('case_id')
-    def _compute_account_payment_count(self):
-        for rec in self:
-            account_payment_counts = self.env['account.payment'].sudo().search_count([('case_id', '=', self.case_id.id)])
-            rec.account_payment_count = account_payment_counts
-
-    def action_view_account_payments(self):
-        return {
-            'type': 'ir.actions.act_window',
-            'name': _('Account Payments'),
-            'res_model': 'account.payment',
-            'view_mode': 'tree,form',
-            'domain': [('is_legal_payment', '=', True), ('case_id', '=', self.case_id.id)],
-            'context': {'default_is_legal_payment': True, 'default_case_id': self.case_id.id,
-                        'default_partner_id': self.partner_id.id,
-                        'default_amount': self.execution_amount, 'default_ref': str("PAY#" + self.name)},
-            'target': 'current',
-        }
-
-    def action_create_account_payments(self):
-        return {
-            'type': 'ir.actions.act_window',
-            'name': _('Create Account Payment'),
-            'view_mode': 'form',
-            'res_model': 'account.payment',
-            'context': {'default_is_legal_payment': True, 'default_case_id': self.case_id.id,
-                        'default_partner_id': self.partner_id.id,
-                        'default_amount': self.execution_amount, 'default_ref': str("PAY#" + self.name)},
-            'target': 'self',
-        }
-
     # =====================================================SEND NOTIFICATIONS===========================================
     def _send_notification(self, record):
         message_body = (
@@ -291,7 +219,3 @@ class LegalExecutionRequest(models.Model):
             'res_id': record.id,
             'partner_ids': [(6, 0, partners.ids)]
         })
-
-
-
-

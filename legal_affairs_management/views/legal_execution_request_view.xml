@@ -23,7 +23,6 @@
                 <form string="Execution Request">
                     <header>
                         <button type="object" name="action_create_journal_entries" class="oe_highlight" string="Create Journal Entries"/>
-                        <button type="object" name="action_create_account_payments" class="oe_highlight" string="Create Case Payment"/>
                         <field name="document_status" widget="statusbar" options="{'clickable': '1'}"/>
                     </header>
                     <sheet>
@@ -43,7 +42,7 @@
                         <div class="oe_title mb24">
                             <field name="active" invisible="1"/>
                             <field name="company_id" invisible="1"/>
-                            <field name="is_remaining_amount"/>
+                            <field name="is_remaining_amount" invisible="1"/>
                             <field name="currency_id" invisible="1"/>
                             <field name="attachment_filename" invisible="1"/>
                             <br/>
@@ -75,30 +74,6 @@
                             </group>
                         </group>
                         <notebook>
-                            <page string="Payments">
-                                <field name="account_payment_ids">
-                                    <tree sample="1" create="0" delete="0">
-                                        <field name="date"/>
-                                        <field name="name"/>
-                                        <field name="partner_id" string="Customer"/>
-                                        <field name="amount_signed" string="Amount in Currency" groups="base.group_multi_currency" optional="hide"/>
-                                        <field name="currency_id" string="Payment Currency" groups="base.group_multi_currency" optional="hide"/>
-                                        <field name="amount_company_currency_signed" widget="monetary" string="Amount" sum="Total"/>
-                                        <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-success="state == 'posted'"/>
-                                    </tree>
-                                </field>
-                                <group col="12">
-                                    <group colspan="4"/>
-                                    <group colspan="4"/>
-                                    <group colspan="4">
-                                        <group class="oe_subtotal_footer oe_right">
-                                            <field name="total_required" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                                            <field name="total_payment" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                                            <field name="total_residual" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                                        </group>
-                                    </group>
-                                </group>
-                            </page>
                             <page string="Description">
                                 <field name="notes" widget="html" placeholder="Enter Your Notes ..."/>
                             </page>
