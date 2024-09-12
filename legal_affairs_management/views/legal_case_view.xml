@@ -130,7 +130,7 @@
                                     <group colspan="4"/>
                                     <group colspan="4">
                                         <group class="oe_subtotal_footer oe_right">
-                                            <field name="claim_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                            <field name="claim_amount" string="Required Amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                                             <field name="total_payment" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                                             <field name="total_residual" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                                         </group>
