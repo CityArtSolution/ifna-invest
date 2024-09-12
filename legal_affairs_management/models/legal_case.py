@@ -203,11 +203,8 @@ class LegalCaseMatters(models.Model):
     @api.depends('account_payment_ids')
     def _compute_total_payment(self):
         for rec in self:
-            if rec.case_id:
-                payments = rec.account_payment_ids.filtered(lambda p: p.case_id == rec.id)
-                rec.total_payment = sum(payment.amount for payment in payments)
-            else:
-                rec.total_payment = 0.0
+            payments = rec.account_payment_ids.filtered(lambda p: p.case_id == rec.id)
+            rec.total_payment = sum(payment.amount for payment in payments)
 
     @api.depends('claim_amount', 'total_payment')
     def _compute_total_residual(self):
