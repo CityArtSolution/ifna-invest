@@ -19,7 +19,7 @@ class LegalExecutionRequest(models.Model):
     partner_id = fields.Many2one('res.partner', string="Defendant", domain=[('is_legal_defendant', '=', True)], related="case_id.partner_id", required=True)
     execution_amount = fields.Float(string="Execution Amount", compute="_compute_execution_amount", store=True, readonly=False, tracking=True)
     is_remaining_amount = fields.Boolean()
-    remaining_amount = fields.Float(string="Remaining Amount", tracking=True, readonly=True)
+    remaining_amount = fields.Float(string="Remaining Amount", compute="_compute_remaining_amount", store=True, readonly=True, tracking=True)
     account_id = fields.Many2one("account.account", "Remaining Account", tracking=True)
     court_id = fields.Many2one('legal.court', string="Court", related="case_id.court_id", tracking=True)
     execution_number = fields.Char(string="Execution Number", tracking=True)
@@ -68,23 +68,6 @@ class LegalExecutionRequest(models.Model):
                 self._send_notification(record)
         return res
 
-    def _send_notification(self, record):
-        message_body = (
-            f"Amount received {record.execution_amount} {record.currency_id.symbol}for Execution Number {record.name} for the court account."
-        )
-
-        group = self.env.ref('legal_affairs_management.group_account_financial_manager')
-        partners = self.env['res.users'].search([('groups_id', 'in', group.id)]).mapped('partner_id')
-
-        self.env['mail.message'].create({
-            'message_type': 'notification',
-            'subtype_id': self.env.ref('mail.mt_note').id,
-            'body': message_body,
-            'model': 'legal.execution.request',
-            'res_id': record.id,
-            'partner_ids': [(6, 0, partners.ids)]
-        })
-
     @api.onchange('execution_amount')
     def _onchange_execution_amount(self):
         if self.execution_amount > 100000:
@@ -94,6 +77,83 @@ class LegalExecutionRequest(models.Model):
                     'message': _('The execution amount is very high. Please double-check.'),
                 }
             }
+
+    @api.depends('case_id')
+    def _compute_execution_amount(self):
+        for rec in self:
+            if rec.case_id:
+                rec.execution_amount = rec.case_id.claim_amount
+            else:
+                rec.execution_amount = 0.0
+
+    @api.onchange('execution_amount', 'case_id')
+    @api.depends('execution_amount', 'case_id')
+    def _compute_remaining_amount(self):
+        for rec in self:
+            if rec.execution_amount and rec.case_id:
+                claim_amount = rec.case_id.claim_amount
+                if rec.execution_amount < claim_amount:
+                    rec.is_remaining_amount = True
+                    rec.remaining_amount = claim_amount - rec.execution_amount
+                    currency_symbol = rec.currency_id.symbol
+
+                    return {
+                        'warning': {
+                            'title': _("Warning"),
+                            'message': _(
+                                "The Execution Amount is less than the Claim Amount. The difference is: %s %.2f") % (
+                                       currency_symbol, rec.remaining_amount),
+                        }
+                    }
+                else:
+                    rec.is_remaining_amount = False
+                    rec.remaining_amount = 0
+            else:
+                rec.is_remaining_amount = False
+                rec.remaining_amount = 0
+
+    @api.depends('case_id')
+    def _compute_account_payment_ids(self):
+        case_payments = self.env['account.payment'].sudo().search([('case_id', '=', self.case_id.id)])
+
+        self.account_payment_ids = case_payments
+
+    @api.depends('case_id')
+    def _compute_total_required(self):
+        for rec in self:
+            if rec.case_id:
+                rec.total_required = rec.case_id.claim_amount
+            else:
+                rec.total_required = 0.0
+
+    @api.depends('account_payment_ids')
+    def _compute_total_payment(self):
+        for rec in self:
+            if rec.case_id:
+                payments = rec.account_payment_ids.filtered(lambda p: p.case_id == rec.case_id)
+                rec.total_payment = sum(payment.amount for payment in payments)
+            else:
+                rec.total_payment = 0.0
+
+    @api.depends('total_required', 'total_payment')
+    def _compute_total_residual(self):
+        for rec in self:
+            if rec.total_required:
+                rec.total_residual = rec.total_required - rec.total_payment
+            else:
+                rec.total_residual = 0.0
+
+
+    # ===============================================BELONGS JOURNAL ENTRIES============================================
+    @api.depends('partner_id', 'name')
+    def _compute_account_journal_count(self):
+        for rec in self:
+            journal_counts = self.env['account.move'].sudo().search_count([
+                ('move_type', '=', 'entry'),
+                ('ref', '=', self.name),
+                ('partner_id', '=', self.partner_id.id),
+            ])
+            rec.account_journal_count = journal_counts
 
     def action_create_journal_entries(self):
         if self.state != 'paid':
@@ -165,16 +225,6 @@ class LegalExecutionRequest(models.Model):
             'target': 'current',
         }
 
-    @api.depends('partner_id', 'name')
-    def _compute_account_journal_count(self):
-        for rec in self:
-            journal_counts = self.env['account.move'].sudo().search_count([
-                ('move_type', '=', 'entry'),
-                ('ref', '=', self.name),
-                ('partner_id', '=', self.partner_id.id),
-            ])
-            rec.account_journal_count = journal_counts
-
     def action_view_journal_entries(self):
         self.ensure_one()
         if self.account_journal_count > 0:
@@ -192,39 +242,7 @@ class LegalExecutionRequest(models.Model):
         else:
             return {'type': 'ir.actions.act_window_close'}
 
-    @api.depends('case_id')
-    def _compute_execution_amount(self):
-        for rec in self:
-            if rec.case_id:
-                rec.execution_amount = rec.case_id.claim_amount
-            else:
-                rec.execution_amount = 0.0
-
-    @api.onchange('execution_amount')
-    def _onchange_execution_amount(self):
-        for rec in self:
-            if rec.execution_amount and rec.case_id:
-                claim_amount = rec.case_id.claim_amount
-                if rec.execution_amount < claim_amount:
-                    rec.is_remaining_amount = True
-                    difference = rec.remaining_amount =  claim_amount - rec.execution_amount
-                    currency_symbol = rec.currency_id.symbol
-
-                    return {
-                        'warning': {
-                            'title': _("Warning"),
-                            'message': _(
-                                "The Execution Amount is less than the Claim Amount. The difference is: %s %.2f") % (
-                                       currency_symbol, difference),
-                        }
-                    }
-                else:
-                    rec.is_remaining_amount = False
-                    rec.remaining_amount = 0.0
-            else:
-                rec.is_remaining_amount = False
-                rec.remaining_amount = 0.0
-
+    # ===============================================BELONGS ACCOUNT PAYMENTS===========================================
     @api.depends('case_id')
     def _compute_account_payment_count(self):
         for rec in self:
@@ -256,38 +274,24 @@ class LegalExecutionRequest(models.Model):
             'target': 'self',
         }
 
-    @api.depends('case_id')
-    def _compute_account_payment_ids(self):
-        # Search for payments related to the current case
-        case_payments = self.env['account.payment'].sudo().search([('case_id', '=', self.case_id.id)])
+    # =====================================================SEND NOTIFICATIONS===========================================
+    def _send_notification(self, record):
+        message_body = (
+            f"Amount received {record.execution_amount} {record.currency_id.symbol}for Execution Number {record.name} for the court account."
+        )
 
-        # Assign the found payments to the field
-        self.account_payment_ids = case_payments
+        group = self.env.ref('legal_affairs_management.group_account_financial_manager')
+        partners = self.env['res.users'].search([('groups_id', 'in', group.id)]).mapped('partner_id')
 
-    @api.depends('case_id')
-    def _compute_total_required(self):
-        for rec in self:
-            if rec.case_id:
-                rec.total_required = rec.case_id.claim_amount
-            else:
-                rec.total_required = 0.0
+        self.env['mail.message'].create({
+            'message_type': 'notification',
+            'subtype_id': self.env.ref('mail.mt_note').id,
+            'body': message_body,
+            'model': 'legal.execution.request',
+            'res_id': record.id,
+            'partner_ids': [(6, 0, partners.ids)]
+        })
 
-    @api.depends('account_payment_ids')
-    def _compute_total_payment(self):
-        for rec in self:
-            if rec.case_id:
-                payments = rec.account_payment_ids.filtered(lambda p: p.case_id == rec.case_id)
-                rec.total_payment = sum(payment.amount for payment in payments)
-            else:
-                rec.total_payment = 0.0
-
-    @api.depends('total_required', 'total_payment')
-    def _compute_total_residual(self):
-        for rec in self:
-            if rec.total_required:
-                rec.total_residual = rec.total_required - rec.total_payment
-            else:
-                rec.total_residual = 0.0
 
 
 
