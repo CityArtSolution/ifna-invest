@@ -169,7 +169,6 @@ class LegalCaseMatters(models.Model):
         }
 
     # ===============================================BELONGS ACCOUNT PAYMENTS===========================================
-    @api.depends('case_id')
     def _compute_account_payment_count(self):
         for rec in self:
             account_payment_counts = self.env['account.payment'].sudo().search_count(
