@@ -775,14 +775,35 @@ class AccountPaymentOrder(models.Model):
         else:
             return amount_to_text_arabic(abs(amount), self.transaction_currency_id.name)
 
+    # def _convert_num_to_text_en(self, amount):
+    #     if self.payment_request_type == 'account':
+    #         if self.currency_id.name == 'SAR':
+    #             x = num2words(abs(amount), to='currency')
+    #             x_riyal = x.replace("euro", "Riyal")
+    #             real_x = x_riyal.replace("cents", "Halala")
+    #             return str(real_x)
+    #         else:
+    #             x = num2words(abs(amount), to='currency', currency=self.currency_id.name)
+    #             return str(x)
+    #     else:
+    #         if self.transaction_currency_id.name == 'SAR':
+    #             x = num2words(abs(amount), to='currency')
+    #             x_riyal = x.replace("euro", "Riyal")
+    #             real_x = x_riyal.replace("cents", "Halala")
+    #             return str(real_x)
+    #         else:
+    #             x = num2words(abs(amount), to='currency', currency=self.transaction_currency_id.name)
+    #             return str(x)
     def _convert_num_to_text_en(self, amount):
-
         if self.payment_request_type == 'account':
             if self.currency_id.name == 'SAR':
                 x = num2words(abs(amount), to='currency')
                 x_riyal = x.replace("euro", "Riyal")
                 real_x = x_riyal.replace("cents", "Halala")
                 return str(real_x)
+            elif self.currency_id.name == 'JOD':
+                # Custom handling for Jordanian Dinar (JOD)
+                return f"{abs(amount):,.2f} Jordanian Dinars"
             else:
                 x = num2words(abs(amount), to='currency', currency=self.currency_id.name)
                 return str(x)
@@ -792,6 +813,9 @@ class AccountPaymentOrder(models.Model):
                 x_riyal = x.replace("euro", "Riyal")
                 real_x = x_riyal.replace("cents", "Halala")
                 return str(real_x)
+            elif self.transaction_currency_id.name == 'JOD':
+                # Custom handling for Jordanian Dinar (JOD)
+                return f"{abs(amount):,.2f} Jordanian Dinars"
             else:
                 x = num2words(abs(amount), to='currency', currency=self.transaction_currency_id.name)
                 return str(x)
