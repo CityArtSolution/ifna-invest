@@ -19,7 +19,7 @@ class LegalExecutionRequest(models.Model):
     partner_id = fields.Many2one('res.partner', string="Defendant", domain=[('is_legal_defendant', '=', True)], related="case_id.partner_id", required=True)
     execution_amount = fields.Float(string="Execution Amount", compute="_compute_execution_amount", store=True, readonly=False, tracking=True)
     is_remaining_amount = fields.Boolean()
-    remaining_amount = fields.Float(string="Remaining Amount", tracking=True)
+    remaining_amount = fields.Float(string="Remaining Amount", tracking=True, readonly=True)
     account_id = fields.Many2one("account.account", "Remaining Account", tracking=True)
     court_id = fields.Many2one('legal.court', string="Court", related="case_id.court_id", tracking=True)
     execution_number = fields.Char(string="Execution Number", tracking=True)
