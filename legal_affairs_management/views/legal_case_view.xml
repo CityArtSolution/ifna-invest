@@ -23,7 +23,7 @@
                 <form>
                     <header>
                         <button type="object" name="action_create_account_move_invoices" class="oe_highlight" string="Defendant Invoice"/>
-                        <button type="object" name="action_create_account_payments" class="oe_highlight" string="Create Case Payment"/>
+                        <button type="object" name="action_create_account_payments" class="oe_highlight" string="Create Account Payment"/>
                         <button type="object" name="action_create_execution_request" class="oe_highlight" string="Execution Request"/>
                         <button type="object" name="action_create_legal_trail" class="oe_highlight" string="Start New Trial"/>
                     </header>
