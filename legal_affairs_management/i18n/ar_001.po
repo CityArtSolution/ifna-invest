@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-02 07:57+0000\n"
-"PO-Revision-Date: 2024-09-02 07:57+0000\n"
+"POT-Creation-Date: 2024-09-14 08:26+0000\n"
+"PO-Revision-Date: 2024-09-14 08:26+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -98,12 +98,12 @@ msgid "Account Move Count"
 msgstr "عدد حركات الحساب"
 
 #. module: legal_affairs_management
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__account_payment_count
+#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__account_payment_count
 msgid "Account Payment Count"
-msgstr "عدد مدفوعات الحساب"
+msgstr "عدد المدفوعات الحسابية"
 
 #. module: legal_affairs_management
-#: code:addons/legal_affairs_management/models/legal_execution_request.py:0
+#: code:addons/legal_affairs_management/models/legal_case.py:0
 #, python-format
 msgid "Account Payments"
 msgstr "مدفوعات الحساب"
@@ -232,12 +232,12 @@ msgid "Agency"
 msgstr "وكالة"
 
 #. module: legal_affairs_management
-#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_execution_request_form
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_case_matters_form
 msgid "Amount"
 msgstr "المبلغ"
 
 #. module: legal_affairs_management
-#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_execution_request_form
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_case_matters_form
 msgid "Amount in Currency"
 msgstr "المبلغ بالعملة"
 
@@ -344,6 +344,14 @@ msgstr "المفوض"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__authorized_role
 msgid "Authorized Role"
 msgstr "دور المفوض"
+
+#. module: legal_affairs_management
+#: model:ir.model.fields,field_description:legal_affairs_management.field_account_bank_statement_line__is_legal_invoice
+#: model:ir.model.fields,field_description:legal_affairs_management.field_account_move__is_legal_invoice
+#: model:ir.model.fields,field_description:legal_affairs_management.field_account_payment__is_legal_invoice
+#: model:ir.model.fields,field_description:legal_affairs_management.field_account_payment__is_legal_payment
+msgid "Belongs Legal"
+msgstr ""
 
 #. module: legal_affairs_management
 #. openerp-web
@@ -562,29 +570,23 @@ msgid "Court Level"
 msgstr "درجة المحكمة"
 
 #. module: legal_affairs_management
-#: model:ir.actions.act_window,name:legal_affairs_management.action_legal_court_level
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__court_level_id
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_court__court_level_id
-#: model:ir.ui.menu,name:legal_affairs_management.legal_court_level_menuitem
-msgid "Courts Levels"
-msgstr "درجات المحاكم"
-
-#. module: legal_affairs_management
 #: model:ir.actions.act_window,name:legal_affairs_management.action_legal_court
 #: model:ir.ui.menu,name:legal_affairs_management.menu_legal_court
 msgid "Courts"
 msgstr "المحاكم"
 
 #. module: legal_affairs_management
-#: code:addons/legal_affairs_management/models/legal_execution_request.py:0
-#, python-format
-msgid "Create Account Payment"
-msgstr "إنشاء مدفوعات الحساب"
+#: model:ir.actions.act_window,name:legal_affairs_management.action_legal_court_level
+#: model:ir.ui.menu,name:legal_affairs_management.legal_court_level_menuitem
+msgid "Courts Levels"
+msgstr "درجات المحاكم"
 
 #. module: legal_affairs_management
-#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_execution_request_form
-msgid "Create Case Payment"
-msgstr "إنشاء مدفوعات القضية"
+#: code:addons/legal_affairs_management/models/legal_case.py:0
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_case_matters_form
+#, python-format
+msgid "Create Account Payment"
+msgstr "إنشاء دفعة حساب"
 
 #. module: legal_affairs_management
 #: code:addons/legal_affairs_management/models/legal_case.py:0
@@ -652,6 +654,11 @@ msgid "Currency"
 msgstr "العملة"
 
 #. module: legal_affairs_management
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_case_matters_form
+msgid "Customer"
+msgstr "العميل"
+
+#. module: legal_affairs_management
 #: model:ir.actions.client,name:legal_affairs_management.project_action_dashboard
 #: model:ir.ui.menu,name:legal_affairs_management.menu_project_dashboard
 msgid "Dashboard"
@@ -661,11 +668,6 @@ msgstr "لوحة المعلومات"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__case_date
 msgid "Date Filed"
 msgstr "تاريخ رفع القضية"
-
-#. module: legal_affairs_management
-#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_execution_request_form
-msgid "Customer"
-msgstr "العميل"
 
 #. module: legal_affairs_management
 #: code:addons/legal_affairs_management/models/legal_trial.py:0
@@ -774,7 +776,7 @@ msgstr "منازعات"
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__name
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_company_document__name
 msgid "Document"
-msgstr ""
+msgstr "وثيقة"
 
 #. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_company_document__attachment
@@ -816,12 +818,6 @@ msgstr "مسودة"
 #: model:ir.model.fields.selection,name:legal_affairs_management.selection__legal_authorization_agency__authorized_role__employee
 msgid "Employee"
 msgstr "موظف"
-
-#. module: legal_affairs_management
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__expected_collection_date
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__expected_collection_date
-msgid "Expected Collection"
-msgstr "متوقع التحصيل"
 
 #. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__end_date
@@ -883,6 +879,12 @@ msgstr "عدد طلبات التنفيذ"
 #, python-format
 msgid "Execution Requests"
 msgstr "طلبات التنفيذ"
+
+#. module: legal_affairs_management
+#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__expected_collection_date
+#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__expected_collection_date
+msgid "Expected Collection"
+msgstr "متوقع التحصيل"
 
 #. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_company_document__expiration_date
@@ -998,7 +1000,7 @@ msgstr ""
 #: code:addons/legal_affairs_management/models/legal_execution_request.py:0
 #, python-format
 msgid "High Amount Warning"
-msgstr ""
+msgstr "تحذير من مبلغ كبير"
 
 #. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__id
@@ -1145,11 +1147,6 @@ msgid "Invoices"
 msgstr "الفواتير"
 
 #. module: legal_affairs_management
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__account_move_ids
-msgid "Invoices"
-msgstr ""
-
-#. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__message_is_follower
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_agency__message_is_follower
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_authorization_type__message_is_follower
@@ -1168,6 +1165,11 @@ msgid "Is Follower"
 msgstr ""
 
 #. module: legal_affairs_management
+#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__is_remaining_amount
+msgid "Is Remaining Amount"
+msgstr " يوجد مبلغ متبقي"
+
+#. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_company_document__issue_date
 msgid "Issue Date"
 msgstr "تاريخ اﻷصدار"
@@ -1181,7 +1183,7 @@ msgstr "حساب اليومية..."
 #: code:addons/legal_affairs_management/models/legal_execution_request.py:0
 #, python-format
 msgid "Journal Entries"
-msgstr "قيود اليومية"
+msgstr "قيود دفتر اليومية"
 
 #. module: legal_affairs_management
 #: code:addons/legal_affairs_management/models/legal_case.py:0
@@ -1378,6 +1380,14 @@ msgid "Legal Letter"
 msgstr "الخطابات"
 
 #. module: legal_affairs_management
+#. openerp-web
+#: code:addons/legal_affairs_management/static/src/js/dashboard.js:0
+#: code:addons/legal_affairs_management/static/src/js/dashboard.js:0
+#, python-format
+msgid "Legal Opened Cases"
+msgstr "القضايا القانونية المنظورة"
+
+#. module: legal_affairs_management
 #: code:addons/legal_affairs_management/models/legal_case.py:0
 #, python-format
 msgid "Legal Trail"
@@ -1400,12 +1410,10 @@ msgid "Letters"
 msgstr "الخطابات"
 
 #. module: legal_affairs_management
-#. openerp-web
-#: code:addons/legal_affairs_management/static/src/js/dashboard.js:0
-#: code:addons/legal_affairs_management/static/src/js/dashboard.js:0
-#, python-format
-msgid "Legal Opened Cases"
-msgstr "القضايا القانونية المنظورة"
+#: model:ir.model.fields,field_description:legal_affairs_management.field_res_partner__is_main_view
+#: model:ir.model.fields,field_description:legal_affairs_management.field_res_users__is_main_view
+msgid "Main"
+msgstr ""
 
 #. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__message_main_attachment_id
@@ -1518,7 +1526,7 @@ msgstr "العنوان الوطني"
 #: code:addons/legal_affairs_management/models/legal_execution_request.py:0
 #, python-format
 msgid "New"
-msgstr "جديد"
+msgstr ""
 
 #. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__activity_date_deadline
@@ -1693,6 +1701,11 @@ msgid "Open"
 msgstr "منظورة"
 
 #. module: legal_affairs_management
+#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__operating_unit_id
+msgid "Operating Unit"
+msgstr ""
+
+#. module: legal_affairs_management
 #: model:ir.model.fields.selection,name:legal_affairs_management.selection__legal_execution_request__state__other
 msgid "Other"
 msgstr "اخرى"
@@ -1727,16 +1740,27 @@ msgid "Paid Execution Requests"
 msgstr "طلبات التنفيذ المسددة"
 
 #. module: legal_affairs_management
-#: code:addons/legal_affairs_management/models/legal_execution_request.py:0
-#, python-format
-msgid "Partner or Case account is not configured properly."
-msgstr "حساب الشريك أو القضية غير مُعد بشكل صحيح."
-
-#. module: legal_affairs_management
 #: code:addons/legal_affairs_management/models/external_legal_consultation.py:0
 #, python-format
 msgid "Past Date Warning"
 msgstr "تحذير التاريخ الماضي"
+
+#. module: legal_affairs_management
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_case_matters_form
+msgid "Payment Currency"
+msgstr "عملة الدفع"
+
+#. module: legal_affairs_management
+#: model:ir.model,name:legal_affairs_management.model_account_payment
+#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__account_payment_ids
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_case_matters_form
+msgid "Payments"
+msgstr "المدفوعات"
+
+#. module: legal_affairs_management
+#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__total_payment
+msgid "Payments Amount"
+msgstr "مقدار المدفوعات"
 
 #. module: legal_affairs_management
 #. openerp-web
@@ -1799,6 +1823,16 @@ msgid "Request Number"
 msgstr "رقم الطلب"
 
 #. module: legal_affairs_management
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_case_matters_form
+msgid "Required Amount"
+msgstr "المبلغ المطلوب"
+
+#. module: legal_affairs_management
+#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_case__total_residual
+msgid "Residual Amount"
+msgstr "المبلغ المتبقي"
+
+#. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__response_date
 msgid "Response Date"
 msgstr "تاريخ الرد"
@@ -1838,33 +1872,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:legal_affairs_management.field_legal_trial__message_has_sms_error
 msgid "SMS Delivery error"
 msgstr ""
-
-#. module: legal_affairs_management
-#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_execution_request_form
-msgid "Payment Currency"
-msgstr "عملة الدفع"
-
-#. module: legal_affairs_management
-#: model:ir.model,name:legal_affairs_management.model_account_payment
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__account_payment_ids
-#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_execution_request_form
-msgid "Payments"
-msgstr "المدفوعات"
-
-#. module: legal_affairs_management
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__total_payment
-msgid "Payments Amount"
-msgstr "مبلغ المدفوعات"
-
-#. module: legal_affairs_management
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__total_residual
-msgid "Residual Amount"
-msgstr "المبلغ المتبقي"
-
-#. module: legal_affairs_management
-#: model:ir.model.fields,help:legal_affairs_management.field_legal_case__claim_amount
-msgid "Sum of total overdue amount defendant invoices"
-msgstr "مجموع إجمالي المبالغ المستحقة لفواتير المدعى عليه"
 
 #. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_res_partner__show_legal_group
@@ -1930,13 +1937,17 @@ msgid "Submitted"
 msgstr "اعتماد"
 
 #. module: legal_affairs_management
+#: model:ir.model.fields,help:legal_affairs_management.field_legal_case__claim_amount
+msgid "Sum of total overdue amount defendant invoices"
+msgstr "مجموع إجمالي المبالغ المستحقة لفواتير المدعى عليه"
+
+#. module: legal_affairs_management
 #: code:addons/legal_affairs_management/models/legal_execution_request.py:0
 #, python-format
 msgid ""
 "The Execution Amount is less than the Claim Amount. The difference is: %s "
 "%.2f"
-msgstr ""
-"مبلغ التنفيذ أقل من مبلغ المطالبة. الفرق هو: %s %.2f"
+msgstr "مبلغ التنفيذ أقل من مبلغ المطالبة. الفرق هو: %s %.2f"
 
 #. module: legal_affairs_management
 #: code:addons/legal_affairs_management/models/legal_authorization_agency.py:0
@@ -1987,16 +1998,6 @@ msgid "The partner does not have a receivable account configured."
 msgstr "الشريك ليس لديه حساب مستحق مُعد."
 
 #. module: legal_affairs_management
-#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_execution_request_form
-msgid "Total"
-msgstr "الإجمالي"
-
-#. module: legal_affairs_management
-#: model:ir.model.fields,field_description:legal_affairs_management.field_legal_execution_request__total_required
-msgid "Total Amount"
-msgstr "المبلغ الإجمالي"
-
-#. module: legal_affairs_management
 #. openerp-web
 #: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
 #, python-format
@@ -2021,8 +2022,8 @@ msgstr "إجمالي الاستشارات"
 #. openerp-web
 #: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
 #, python-format
-msgid "Total Opened Cases"
-msgstr "إجمالي القضايا المنظورة"
+msgid "Total Defendants"
+msgstr "إجمالي المدعى عليهم"
 
 #. module: legal_affairs_management
 #. openerp-web
@@ -2030,6 +2031,13 @@ msgstr "إجمالي القضايا المنظورة"
 #, python-format
 msgid "Total Execution Requests"
 msgstr "إجمالي طلبات التنفيذ"
+
+#. module: legal_affairs_management
+#. openerp-web
+#: code:addons/legal_affairs_management/static/src/xml/dashboard.xml:0
+#, python-format
+msgid "Total Opened Cases"
+msgstr "إجمالي القضايا المنظورة"
 
 #. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_res_partner__total_overdue_amount
@@ -2165,7 +2173,8 @@ msgstr ""
 msgid ""
 "Upcoming expiration for %s: Authorization/Agency %s for %s will expire on "
 "%s."
-msgstr "الانتهاء الوشيك لـ %s: التفويض/الوكالة %s لـ %s ستنتهي صلاحيتها في %s."
+msgstr ""
+"الانتهاء الوشيك لـ %s: التفويض/الوكالة %s لـ %s ستنتهي صلاحيتها في %s."
 
 #. module: legal_affairs_management
 #: code:addons/legal_affairs_management/models/legal_trial.py:0
