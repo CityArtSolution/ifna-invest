@@ -47,8 +47,8 @@ class LegalCaseMatters(models.Model):
     account_payment_count = fields.Integer(compute='_compute_account_payment_count')
     operating_unit_id = fields.Many2one('operating.unit', string="Operating Unit")
 
-    total_payment = fields.Float("Payments Amount", compute="_compute_total_payment", store=True, tracking=True)
-    total_residual = fields.Float("Residual Amount", compute="_compute_total_residual", store=True, tracking=True)
+    total_payment = fields.Float("Payments Amount", compute="_compute_total_payment", tracking=True)
+    total_residual = fields.Float("Residual Amount", compute="_compute_total_residual", tracking=True)
 
     _sql_constraints = [
         ('unique_name', 'unique (name)', 'Name already exists!')
@@ -203,8 +203,7 @@ class LegalCaseMatters(models.Model):
     @api.depends('account_payment_ids')
     def _compute_total_payment(self):
         for rec in self:
-            payments = rec.account_payment_ids.filtered(lambda p: p.case_id == rec.id)
-            rec.total_payment = sum(payment.amount for payment in payments)
+            rec.total_payment = sum(payment.amount for payment in rec.account_payment_ids)
 
     @api.depends('claim_amount', 'total_payment')
     def _compute_total_residual(self):
