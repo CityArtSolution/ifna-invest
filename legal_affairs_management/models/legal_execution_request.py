@@ -132,7 +132,7 @@ class LegalExecutionRequest(models.Model):
 
         # Calculate amounts
         debit_amount_1 = self.execution_amount
-        debit_amount_2 = self.remaining_amount if self.remaining_amount and self.is_remaining_amount else 0.0
+        debit_amount_2 = self.remaining_amount if self.remaining_amount and self.is_remaining_amount and self.account_id else 0.0
         credit_amount = self.execution_amount + debit_amount_2
 
         # Prepare journal entry lines
