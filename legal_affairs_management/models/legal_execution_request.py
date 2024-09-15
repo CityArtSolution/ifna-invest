@@ -154,7 +154,7 @@ class LegalExecutionRequest(models.Model):
         ]
 
         # Include remaining amount entry if applicable
-        if self.is_remaining_amount and self.remaining_amount > 0:
+        if self.is_remaining_amount and self.remaining_amount > 0 and self.account_id:
             line_ids.append(
                 (0, 0, {
                     'account_id': remaining_account.id,
