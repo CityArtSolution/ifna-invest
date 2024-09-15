@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
     <data>
-    
         <record model="ir.ui.view" id="view_account_payment_order_new_custom">
             <field name="name">account.payment.order.form..inherit</field>
             <field name="model">account.payment.order</field>
@@ -12,7 +11,5 @@
                 </xpath>
             </field>
         </record>
-    
     </data>
-    
 </odoo>
