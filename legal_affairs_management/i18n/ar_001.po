@@ -1593,7 +1593,13 @@ msgstr "لا توجد بيانات متاحة"
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_execution_request_form
 #: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_execution_request_search
 msgid "Not paid"
-msgstr "لم يُدفع"
+msgstr "غير مسدد"
+
+#. module: legal_affairs_management
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_execution_request_form
+#: model_terms:ir.ui.view,arch_db:legal_affairs_management.view_execution_request_search
+msgid "Partial"
+msgstr "جزئي"
 
 #. module: legal_affairs_management
 #: model:ir.model.fields,field_description:legal_affairs_management.field_external_legal_consultation__notes
@@ -2123,7 +2129,12 @@ msgstr "انواع التفويضات و الوكالات"
 #. module: legal_affairs_management
 #: model:ir.model.fields.selection,name:legal_affairs_management.selection__legal_execution_request__state__not_paid
 msgid "Un Paid"
-msgstr "غير مدفوع"
+msgstr "غير مسدد"
+
+#. module: legal_affairs_management
+#: model:ir.model.fields.selection,name:legal_affairs_management.selection__legal_execution_request__state__partial
+msgid "Partial"
+msgstr "جزئي"
 
 #. module: legal_affairs_management
 #: model:product.product,uom_name:legal_affairs_management.legal_product_product_case_data

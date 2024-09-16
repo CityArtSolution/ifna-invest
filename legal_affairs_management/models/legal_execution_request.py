@@ -36,9 +36,10 @@ class LegalExecutionRequest(models.Model):
                                   default=lambda self: self.env.company.currency_id, tracking=True)
     state = fields.Selection([
         ('paid', 'Paid'),
-        ('not_paid', 'Un Paid'),
+        ('not_paid', 'Not Paid'),
+        ('partial', 'Partial'),
         ('other', 'Other'),
-    ], string='State', tracking=True)
+    ], string='State', compute="_compute_state", store=True, tracking=True)
 
     account_journal_count = fields.Integer(compute="_compute_account_journal_count")
     journal_id = fields.Many2one('account.journal', 'Account Journal', domain=[('type', 'in', ('bank', 'cash'))], tracking=True)
@@ -103,6 +104,18 @@ class LegalExecutionRequest(models.Model):
             else:
                 rec.is_remaining_amount = False
                 rec.remaining_amount = 0
+
+    @api.depnds('execution_amount', 'is_remaining_amount', 'remaining_amount')
+    def _compute_state(self):
+        for rec in self:
+            if rec.execution_amount == 0 and rec.remaining_amount == 0 and rec.is_remaining_amount == False:
+                rec.state = 'not_paid'
+            elif rec.rec.execution_amount > 0 and rec.remaining_amount == 0 and rec.is_remaining_amount == False:
+                rec.state = 'paid'
+            elif rec.rec.execution_amount > 0 and rec.remaining_amount != 0 and rec.is_remaining_amount == True:
+                rec.state = 'partial'
+            else:
+                rec.state = 'other'
 
     # ===============================================BELONGS JOURNAL ENTRIES============================================
     @api.depends('partner_id', 'name')
