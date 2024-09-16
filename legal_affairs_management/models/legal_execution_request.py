@@ -77,7 +77,7 @@ class LegalExecutionRequest(models.Model):
             if rec.case_id:
                 previous_execution_amounts = self.env['legal.execution.request'].sudo().search([
                     ('case_id', '=', rec.case_id.id),
-                    ('id', '!=', rec.id)
+                    ('id', '!=', rec._origin.id)
                 ])
 
                 previous_amounts = sum(exc.execution_amount for exc in previous_execution_amounts)
