@@ -66,7 +66,7 @@
                         </group>
                         <group string="  ">
                             <group>
-                                <field name="state" widget="radio" options="{'horizontal': true}" invisible="1"/>
+                                <field name="state" widget="radio" options="{'horizontal': true}" />
                                 <field name="remaining_amount" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'invisible': ['|', ('state', '=', 'no_paid'), ('is_remaining_amount', '=', False)]}"/>
                             </group>
                             <group attrs="{'invisible': [('state', '=', 'no_paid')]}">
