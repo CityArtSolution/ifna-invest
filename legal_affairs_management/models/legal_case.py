@@ -125,11 +125,14 @@ class LegalCaseMatters(models.Model):
     @api.depends('execution_request_ids')
     def _compute_previous_execution_amounts(self):
         for rec in self:
-            previous_execution_amounts = self.env['legal.case.execution'].sudo().search([
-                ('case_id', '=', rec.id),
-            ])
+            if rec.execution_request_ids:
+                previous_execution_amounts = self.env['legal.case.execution'].sudo().search([
+                    ('case_id', '=', rec.id)
+                ])
 
-            previous_amounts = sum(exc.execution_amount for exc in previous_execution_amounts)
+                previous_amounts = sum(exc.execution_amount for exc in previous_execution_amounts)
+            else:
+                previous_amounts = 0.0
 
             rec.previous_execution_amounts = previous_amounts
 
