@@ -39,7 +39,7 @@ class LegalExecutionRequest(models.Model):
         ('not_paid', 'Not Paid'),
         ('partial', 'Partial'),
         ('other', 'Other'),
-    ], string='State', compute="_compute_state", store=True, search=True, tracking=True)
+    ], string='State', compute="_compute_state", store=True, search=True, readonly=False, tracking=True)
 
     account_journal_count = fields.Integer(compute="_compute_account_journal_count")
     journal_id = fields.Many2one('account.journal', 'Account Journal', domain=[('type', 'in', ('bank', 'cash'))], tracking=True)
