@@ -43,7 +43,7 @@
                         <div class="oe_title mb24">
                             <field name="active" invisible="1"/>
                             <field name="company_id" invisible="1"/>
-                            <field name="is_remaining_amount" invisible="1"/>
+                            <field name="is_remaining_amount" />
                             <field name="currency_id" invisible="1"/>
                             <field name="attachment_filename" invisible="1"/>
                             <br/>
@@ -64,9 +64,9 @@
                                 <field name="attachment" filename="attachment_filename"/>
                             </group>
                         </group>
-                        <group string="  " attrs="{'invisible': [('state', '=', 'no_paid')]}">
+                        <group string="  ">
                             <group>
-                                <field name="journal_id" placeholder="Journal Account..." options="{'no_create': True}" attrs="{'invisible': [('state', '=', 'no_paid')]}"/>
+                                <field name="journal_id" placeholder="Journal Account..." options="{'no_create': True}"/>
                                 <field name="state" widget="radio" options="{'horizontal': true}" invisible="1"/>
                             </group>
                             <group>
