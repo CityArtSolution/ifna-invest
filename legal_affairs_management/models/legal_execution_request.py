@@ -39,7 +39,7 @@ class LegalExecutionRequest(models.Model):
         ('not_paid', 'Not Paid'),
         ('partial', 'Partial'),
         ('other', 'Other'),
-    ], string='State', tracking=True)
+    ], string='State', compute="_compute_state", tracking=True)
 
     account_journal_count = fields.Integer(compute="_compute_account_journal_count")
     journal_id = fields.Many2one('account.journal', 'Account Journal', domain=[('type', 'in', ('bank', 'cash'))], tracking=True)
@@ -90,7 +90,7 @@ class LegalExecutionRequest(models.Model):
     @api.depends('execution_amount', 'case_id', 'case_id.previous_execution_amounts')
     def _compute_remaining_amount(self):
         for rec in self:
-            if rec.execution_amount and rec.case_id:
+            if rec.execution_amount != 0 and rec.case_id:
                 claim_amount = rec.case_id.claim_amount
                 previous_execution_amounts = self.env['legal.execution.request'].sudo().search([
                     ('case_id', '=', rec.case_id.id),
@@ -123,18 +123,18 @@ class LegalExecutionRequest(models.Model):
                 rec.is_remaining_amount = False
                 rec.remaining_amount = 0
 
-    # @api.onchange('execution_amount', 'is_remaining_amount')
-    # @api.depends('execution_amount', 'is_remaining_amount')
-    # def _compute_state(self):
-    #     for rec in self:
-    #         if rec.execution_amount > 0 and rec.remaining_amount == 0 and rec.is_remaining_amount == False:
-    #             rec.state = 'paid'
-    #         elif rec.execution_amount == 0 and rec.remaining_amount > 0 and rec.is_remaining_amount == False:
-    #             rec.state = 'not_paid'
-    #         elif rec.remaining_amount != 0 and rec.is_remaining_amount == True:
-    #             rec.state = 'partial'
-    #         else:
-    #             rec.state = 'other'
+    @api.onchange('execution_amount', 'is_remaining_amount')
+    @api.depends('execution_amount', 'is_remaining_amount')
+    def _compute_state(self):
+        for rec in self:
+            if rec.execution_amount > 0 and rec.remaining_amount == 0 and rec.is_remaining_amount == False:
+                rec.state = 'paid'
+            elif rec.execution_amount == 0 and rec.remaining_amount > 0 and rec.is_remaining_amount == False:
+                rec.state = 'not_paid'
+            elif rec.execution_amount > 0 and rec.remaining_amount != 0 and rec.is_remaining_amount == True:
+                rec.state = 'partial'
+            else:
+                rec.state = 'other'
 
     # ===============================================BELONGS JOURNAL ENTRIES============================================
     @api.depends('partner_id', 'name')
