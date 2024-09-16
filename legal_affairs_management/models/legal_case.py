@@ -107,8 +107,8 @@ class LegalCaseMatters(models.Model):
             'type': 'ir.actions.act_window',
             'name': _('Journal Entry'),
             'res_model': 'legal.execution.request',
-            'view_mode': 'form',
-            'res_id': execution_request.id,
+            'view_mode': 'tree,form',
+            'domain': [('case_id', '=', self.id)],
             'target': 'current',
         }
 
