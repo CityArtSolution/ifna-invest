@@ -39,7 +39,7 @@ class LegalExecutionRequest(models.Model):
         ('not_paid', 'Not Paid'),
         ('partial', 'Partial'),
         ('other', 'Other'),
-    ], string='State', compute="_compute_state", tracking=True)
+    ], string='State', tracking=True)
 
     account_journal_count = fields.Integer(compute="_compute_account_journal_count")
     journal_id = fields.Many2one('account.journal', 'Account Journal', domain=[('type', 'in', ('bank', 'cash'))], tracking=True)
@@ -123,18 +123,18 @@ class LegalExecutionRequest(models.Model):
                 rec.is_remaining_amount = False
                 rec.remaining_amount = 0
 
-    @api.onchange('execution_amount', 'is_remaining_amount')
-    @api.depends('execution_amount', 'is_remaining_amount')
-    def _compute_state(self):
-        for rec in self:
-            if rec.execution_amount > 0 and rec.remaining_amount == 0 and rec.is_remaining_amount == False:
-                rec.state = 'paid'
-            elif rec.execution_amount == 0 and rec.remaining_amount > 0 and rec.is_remaining_amount == False:
-                rec.state = 'not_paid'
-            elif rec.remaining_amount != 0 and rec.is_remaining_amount == True:
-                rec.state = 'partial'
-            else:
-                rec.state = 'other'
+    # @api.onchange('execution_amount', 'is_remaining_amount')
+    # @api.depends('execution_amount', 'is_remaining_amount')
+    # def _compute_state(self):
+    #     for rec in self:
+    #         if rec.execution_amount > 0 and rec.remaining_amount == 0 and rec.is_remaining_amount == False:
+    #             rec.state = 'paid'
+    #         elif rec.execution_amount == 0 and rec.remaining_amount > 0 and rec.is_remaining_amount == False:
+    #             rec.state = 'not_paid'
+    #         elif rec.remaining_amount != 0 and rec.is_remaining_amount == True:
+    #             rec.state = 'partial'
+    #         else:
+    #             rec.state = 'other'
 
     # ===============================================BELONGS JOURNAL ENTRIES============================================
     @api.depends('partner_id', 'name')
