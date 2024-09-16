@@ -92,9 +92,14 @@ class LegalExecutionRequest(models.Model):
         for rec in self:
             if rec.execution_amount and rec.case_id:
                 claim_amount = rec.case_id.claim_amount
-                previous_execution_amounts = rec.case_id.previous_execution_amounts
+                previous_execution_amounts = self.env['legal.execution.request'].sudo().search([
+                    ('case_id', '=', rec.case_id.id),
+                    ('id', '!=', rec._origin.id)
+                ])
 
-                remaining_amount = claim_amount - previous_execution_amounts
+                previous_amounts = sum(exc.execution_amount for exc in previous_execution_amounts)
+
+                remaining_amount = claim_amount - previous_amounts
 
                 if rec.execution_amount < remaining_amount:
                     rec.is_remaining_amount = True
@@ -122,10 +127,10 @@ class LegalExecutionRequest(models.Model):
     @api.depends('execution_amount', 'is_remaining_amount')
     def _compute_state(self):
         for rec in self:
-            if rec.remaining_amount == 0 and rec.is_remaining_amount == False:
-                rec.state = 'not_paid'
-            elif rec.remaining_amount == 0 and rec.is_remaining_amount == False:
+            if rec.execution_amount == rec.remaining_amount and rec.is_remaining_amount == False:
                 rec.state = 'paid'
+            elif rec.execution_amount == 0 and rec.remaining_amount > 0 and rec.is_remaining_amount == False:
+                rec.state = 'not_paid'
             elif rec.remaining_amount != 0 and rec.is_remaining_amount == True:
                 rec.state = 'partial'
             else:
