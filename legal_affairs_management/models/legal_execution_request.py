@@ -111,9 +111,9 @@ class LegalExecutionRequest(models.Model):
         for rec in self:
             if rec.execution_amount == 0 and rec.remaining_amount == 0 and rec.is_remaining_amount == False:
                 rec.state = 'not_paid'
-            elif rec.rec.execution_amount > 0 and rec.remaining_amount == 0 and rec.is_remaining_amount == False:
+            elif rec.execution_amount > 0 and rec.remaining_amount == 0 and rec.is_remaining_amount == False:
                 rec.state = 'paid'
-            elif rec.rec.execution_amount > 0 and rec.remaining_amount != 0 and rec.is_remaining_amount == True:
+            elif rec.execution_amount > 0 and rec.remaining_amount != 0 and rec.is_remaining_amount == True:
                 rec.state = 'partial'
             else:
                 rec.state = 'other'
