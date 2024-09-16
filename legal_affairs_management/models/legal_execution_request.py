@@ -105,7 +105,8 @@ class LegalExecutionRequest(models.Model):
                 rec.is_remaining_amount = False
                 rec.remaining_amount = 0
 
-    @api.depnds('execution_amount', 'is_remaining_amount', 'remaining_amount')
+    @api.onchange('execution_amount', 'is_remaining_amount', 'remaining_amount')
+    @api.depends('execution_amount', 'is_remaining_amount', 'remaining_amount')
     def _compute_state(self):
         for rec in self:
             if rec.execution_amount == 0 and rec.remaining_amount == 0 and rec.is_remaining_amount == False:
