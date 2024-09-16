@@ -37,7 +37,9 @@ class LegalCaseMatters(models.Model):
     trail_ids = fields.One2many('legal.trial', 'case_id', string='Trails', tracking=True)
     legal_trail_count = fields.Integer(compute='_compute_legal_trail_count')
 
+    execution_request_ids = fields.One2many('legal.execution.request', 'case_id', string='Execution Requests', tracking=True)
     execution_request_count = fields.Integer(compute='_compute_execution_request_count')
+    previous_execution_amounts = fields.Float(string='Execution Requests Amount', compute="_compute_previous_execution_amounts", store=True, tracking=True)
 
     account_move_ids = fields.One2many('account.move', 'case_id', string='Invoices', tracking=True)
     account_move_count = fields.Integer(compute='_compute_account_move_count')
@@ -119,6 +121,17 @@ class LegalCaseMatters(models.Model):
             'target': 'self',
             'context': {'default_case_id': self.id, 'default_partner_id': self.partner_id.id}
         }
+
+    @api.depends('execution_request_ids')
+    def _compute_previous_execution_amounts(self):
+        for rec in self:
+            previous_execution_amounts = self.env['legal.case.execution'].sudo().search([
+                ('case_id', '=', rec.id),
+            ])
+
+            previous_amounts = sum(exc.execution_amount for exc in previous_execution_amounts)
+
+            rec.previous_execution_amounts = previous_amounts
 
     @api.depends('partner_id')
     def _compute_account_move_count(self):
