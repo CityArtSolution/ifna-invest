@@ -71,7 +71,7 @@
                             </group>
                             <group>
                                 <field name="journal_id" placeholder="Journal Account..." options="{'no_create': True}" attrs="{'invisible': [('state', '!=', 'paid')]}"/>
-                                <field name="account_id" placeholder="Remaining Account..." options="{'no_create': True}" attrs="{'invisible': ['|', , ('state', '!=', 'partial'), ('is_remaining_amount', '=', False)]}"/>
+                                <field name="account_id" placeholder="Remaining Account..." options="{'no_create': True}" attrs="{'invisible': ['|', ('state', '!=', 'partial'), ('is_remaining_amount', '=', False)]}"/>
                             </group>
                         </group>
                         <notebook>
