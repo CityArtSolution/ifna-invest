@@ -70,7 +70,7 @@
                                 <field name="remaining_amount" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'invisible': ['|', ('state', 'not in', ['paid', 'partial']), ('is_remaining_amount', '=', False)]}"/>
                             </group>
                             <group>
-                                <field name="journal_id" placeholder="Journal Account..." options="{'no_create': True}" attrs="{'invisible': [('state', '!=', 'paid')]}"/>
+                                <field name="journal_id" placeholder="Journal Account..." options="{'no_create': True}" attrs="{'invisible': [('state', 'not in', ['paid', 'partial'])]}"/>
                                 <field name="account_id" placeholder="Remaining Account..." options="{'no_create': True}" attrs="{'invisible': ['|', ('state', '!=', 'partial'), ('is_remaining_amount', '=', False)]}"/>
                             </group>
                         </group>
