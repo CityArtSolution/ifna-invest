@@ -39,7 +39,8 @@ class LegalExecutionRequest(models.Model):
         ('not_paid', 'Not Paid'),
         ('partial', 'Partial'),
         ('other', 'Other'),
-    ], string='State', compute="_compute_state", store=True, tracking=True)
+    ], string='State', tracking=True)
+    # compute = "_compute_state", store = True, search = True, readonly = False,
 
     account_journal_count = fields.Integer(compute="_compute_account_journal_count")
     journal_id = fields.Many2one('account.journal', 'Account Journal', domain=[('type', 'in', ('bank', 'cash'))], tracking=True)
@@ -75,19 +76,37 @@ class LegalExecutionRequest(models.Model):
     def _compute_execution_amount(self):
         for rec in self:
             if rec.case_id:
-                rec.execution_amount = rec.case_id.claim_amount
+                previous_execution_amounts = self.env['legal.execution.request'].sudo().search([
+                    ('case_id', '=', rec.case_id.id),
+                    ('id', '!=', rec._origin.id)
+                ])
+
+                previous_amounts = sum(exc.execution_amount for exc in previous_execution_amounts)
+
+                rec.execution_amount = rec.case_id.claim_amount - previous_amounts
             else:
                 rec.execution_amount = 0.0
 
-    @api.onchange('execution_amount', 'case_id')
-    @api.depends('execution_amount', 'case_id')
+    @api.onchange('execution_amount', 'case_id', 'case_id.previous_execution_amounts')
+    @api.depends('execution_amount', 'case_id', 'case_id.previous_execution_amounts')
     def _compute_remaining_amount(self):
         for rec in self:
-            if rec.execution_amount and rec.case_id:
+            if rec.execution_amount != 0 and rec.case_id:
                 claim_amount = rec.case_id.claim_amount
-                if rec.execution_amount < claim_amount:
+                previous_execution_amounts = self.env['legal.execution.request'].sudo().search([
+                    ('case_id', '=', rec.case_id.id),
+                    ('id', '!=', rec._origin.id)
+                ])
+
+                previous_amounts = sum(exc.execution_amount for exc in previous_execution_amounts)
+
+                remaining_amount = claim_amount - previous_amounts
+
+                if rec.execution_amount < remaining_amount:
                     rec.is_remaining_amount = True
-                    rec.remaining_amount = claim_amount - rec.execution_amount
+
+                    rec.remaining_amount = remaining_amount - rec.execution_amount
+
                     currency_symbol = rec.currency_id.symbol
 
                     return {
@@ -105,17 +124,18 @@ class LegalExecutionRequest(models.Model):
                 rec.is_remaining_amount = False
                 rec.remaining_amount = 0
 
-    @api.depnds('execution_amount', 'is_remaining_amount', 'remaining_amount')
-    def _compute_state(self):
-        for rec in self:
-            if rec.execution_amount == 0 and rec.remaining_amount == 0 and rec.is_remaining_amount == False:
-                rec.state = 'not_paid'
-            elif rec.rec.execution_amount > 0 and rec.remaining_amount == 0 and rec.is_remaining_amount == False:
-                rec.state = 'paid'
-            elif rec.rec.execution_amount > 0 and rec.remaining_amount != 0 and rec.is_remaining_amount == True:
-                rec.state = 'partial'
-            else:
-                rec.state = 'other'
+    # @api.onchange('execution_amount', 'is_remaining_amount')
+    # @api.depends('execution_amount', 'is_remaining_amount')
+    # def _compute_state(self):
+    #     for rec in self:
+    #         if rec.execution_amount > 0 and rec.remaining_amount == 0 and rec.is_remaining_amount == False:
+    #             rec.state = 'paid'
+    #         elif rec.execution_amount == 0 and rec.remaining_amount == 0 and rec.is_remaining_amount == False:
+    #             rec.state = 'not_paid'
+    #         elif rec.execution_amount > 0 and rec.remaining_amount != 0 and rec.is_remaining_amount == True:
+    #             rec.state = 'partial'
+    #         else:
+    #             rec.state = 'other'
 
     # ===============================================BELONGS JOURNAL ENTRIES============================================
     @api.depends('partner_id', 'name')
