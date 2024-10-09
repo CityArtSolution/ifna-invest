@@ -1,0 +1,126 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ifna_api_simat
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-09-08 10:58+0000\n"
+"PO-Revision-Date: 2024-09-08 10:58+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: ifna_api_simat
+#: model_terms:ir.ui.view,arch_db:ifna_api_simat.ifna_res_partner_inherit_view_search
+msgid "Client"
+msgstr "العميل"
+
+#. module: ifna_api_simat
+#: model:ir.model.fields,field_description:ifna_api_simat.field_res_partner__client_tax_code
+#: model:ir.model.fields,field_description:ifna_api_simat.field_res_users__client_tax_code
+msgid "Client Tax Code"
+msgstr "رمز ضريبة العميل"
+
+#. module: ifna_api_simat
+#: model:ir.model,name:ifna_api_simat.model_res_partner
+msgid "Contact"
+msgstr "جهة الاتصال"
+
+#. module: ifna_api_simat
+#: model:ir.model.fields,field_description:ifna_api_simat.field_res_partner__entity_idtype
+#: model:ir.model.fields,field_description:ifna_api_simat.field_res_users__entity_idtype
+msgid "Entity Idtype"
+msgstr "نوع هوية الكيان"
+
+#. module: ifna_api_simat
+#: model:ir.model.fields,field_description:ifna_api_simat.field_res_partner__entity_number
+#: model:ir.model.fields,field_description:ifna_api_simat.field_res_users__entity_number
+msgid "Entity Number"
+msgstr "رقم الكيان"
+
+#. module: ifna_api_simat
+#: model:ir.model.fields,field_description:ifna_api_simat.field_res_partner__entity_type
+#: model:ir.model.fields,field_description:ifna_api_simat.field_res_users__entity_type
+msgid "Entity Type"
+msgstr "نوع الكيان"
+
+#. module: ifna_api_simat
+#: model:ir.model.fields,field_description:ifna_api_simat.field_employee_contract__external_id
+msgid "External"
+msgstr "خارجي"
+
+#. module: ifna_api_simat
+#: model:ir.model.fields,field_description:ifna_api_simat.field_res_partner__external_id
+#: model:ir.model.fields,field_description:ifna_api_simat.field_res_users__external_id
+msgid "External ID"
+msgstr "معرف خارجي"
+
+#. module: ifna_api_simat
+#: model_terms:ir.ui.view,arch_db:ifna_api_simat.ifna_res_partner_inherit_view_form
+msgid "Extra Client Details"
+msgstr "تفاصيل العميل الإضافية"
+
+#. module: ifna_api_simat
+#: model_terms:ir.ui.view,arch_db:ifna_api_simat.ifna_employee_contract_inherit_view_form
+msgid "Extra Info"
+msgstr "معلومات إضافية"
+
+#. module: ifna_api_simat
+#: model_terms:ir.ui.view,arch_db:ifna_api_simat.ifna_res_partner_inherit_view_tree
+msgid "Fetch Clients"
+msgstr "جلب العملاء"
+
+#. module: ifna_api_simat
+#: model:ir.actions.server,name:ifna_api_simat.ir_cron_fetch_and_update_clients_ir_actions_server
+#: model:ir.cron,cron_name:ifna_api_simat.ir_cron_fetch_and_update_clients
+#: model:ir.cron,name:ifna_api_simat.ir_cron_fetch_and_update_clients
+msgid "Fetch and Update Clients API"
+msgstr "جلب وتحديث عملاء"
+
+#. module: ifna_api_simat
+#: model:ir.actions.server,name:ifna_api_simat.ir_cron_fetch_data_from_api_ir_actions_server
+#: model:ir.cron,cron_name:ifna_api_simat.ir_cron_fetch_data_from_api
+#: model:ir.cron,name:ifna_api_simat.ir_cron_fetch_data_from_api
+msgid "Fetch and Update Contracts API"
+msgstr "جلب وتحديث عقود"
+
+#. module: ifna_api_simat
+#: model:ir.model,name:ifna_api_simat.model_employee_contract
+msgid "IFNA Employee Contract"
+msgstr "عقد موظف"
+
+#. module: ifna_api_simat
+#: model:ir.model.fields,field_description:ifna_api_simat.field_res_partner__is_client
+#: model:ir.model.fields,field_description:ifna_api_simat.field_res_users__is_client
+msgid "Is Client"
+msgstr "هل هو عميل"
+
+#. module: ifna_api_simat
+#: model:ir.model.fields,field_description:ifna_api_simat.field_employee_contract__payment_term
+msgid "Payment Term"
+msgstr "شروط الدفع"
+
+#. module: ifna_api_simat
+#: model:ir.model.fields,field_description:ifna_api_simat.field_employee_contract__tts_days
+msgid "Period"
+msgstr "الفترة"
+
+#. module: ifna_api_simat
+#: model:ir.model.fields,field_description:ifna_api_simat.field_employee_contract__property
+msgid "Property"
+msgstr "الملكية"
+
+#. module: ifna_api_simat
+#: model:ir.model.fields,field_description:ifna_api_simat.field_employee_contract__unit
+msgid "Unit"
+msgstr "الوحدة"
+
+#. module: ifna_api_simat
+#: model:ir.model.fields,field_description:ifna_api_simat.field_employee_contract__price_amt
+msgid "payments"
+msgstr "المدفوعات"
