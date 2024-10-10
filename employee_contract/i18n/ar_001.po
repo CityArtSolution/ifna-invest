@@ -1,0 +1,510 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* employee_contract
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-09-08 11:04+0000\n"
+"PO-Revision-Date: 2024-09-08 11:04+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: employee_contract
+#: model_terms:ir.ui.view,arch_db:employee_contract.view_employee_contract_kanban
+msgid "<span class=\"o_form_label fw-bold me-2\">Amount:</span>"
+msgstr "<span class=\"o_form_label fw-bold me-2\">المبلغ:</span>"
+
+#. module: employee_contract
+#: model_terms:ir.ui.view,arch_db:employee_contract.view_employee_contract_kanban
+msgid "<span class=\"o_form_label fw-bold me-2\">Tags:</span>"
+msgstr "<span class=\"o_form_label fw-bold me-2\">الوسوم:</span>"
+
+#. module: employee_contract
+#: model_terms:ir.ui.view,arch_db:employee_contract.view_employee_contract_form
+msgid "<span> to </span>"
+msgstr "<span> إلى </span>"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__message_needaction
+msgid "Action Needed"
+msgstr "إجراء مطلوب"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__active
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_line__active
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_stage__active
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_tag__active
+msgid "Active"
+msgstr "نشط"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__activity_ids
+msgid "Activities"
+msgstr "الأنشطة"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "زينة استثناء النشاط"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__activity_state
+msgid "Activity State"
+msgstr "حالة النشاط"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "رمز نوع النشاط"
+
+#. module: employee_contract
+#: model_terms:ir.ui.view,arch_db:employee_contract.view_employee_contract_search
+msgid "Archive"
+msgstr "أرشيف"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__message_attachment_count
+msgid "Attachment Count"
+msgstr "عدد المرفقات"
+
+#. module: employee_contract
+#: model:ir.model.fields.selection,name:employee_contract.selection__employee_contract__kanban_state__blocked
+msgid "Blocked"
+msgstr "محظور"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__partner_id
+msgid "Client"
+msgstr "العميل"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__color
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_tag__color
+msgid "Color"
+msgstr "اللون"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__company_id
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_stage__company_id
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_tag__company_id
+#: model_terms:ir.ui.view,arch_db:employee_contract.view_employee_contract_search
+msgid "Company"
+msgstr "الشركة"
+
+#. module: employee_contract
+#: model:ir.ui.menu,name:employee_contract.menu_employee_contract_configuration
+msgid "Configurations"
+msgstr "الاعدادات"
+
+#. module: employee_contract
+#: model:ir.ui.menu,name:employee_contract.menu_employee_contract_root
+msgid "Contract"
+msgstr "العقود"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_line__contract_id
+msgid "Contract"
+msgstr "العقد"
+
+#. module: employee_contract
+#: model_terms:ir.actions.act_window,help:employee_contract.action_employee_contract
+msgid "Create your first employee contract"
+msgstr "أنشئ عقد الموظف الأول الخاص بك"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__create_uid
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_line__create_uid
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_stage__create_uid
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_tag__create_uid
+msgid "Created by"
+msgstr "تم الإنشاء بواسطة"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__create_date
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_line__create_date
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_stage__create_date
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_tag__create_date
+msgid "Created on"
+msgstr "تاريخ الإنشاء"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__currency_id
+msgid "Currency"
+msgstr "العملة"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__date
+msgid "Date"
+msgstr "التاريخ"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__date_start
+#: model_terms:ir.ui.view,arch_db:employee_contract.view_employee_contract_form
+msgid "Date Start"
+msgstr "تاريخ البدء"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__date_stop
+#: model_terms:ir.ui.view,arch_db:employee_contract.view_employee_contract_form
+msgid "Date Stop"
+msgstr "تاريخ الانتهاء"
+
+#. module: employee_contract
+#: model_terms:ir.ui.view,arch_db:employee_contract.view_employee_contract_form
+msgid "Dates"
+msgstr "التواريخ"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__description
+#: model_terms:ir.ui.view,arch_db:employee_contract.view_employee_contract_form
+msgid "Description"
+msgstr "الوصف"
+
+#. module: employee_contract
+#: model_terms:ir.ui.view,arch_db:employee_contract.view_employee_contract_form
+msgid "Details"
+msgstr "التفاصيل"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__display_name
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_line__display_name
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_stage__display_name
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_tag__display_name
+msgid "Display Name"
+msgstr "اسم العرض"
+
+#. module: employee_contract
+#: model:ir.model.fields.selection,name:employee_contract.selection__employee_contract__kanban_state__done
+msgid "Done"
+msgstr "منجز"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__email
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+#. module: employee_contract
+#: model_terms:ir.ui.view,arch_db:employee_contract.view_employee_contract_form
+msgid "Employee Contract"
+msgstr "عقد الموظف"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__employee_contract_line_ids
+msgid "Employee Contract Line"
+msgstr "خط عقد الموظف"
+
+#. module: employee_contract
+#: model:ir.ui.menu,name:employee_contract.menu_employee_contract_stage
+msgid "Employee Contract Stage"
+msgstr "مرحلة عقد الموظف"
+
+#. module: employee_contract
+#: model:ir.ui.menu,name:employee_contract.menu_employee_contract_tag
+msgid "Employee Contract Tag"
+msgstr "علامة عقد الموظف"
+
+#. module: employee_contract
+#: model:ir.actions.act_window,name:employee_contract.action_employee_contract
+#: model:ir.ui.menu,name:employee_contract.menu_employee_contract
+#: model_terms:ir.ui.view,arch_db:employee_contract.view_employee_contract_calendar
+#: model_terms:ir.ui.view,arch_db:employee_contract.view_employee_contract_gantt
+#: model_terms:ir.ui.view,arch_db:employee_contract.view_employee_contract_graph
+#: model_terms:ir.ui.view,arch_db:employee_contract.view_employee_contract_pivot
+#: model_terms:ir.ui.view,arch_db:employee_contract.view_employee_contract_tree
+msgid "Employee Contracts"
+msgstr "عقود الموظفين"
+
+#. module: employee_contract
+#: model:ir.actions.act_window,name:employee_contract.action_employee_contract_stage
+#: model_terms:ir.ui.view,arch_db:employee_contract.view_employee_contract_stage_tree
+msgid "Employee Contracts Stage"
+msgstr "مرحلة عقود الموظفين"
+
+#. module: employee_contract
+#: model:ir.actions.act_window,name:employee_contract.action_employee_contract_tag
+#: model_terms:ir.ui.view,arch_db:employee_contract.view_employee_contract_tag_tree
+msgid "Employee Contracts Tag"
+msgstr "علامة عقود الموظفين"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__message_follower_ids
+msgid "Followers"
+msgstr "المتابعين"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "المتابعين (الشركاء)"
+
+#. module: employee_contract
+#: model:ir.model.fields,help:employee_contract.field_employee_contract__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "رمز Font Awesome، مثل fa-tasks"
+
+#. module: employee_contract
+#: model_terms:ir.ui.view,arch_db:employee_contract.view_employee_contract_search
+msgid "Group By"
+msgstr "تجميع حسب"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__has_message
+msgid "Has Message"
+msgstr "يمتلك رسالة"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__id
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_line__id
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_stage__id
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_tag__id
+msgid "ID"
+msgstr "رقم التعريف"
+
+#. module: employee_contract
+#: model:ir.model,name:employee_contract.model_employee_contract
+msgid "IFNA Employee Contract"
+msgstr "عقد الموظف"
+
+#. module: employee_contract
+#: model:ir.model,name:employee_contract.model_employee_contract_line
+msgid "IFNA Employee Contract Line"
+msgstr "خط عقد الموظف"
+
+#. module: employee_contract
+#: model:ir.model,name:employee_contract.model_employee_contract_stage
+msgid "IFNA Employee Contract Stage"
+msgstr "مرحلة عقد الموظف"
+
+#. module: employee_contract
+#: model:ir.model,name:employee_contract.model_employee_contract_tag
+msgid "IFNA Employee Contract Tag"
+msgstr "علامة عقد الموظف"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__activity_exception_icon
+msgid "Icon"
+msgstr "رمز"
+
+#. module: employee_contract
+#: model:ir.model.fields,help:employee_contract.field_employee_contract__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "رمز للدلالة على نشاط استثنائي."
+
+#. module: employee_contract
+#: model:ir.model.fields,help:employee_contract.field_employee_contract__message_needaction
+#: model:ir.model.fields,help:employee_contract.field_employee_contract__message_unread
+msgid "If checked, new messages require your attention."
+msgstr "إذا تم تحديده، فإن الرسائل الجديدة تتطلب انتباهك."
+
+#. module: employee_contract
+#: model:ir.model.fields,help:employee_contract.field_employee_contract__message_has_error
+#: model:ir.model.fields,help:employee_contract.field_employee_contract__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "إذا تم تحديده، فإن بعض الرسائل بها خطأ في التسليم."
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__image_1920
+msgid "Image 1920"
+msgstr "صورة 1920"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__message_is_follower
+msgid "Is Follower"
+msgstr "متابع"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__kanban_state
+msgid "Kanban State"
+msgstr "حالة كانبان"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract____last_update
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_line____last_update
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_stage____last_update
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_tag____last_update
+msgid "Last Modified on"
+msgstr "آخر تعديل في"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__write_uid
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_line__write_uid
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_stage__write_uid
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_tag__write_uid
+msgid "Last Updated by"
+msgstr "آخر تحديث بواسطة"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__write_date
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_line__write_date
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_stage__write_date
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_tag__write_date
+msgid "Last Updated on"
+msgstr "آخر تحديث في"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "المرفق الرئيسي"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__message_has_error
+msgid "Message Delivery error"
+msgstr "خطأ في تسليم الرسالة"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__message_ids
+msgid "Messages"
+msgstr "الرسائل"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "موعد انتهاء نشاطي"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__name
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_line__name
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_stage__name
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_tag__name
+msgid "Name"
+msgstr "الاسم"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "موعد انتهاء النشاط التالي"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__activity_summary
+msgid "Next Activity Summary"
+msgstr "ملخص النشاط التالي"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__activity_type_id
+msgid "Next Activity Type"
+msgstr "نوع النشاط التالي"
+
+#. module: employee_contract
+#: model:ir.model.fields.selection,name:employee_contract.selection__employee_contract__kanban_state__normal
+msgid "Normal"
+msgstr "عادي"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__message_needaction_counter
+msgid "Number of Actions"
+msgstr "عدد الإجراءات"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__message_has_error_counter
+msgid "Number of errors"
+msgstr "عدد الأخطاء"
+
+#. module: employee_contract
+#: model:ir.model.fields,help:employee_contract.field_employee_contract__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "عدد الرسائل التي تتطلب إجراء"
+
+#. module: employee_contract
+#: model:ir.model.fields,help:employee_contract.field_employee_contract__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "عدد الرسائل التي بها خطأ في التسليم"
+
+#. module: employee_contract
+#: model:ir.model.fields,help:employee_contract.field_employee_contract__message_unread_counter
+msgid "Number of unread messages"
+msgstr "عدد الرسائل غير المقروءة"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__phone
+msgid "Phone"
+msgstr "الهاتف"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__user_id
+#: model_terms:ir.ui.view,arch_db:employee_contract.view_employee_contract_search
+msgid "Responsible"
+msgstr "المسؤول"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__activity_user_id
+msgid "Responsible User"
+msgstr "المستخدم المسؤول"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "خطأ في تسليم الرسائل القصيرة"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_line__sequence
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract_stage__sequence
+msgid "Sequence"
+msgstr "التسلسل"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__stage_id
+msgid "Stage"
+msgstr "المرحلة"
+
+#. module: employee_contract
+#: model:ir.model.fields,help:employee_contract.field_employee_contract__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"الحالة بناءً على الأنشطة\n"
+"متأخر: تاريخ الاستحقاق قد مضى\n"
+"اليوم: تاريخ النشاط هو اليوم\n"
+"مخطط: الأنشطة المستقبلية."
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__tag_ids
+msgid "Tags"
+msgstr "العلامات"
+
+#. module: employee_contract
+#: model_terms:ir.ui.view,arch_db:employee_contract.view_employee_contract_form
+msgid "Type down your notes here ..."
+msgstr "اكتب ملاحظاتك هنا ..."
+
+#. module: employee_contract
+#: model:ir.model.fields,help:employee_contract.field_employee_contract__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "نوع النشاط الاستثنائي في السجل."
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__message_unread
+msgid "Unread Messages"
+msgstr "الرسائل غير المقروءة"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "عداد الرسائل غير المقروءة"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__amount
+msgid "Value"
+msgstr "القيمة"
+
+#. module: employee_contract
+#: model:ir.model.fields,field_description:employee_contract.field_employee_contract__website_message_ids
+msgid "Website Messages"
+msgstr "رسائل الموقع"
+
+#. module: employee_contract
+#: model:ir.model.fields,help:employee_contract.field_employee_contract__website_message_ids
+msgid "Website communication history"
+msgstr "تاريخ التواصل عبر الموقع"
+
+#. module: employee_contract
+#: model_terms:ir.ui.view,arch_db:employee_contract.view_employee_contract_form
+msgid "e.g. Lumber Inc"
+msgstr "مثل ..."
