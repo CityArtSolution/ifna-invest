@@ -820,7 +820,6 @@ class AccountPaymentOrder(models.Model):
                 x = num2words(abs(amount), to='currency', currency=self.transaction_currency_id.name)
                 return str(x)
 
-
 class AccountBankStatementInherit(models.Model):
     _inherit = 'account.bank.statement'
     payment_request_id = fields.Many2one(comodel_name="account.payment.order")

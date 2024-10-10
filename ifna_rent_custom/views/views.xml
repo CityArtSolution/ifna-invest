@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-
-        <!-- Inherit Form View to Modify it -->
-        <!-- Inherit Form View to Modify it -->
         <record id="rent_property_new_form_view" model="ir.ui.view">
             <field name="name">rent.property.new</field>
             <field name="model">rent.property</field>

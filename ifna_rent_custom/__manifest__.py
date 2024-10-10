@@ -9,8 +9,6 @@
     'depends': [
         'base',
         'renting',
-
-
     ],
     'data': [
         'views/views.xml',
