@@ -23,11 +23,9 @@
                             name="fixed_journal_id"
                             attrs="{'invisible': [('bank_account_link', '!=', 'fixed')], 'required': [('bank_account_link', '=', 'fixed')]}"
                         />
-                        <field
-                            name="variable_journal_ids"
+                        <field name="variable_journal_ids"
                             attrs="{'invisible': [('bank_account_link', '!=', 'variable')], 'required': [('bank_account_link', '=', 'variable')]}"
-                            widget="many2many_tags"
-                        />
+                            widget="many2many_tags" />
                     </group>
                     <group string="Note" name="note">
                         <field name="note" nolabel="1" />
