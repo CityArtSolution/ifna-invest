@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_fetch_data_wizard_form" model="ir.ui.view">
+            <field name="name">fetch.data.wizard.form</field>
+            <field name="model">fetch.data.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Fetch and Update Data">
+                    <group>
+                        <div>
+                            <field name="result_message" readonly="1"/>
+                        </div>
+                    </group>
+                    <footer>
+                        <button string="Fetch and Update Clients"
+                                name="fetch_and_update_clients"
+                                type="object"
+                                class="btn-primary"/>
+                        <button string="Fetch Contracts"
+                                name="fetch_data_from_api"
+                                type="object"
+                                class="btn-primary"/>
+                        <button string="Cancel"
+                                name="cancel_action"
+                                class="btn-secondary"
+                                special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_open_fetch_data_wizard" model="ir.actions.act_window">
+            <field name="name">Fetch and Update Data</field>
+            <field name="res_model">fetch.data.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_fetch_data_wizard"
+          name="Fetch Data Manual"
+          parent="employee_contract.menu_employee_contract_root"
+          action="action_open_fetch_data_wizard" sequence="3"/>
+    </data>
+</odoo>

@@ -10,7 +10,7 @@ class LegalResPartner(models.Model):
     is_legal_lawyer = fields.Boolean(string="Lawyer", tracking=True)
     is_legal_judge = fields.Boolean(string="Judge", tracking=True)
     is_legal_authorized = fields.Boolean(string="Authorized", tracking=True)
-    is_main_view = fields.Boolean(string="Main")
+    is_main_view = fields.Boolean(compute="_compute_is_main_view")
     show_legal_group = fields.Boolean(compute='_compute_show_legal_group')
 
     lawyer_law_area = fields.Char(string="Law Area", tracking=True)
@@ -79,4 +79,11 @@ class LegalResPartner(models.Model):
                 self.env.context.get('default_is_legal_lawyer', False) or
                 self.env.context.get('default_is_legal_judge', False) or
                 self.env.context.get('default_is_legal_authorized', False)
+            )
+
+    @api.depends("is_company")
+    def _compute_is_main_view(self):
+        for record in self:
+            record.is_main_view = (
+                self.env.context.get('default_is_company', False)
             )

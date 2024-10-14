@@ -21,9 +21,15 @@
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         'data/ir_corn_data.xml',
         'views/res_partner_view.xml',
         'views/employee_contract_view.xml',
+        'wizard/fetch_data_wizard_view.xml',
     ],
+    'assets': {
+        'web.assets_backend': [
+            'ifna_api_simat/static/src/css/style.css'
+        ]
+    }
 }

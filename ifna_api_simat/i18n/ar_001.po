@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-08 10:58+0000\n"
-"PO-Revision-Date: 2024-09-08 10:58+0000\n"
+"POT-Creation-Date: 2024-10-14 04:58+0000\n"
+"PO-Revision-Date: 2024-10-14 04:58+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,8 +17,18 @@ msgstr ""
 
 #. module: ifna_api_simat
 #: model_terms:ir.ui.view,arch_db:ifna_api_simat.ifna_res_partner_inherit_view_search
-msgid "Client"
-msgstr "العميل"
+msgid "API Client"
+msgstr "عميل API"
+
+#. module: ifna_api_simat
+#: model_terms:ir.ui.view,arch_db:ifna_api_simat.ifna_res_partner_inherit_view_form
+msgid "API Extra Client Details"
+msgstr "تفاصيل إضافية لعميل API"
+
+#. module: ifna_api_simat
+#: model_terms:ir.ui.view,arch_db:ifna_api_simat.view_fetch_data_wizard_form
+msgid "Cancel"
+msgstr "إلغاء"
 
 #. module: ifna_api_simat
 #: model:ir.model.fields,field_description:ifna_api_simat.field_res_partner__client_tax_code
@@ -30,6 +40,27 @@ msgstr "رمز ضريبة العميل"
 #: model:ir.model,name:ifna_api_simat.model_res_partner
 msgid "Contact"
 msgstr "جهة الاتصال"
+
+#. module: ifna_api_simat
+#: model:ir.model.fields,field_description:ifna_api_simat.field_fetch_data_wizard__create_uid
+msgid "Created by"
+msgstr "أنشئ بواسطة"
+
+#. module: ifna_api_simat
+#: model:ir.model.fields,field_description:ifna_api_simat.field_fetch_data_wizard__create_date
+msgid "Created on"
+msgstr "تاريخ الإنشاء"
+
+#. module: ifna_api_simat
+#: model:ir.model.fields,field_description:ifna_api_simat.field_fetch_data_wizard__display_name
+msgid "Display Name"
+msgstr "اسم العرض"
+
+#. module: ifna_api_simat
+#: code:addons/ifna_api_simat/wizard/fetch_data_wizard.py:0
+#, python-format
+msgid "Easily fetch and update client or contract information manually."
+msgstr "يمكنك بسهولة جلب وتحديث بيانات العميل أو العقد يدويًا."
 
 #. module: ifna_api_simat
 #: model:ir.model.fields,field_description:ifna_api_simat.field_res_partner__entity_idtype
@@ -61,11 +92,6 @@ msgid "External ID"
 msgstr "معرف خارجي"
 
 #. module: ifna_api_simat
-#: model_terms:ir.ui.view,arch_db:ifna_api_simat.ifna_res_partner_inherit_view_form
-msgid "Extra Client Details"
-msgstr "تفاصيل العميل الإضافية"
-
-#. module: ifna_api_simat
 #: model_terms:ir.ui.view,arch_db:ifna_api_simat.ifna_employee_contract_inherit_view_form
 msgid "Extra Info"
 msgstr "معلومات إضافية"
@@ -74,6 +100,21 @@ msgstr "معلومات إضافية"
 #: model_terms:ir.ui.view,arch_db:ifna_api_simat.ifna_res_partner_inherit_view_tree
 msgid "Fetch Clients"
 msgstr "جلب العملاء"
+
+#. module: ifna_api_simat
+#: model_terms:ir.ui.view,arch_db:ifna_api_simat.view_fetch_data_wizard_form
+msgid "Fetch Contracts"
+msgstr "جلب العقود"
+
+#. module: ifna_api_simat
+#: model:ir.ui.menu,name:ifna_api_simat.menu_fetch_data_wizard
+msgid "Fetch Data Manual"
+msgstr "جلب البيانات يدويًا"
+
+#. module: ifna_api_simat
+#: model_terms:ir.ui.view,arch_db:ifna_api_simat.view_fetch_data_wizard_form
+msgid "Fetch and Update Clients"
+msgstr "جلب وتحديث العملاء"
 
 #. module: ifna_api_simat
 #: model:ir.actions.server,name:ifna_api_simat.ir_cron_fetch_and_update_clients_ir_actions_server
@@ -90,15 +131,47 @@ msgid "Fetch and Update Contracts API"
 msgstr "جلب وتحديث عقود"
 
 #. module: ifna_api_simat
+#: model:ir.actions.act_window,name:ifna_api_simat.action_open_fetch_data_wizard
+#: model_terms:ir.ui.view,arch_db:ifna_api_simat.view_fetch_data_wizard_form
+msgid "Fetch and Update Data"
+msgstr "جلب و تحديث البيانات"
+
+#. module: ifna_api_simat
+#: model:ir.model.fields,field_description:ifna_api_simat.field_fetch_data_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: ifna_api_simat
 #: model:ir.model,name:ifna_api_simat.model_employee_contract
 msgid "IFNA Employee Contract"
 msgstr "عقد موظف"
 
 #. module: ifna_api_simat
-#: model:ir.model.fields,field_description:ifna_api_simat.field_res_partner__is_client
-#: model:ir.model.fields,field_description:ifna_api_simat.field_res_users__is_client
-msgid "Is Client"
-msgstr "هل هو عميل"
+#: model:ir.model.fields,field_description:ifna_api_simat.field_res_partner__is_api_client
+#: model:ir.model.fields,field_description:ifna_api_simat.field_res_users__is_api_client
+msgid "Is Api Client"
+msgstr "هل هو عميل API"
+
+#. module: ifna_api_simat
+#: model:ir.model.fields,field_description:ifna_api_simat.field_res_partner__is_main_api_view
+#: model:ir.model.fields,field_description:ifna_api_simat.field_res_users__is_main_api_view
+msgid "Is Main Api View"
+msgstr "هل هو العرض الرئيسي لـ API"
+
+#. module: ifna_api_simat
+#: model:ir.model.fields,field_description:ifna_api_simat.field_fetch_data_wizard____last_update
+msgid "Last Modified on"
+msgstr "آخر تعديل في"
+
+#. module: ifna_api_simat
+#: model:ir.model.fields,field_description:ifna_api_simat.field_fetch_data_wizard__write_uid
+msgid "Last Updated by"
+msgstr "آخر تحديث بواسطة"
+
+#. module: ifna_api_simat
+#: model:ir.model.fields,field_description:ifna_api_simat.field_fetch_data_wizard__write_date
+msgid "Last Updated on"
+msgstr "آخر تحديث في"
 
 #. module: ifna_api_simat
 #: model:ir.model.fields,field_description:ifna_api_simat.field_employee_contract__payment_term
@@ -116,9 +189,19 @@ msgid "Property"
 msgstr "الملكية"
 
 #. module: ifna_api_simat
+#: model:ir.model.fields,field_description:ifna_api_simat.field_fetch_data_wizard__result_message
+msgid "Result Message"
+msgstr "رسالة النتيجة"
+
+#. module: ifna_api_simat
 #: model:ir.model.fields,field_description:ifna_api_simat.field_employee_contract__unit
 msgid "Unit"
 msgstr "الوحدة"
+
+#. module: ifna_api_simat
+#: model:ir.model,name:ifna_api_simat.model_fetch_data_wizard
+msgid "Wizard to Fetch and Update Data"
+msgstr "معالج لجلب وتحديث البيانات"
 
 #. module: ifna_api_simat
 #: model:ir.model.fields,field_description:ifna_api_simat.field_employee_contract__price_amt

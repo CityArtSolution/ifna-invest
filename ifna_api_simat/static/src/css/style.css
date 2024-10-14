@@ -1,0 +1,4 @@
+div[name="result_message"] {
+    width: max-content !important;
+    font-weight: bold !important;
+}

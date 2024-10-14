@@ -26,7 +26,7 @@
                 <div class="oe_title mb24" position="after">
                     <field name="show_legal_group" invisible="1"/>
                     <field name="is_main_view" invisible="1"/>
-                    <group col="4" attrs="{'invisible': ['|', ('show_legal_group', '=', True), ('is_main_view', '=', False)]}">
+                    <group col="4" string="Legal Affairs Extra Info" attrs="{'invisible': ['|', ('show_legal_group', '=', True), ('is_main_view', '=', False)]}">
                         <group>
                             <field name="is_legal_defendant" widget="boolean_toggle"/>
                         </group>
@@ -46,10 +46,6 @@
                     <br/>
                 </div>
             </field>
-        </record>
-
-        <record id="contacts.action_contacts" model="ir.actions.act_window">
-            <field name="context">{'default_is_company': True, 'default_is_main_view': True}</field>
         </record>
     </data>
 </odoo>

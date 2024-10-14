@@ -20,9 +20,10 @@
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
                 <div class="oe_title mb24" position="after">
-                    <group string="Extra Client Details">
+                    <field name="is_main_api_view" invisible="1"/>
+                    <group string="API Extra Client Details" attrs="{'invisible': [('is_main_api_view', '=', False)]}">
                         <group>
-                            <field name="is_client"/>
+                            <field name="is_api_client" widget="boolean_toggle"/>
                             <field name="entity_idtype"/>
                             <field name="entity_number"/>
                         </group>
@@ -44,7 +45,7 @@
             <field name="inherit_id" ref="base.view_res_partner_filter"/>
             <field name="arch" type="xml">
                 <filter name="type_person" position="before">
-                    <filter string="Client" name="is_client" domain="[('is_client', '=', True)]"/>
+                    <filter string="API Client" name="is_api_client" domain="[('is_api_client', '=', True)]"/>
                     <separator/>
                 </filter>
             </field>
